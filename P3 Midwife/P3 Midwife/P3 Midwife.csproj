@@ -43,8 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bill.cs" />
+    <Compile Include="BillItem.cs" />
+    <Compile Include="DeliveryRoom.cs" />
+    <Compile Include="Employee.cs" />
+    <Compile Include="Midwife.cs" />
+    <Compile Include="Patient.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Record.cs" />
+    <Compile Include="SOSU.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
