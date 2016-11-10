@@ -8,10 +8,6 @@ namespace P3_Midwife
 {
     class Bill
     {
-
-
-
-
         private decimal CalculateTotalPrice()
         {
             decimal result = 0;

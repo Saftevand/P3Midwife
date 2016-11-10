@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace P3_Midwife
 {
-    class Patient
+    public class Patient
     {
         public int CPR { get; }
         public string Name { get;}
