@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace P3_Midwife
 {
-    class BillItem
+    class MedicalService
     {
         public string Name { get; }
         public decimal Price { get; }
 
-        public BillItem(decimal price, string name)
+        public MedicalService(decimal price, string name)
         {
             this.Price = price;
             this.Name = name;

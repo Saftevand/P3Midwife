@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bill.cs" />
-    <Compile Include="BillItem.cs" />
+    <Compile Include="MedicalService.cs" />
     <Compile Include="DeliveryRoom.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="Midwife.cs" />
