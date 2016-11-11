@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 
 namespace P3_Midwife
 {
-    class BillItem
+    public class BillItem
     {
         public string Name { get; }
         public decimal Price { get; }
+        public string AbbrevationName { get; }
 
-        public BillItem(decimal price, string name)
+        public BillItem(decimal price, string name, string abbrevationName)
         {
             this.Price = price;
             this.Name = name;
+            this.AbbrevationName = abbrevationName;
         }
 
 

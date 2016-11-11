@@ -30,6 +30,7 @@ namespace P3_Midwife
         private List<_micturition> _micturitionList;
         private List<_fetusObservation> _fetusObservationList;
         private List<_birthInformation> _birthInformationList;
+        private Bill _bill;
      
 
         public struct _vaginalExploration
@@ -106,6 +107,8 @@ namespace P3_Midwife
         public int ApgarTenMinutes { get { return this._apgarTenMinutes; } set { this._apgarTenMinutes = value; } }
         public DateTime TimeOfBirth { get { return this._timeOfBirth; } set { this._timeOfBirth = value; } }
         public string Diagnosis { get { return this._diagnosis; } set { this._diagnosis = value; } }
+        public Bill CurrentBill { get { return _bill; } set { _bill = value; } }
+        public bool IsActive { get; set; }
 
 
 

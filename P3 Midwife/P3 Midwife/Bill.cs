@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace P3_Midwife
 {
-    class Bill
+    public class Bill
     {
         private decimal CalculateTotalPrice()
         {
