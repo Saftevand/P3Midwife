@@ -11,8 +11,7 @@ namespace P3_Midwife
         public Midwife(int id, string name, string password, int telephonenumber, string email) 
             : base(id, name, password, telephonenumber, email)
         {
+
         }
-
-
     }
 }
