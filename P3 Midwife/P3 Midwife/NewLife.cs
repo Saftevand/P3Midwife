@@ -8,10 +8,6 @@ namespace P3_Midwife
 {
     class NewLife
     {
-
-
-
-
-        public List<BillItem> AllBillItems { get; set; }
+        public List<MedicalService> AllBillItems { get; set; }
     }
 }

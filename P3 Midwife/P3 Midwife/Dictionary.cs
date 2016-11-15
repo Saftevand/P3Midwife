@@ -8,15 +8,15 @@ namespace P3_Midwife
 {
     public class Dictionary
     {
-        public Dictionary(List<BillItem> BillItemList)
+        public Dictionary(List<MedicalService> BillItemList)
         {
             CreateDictionary(BillItemList);
         }
 
 
-        public void CreateDictionary(List<BillItem> BillItemList)
+        public void CreateDictionary(List<MedicalService> BillItemList)
         {
-            foreach (BillItem BI in BillItemList)
+            foreach (MedicalService BI in BillItemList)
             {
                 ListOfWords.Add(BI.Name);
             }

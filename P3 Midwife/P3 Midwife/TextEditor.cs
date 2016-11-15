@@ -9,11 +9,11 @@ namespace P3_Midwife
     public static class TextEditor
     {
        
-        public static  void CheckWord(string input, List<BillItem> BIList, Patient patient)
+        public static  void CheckWord(string input, List<MedicalService> BIList, Patient patient)
         {
             string inputLowerCase = input.ToLower();
             string BINameLowerCase;
-            foreach (BillItem BI in BIList)
+            foreach (MedicalService BI in BIList)
             {
                 BINameLowerCase = BI.Name.ToLower();
                 if (inputLowerCase == BINameLowerCase)
