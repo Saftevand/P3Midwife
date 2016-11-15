@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace P3_Midwife
 {
-    class NewLife
+    public class NewLife
     {
         public List<MedicalService> AllBillItems { get; set; }
     }

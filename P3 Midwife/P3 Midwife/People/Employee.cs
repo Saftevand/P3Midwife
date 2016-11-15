@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace P3_Midwife
 {
-    class Employee
+    public class Employee
     {
         public int ID { get;}
         public string Name { get; }

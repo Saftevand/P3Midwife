@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace P3_Midwife
 {
-    class Midwife : Employee
+    public class Midwife : Employee
     {
         public Midwife(int id, string name, string password, int telephonenumber, string email) 
             : base(id, name, password, telephonenumber, email)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace P3_Midwife
 {
-    class DeliveryRoom
+    public class DeliveryRoom
     {
         public int RoomID { get; }
         public bool Occupied { get; set; }
@@ -17,8 +17,6 @@ namespace P3_Midwife
             this.RoomID = id;
             this.Occupied = false;
         }
-
-
 
     }
 }

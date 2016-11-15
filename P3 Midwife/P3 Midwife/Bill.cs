@@ -8,18 +8,23 @@ namespace P3_Midwife
 {
     public class Bill
     {
+        #region Instans Variabler
         private Record _record;
         private List<MedicalService> _billItemList;
         private decimal _totalPrice;
+        #endregion
 
         public Bill(Record record)
         {
             this._record = record;
         }
 
+        #region Properties
         public List<MedicalService> BillItemList { get { return _billItemList; } set {; } }
         public decimal TotalPrice { get { return CalculateTotalPrice(); }}
+        #endregion
 
+        #region Methods
         public override string ToString()
         {
             string AllItems = "";
@@ -45,6 +50,6 @@ namespace P3_Midwife
         {
             _billItemList.Add(BI);
         }
-
+        #endregion
     }
 }

@@ -9,7 +9,7 @@ namespace P3_Midwife
     public static class TextEditor
     {
        
-        public static  void CheckWord(string input, List<MedicalService> BIList, Patient patient)
+        public static void CheckWord(string input, List<MedicalService> BIList, Patient patient)
         {
             string inputLowerCase = input.ToLower();
             string BINameLowerCase;

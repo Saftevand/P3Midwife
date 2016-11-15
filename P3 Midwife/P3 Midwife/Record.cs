@@ -8,6 +8,7 @@ namespace P3_Midwife
 {
     public class Record
     {
+        #region Instans Variabler
         private Patient _patient;
         private double _circumferenceHead;
         private double _circumferenceStomach;
@@ -85,7 +86,9 @@ namespace P3_Midwife
         {
             this._patient = Patient;
         }
+        #endregion
 
+        #region Properties
         public List<_vaginalExploration> VaginalExplorationList { get { return this._vaginalExplorationList; } set { _vaginalExplorationList = value; } }
         public List<_micturition> MicturitionList { get { return this._micturitionList; } }
         public List<_fetusObservation> FetusObservationList { get { return this._fetusObservationList; } set { _fetusObservationList = value; } }
@@ -109,7 +112,7 @@ namespace P3_Midwife
         public string Diagnosis { get { return this._diagnosis; } set { this._diagnosis = value; } }
         public Bill CurrentBill { get { return _bill; } set { _bill = value; } }
         public bool IsActive { get; set; }
-
+        #endregion
 
 
 
