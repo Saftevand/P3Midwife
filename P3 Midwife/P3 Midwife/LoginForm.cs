@@ -28,11 +28,12 @@ namespace P3_Midwife
             {
                 //Start form for det pågældende login(Muligvis med gemt session)
             }
+            else MessageBox.Show("Ugyldigt login");
         }
 
         private bool VerifyLogin()
         {
-            if(_accounts.Contains(new Employee()))
+            if(_accounts.Exists(x => x.Email == EmailBox.Text && x.Password == PasswordBox.Text))
             {
                 return true;
             } 

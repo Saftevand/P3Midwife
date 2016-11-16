@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bill.cs" />
+    <Compile Include="Utility\Filemanagement.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,7 +73,7 @@
     </Compile>
     <Compile Include="MedicalService.cs" />
     <Compile Include="DeliveryRoom.cs" />
-    <Compile Include="Dictionary.cs" />
+    <Compile Include="Utility\Dictionary.cs" />
     <Compile Include="People\Employee.cs" />
     <Compile Include="People\Midwife.cs" />
     <Compile Include="NewLife.cs" />
@@ -81,7 +82,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Record.cs" />
     <Compile Include="People\SOSU.cs" />
-    <Compile Include="TextEditor.cs" />
+    <Compile Include="Utility\TextEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

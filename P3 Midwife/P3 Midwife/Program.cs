@@ -24,10 +24,18 @@ namespace P3_Midwife
             using (StreamReader sr = new StreamReader(AccountFile))
             {
                 string _tempString;
+                string[] _subStrings;
+                List<Employee> _tempEmployees = new List<Employee>();
                 while ((_tempString = sr.ReadLine()) != null)
                 {
-                    //needs implementation;
+                    _subStrings = _tempString.Split(' ');
+                    if(_subStrings[5] == "Mid")
+                    {
+                        _tempEmployees.Add(new Midwife(Convert.ToInt32(_subStrings[0]), _subStrings[1], _subStrings[2], Convert.ToInt32(_subStrings[3]), _subStrings[4]));
+                    }
+                    else _tempEmployees.Add(new SOSU(Convert.ToInt32(_subStrings[0]), _subStrings[1], _subStrings[2], Convert.ToInt32(_subStrings[3]), _subStrings[4]));
                 }
+                return _tempEmployees;
             }
         }
     }

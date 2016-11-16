@@ -8,7 +8,7 @@ namespace P3_Midwife
 {
     public class Record
     {
-        #region Instans Variabler
+        #region Instansvariabler
         private Patient _patient;
         private double _circumferenceHead;
         private double _circumferenceStomach;
