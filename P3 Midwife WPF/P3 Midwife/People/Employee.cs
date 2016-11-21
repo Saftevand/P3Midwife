@@ -22,7 +22,7 @@ namespace P3_Midwife
 
         public int ID { get { return (int)this.GetValue(IDProperty); } set { this.SetValue(IDProperty, value); } }
         public string Name { get { return (string)this.GetValue(NameProperty); } set { this.SetValue(NameProperty, value); } }
-        public string Password { get { return (string)this.GetValue(PasswordProperty); } set { this.SetValue(PasswordProperty, value); } }
+        public string Password { get; set; }
         public int TelephoneNumber { get { return (int)this.GetValue(TelephoneNumberProperty); } set { this.SetValue(TelephoneNumberProperty, value); } }
         public string Email { get { return (string)this.GetValue(EmailProperty); } set { this.SetValue(EmailProperty, value); } }
 

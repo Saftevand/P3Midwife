@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace P3_Midwife
 {
-    class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
             private readonly Predicate<object> canExecutePredicate;
             private readonly Action<object> executeAction;

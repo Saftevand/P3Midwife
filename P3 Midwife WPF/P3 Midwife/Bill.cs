@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 
 namespace P3_Midwife
 {
-    public class Bill:DependencyObject
+    public class Bill : DependencyObject
     {
 
         public static DependencyProperty TotalPriceProperty = DependencyProperty.Register(nameof(TotalPrice), typeof(decimal), typeof(Bill));

@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace P3_Midwife
 {
-    public class Patient:DependencyObject;
+    public class Patient:DependencyObject
     {
         public static DependencyProperty CPRProperty = DependencyProperty.Register(nameof(CPR), typeof(int), typeof(Patient));
         public static DependencyProperty NameProperty = DependencyProperty.Register(nameof(Name), typeof(string), typeof(Patient));
