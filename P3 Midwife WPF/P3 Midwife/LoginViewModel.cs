@@ -29,7 +29,7 @@ namespace P3_Midwife
             {
                 if (_employees.Exists(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password)))
                 {
-                    MessageBox.Show("Succes");
+                    MessageBox.Show(_employees[0].GenerateCpr());
                 }
                 else
                 {
