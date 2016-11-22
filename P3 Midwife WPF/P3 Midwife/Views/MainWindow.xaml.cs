@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace P3_Midwife
 {
@@ -23,6 +24,17 @@ namespace P3_Midwife
         public MainWindow()
         {
             InitializeComponent();
+            Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
+        }
+
+        private void NotificationMessageRecieved(NotificationMessage msg)
+        {
+            if (msg.Notification == "ShowHomeScreen")
+            {
+                var HomeScreenViem = new HomeScreen();
+                HomeScreenViem.Show();
+                this.Close();
+            }
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)

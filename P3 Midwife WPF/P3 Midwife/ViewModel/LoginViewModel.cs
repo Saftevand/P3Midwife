@@ -30,13 +30,11 @@ namespace P3_Midwife
             {
                 if (_employees.Exists(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password)))
                 {
-                    MessageBox.Show("succes");
                     Employee SendEmp = _employees.Find(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password));
+                    HomeScreenViewModel HSViewModel = new HomeScreenViewModel();
+                    Messenger.Default.Send(new NotificationMessage("ShowHomeScreen"));
                     Messenger.Default.Send(SendEmp);
-
-                    //MessageBox.Show("Succes");
-
-                    //MessageBox.Show(_employees[0].GenerateCpr(false));
+                    
                 }
                 else
                 {

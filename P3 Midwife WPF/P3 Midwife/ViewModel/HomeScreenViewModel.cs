@@ -17,6 +17,8 @@ namespace P3_Midwife
         public RelayCommand FindPatientCommand { get; }
         public static DependencyProperty EmployeeProperty = DependencyProperty.Register(nameof(CurrentEmployee), typeof(Employee), typeof(HomeScreenViewModel));
         public static DependencyProperty PatientProperty = DependencyProperty.Register(nameof(CurrentPatient), typeof(Patient), typeof(HomeScreenViewModel));
+        public static DependencyProperty CPRProperty = DependencyProperty.Register(nameof(CPR), typeof(string), typeof(HomeScreenViewModel));
+
         public Employee CurrentEmployee
         {
             get { return (Employee)this.GetValue(EmployeeProperty); }
@@ -27,6 +29,12 @@ namespace P3_Midwife
         {
             get { return (Patient)this.GetValue(PatientProperty); }
             set { this.SetValue(PatientProperty, value); }
+        }
+
+        public string CPR
+        {
+            get { return (string)this.GetValue(CPRProperty); }
+            set { this.SetValue(CPRProperty, value); }
         }
 
         public Patient FindPatient(string CPR)
@@ -44,15 +52,15 @@ namespace P3_Midwife
             });
             this.LogOutCommand = new RelayCommand(parameter =>
             {               
-                CurrentEmp = null;                
+                CurrentEmp = null;
+                Messenger.Default.Send(new NotificationMessage("ShowMainView"));              
             });
             this.ExitCommand = new RelayCommand(parameter =>
             {
                 //Current user til null
             });
-            //this.FindPatientCommand = new RelayCommand(parameter => { FindPatient(); });
+            this.FindPatientCommand = new RelayCommand(parameter => { FindPatient(CPR); });
 
-           // this.OpenTextWindow = new RelayCommand(parameter => { })
         }
     }
 }

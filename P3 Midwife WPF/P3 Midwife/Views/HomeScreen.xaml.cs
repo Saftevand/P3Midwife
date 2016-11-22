@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace P3_Midwife
 {
@@ -22,6 +23,17 @@ namespace P3_Midwife
         public HomeScreen()
         {
             InitializeComponent();
+            Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
+        }
+
+        private void NotificationMessageRecieved(NotificationMessage msg)
+        {
+            if (msg.Notification == "ShowMainView")
+            {
+                var MainWindow = new MainWindow();
+                MainWindow.Show();
+                this.Close();
+            }
         }
     }
 }
