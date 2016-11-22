@@ -26,6 +26,9 @@ namespace P3_Midwife
         public int TelephoneNumber { get { return (int)this.GetValue(TelephoneNumberProperty); } set { this.SetValue(TelephoneNumberProperty, value); } }
         public string Email { get { return (string)this.GetValue(EmailProperty); } set { this.SetValue(EmailProperty, value); } }
 
+        //TODO: læg listen et andet sted. i noget database isch.
+        public List<string> AlreadyUsedCPR = new List<string>();
+
         public Employee(int id, string name, string password, int telephonenumber, string email)
         {
             this.ID = id;
@@ -39,77 +42,111 @@ namespace P3_Midwife
         {
         }
 
-        public string GenerateCpr(string gender = "male")
+        //Function to generate CPR.
+        //TODO: måske skal input ændres. pt tjekker den kun om det er en dreng eller ej.
+        public string GenerateCpr(bool male)
         {
-            List<int> AlreadyUsedCPR = new List<int>();
-            DateTime today = DateTime.Today;
-            string TodayString = today.ToString();
             int[] CPR = new int[10];
-            //pis go måde!!
-            //int count = 0;
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    if(i == 0 || i == 1 || i==3 || i == 4 || i == 8 || i == 9)
-            //    {
-            //        Int32.TryParse(TodayString[i].ToString(),out CPR[count]);
-            //        count++;
-            //    }
-            //}
+            DateTime today = DateTime.Today;
 
-            // Endnu bedre måde!
+            string TodayString = today.ToString();
+            string result = null;
+
+            //Retrieves date for cpr number
             string CPRString = DateTime.Today.ToString("ddMMyy");
-            int i = 0;
+
+            //Puts date into int array for later calculations
+            int count = 0;
             foreach (char item in CPRString)
             {
-                CPR[i] = (int)char.GetNumericValue(item);
-                i++;
+                CPR[count] = (int)char.GetNumericValue(item);
+                count++;
             }
+
+            CPR[6] = 4;
+
+            result = CalcLastFour(CPR, male);
+
+            // Stores used CPR numbers
+            AlreadyUsedCPR.Add(result);
             
-            int tempTotal = CPR[0] * 4;
-            tempTotal += CPR[1] * 3;
-            tempTotal += CPR[2] * 2;
-            tempTotal += CPR[3] * 7;
-            tempTotal += CPR[4] * 6;
-            tempTotal += CPR[5] * 5;
-            int total = 0;
-            for (int j = 0; j < 10000; j++)
-            {
-                CPR[9]++;
-                if (CPR[9] == 10)
-                {
-                    CPR[8]++;
-                    CPR[9] = 0;
-                    if (CPR[8] == 10)
-                    {
-                        CPR[7]++;
-                        CPR[8] = 0;
-                        if (CPR[7] == 10)
-                        {
-                            CPR[6]++;
-                            CPR[7] = 0;
-                        }
-                    }
-                }
-                total = tempTotal;
-                total += CPR[6] * 4;
-                total += CPR[7] * 3;
-                total += CPR[8] * 2;
-                total += CPR[9] * 1;
-                if (total % 11 == 0)
-                {
-                    break;
-                }
-            }
-
-
-
-            string result ="";
-            foreach (int item in CPR)
-            {
-                result = result + item.ToString();
-            }
             return result;
         }
+
+        // Function to check if last digit matches the gender of the child
+        bool GenderCPRMatch(bool _male, int[] _cpr)
+        {
+            if (_male && _cpr[9] % 2 == 1)
+                return true;
+            else if (!_male && _cpr[9] % 2 == 0)
+                return true;
+            else
+                return false;
+        }
+
+        //Calculates the last 4 numbers in CPR number
+        string CalcLastFour(int[] _cpr, bool _male)
+        {
+            string tempResult = null;
+            int total = 0, firstSixTotal = 0;
+            int[] multiplyValues = { 4, 3, 2, 7, 6, 5 };
+
+            //Calculates the sum of the first 6 cpr digits multiplied with their weights.
+            for (int i = 0; i < 6; i++)
+            {
+                firstSixTotal += _cpr[i] * multiplyValues[i];
+            }
+
+            //Iterates through possible values of digit 7, 8 and 9.
+            for (int i = 1; i < 600; i++)
+            {
+                _cpr[8]++;
+                if (_cpr[8] == 10)
+                {
+                    _cpr[7]++;
+                    _cpr[8] = 0;
+                    if (_cpr[7] == 10)
+                    {
+                        _cpr[6]++;
+                        _cpr[7] = 0;
+                    }
+                }
+
+                // calculates total sum of first 9 digits in cpr multiplied with their weights.
+                total = firstSixTotal;
+                total += _cpr[6] * 4;
+                total += _cpr[7] * 3;
+                total += _cpr[8] * 2;
+
+                _cpr[9] = CalcLastDigit(total);
+
+                // Checks if generated cpr fullfills the requirements and checks if cpr is used before.
+                if (_cpr[9] > 9 || (total + _cpr[9]) % 11 != 0 || !GenderCPRMatch(_male, _cpr))
+                    continue;
+
+                else
+                {
+                    foreach (int item in _cpr)
+                    {
+                        tempResult = tempResult + item.ToString();
+                    }
+                    if (AlreadyUsedCPR.Contains(tempResult))
+                        continue;
+                    else
+                        break;
+                }
+            }
+            return tempResult;
+        }
+
+        //Calculates last digit of cpr number according to 
+        int CalcLastDigit(int _total)
+        {
+            int rest = 0;
+            rest = _total % 11;
+            return 11 - rest;
+        }
+
 
         public override string ToString()
         {
