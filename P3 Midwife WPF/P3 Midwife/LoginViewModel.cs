@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Security;
-using System.Diagnostics;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace P3_Midwife
 {
@@ -22,6 +21,8 @@ namespace P3_Midwife
         }
         public string Password {private get; set; }
 
+
+
         public LoginViewModel()
         {
             _employees.Add(new Employee(1, "Gitte", "kode123", 42660666, "palminde@hotmail.com"));
@@ -29,7 +30,10 @@ namespace P3_Midwife
             {
                 if (_employees.Exists(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password)))
                 {
-                    MessageBox.Show("Succes");
+                    Employee SendEmp = _employees.Find(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password));
+                    Messenger.Default.Send(SendEmp);
+
+                    //MessageBox.Show("Succes");
                 }
                 else
                 {
