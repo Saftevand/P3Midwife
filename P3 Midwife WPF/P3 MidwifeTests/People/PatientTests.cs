@@ -32,23 +32,21 @@ namespace P3_Midwife.Tests
         [TestMethod()]
         public void AdmitPatientToRoomTest()
         {
-            Patient TestPatient1 = new Patient(1234567890, "TestName");
-            TestPatient1.AdmitPatientToRoom(TestDeliveryRoom);
+            Patient TestPatientAdmit = new Patient(1234567890, "TestName");
+            TestPatientAdmit.AdmitPatientToRoom(TestDeliveryRoom);
 
-            //Assert.IsTrue(TestDeliveryRoom.PatientsInRoom.Find(x => x.CPR == TestPatient.CPR) != null);
-
-            Assert.AreEqual(TestDeliveryRoom.PatientsInRoom.First(), TestPatient1); 
+            Assert.AreEqual(TestDeliveryRoom.PatientsInRoom.First(), TestPatientAdmit); 
         }
 
         [TestMethod()]
         public void DischargePatientFromRoomTest()
         {
-            Patient TestPatient2 = new Patient(1234567890, "TestName");
+            Patient TestPatientAdmit = new Patient(1234567890, "TestName");
 
-            TestPatient2.AdmitPatientToRoom(TestDeliveryRoom);
-            TestPatient2.DischargePatientFromRoom(TestDeliveryRoom);
+            TestPatientAdmit.AdmitPatientToRoom(TestDeliveryRoom);
+            TestPatientAdmit.DischargePatientFromRoom(TestDeliveryRoom);
 
-            Assert.IsFalse(TestDeliveryRoom.PatientsInRoom.Contains(TestPatient2));
+            Assert.IsFalse(TestDeliveryRoom.PatientsInRoom.Contains(TestPatientAdmit));
         }
         #endregion
     }

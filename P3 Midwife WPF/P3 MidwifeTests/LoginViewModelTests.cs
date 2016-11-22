@@ -11,16 +11,16 @@ namespace P3_Midwife.Tests
     [TestClass()]
     public class LoginViewModelTests
     {
-        [TestMethod()]
-        public void LoginViewModelTest()
-        {
-            
-        }
+        //[TestMethod()]
+        //public void LoginViewModelTest()
+        //{
+        //    Assert.IsFalse(true);
+        //}
 
-        [TestMethod()]
-        public void LoginViewModelTest1()
-        {
-
-        }
+        //[TestMethod()]
+        //public void LoginViewModelTest1()
+        //{
+        //    Assert.IsFalse(true);
+        //}
     }
 }

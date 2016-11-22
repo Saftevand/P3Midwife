@@ -11,7 +11,7 @@ namespace P3_Midwife.Tests
     [TestClass()]
     public class BillTests
     {
-        Bill BillTest = new Bill(new Record(new Patient(1234567890, "TestName")));
+        Bill BillTest = new Bill(/*new Record(new Patient(1234567890, "TestName"))*/);
 
         [TestMethod()]
         public void BillTestContructorRecord()
@@ -29,7 +29,7 @@ namespace P3_Midwife.Tests
         public void CalculateTotalPriceTest2()
         {
             BillTest.AddToBillItemList(new MedicalService(20, "TestName", "TM"));
-            Assert.IsTrue(BillTest.TotalPrice > 0);
+            Assert.IsTrue(BillTest.TotalPrice == 20);
         }
 
         [TestMethod()]

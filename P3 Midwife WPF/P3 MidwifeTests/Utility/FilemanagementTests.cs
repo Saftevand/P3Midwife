@@ -11,16 +11,16 @@ namespace P3_Midwife.Tests
     [TestClass()]
     public class FilemanagementTests
     {
-        [TestMethod()]
-        public void CreateDirectoryTest()
-        {
+        //[TestMethod()]
+        //public void CreateDirectoryTest()
+        //{
+        //    Assert.IsFalse(true);
+        //}
 
-        }
-
-        [TestMethod()]
-        public void CreateFileTest()
-        {
-
-        }
+        //[TestMethod()]
+        //public void CreateFileTest()
+        //{
+        //    Assert.IsFalse(true);
+        //}
     }
 }

@@ -11,28 +11,28 @@ namespace P3_Midwife.Tests
     [TestClass()]
     public class RelayCommandTests
     {
-        [TestMethod()]
-        public void RelayCommandTest()
-        {
+        //[TestMethod()]
+        //public void RelayCommandTest()
+        //{
+        //    Assert.IsFalse(true);
+        //}
 
-        }
+        //[TestMethod()]
+        //public void CanExecuteTest()
+        //{
+        //    Assert.IsFalse(true);
+        //}
 
-        [TestMethod()]
-        public void CanExecuteTest()
-        {
+        //[TestMethod()]
+        //public void ExecuteTest()
+        //{
+        //    Assert.IsFalse(true);
+        //}
 
-        }
-
-        [TestMethod()]
-        public void ExecuteTest()
-        {
-
-        }
-
-        [TestMethod()]
-        public void NotifyCanExecuteChangedTest()
-        {
-
-        }
+        //[TestMethod()]
+        //public void NotifyCanExecuteChangedTest()
+        //{
+        //    Assert.IsFalse(true);
+        //}
     }
 }

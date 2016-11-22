@@ -31,7 +31,7 @@ namespace P3_Midwife
         private List<_micturition> _micturitionList;
         private List<_fetusObservation> _fetusObservationList;
         private List<_birthInformation> _birthInformationList;
-        private Bill _bill;
+        private Bill _bill = new Bill();
      
 
         public struct _vaginalExploration
@@ -112,6 +112,7 @@ namespace P3_Midwife
         public string Diagnosis { get { return this._diagnosis; } set { this._diagnosis = value; } }
         public Bill CurrentBill { get { return _bill; } set { _bill = value; } }
         public bool IsActive { get; set; }
+        public Patient RecordsPatient { get { return _patient; } }
         #endregion
 
 
