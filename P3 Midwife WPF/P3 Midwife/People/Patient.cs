@@ -26,6 +26,8 @@ namespace P3_Midwife
             this.Name = PatientName;
         }
 
+        ctor
+
         public List<Record> RecordList { get; set; }
 
 
