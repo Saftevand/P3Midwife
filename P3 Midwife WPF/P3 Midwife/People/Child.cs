@@ -39,8 +39,7 @@ namespace P3_Midwife.People
         public Child (char _gender)
         {
             gender = _gender;
-            Child.CPRProperty = GenerateCpr(gender);
-
+            CPR = this.GenerateCpr(_gender);
         }
 
         //Function to generate CPR.

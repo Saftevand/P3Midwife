@@ -12,7 +12,7 @@ namespace P3_Midwife.Tests
     public class PatientTests
     {
         DeliveryRoom TestDeliveryRoom = new DeliveryRoom(1);
-        Patient TestPatient = new Patient(1234567890, "TestName");
+        Patient TestPatient = new Patient("1234567890", "TestName");
 
         #region ConstructorTests
         [TestMethod()]
@@ -32,7 +32,7 @@ namespace P3_Midwife.Tests
         [TestMethod()]
         public void AdmitPatientToRoomTest()
         {
-            Patient TestPatientAdmit = new Patient(1234567890, "TestName");
+            Patient TestPatientAdmit = new Patient("1234567890", "TestName");
             TestPatientAdmit.AdmitPatientToRoom(TestDeliveryRoom);
 
             Assert.AreEqual(TestDeliveryRoom.PatientsInRoom.First(), TestPatientAdmit); 
@@ -41,7 +41,7 @@ namespace P3_Midwife.Tests
         [TestMethod()]
         public void DischargePatientFromRoomTest()
         {
-            Patient TestPatientAdmit = new Patient(1234567890, "TestName");
+            Patient TestPatientAdmit = new Patient("1234567890", "TestName");
 
             TestPatientAdmit.AdmitPatientToRoom(TestDeliveryRoom);
             TestPatientAdmit.DischargePatientFromRoom(TestDeliveryRoom);

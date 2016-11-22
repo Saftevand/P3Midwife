@@ -36,7 +36,7 @@ namespace P3_Midwife
 
                     //MessageBox.Show("Succes");
 
-                    MessageBox.Show(_employees[0].GenerateCpr(false));
+                    //MessageBox.Show(_employees[0].GenerateCpr(false));
                 }
                 else
                 {

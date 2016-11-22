@@ -9,28 +9,27 @@ namespace P3_Midwife
 {
     public class Patient
     {
-        public int CPR { get; set; }
+        public string CPR { get; set; }
         public string Name { get; set; }
         private List<Record> _recordList = new List<Record>();
 
-        public Patient(int PatientCPR)
+        public Patient(string PatientCPR)
         {
             this.CPR = PatientCPR;
         }
 
-        public Patient(int PatientCPR, string PatientName)
+        public Patient(string PatientCPR, string PatientName)
         {
             this.CPR = PatientCPR;
             this.Name = PatientName;
         }
+        public Patient()
+        {
 
-<<<<<<< HEAD
-        ctor
+        }
 
-        public List<Record> RecordList { get; set; }
-=======
         public List<Record> RecordList { get { return _recordList; } set { _recordList = value; } }
->>>>>>> origin/master
+
 
 
         public void AdmitPatientToRoom(DeliveryRoom room)

@@ -14,7 +14,7 @@ namespace P3_Midwife.Tests
         [TestMethod()]
         public void CheckWordTest()
         {
-            Patient TestPatient = new Patient(1234567890, "TestName");
+            Patient TestPatient = new Patient("1234567890", "TestName");
             string TestString = "TEST";
             List<MedicalService> TestList = new List<MedicalService>();
 

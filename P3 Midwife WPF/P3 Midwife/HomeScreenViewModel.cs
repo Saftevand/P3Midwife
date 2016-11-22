@@ -29,7 +29,7 @@ namespace P3_Midwife
             set { this.SetValue(PatientProperty, value); }
         }
 
-        public Patient FindPatient(int CPR)
+        public Patient FindPatient(string CPR)
         {
             return _patientList.Find(x => x.CPR == CPR);
         }
