@@ -34,9 +34,13 @@ namespace P3_Midwife
                     Employee SendEmp = _employees.Find(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password));
                     Messenger.Default.Send(SendEmp);
 
-                    //MessageBox.Show("Succes");
+                    Patient patient1 = new Patient("1234567890", "Hans");
+                    patient1.CreateChild('D');
 
-                    //MessageBox.Show(_employees[0].GenerateCpr(false));
+
+                    //MessageBox.Show("Succes");
+                    MessageBox.Show(patient1.ToString());
+                    MessageBox.Show(patient1.Children.First().ToString());
                 }
                 else
                 {
