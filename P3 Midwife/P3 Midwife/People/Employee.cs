@@ -23,10 +23,6 @@ namespace P3_Midwife
             this.Email = email;
         }
 
-        public Employee()
-        {
-        }
-
         public override string ToString()
         {
             return "Name: " + Name + " - ID: " + ID;

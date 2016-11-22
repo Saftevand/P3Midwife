@@ -10,13 +10,15 @@ namespace P3_Midwife
     {
         public int RoomID { get; }
         public bool Occupied { get; set; }
-        public List<Patient> PatientsInRoom { get; set; }
+        private List<Patient> _patientsInRoomList = new List<Patient>();
 
         public DeliveryRoom(int id)
         {
             this.RoomID = id;
             this.Occupied = false;
         }
+        
+        public List<Patient> PatientsInRoom { get { return _patientsInRoomList; } set { _patientsInRoomList = value; }}
 
     }
 }

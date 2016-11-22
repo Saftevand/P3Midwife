@@ -34,6 +34,7 @@ namespace P3_Midwife
                     Messenger.Default.Send(SendEmp);
 
                     //MessageBox.Show("Succes");
+                    MessageBox.Show(_employees[0].GenerateCpr(false));
                 }
                 else
                 {

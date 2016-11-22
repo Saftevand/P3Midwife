@@ -8,6 +8,8 @@ namespace P3_Midwife
 {
     public class Dictionary
     {
+        private List<string> _listOfWords = new List<string>();
+
         public Dictionary(List<MedicalService> BillItemList)
         {
             CreateDictionary(BillItemList);
@@ -18,12 +20,10 @@ namespace P3_Midwife
         {
             foreach (MedicalService BI in BillItemList)
             {
-                ListOfWords.Add(BI.Name);
+                _listOfWords.Add(BI.Name);
             }
         }
 
-
-
-        public List<string> ListOfWords { get; set; }
+        public List<string> ListOfWords { get { return _listOfWords; } set { _listOfWords = value; } }
     }
 }
