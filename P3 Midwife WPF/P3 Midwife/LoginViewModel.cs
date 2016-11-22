@@ -30,14 +30,13 @@ namespace P3_Midwife
             {
                 if (_employees.Exists(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password)))
                 {
-<<<<<<< HEAD
                     MessageBox.Show("succes");
-=======
                     Employee SendEmp = _employees.Find(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password));
                     Messenger.Default.Send(SendEmp);
 
                     //MessageBox.Show("Succes");
->>>>>>> f58106e1c9ee1820105874b5b7818729b9e43724
+
+                    MessageBox.Show(_employees[0].GenerateCpr(false));
                 }
                 else
                 {

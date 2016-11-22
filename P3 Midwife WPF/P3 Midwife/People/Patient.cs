@@ -7,13 +7,11 @@ using System.Windows;
 
 namespace P3_Midwife
 {
-    public class Patient:DependencyObject
+    public class Patient
     {
-        public static DependencyProperty CPRProperty = DependencyProperty.Register(nameof(CPR), typeof(int), typeof(Patient));
-        public static DependencyProperty NameProperty = DependencyProperty.Register(nameof(Name), typeof(string), typeof(Patient));
-
-        public int CPR { get { return (int)this.GetValue(CPRProperty); } set { this.SetValue(CPRProperty, value); } }
-        public string Name { get { return (string)this.GetValue(NameProperty); } set { this.SetValue(NameProperty, value); } }
+        public int CPR { get; set; }
+        public string Name { get; set; }
+        private List<Record> _recordList = new List<Record>();
 
         public Patient(int PatientCPR)
         {
@@ -26,13 +24,17 @@ namespace P3_Midwife
             this.Name = PatientName;
         }
 
+<<<<<<< HEAD
         ctor
 
         public List<Record> RecordList { get; set; }
+=======
+        public List<Record> RecordList { get { return _recordList; } set { _recordList = value; } }
+>>>>>>> origin/master
 
 
         public void AdmitPatientToRoom(DeliveryRoom room)
-        {
+        {            
             if (!room.PatientsInRoom.Contains(this))
             {
                 room.PatientsInRoom.Add(this);
