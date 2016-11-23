@@ -17,12 +17,8 @@ namespace P3_Midwife
         public int TelephoneNumber { get; set; }
         public string Email { get; set; }
 
-<<<<<<< HEAD
-        
-=======
-        //TODO: læg listen et andet sted. i noget database isch.
-        public List<string> AlreadyUsedCPR = new List<string>();
->>>>>>> 37e115557b04456c23d36b6b188b69fad66c4073
+
+
 
         public Employee(int id, string name, string password, int telephonenumber, string email)
         {
@@ -59,7 +55,7 @@ namespace P3_Midwife
             result = CalcLastFour(CPR, male);
 
             // Stores used CPR numbers
-            AlreadyUsedCPR.Add(result);
+            Ward.UsedCPRs.Add(result);
             
             return result;
         }
@@ -121,7 +117,7 @@ namespace P3_Midwife
                     {
                         tempResult = tempResult + item.ToString();
                     }
-                    if (AlreadyUsedCPR.Contains(tempResult))
+                    if (Ward.UsedCPRs.Contains(tempResult))
                         continue;
                     else
                         break;
