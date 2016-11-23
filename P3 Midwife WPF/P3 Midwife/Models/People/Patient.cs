@@ -177,6 +177,7 @@ namespace P3_Midwife
         {
             Patient child = new Patient(_gender);
             Children.Add(child);
+            Filemanagement.AddPatientOrEmployeeToFile(child, "Patient_File");
         }
 
         public void AdmitPatientToRoom(DeliveryRoom room)

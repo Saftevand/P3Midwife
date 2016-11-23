@@ -20,7 +20,9 @@ namespace P3_Midwife
 
         public static void AdmitPatient(string _cpr, string _name)
         {
-            Patients.Add(new Patient(_cpr, _name));
+            Patient patientToAdd = new Patient(_cpr, _name);
+            Patients.Add(patientToAdd);
+            Filemanagement.AddPatientOrEmployeeToFile(patientToAdd, "Patient_Info");
         }
     }
 }
