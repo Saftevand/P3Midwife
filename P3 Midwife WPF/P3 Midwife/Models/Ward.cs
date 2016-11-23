@@ -22,7 +22,7 @@ namespace P3_Midwife
         {
             Patient patientToAdd = new Patient(_cpr, _name);
             Patients.Add(patientToAdd);
-            Filemanagement.AddPatientOrEmployeeToFile(patientToAdd, "Patient_Info");
+            Filemanagement.AddPatientOrEmployeeToFile(patientToAdd, "Patient_Info.txt");
         }
     }
 }

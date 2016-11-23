@@ -67,11 +67,17 @@ namespace P3_Midwife
 
         public static void AddPatientOrEmployeeToFile(object _person, string _nameOfFile)
         {
-            string AccountFile = (Path.Combine(Environment.CurrentDirectory + "\\PersonInfo", _nameOfFile));
-            using (StreamWriter sw = File.AppendText(AccountFile))
+            if (_person is Patient || _person is Employee)
             {
-                    sw.WriteLine(_person.ToString());   
+                string AccountFile = (Path.Combine(Environment.CurrentDirectory + "\\PersonInfo", _nameOfFile));
+                using (StreamWriter sw = File.AppendText(AccountFile))
+                {
+                    sw.WriteLine(_person.ToString());
+                }
             }
+            //TODO: den her exception bliver ikke grebet noget sted lige PT.
+            else
+                throw (new Exception("Object is not patient or employee"));
         }
     }
 }
