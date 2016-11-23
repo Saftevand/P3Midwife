@@ -34,7 +34,6 @@ namespace P3_Midwife.People
         private decimal veneSBE;
 
         //TODO: læg listen et andet sted. i noget database isch.
-        public List<string> AlreadyUsedCPR = new List<string>();
 
         public Child (char _gender)
         {

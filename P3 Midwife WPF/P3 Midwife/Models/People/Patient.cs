@@ -50,6 +50,11 @@ namespace P3_Midwife
             this.gender = FindGenderFromCPR(PatientCPR);
         }
 
+        public Patient()
+        {
+
+        }
+
         public Patient(char _gender)
         {
             GenerateCpr(_gender);

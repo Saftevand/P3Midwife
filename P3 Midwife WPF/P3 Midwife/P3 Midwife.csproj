@@ -77,14 +77,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-<<<<<<< HEAD
     <Compile Include="Models\People\Child.cs" />
-    <Compile Include="Views\HomeScreen.xaml.cs">
-=======
-    <Compile Include="HomeScreen.xaml.cs">
->>>>>>> d3106d9a9e0a82fc13de349d37722ff024fe8a68
-      <DependentUpon>HomeScreen.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Views\HomeScreen.xaml.cs" />
     <Compile Include="ViewModel\HomeScreenViewModel.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="SkraldKodeSomLigeGemmesTilSenere.cs" />

@@ -34,18 +34,6 @@ namespace P3_Midwife
                     HomeScreenViewModel HSViewModel = new HomeScreenViewModel();
                     Messenger.Default.Send(new NotificationMessage("ShowHomeScreen"));
                     Messenger.Default.Send(SendEmp);
-<<<<<<< HEAD:P3 Midwife WPF/P3 Midwife/ViewModel/LoginViewModel.cs
-                    
-=======
-
-                    Patient patient1 = new Patient("1234567890", "Hans");
-                    patient1.CreateChild('D');
-
-
-                    //MessageBox.Show("Succes");
-                    MessageBox.Show(patient1.ToString());
-                    MessageBox.Show(patient1.Children.First().ToString());
->>>>>>> d3106d9a9e0a82fc13de349d37722ff024fe8a68:P3 Midwife WPF/P3 Midwife/LoginViewModel.cs
                 }
                 else
                 {
