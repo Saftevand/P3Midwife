@@ -33,10 +33,11 @@ namespace P3_Midwife
                     HomeScreenViewModel HSViewModel = new HomeScreenViewModel();
                     Messenger.Default.Send(new NotificationMessage("ShowHomeScreen"));
                     Messenger.Default.Send(SendEmp);
+
                 }
                 else
                 {
-                    MessageBox.Show("Ugyldigt login", "Fejl");                    
+                    MessageBox.Show("Ugyldigt login", "Fejl");
                 }
             });
         }
