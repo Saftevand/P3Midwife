@@ -24,7 +24,7 @@ namespace P3_Midwife.Tests
         [TestMethod()]
         public void PatientTestConstructorName()
         {
-            Assert.IsNotNull(TestPatient._name);
+            Assert.IsNotNull(TestPatient.Name);
         }
         #endregion
 

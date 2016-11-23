@@ -85,7 +85,7 @@ namespace P3_Midwife
             );
             this.AddPatientCoomand = new RelayCommand(parameter =>
                 {
-                    _currentPatients.Add()
+                    //_currentPatients.Add();
                 }            
             );
             
