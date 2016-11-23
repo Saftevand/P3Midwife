@@ -11,7 +11,7 @@ namespace P3_Midwife
 {
     public class LoginViewModel : DependencyObject
     {
-        private List<Employee> _employees = new List<Employee>();
+        private List<Midwife> _employees = new List<Midwife>();
         public RelayCommand LoginCommand { get; }
         public static DependencyProperty EmailProperty = DependencyProperty.Register(nameof(Email), typeof(string), typeof(LoginViewModel));
         public string Email
@@ -25,7 +25,10 @@ namespace P3_Midwife
 
         public LoginViewModel()
         {
-            _employees.Add(new Employee(1, "Gitte", "kode123", 42660666, "palminde@hotmail.com"));
+            _employees.Add(new Midwife(1, "Gitte", "x", 42660666, "x"));
+            _employees.First().CurrentPatients.Add(new Patient("1234567890", "TestName"));
+            _employees.First().CurrentPatients.Add(new Patient("0987654321", "NameTest"));
+
             this.LoginCommand = new RelayCommand(parameter =>
             {
                 if (_employees.Exists(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password)))

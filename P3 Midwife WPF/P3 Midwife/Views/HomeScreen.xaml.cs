@@ -34,6 +34,10 @@ namespace P3_Midwife
                 MainWindow.Show();
                 this.Close();
             }
+            if (msg.Notification == "AddPatientMsg")
+            {
+                
+            }
         }
     }
 }

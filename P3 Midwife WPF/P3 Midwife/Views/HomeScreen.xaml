@@ -12,18 +12,34 @@
             <ViewModel:HomeScreenViewModel/>
         </Window.DataContext>
     <Grid>
-        <StackPanel Height="280" Width="200">
+        <StackPanel Height="280" Width="200" HorizontalAlignment="Left" VerticalAlignment="Bottom">
             <TextBox Text="{Binding CPR, UpdateSourceTrigger=LostFocus}"></TextBox>
             <Button Command="{Binding }" Margin="5">FindPatient
             </Button>
         </StackPanel>
-           
-        <Menu Width="50" Height="20">
+
+        <Menu Width="50" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left">
             <MenuItem Header="Menu">
                 <MenuItem Command="{Binding LogOutCommand}" Header="Log ud"/>
-                <MenuItem Header="Exit"/>
+                <MenuItem Command="{Binding ExitCommand}" Header="Exit"/>
             </MenuItem>
         </Menu>
+
+        <StackPanel>
+            <ListBox ItemsSource="{Binding CurrentPatients}" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <Run Text="{Binding Name}"/>
+                            <Run Text="{Binding CPR}"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Command="{Binding AddPatientCommand}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center">
+                Tilføj patient
+            </Button>
+        </StackPanel>
     </Grid>
 </Window>
 

@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace P3_Midwife
 {
-    public class Employee
+    public abstract class Employee
     {        
         public int ID { get; set; }
         public string Name { get; set; }
