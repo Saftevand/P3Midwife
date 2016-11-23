@@ -11,6 +11,7 @@ namespace P3_Midwife
     {
         public static string _exePath = AppDomain.CurrentDomain.BaseDirectory;
         public static List<string> _Files = new List<string>();
+
         public static void CreateDirectory(string NameOfDirectory)
         {
             Directory.CreateDirectory(NameOfDirectory);
@@ -20,6 +21,63 @@ namespace P3_Midwife
         {
             File.Create(Path.Combine(Directory, NameOfFile));
             _Files.Add(Path.Combine(Directory, NameOfFile));
+        }
+
+        //TODO: directory er ikke nødvendige som parametre. alle filer er i samme mappe
+        public static void ReadEmployees(string Directory, string NameOfFile)
+        {
+            int i = 1;
+            Stream AccountFile = File.Open(Path.Combine(Directory, NameOfFile),FileMode.Open,FileAccess.Read,FileShare.ReadWrite);
+            using (StreamReader sr = new StreamReader(AccountFile))
+            {
+                string _tempString;
+                string[] _subStrings;
+
+                while ((_tempString = sr.ReadLine()) != null)
+                {
+                    _subStrings = _tempString.Split(' ');
+                    if (_subStrings[4] == "1")
+                    {
+                        Ward.Employees.Add(new Midwife(i, _subStrings[0], _subStrings[1], Convert.ToInt32(_subStrings[2]), _subStrings[3].ToUpper(), Convert.ToInt32(_subStrings[4])));
+                    }
+                    else if (_subStrings[4] == "2")
+                    {
+                        Ward.Employees.Add(new SOSU(i, _subStrings[0], _subStrings[1], Convert.ToInt32(_subStrings[2]), _subStrings[3].ToUpper(), Convert.ToInt32(_subStrings[4])));
+                    }
+                    i++;
+                }
+            }
+        }
+
+        public static void ReadPatients(string Directory, string NameOfFile)
+        {
+            Stream AccountFile = File.Open(Path.Combine(Directory, NameOfFile), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using (StreamReader sr = new StreamReader(AccountFile))
+            {
+                string _tempString;
+                string[] _subStrings;
+
+                while ((_tempString = sr.ReadLine()) != null)
+                {
+                    _subStrings = _tempString.Split(' ');
+                    Ward.Patients.Add(new Patient(_subStrings[0], _subStrings[1]));
+                }
+            }
+        }
+
+        public static void AddPatientOrEmployeeToFile(object _person, string _nameOfFile)
+        {
+            if (_person is Patient || _person is Employee)
+            {
+                string AccountFile = (Path.Combine(Environment.CurrentDirectory + "\\PersonInfo", _nameOfFile));
+                using (StreamWriter sw = File.AppendText(AccountFile))
+                {
+                    sw.WriteLine(_person.ToString());
+                }
+            }
+            //TODO: den her exception bliver ikke grebet noget sted lige PT.
+            else
+                throw (new Exception("Object is not patient or employee"));
         }
     }
 }

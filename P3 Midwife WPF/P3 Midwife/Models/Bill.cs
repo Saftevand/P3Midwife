@@ -8,26 +8,23 @@ using System.Collections.ObjectModel;
 
 namespace P3_Midwife
 {
-    public class Bill : DependencyObject
+    public class Bill
     {
 
-        public static DependencyProperty TotalPriceProperty = DependencyProperty.Register(nameof(TotalPrice), typeof(decimal), typeof(Bill));
-        public static DependencyProperty BillItemListProperty = DependencyProperty.Register(nameof(BillItemList), typeof(MedicalService), typeof(Bill));
-
         #region Instans Variabler
-        private Record _record;
-        private ObservableCollection<MedicalService> _billItemList;
+        //private Record _record;
+        private List<MedicalService> _billItemList = new List<MedicalService>();
         private decimal _totalPrice;
         #endregion
         
-        public Bill(Record record)
+        public Bill(/*Record record*/)
         {
-            this._record = record;
+            //this._record = record;
         }
 
         #region Properties
-        public ObservableCollection<MedicalService> BillItemList { get { return _billItemList; } set {; } }
-        public decimal TotalPrice { get { return (decimal)this.GetValue(TotalPriceProperty); } set { this.SetValue(TotalPriceProperty, value); } }
+        public List<MedicalService> BillItemList { get { return _billItemList; } set {; } }
+        public decimal TotalPrice { get { return CalculateTotalPrice(); } }
         #endregion
 
         #region Methods

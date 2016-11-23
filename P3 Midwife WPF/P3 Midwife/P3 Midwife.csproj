@@ -53,6 +53,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -75,19 +77,33 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\DialogWindow.xaml.cs">
+      <DependentUpon>DialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Ward.cs" />
+    <Compile Include="Views\HomeScreen.xaml.cs" />
+    <Compile Include="ViewModel\HomeScreenViewModel.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="SkraldKodeSomLigeGemmesTilSenere.cs" />
     <Compile Include="Utility\Dictionary.cs" />
     <Compile Include="Utility\Filemanagement.cs" />
-    <Compile Include="People\Employee.cs" />
-    <Compile Include="People\Midwife.cs" />
-    <Compile Include="People\Patient.cs" />
-    <Compile Include="People\SOSU.cs" />
-    <Compile Include="Record.cs" />
+    <Compile Include="Models\People\Employee.cs" />
+    <Compile Include="Models\People\Midwife.cs" />
+    <Compile Include="Models\People\Patient.cs" />
+    <Compile Include="Models\People\SOSU.cs" />
+    <Compile Include="Models\Record.cs" />
     <Compile Include="Utility\TextEditor.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Page Include="MainWindow.xaml">
+    <Page Include="Views\DialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomeScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -95,16 +111,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Bill.cs" />
-    <Compile Include="DeliveryRoom.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Models\Bill.cs" />
+    <Compile Include="Models\DeliveryRoom.cs" />
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MedicalService.cs" />
-    <Compile Include="LoginViewModel.cs" />
+    <Compile Include="Models\MedicalService.cs" />
+    <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -132,9 +148,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
