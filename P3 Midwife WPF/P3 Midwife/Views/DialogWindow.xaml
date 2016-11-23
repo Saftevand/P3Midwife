@@ -1,0 +1,28 @@
+﻿<Window x:Class="P3_Midwife.DialogWindow"
+        x:Name="DialogBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:P3_Midwife"
+        xmlns:ViewModel="clr-namespace:P3_Midwife"
+        mc:Ignorable="d"
+        Title="DialogWindow" Height="300" Width="300">
+    <Window.DataContext>
+        <ViewModel:HomeScreenViewModel/>
+    </Window.DataContext>
+    
+    <Grid>
+        <StackPanel>
+            <Label>
+                Indtast CPR
+            </Label>
+            <TextBox Text="{Binding }" Name="TextBoxEnteredCPR">
+                
+            </TextBox>
+            <Button Command="{Binding }">
+                Tilføj patient
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

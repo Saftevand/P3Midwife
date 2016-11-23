@@ -35,9 +35,14 @@ namespace P3_Midwife
         private decimal venePH;
         private decimal veneSBE;
         private DateTime timeOfBirth;
+        private string _name;
 
         public string CPR { get; set; }
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
 
         private List<Record> _recordList = new List<Record>();
         public List<Record> RecordList { get { return _recordList; } set { _recordList = value; } }
@@ -46,7 +51,7 @@ namespace P3_Midwife
         public Patient(string PatientCPR, string PatientName)
         {
             this.CPR = PatientCPR;
-            this.Name = PatientName;
+            this._name = PatientName;
             this.gender = FindGenderFromCPR(PatientCPR);
         }
 
@@ -186,7 +191,7 @@ namespace P3_Midwife
             {
                 room.PatientsInRoom.Add(this);
             }
-            else throw new ArgumentException(Name + " with CPR:" + CPR.ToString() + " is already in room:" + room.RoomID.ToString());
+            else throw new ArgumentException(_name + " with CPR:" + CPR.ToString() + " is already in room:" + room.RoomID.ToString());
         }
 
         public void DischargePatientFromRoom(DeliveryRoom room)
@@ -195,7 +200,7 @@ namespace P3_Midwife
             {
                 room.PatientsInRoom.Remove(this);
             }
-            else throw new ArgumentException(Name + " with CPR:" + CPR.ToString() + " is NOT in room:" + room.RoomID.ToString());
+            else throw new ArgumentException(_name + " with CPR:" + CPR.ToString() + " is NOT in room:" + room.RoomID.ToString());
         }
 
         public override string ToString()

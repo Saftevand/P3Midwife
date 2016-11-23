@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace P3_Midwife
 {
-    public class Employee
+    public abstract class Employee
     {        
         public int ID { get; set; }
         public string Name { get; set; }
@@ -17,8 +17,6 @@ namespace P3_Midwife
         public int TelephoneNumber { get; set; }
         public string Email { get; set; }
         public int Clearance { get; set; }
-
-
 
         public Employee(int id, string name, string password, int telephonenumber, string email, int clearance)
         {
