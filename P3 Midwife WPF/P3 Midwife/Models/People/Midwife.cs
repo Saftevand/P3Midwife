@@ -9,8 +9,8 @@ namespace P3_Midwife
 {
     public class Midwife : Employee
     {
-        public Midwife(int id, string name, string password, int telephonenumber, string email) 
-            : base(id, name, password, telephonenumber, email)
+        public Midwife(int id, string name, string password, int telephonenumber, string email, int clearance) 
+            : base(id, name, password, telephonenumber, email, clearance)
         {
         }
 

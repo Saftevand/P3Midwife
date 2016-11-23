@@ -11,7 +11,7 @@ namespace P3_Midwife.Tests
     [TestClass()]
     public class EmployeeTests
     {
-        Employee TestEmployee = new Employee(1, "TestName", "password", 12345678, "mail@mail.com");
+        Employee TestEmployee = new Employee(1, "TestName", "password", 12345678, "mail@mail.com", 1);
 
         #region ConstructorTests
         [TestMethod()]

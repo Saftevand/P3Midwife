@@ -199,7 +199,7 @@ namespace P3_Midwife
 
         public override string ToString()
         {
-            return "Gender " + this.gender + " CPR " + this.CPR;
+            return this.CPR + " " + this.Name;
         }
     }
 }

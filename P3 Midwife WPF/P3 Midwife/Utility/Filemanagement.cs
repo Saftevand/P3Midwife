@@ -23,6 +23,7 @@ namespace P3_Midwife
             _Files.Add(Path.Combine(Directory, NameOfFile));
         }
 
+        //TODO: directory er ikke nødvendige som parametre. alle filer er i samme mappe
         public static void ReadEmployees(string Directory, string NameOfFile)
         {
             int i = 1;
@@ -37,11 +38,11 @@ namespace P3_Midwife
                     _subStrings = _tempString.Split(' ');
                     if (_subStrings[4] == "1")
                     {
-                        Ward.Employees.Add(new Midwife(i, _subStrings[0], _subStrings[1], Convert.ToInt32(_subStrings[2]), _subStrings[3].ToUpper()));
+                        Ward.Employees.Add(new Midwife(i, _subStrings[0], _subStrings[1], Convert.ToInt32(_subStrings[2]), _subStrings[3].ToUpper(), Convert.ToInt32(_subStrings[4])));
                     }
                     else if (_subStrings[4] == "2")
                     {
-                        Ward.Employees.Add(new SOSU(i, _subStrings[0], _subStrings[1], Convert.ToInt32(_subStrings[2]), _subStrings[3].ToUpper()));
+                        Ward.Employees.Add(new SOSU(i, _subStrings[0], _subStrings[1], Convert.ToInt32(_subStrings[2]), _subStrings[3].ToUpper(), Convert.ToInt32(_subStrings[4])));
                     }
                     i++;
                 }
@@ -64,9 +65,13 @@ namespace P3_Midwife
             }
         }
 
-        public static void AddToFile()
+        public static void AddPatientOrEmployeeToFile(object _person, string _nameOfFile)
         {
-
+            string AccountFile = (Path.Combine(Environment.CurrentDirectory + "\\PersonInfo", _nameOfFile));
+            using (StreamWriter sw = File.AppendText(AccountFile))
+            {
+                    sw.WriteLine(_person.ToString());   
+            }
         }
     }
 }
