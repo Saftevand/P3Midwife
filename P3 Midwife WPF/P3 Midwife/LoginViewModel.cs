@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Security;
 using System.Diagnostics;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace P3_Midwife
 {
@@ -30,7 +31,7 @@ namespace P3_Midwife
                 if (_employees.Exists(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password)))
                 {
                     MessageBox.Show("Succes");
-                }
+                                }
                 else
                 {
                     MessageBox.Show("Ugyldigt login", "Fejl");
