@@ -115,10 +115,7 @@ namespace P3_Midwife
         public Patient RecordsPatient { get { return _patient; } }
         #endregion
 
-
-
-
-
+        
 
 
     }
