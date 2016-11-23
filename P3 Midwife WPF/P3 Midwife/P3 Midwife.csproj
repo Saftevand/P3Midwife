@@ -80,6 +80,7 @@
     <Compile Include="Views\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Ward.cs" />
     <Compile Include="Views\HomeScreen.xaml.cs" />
     <Compile Include="ViewModel\HomeScreenViewModel.cs" />
     <Compile Include="RelayCommand.cs" />

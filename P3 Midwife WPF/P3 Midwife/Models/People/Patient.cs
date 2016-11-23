@@ -55,14 +55,10 @@ namespace P3_Midwife
             this.gender = FindGenderFromCPR(PatientCPR);
         }
 
-        public Patient()
-        {
-
-        }
-
         public Patient(char _gender)
         {
             GenerateCpr(_gender);
+            this.gender = _gender;
         }
 
         private char FindGenderFromCPR(string _cpr)
@@ -73,12 +69,9 @@ namespace P3_Midwife
                 return 'D';  
         }
 
-        //TODO: læg listen et andet sted. i noget database isch.
-        public List<string> AlreadyUsedCPR = new List<string>();
-
         //Function to generate CPR.
         //TODO: måske skal input ændres. pt tjekker den kun om det er en dreng eller ej.
-        private string GenerateCpr(char gender)
+        private void GenerateCpr(char gender)
         {
             int[] CPR = new int[10];
             DateTime today = DateTime.Today;
@@ -102,9 +95,9 @@ namespace P3_Midwife
             result = CalcLastFour(CPR, gender);
 
             // Stores used CPR numbers
-            AlreadyUsedCPR.Add(result);
+            Ward.UsedCPRs.Add(result);
 
-            return result;
+            this.CPR = result;
         }
 
         // Function to check if last digit matches the gender of the child
@@ -164,8 +157,11 @@ namespace P3_Midwife
                     {
                         tempResult = tempResult + item.ToString();
                     }
-                    if (AlreadyUsedCPR.Contains(tempResult))
+                    if (Ward.UsedCPRs.Contains(tempResult))
+                    {
+                        tempResult = null;
                         continue;
+                    }
                     else
                         break;
                 }
@@ -186,6 +182,7 @@ namespace P3_Midwife
         {
             Patient child = new Patient(_gender);
             Children.Add(child);
+            Filemanagement.AddPatientOrEmployeeToFile(child, "Patient_File");
         }
 
         public void AdmitPatientToRoom(DeliveryRoom room)
@@ -208,7 +205,7 @@ namespace P3_Midwife
 
         public override string ToString()
         {
-            return "Gender " + this.gender + " CPR " + this.CPR;
+            return this.CPR + " " + this.Name;
         }
     }
 }

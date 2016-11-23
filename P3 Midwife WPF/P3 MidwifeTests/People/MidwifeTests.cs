@@ -17,7 +17,7 @@ namespace P3_Midwife.Tests
         static int telephonenumber = 123345678;
         static string email = "mail@mail.com";
 
-        Midwife TestMidwife = new Midwife(id, name, password, telephonenumber, email);
+        Midwife TestMidwife = new Midwife(id, name, password, telephonenumber, email, 1);
 
         [TestMethod()]
         public void MidwifeConstructorTestID()

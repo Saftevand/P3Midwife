@@ -11,7 +11,7 @@ namespace P3_Midwife
 {
     public class LoginViewModel : DependencyObject
     {
-        private List<Midwife> _employees = new List<Midwife>();
+        private List<Employee> _employees = new List<Employee>();
         public RelayCommand LoginCommand { get; }
         public static DependencyProperty EmailProperty = DependencyProperty.Register(nameof(Email), typeof(string), typeof(LoginViewModel));
         public string Email
@@ -25,18 +25,20 @@ namespace P3_Midwife
 
         public LoginViewModel()
         {
-            _employees.Add(new Midwife(1, "Gitte", "x", 42660666, "x"));
-            _employees.First().CurrentPatients.Add(new Patient("1234567890", "TestName"));
-            _employees.First().CurrentPatients.Add(new Patient("0987654321", "NameTest"));
+            //_employees.Add(new Midwife(1, "Gitte", "x", 42660666, "x"));
+            //_employees.First().CurrentPatients.Add(new Patient("1234567890", "TestName"));
+            //_employees.First().CurrentPatients.Add(new Patient("0987654321", "NameTest"));
 
             this.LoginCommand = new RelayCommand(parameter =>
             {
-                if (_employees.Exists(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password)))
+                //TODO: Crashes if no email is entered and login pressed or if only numbers are entered
+                if (Ward.Employees.Exists(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password)))
                 {
-                    Employee SendEmp = _employees.Find(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password));
+                    Employee SendEmp = Ward.Employees.Find(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password));
                     HomeScreenViewModel HSViewModel = new HomeScreenViewModel();
                     Messenger.Default.Send(new NotificationMessage("ShowHomeScreen"));
                     Messenger.Default.Send(SendEmp);
+
                 }
                 else
                 {
