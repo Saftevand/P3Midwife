@@ -12,10 +12,13 @@
             <ViewModel:HomeScreenViewModel/>
         </Window.DataContext>
     <Grid>
-      
+        <StackPanel Height="280" Width="200">
+            <TextBox Text="{Binding CPR, UpdateSourceTrigger=LostFocus}"></TextBox>
             <Button Command="{Binding }" Margin="5">FindPatient
-        </Button>
-        <Menu>
+            </Button>
+        </StackPanel>
+           
+        <Menu Width="50" Height="20">
             <MenuItem Header="Menu">
                 <MenuItem Command="{Binding LogOutCommand}" Header="Log ud"/>
                 <MenuItem Header="Exit"/>
