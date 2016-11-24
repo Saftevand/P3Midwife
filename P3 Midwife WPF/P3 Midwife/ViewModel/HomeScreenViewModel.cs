@@ -92,11 +92,16 @@ namespace P3_Midwife
             );
             this.AddPatientComand = new RelayCommand(parameter =>
                 {
+<<<<<<< HEAD
                     if (Ward.Patients.Find(x => x.CPR == CPREntered) != null)
                     {
                         CurrentEmployee.CurrentPatients.Add(Ward.Patients.Find(x => x.CPR == CPREntered));
                     }
                 }
+=======
+                    //_currentPatients.Add();
+                }            
+>>>>>>> f4caf03c6609eb6879420abeac6a5781b920b5ae
             );
             
         }
