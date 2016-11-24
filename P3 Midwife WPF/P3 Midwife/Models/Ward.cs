@@ -25,7 +25,18 @@ namespace P3_Midwife
         {
             Patient patientToAdd = new Patient(_cpr, _name);
             Patients.Add(patientToAdd);
-            Filemanagement.AddPatientOrEmployeeToFile(patientToAdd, "Patient_Info.txt");
+            Filemanagement.AddPatientOrEmployeeToFile(patientToAdd);
+            RoomAdmit(patientToAdd);
         }
+
+        public static void RoomAdmit(Patient _patientToBeAdd)
+        {
+            DeliveryRoom foundRoom = DeliveryRooms.Find(x => x.Occupied == false);
+            foundRoom.Occupied = true;
+            foundRoom.PatientsInRoom.Add(_patientToBeAdd);
+            _patientToBeAdd.InRoom = foundRoom;
+        }
+
+
     }
 }

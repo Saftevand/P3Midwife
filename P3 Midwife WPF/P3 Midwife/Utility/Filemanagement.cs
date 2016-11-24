@@ -98,19 +98,52 @@ namespace P3_Midwife
             }
         }
 
-        public static void AddPatientOrEmployeeToFile(object _person, string _nameOfFile)
+        public static void AddPatientOrEmployeeToFile(object _person)
         {
-            if (_person is Patient || _person is Employee)
+            string _nameOfFile = GetFilePath(_person);
+
+            string AccountFile = (Path.Combine(Environment.CurrentDirectory + "\\PersonInfo", _nameOfFile));
+            using (StreamWriter sw = File.AppendText(AccountFile))
             {
-                string AccountFile = (Path.Combine(Environment.CurrentDirectory + "\\PersonInfo", _nameOfFile));
-                using (StreamWriter sw = File.AppendText(AccountFile))
+                sw.WriteLine(_person.ToString());
+            }
+        }
+
+        public static void RemovePatientFromRoomFile(Patient _person)
+        {
+            string AccountFile = (Environment.CurrentDirectory + "\\PersonInfo\\Delivery_rooms.txt");
+            string text = File.ReadAllText(AccountFile);
+            text = text.Replace(" " + _person.CPR, null);
+            File.WriteAllText(AccountFile, text);
+        }
+
+        public static void RemovePatientFromFile(Patient _person)
+        {
+            string _nameOfFile = GetFilePath(_person);
+            string AccountFile = (Environment.CurrentDirectory + "\\PersonInfo\\Patient_Info.txt");
+
+            string [] originalLines = File.ReadAllLines(AccountFile);
+            List<string> updated = new List<string>();
+
+            foreach (string item in originalLines)
+            {
+                if(!item.Contains(_person.CPR))
                 {
-                    sw.WriteLine(_person.ToString());
+                    updated.Add(item);
                 }
             }
-            //TODO: den her exception bliver ikke grebet noget sted lige PT.
+            File.WriteAllLines(AccountFile, updated);
+        }
+
+        private static string GetFilePath(object _person)
+        {
+            if (_person is Employee)
+                return "Employee_info.txt";
+            else if (_person is Patient)
+                return "Patient_Info.txt";
             else
                 throw (new Exception("Object is not patient or employee"));
         }
+
     }
 }

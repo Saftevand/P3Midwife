@@ -11,7 +11,7 @@ namespace P3_Midwife.Tests
     [TestClass()]
     public class PatientTests
     {
-        DeliveryRoom TestDeliveryRoom = new DeliveryRoom(1);
+        DeliveryRoom TestDeliveryRoom = new DeliveryRoom(1, true);
         Patient TestPatient = new Patient("1234567890", "TestName");
 
         #region ConstructorTests

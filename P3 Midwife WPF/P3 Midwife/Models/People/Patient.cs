@@ -37,6 +37,7 @@ namespace P3_Midwife
         private DateTime timeOfBirth;
         private string _name;
         public Patient Mother;
+        public DeliveryRoom InRoom;
 
         public string CPR { get; set; }
         public string Name
@@ -60,6 +61,7 @@ namespace P3_Midwife
         {
             GenerateCpr(_gender);
             this.gender = _gender;
+            Filemanagement.AddPatientOrEmployeeToFile(this);
         }
 
         private char FindGenderFromCPR(string _cpr)
@@ -184,7 +186,7 @@ namespace P3_Midwife
             Patient child = new Patient(_gender);
             child.Mother = this;
             Children.Add(child);
-            Filemanagement.AddPatientOrEmployeeToFile(child, "Patient_File");
+            child.InRoom = child.Mother.InRoom;
         }
 
         public void AdmitPatientToRoom(DeliveryRoom room)
