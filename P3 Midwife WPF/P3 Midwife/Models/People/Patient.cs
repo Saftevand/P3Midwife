@@ -36,6 +36,7 @@ namespace P3_Midwife
         private decimal veneSBE;
         private DateTime timeOfBirth;
         private string _name;
+        public Patient Mother;
 
         public string CPR { get; set; }
         public string Name
@@ -181,6 +182,7 @@ namespace P3_Midwife
         public void CreateChild(char _gender)
         {
             Patient child = new Patient(_gender);
+            child.Mother = this;
             Children.Add(child);
             Filemanagement.AddPatientOrEmployeeToFile(child, "Patient_File");
         }

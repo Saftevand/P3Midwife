@@ -65,6 +65,39 @@ namespace P3_Midwife
             }
         }
 
+        public static void ReadRooms()
+        {
+            Stream AccountFile = File.Open(Environment.CurrentDirectory + "\\PersonInfo\\Delivery_rooms.txt", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using (StreamReader sr = new StreamReader(AccountFile))
+            {
+                string _tempString;
+                string[] _subStrings;
+                int RoomID;
+                DeliveryRoom currentRoom;
+
+                while ((_tempString = sr.ReadLine()) != null)
+                {                 
+                    _subStrings = _tempString.Split(' ');
+                    RoomID = Convert.ToInt32(_subStrings[0]);
+                    bool occupied = false;
+
+                    if (_subStrings[1] == "t")
+                        occupied = true;
+
+                    currentRoom = new DeliveryRoom(RoomID, occupied);
+                    Ward.DeliveryRooms.Add(currentRoom);
+
+                    for (int i = 2; i < _subStrings.Length; i++)
+                    {
+                        if (Ward.Patients.Any(x => x.CPR == _subStrings[i]))
+                            currentRoom.PatientsInRoom.Add(Ward.Patients.Find(x => x.CPR == _subStrings[i]));
+                        else
+                            throw new Exception("Patient doesnt exist");
+                    }
+                }
+            }
+        }
+
         public static void AddPatientOrEmployeeToFile(object _person, string _nameOfFile)
         {
             if (_person is Patient || _person is Employee)
