@@ -86,15 +86,22 @@ namespace P3_Midwife
         {
             Messenger.Default.Register<Employee>(this, (Emp) =>
             {
-                //CurrentEmployee = Emp;
                 recieveEMP(Emp);
-                
-                
+
+                CurrentEmployee = Emp;
+
+                if (CurrentEmployee.GetType() == typeof(Midwife))
+                {
+                    foreach (Patient patient in CurrentEmployee.CurrentPatients)
+                    {
+                        _currentPatients.Add(patient);
+                    }
+                }
             });
             this.LogOutCommand = new RelayCommand(parameter =>
-            {               
+            {
                 CurrentEmployee = null;
-                Messenger.Default.Send(new NotificationMessage("ShowMainView"));              
+                Messenger.Default.Send(new NotificationMessage("ShowMainView"));
             });
             this.ExitCommand = new RelayCommand(parameter =>
             {
@@ -112,9 +119,7 @@ namespace P3_Midwife
                     {
                         CurrentEmployee.CurrentPatients.Add(Ward.Patients.Find(x => x.CPR == CPREntered));
                     }
-                }
-            );
-            
+                });
         }
     }
 }

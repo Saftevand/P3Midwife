@@ -11,7 +11,7 @@ namespace P3_Midwife.Tests
     [TestClass()]
     public class DeliveryRoomTests
     {
-        DeliveryRoom DeliveryRoomTest = new DeliveryRoom(1);
+        DeliveryRoom DeliveryRoomTest = new DeliveryRoom(1, true);
         [TestMethod()]
         public void DeliveryRoomConstructorTest()
         {

@@ -11,7 +11,7 @@ namespace P3_Midwife.Tests
     [TestClass()]
     public class PatientTests
     {
-        DeliveryRoom TestDeliveryRoom = new DeliveryRoom(1);
+        DeliveryRoom TestDeliveryRoom = new DeliveryRoom(1, true);
         Patient TestPatient = new Patient("1234567890", "TestName");
 
         #region ConstructorTests
@@ -48,6 +48,20 @@ namespace P3_Midwife.Tests
 
             Assert.IsFalse(TestDeliveryRoom.PatientsInRoom.Contains(TestPatientAdmit));
         }
+
+        //[TestMethod()]
+        //public string GenerateCPRTest()
+        //{
+        //    int[] TestCPR = { 2, 4, 1, 1, 1, 6, 0, 0, 0, 0 };
+        //    List<string> TestCPRList = new List<string>();
+        //    TestCPRList.Add("2411164007");
+
+        //    Patient TestPatient = new Patient(' ', )
+
+
+
+
+        //}
         #endregion
     }
 }

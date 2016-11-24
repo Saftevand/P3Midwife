@@ -37,6 +37,7 @@ namespace P3_Midwife
         private DateTime timeOfBirth;
         private string _name;
         public Patient Mother;
+        public DeliveryRoom InRoom;
 
         public string CPR { get; set; }
         public string Name
@@ -60,6 +61,14 @@ namespace P3_Midwife
         {
             GenerateCpr(_gender);
             this.gender = _gender;
+            Filemanagement.AddPatientOrEmployeeToFile(this);
+        }
+
+        public Patient(char _gender, DateTime _today)
+        {
+            GenerateCpr(_gender, _today);
+            this.gender = _gender;
+            Filemanagement.AddPatientOrEmployeeToFile(this);
         }
 
         private char FindGenderFromCPR(string _cpr)
@@ -70,13 +79,20 @@ namespace P3_Midwife
                 return 'D';  
         }
 
-        //Function to generate CPR.
-        //TODO: måske skal input ændres. pt tjekker den kun om det er en dreng eller ej.
+        //TODO: HUSK GENERATE CPR ER OVERLOADET
         private void GenerateCpr(char gender)
         {
-            int[] CPR = new int[10];
-            DateTime today = DateTime.Today;
+            GenerateCpr(gender, DateTime.Today);
+        }
 
+        //Function to generate CPR.
+        //TODO: måske skal input ændres. pt tjekker den kun om det er en dreng eller ej.
+        private void GenerateCpr(char gender, DateTime today)
+        {
+            int[] CPR = new int[10];
+            
+            //DateTime today = DateTime.Today;
+            //today = date;
             string TodayString = today.ToString();
             string result = null;
 
@@ -184,7 +200,7 @@ namespace P3_Midwife
             Patient child = new Patient(_gender);
             child.Mother = this;
             Children.Add(child);
-            Filemanagement.AddPatientOrEmployeeToFile(child, "Patient_File");
+            child.InRoom = child.Mother.InRoom;
         }
 
         public void AdmitPatientToRoom(DeliveryRoom room)
