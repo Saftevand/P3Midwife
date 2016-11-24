@@ -53,6 +53,11 @@ namespace P3_Midwife
         {
             _billItemList.Add(BI);
         }
+
+        public void RemoveFromBillItemList(MedicalService BI)
+        {
+            _billItemList.Remove(BI);
+        }
         #endregion
     }
 }

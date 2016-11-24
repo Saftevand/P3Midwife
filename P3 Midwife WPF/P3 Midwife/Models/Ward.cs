@@ -13,6 +13,7 @@ namespace P3_Midwife
         public static List<Employee> Employees = new List<Employee>();
         public static List<Patient> Patients = new List<Patient>();
         public static List<DeliveryRoom> DeliveryRooms = new List<DeliveryRoom>();
+        public static List<MedicalService> MedicalServicesList = new List<MedicalService>();
 
         static Ward()
         {

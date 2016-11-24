@@ -100,7 +100,7 @@ namespace P3_Midwife
 
         public static void AddPatientOrEmployeeToFile(object _person)
         {
-            string _nameOfFile = GetFilePath(_person);
+            string _nameOfFile = GetPersonFilePath(_person);
 
             string AccountFile = (Path.Combine(Environment.CurrentDirectory + "\\PersonInfo", _nameOfFile));
             using (StreamWriter sw = File.AppendText(AccountFile))
@@ -119,7 +119,7 @@ namespace P3_Midwife
 
         public static void RemovePatientFromFile(Patient _person)
         {
-            string _nameOfFile = GetFilePath(_person);
+            string _nameOfFile = GetPersonFilePath(_person);
             string AccountFile = (Environment.CurrentDirectory + "\\PersonInfo\\Patient_Info.txt");
 
             string [] originalLines = File.ReadAllLines(AccountFile);
@@ -135,7 +135,7 @@ namespace P3_Midwife
             File.WriteAllLines(AccountFile, updated);
         }
 
-        private static string GetFilePath(object _person)
+        private static string GetPersonFilePath(object _person)
         {
             if (_person is Employee)
                 return "Employee_info.txt";
@@ -145,5 +145,21 @@ namespace P3_Midwife
                 throw (new Exception("Object is not patient or employee"));
         }
 
+        private static void ReadMedicalServiceFromFile()
+        {
+            Stream ServicesFile = File.Open(Environment.CurrentDirectory + "\\PersonInfo\\Medical_Services.txt", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using (StreamReader sr = new StreamReader(ServicesFile))
+            {
+                string _tempString;
+                string[] _subStrings;
+
+                while ((_tempString = sr.ReadLine()) != null)
+                {
+                    _subStrings = _tempString.Split(' ');
+                    MedicalService currentService = new MedicalService(Convert.ToDecimal(_subStrings[2]), _subStrings[1], _subStrings[0]);
+                    Ward.MedicalServicesList.Add(currentService);
+                }
+            }
+        }
     }
 }

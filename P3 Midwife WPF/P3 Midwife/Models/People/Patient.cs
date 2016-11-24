@@ -55,6 +55,7 @@ namespace P3_Midwife
             this.CPR = PatientCPR;
             this._name = PatientName;
             this.gender = FindGenderFromCPR(PatientCPR);
+            Filemanagement.AddPatientOrEmployeeToFile(this);
         }
 
         public Patient(char _gender)
@@ -62,13 +63,15 @@ namespace P3_Midwife
             GenerateCpr(_gender);
             this.gender = _gender;
             Filemanagement.AddPatientOrEmployeeToFile(this);
+            this.InRoom = this.Mother.InRoom;
         }
 
-        public Patient(char _gender, DateTime _today)
+        public Patient(char _gender, string _today)
         {
             GenerateCpr(_gender, _today);
             this.gender = _gender;
             Filemanagement.AddPatientOrEmployeeToFile(this);
+            this.InRoom = this.Mother.InRoom;
         }
 
         private char FindGenderFromCPR(string _cpr)
@@ -82,22 +85,17 @@ namespace P3_Midwife
         //TODO: HUSK GENERATE CPR ER OVERLOADET
         private void GenerateCpr(char gender)
         {
-            GenerateCpr(gender, DateTime.Today);
+            //Retrieves date for cpr number
+            GenerateCpr(gender, DateTime.Today.ToString("ddMMyy"));
         }
 
         //Function to generate CPR.
         //TODO: måske skal input ændres. pt tjekker den kun om det er en dreng eller ej.
-        private void GenerateCpr(char gender, DateTime today)
+        private void GenerateCpr(char gender, string CPRString)
         {
             int[] CPR = new int[10];
             
-            //DateTime today = DateTime.Today;
-            //today = date;
-            string TodayString = today.ToString();
             string result = null;
-
-            //Retrieves date for cpr number
-            string CPRString = DateTime.Today.ToString("ddMMyy");
 
             //Puts date into int array for later calculations
             int count = 0;
@@ -200,7 +198,13 @@ namespace P3_Midwife
             Patient child = new Patient(_gender);
             child.Mother = this;
             Children.Add(child);
-            child.InRoom = child.Mother.InRoom;
+        }
+
+        public void CreateChild(char _gender, string _date)
+        {
+            Patient child = new Patient(_gender, _date);
+            child.Mother = this;
+            Children.Add(child);
         }
 
         public void AdmitPatientToRoom(DeliveryRoom room)
