@@ -12,13 +12,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using GalaSoft.MvvmLight.Messaging;
-using P3_Midwife.Views;
 
-namespace P3_Midwife
-{ 
-    public partial class HomeScreen : Window
+
+namespace P3_Midwife.Views
+{
+    public partial class PatientWindow : Window
     {
-        public HomeScreen()
+        public PatientWindow()
         {
             InitializeComponent();
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
@@ -32,15 +32,10 @@ namespace P3_Midwife
                 MainWindow.Show();
                 this.Close();
             }
-            else if (msg.Notification == "AddPatientMsg")
+            else if (msg.Notification == "ShowHomeScreen")
             {
-                var AddPatientDialogWindow = new DialogWindow();
-                AddPatientDialogWindow.Show();
-            }
-            else if (msg.Notification == "ShowPatientView")
-            {
-                var PatientView = new PatientWindow();
-                PatientView.Show();
+                var HomeScreenViem = new HomeScreen();
+                HomeScreenViem.Show();
                 this.Close();
             }
         }
