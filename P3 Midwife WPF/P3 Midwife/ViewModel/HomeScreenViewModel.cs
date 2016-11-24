@@ -23,6 +23,7 @@ namespace P3_Midwife
         public static DependencyProperty PatientProperty = DependencyProperty.Register(nameof(CurrentPatient), typeof(Patient), typeof(HomeScreenViewModel));
         public static DependencyProperty CPRProperty = DependencyProperty.Register(nameof(CPR), typeof(string), typeof(HomeScreenViewModel));
         public static DependencyProperty CPREnteredProperty = DependencyProperty.Register(nameof(CPREntered), typeof(string), typeof(HomeScreenViewModel));
+        public static DependencyProperty SelectedPatientProperty = DependencyProperty.Register(nameof(SelectedPatient), typeof(Patient), typeof(HomeScreenViewModel));
         public ObservableCollection<Patient> _currentPatients = new ObservableCollection<Patient>();
 
         public ObservableCollection<Patient> CurrentPatients
@@ -59,12 +60,34 @@ namespace P3_Midwife
             return _patientList.Find(x => x.CPR == CPR);
         }
 
-        //Employee CurrentEmp;
+        public Patient SelectedPatient
+        {
+            get { return (Patient)this.GetValue(SelectedPatientProperty); }
+            set
+            {
+                this.SetValue(SelectedPatientProperty, value);
+                Messenger.Default.Send(new NotificationMessage("ShowPatientView"));
+                Messenger.Default.Send(SelectedPatient);
+            }
+        }
+
+        private void recieveEMP(Employee newEmp)
+        {
+            CurrentEmployee = newEmp;
+            
+
+            foreach (Patient patient in CurrentEmployee.CurrentPatients)
+            {
+                _currentPatients.Add(patient);
+            }
+        }
 
         public HomeScreenViewModel()
         {
             Messenger.Default.Register<Employee>(this, (Emp) =>
             {
+                recieveEMP(Emp);
+
                 CurrentEmployee = Emp;
 
                 if (CurrentEmployee.GetType() == typeof(Midwife))
@@ -97,7 +120,6 @@ namespace P3_Midwife
                         CurrentEmployee.CurrentPatients.Add(Ward.Patients.Find(x => x.CPR == CPREntered));
                     }
                 });
-                    //_currentPatients.Add();
         }
     }
 }

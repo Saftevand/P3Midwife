@@ -1,0 +1,33 @@
+﻿<Window x:Class="P3_Midwife.Views.PatientWindow"
+        x:Name="PView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:P3_Midwife.Views"
+        xmlns:ViewModel="clr-namespace:P3_Midwife.ViewModel"
+        mc:Ignorable="d"
+        Title="PatientWindow" Height="900" Width="1600">
+        <Window.DataContext>
+            <ViewModel:PatientViewModel/>
+        </Window.DataContext>
+    <Grid>
+        <Menu Width="50" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <MenuItem Header="Menu">
+                <MenuItem Command="{Binding BackCommand}" Header="Tilbage"/>
+                <MenuItem Command="{Binding LogOutCommand}" Header="Log ud"/>
+                <MenuItem Command="{Binding ExitCommand}" Header="Exit"/>
+            </MenuItem>
+        </Menu>
+
+        <ListBox Margin="20" HorizontalAlignment="Left" ItemsSource="{Binding PatientCurrent}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                       
+                    </TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>
