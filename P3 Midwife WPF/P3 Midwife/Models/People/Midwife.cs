@@ -9,7 +9,6 @@ namespace P3_Midwife
 {
     public class Midwife : Employee
     {
-        private List<Patient> _currentPatients = new List<Patient>();
 
         public Midwife(int id, string name, string password, int telephonenumber, string email, int clearance) 
             : base(id, name, password, telephonenumber, email, clearance)

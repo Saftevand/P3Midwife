@@ -17,10 +17,10 @@
             <Label>
                 Indtast CPR
             </Label>
-            <TextBox Text="{Binding }" Name="TextBoxEnteredCPR">
+            <TextBox Text="{Binding CPREntered, UpdateSourceTrigger=LostFocus}" Name="TextBoxEnteredCPR">
                 
             </TextBox>
-            <Button Command="{Binding }">
+            <Button Command="{Binding AddPatientComand}" Margin="5">
                 Tilføj patient
             </Button>
         </StackPanel>
