@@ -18,15 +18,22 @@ namespace P3_Midwife
         public RelayCommand FindPatientCommand { get; }
         public RelayCommand GetCurrentPatientList { get; }
         public RelayCommand OpenAddPatientCommand { get; }
-        public RelayCommand AddPatientCoomand { get; }
+        public RelayCommand AddPatientComand { get; }
         public static DependencyProperty EmployeeProperty = DependencyProperty.Register(nameof(CurrentEmployee), typeof(Employee), typeof(HomeScreenViewModel));
         public static DependencyProperty PatientProperty = DependencyProperty.Register(nameof(CurrentPatient), typeof(Patient), typeof(HomeScreenViewModel));
         public static DependencyProperty CPRProperty = DependencyProperty.Register(nameof(CPR), typeof(string), typeof(HomeScreenViewModel));
+        public static DependencyProperty CPREnteredProperty = DependencyProperty.Register(nameof(CPREntered), typeof(string), typeof(HomeScreenViewModel));
         public ObservableCollection<Patient> _currentPatients = new ObservableCollection<Patient>();
 
         public ObservableCollection<Patient> CurrentPatients
         {
             get { return _currentPatients; }
+        }
+
+        public string CPREntered
+        {
+            get { return (string)this.GetValue(CPREnteredProperty); }
+            set { this.SetValue(CPREnteredProperty, value); }
         }
 
         public Employee CurrentEmployee
@@ -62,7 +69,7 @@ namespace P3_Midwife
 
                 if (CurrentEmployee.GetType() == typeof(Midwife))
                 {
-                    foreach (Patient patient in (CurrentEmployee as Midwife).CurrentPatients)
+                    foreach (Patient patient in CurrentEmployee.CurrentPatients)
                     {
                         _currentPatients.Add(patient);
                     }
@@ -83,10 +90,13 @@ namespace P3_Midwife
                     Messenger.Default.Send(new NotificationMessage("AddPatientMsg"));
                 }
             );
-            this.AddPatientCoomand = new RelayCommand(parameter =>
+            this.AddPatientComand = new RelayCommand(parameter =>
                 {
-                    _currentPatients.Add()
-                }            
+                    if (Ward.Patients.Find(x => x.CPR == CPREntered) != null)
+                    {
+                        CurrentEmployee.CurrentPatients.Add(Ward.Patients.Find(x => x.CPR == CPREntered));
+                    }
+                }
             );
             
         }

@@ -17,6 +17,7 @@ namespace P3_Midwife
         public int TelephoneNumber { get; set; }
         public string Email { get; set; }
         public int Clearance { get; set; }
+        private List<Patient> _currentPatients = new List<Patient>();
 
         public Employee(int id, string name, string password, int telephonenumber, string email, int clearance)
         {
@@ -27,6 +28,8 @@ namespace P3_Midwife
             this.Email = email;
             this.Clearance = clearance;
         }
+
+        public List<Patient> CurrentPatients { get { return _currentPatients; } set { _currentPatients = value; } }
 
         public override string ToString()
         {
