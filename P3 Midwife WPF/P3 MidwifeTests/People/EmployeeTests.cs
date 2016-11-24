@@ -43,6 +43,14 @@ namespace P3_Midwife.Tests
         {
             Assert.IsNotNull(TestEmployee.Email);
         }
+
+        [TestMethod()]
+        public void EmployeeTestConstructorClearance()
+        {
+            Assert.IsNotNull(TestEmployee.Clearance);
+        }
+
+
         #endregion
     }
 }
