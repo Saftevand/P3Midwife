@@ -20,14 +20,35 @@
             </MenuItem>
         </Menu>
 
-        <ListBox Margin="20" HorizontalAlignment="Left" ItemsSource="{Binding PatientCurrent}">
+        <ListBox Margin="20" HorizontalAlignment="Left" DataContext="{Binding PatientCurrent}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
-                       
+                        <Run Text="{Binding PatientCurrent.Name}"/>
+                        <Run Text="{Binding PatientCurrent.CPR}"/>
+                        <Run Text="{Binding PatientCurrent.Gender}"/>
+                        <Run Text="{Binding PatientCurrent.Age}"/>
+                        <ListBox ItemsSource="{Binding PatientCurrent.Children}">
+                            <TextBlock>
+                                <Run Text="{Binding Name}"/>
+                                <Run Text="{Binding CPR}"/>
+                            </TextBlock>    
+                        </ListBox>
+                        <Button Command="{Binding AdmitPatientCommand}">
+                            Indlæg Patient
+                        </Button>
+                        <Button Command="{Binding DischargePatientCommand}">
+                            Udskriv Patient
+                        </Button>
                     </TextBlock>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+
+        <ListBox DataContext="{Binding PatientCurrent}">
+            
+            
+        </ListBox>
+        
     </Grid>
 </Window>

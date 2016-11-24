@@ -15,6 +15,8 @@ namespace P3_Midwife.ViewModel
         public RelayCommand LogOutCommand { get; }
         public RelayCommand ExitCommand { get; }
         public RelayCommand BackCommand { get; }
+        public RelayCommand AdmitPatientCommand { get; }
+        public RelayCommand DischargePatientCommand { get; }
 
         //public static DependencyProperty PatientNameProperty = DependencyProperty.Register(nameof(PatientName), typeof(Patient), typeof(HomeScreenViewModel));
         //public static DependencyProperty PatientCPRProperty = DependencyProperty.Register(nameof(PatientCPR), typeof(Patient), typeof(HomeScreenViewModel));
@@ -79,6 +81,14 @@ public PatientViewModel()
             this.BackCommand = new RelayCommand(Parameter =>
             {
                 Messenger.Default.Send(new NotificationMessage("ShowHomeView"));
+            });
+            this.AdmitPatientCommand = new RelayCommand(Parameter =>
+            {
+                // TODO - Needs to be implemented
+            });
+            this.DischargePatientCommand = new RelayCommand(Parameter =>
+            {
+                // TODO - Needs to be implemented
             });
         }
     }

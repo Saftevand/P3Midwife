@@ -38,6 +38,7 @@ namespace P3_Midwife
         private string _name;
         public Patient Mother;
         public DeliveryRoom InRoom;
+        private List<Patient> _children = new List<Patient>();
 
         public string CPR { get; set; }
         public string Name
@@ -47,8 +48,16 @@ namespace P3_Midwife
         }
 
         private List<Record> _recordList = new List<Record>();
+        public string Gender { get { return gender.ToString(); } }
+
+
+        public int Age { get { return CalculateAge(); } }
+
+      
+
+        public List<Patient> Children { get { return _children; } set { _children = value; } }
         public List<Record> RecordList { get { return _recordList; } set { _recordList = value; } }
-        public List<Patient> Children = new List<Patient>();
+        
 
         public Patient(string PatientCPR, string PatientName)
         {
@@ -115,6 +124,15 @@ namespace P3_Midwife
             Ward.UsedCPRs.Add(result);
 
             this.CPR = result;
+        }
+
+        private int CalculateAge()
+        {
+            string Age = CPR.Substring(0, 6);
+            string CurrentDate = DateTime.Today.ToString("ddMMyy");
+
+            return 28 ;
+            //TODO Calculate age!
         }
 
         // Function to check if last digit matches the gender of the child
