@@ -20,16 +20,16 @@ namespace P3_Midwife
         public DialogWindow()
         {
             InitializeComponent();
-            //Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
+            Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
         }
 
-        //private void NotificationMessageRecieved(NotificationMessage msg)
-        //{            
-        //    if (msg.Notification == "AddPatientMsg")
-        //    {
-        //        var AddPatientDialogWindow = new DialogWindow();
-        //        AddPatientDialogWindow.Show();
-        //    }
-        //}
+        private void NotificationMessageRecieved(NotificationMessage msg)
+        {            
+            if (msg.Notification == "CloseDialogWindow")
+            {
+                this.Close();
+            }
+            
+        }
     }
 }

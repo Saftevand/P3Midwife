@@ -7,11 +7,12 @@
         xmlns:local="clr-namespace:P3_Midwife.Views"
         xmlns:ViewModel="clr-namespace:P3_Midwife.ViewModel"
         mc:Ignorable="d"
-        Title="PatientWindow" Height="900" Width="1600">
+        Title="PatientWindow" Height="600" Width="1200">
         <Window.DataContext>
             <ViewModel:PatientViewModel/>
         </Window.DataContext>
     <Grid>
+        
         <Menu Width="50" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left">
             <MenuItem Header="Menu">
                 <MenuItem Command="{Binding BackCommand}" Header="Tilbage"/>
@@ -20,35 +21,16 @@
             </MenuItem>
         </Menu>
 
-        <ListBox Margin="20" HorizontalAlignment="Left" DataContext="{Binding PatientCurrent}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock>
-                        <Run Text="{Binding PatientCurrent.Name}"/>
-                        <Run Text="{Binding PatientCurrent.CPR}"/>
-                        <Run Text="{Binding PatientCurrent.Gender}"/>
-                        <Run Text="{Binding PatientCurrent.Age}"/>
-                        <ListBox ItemsSource="{Binding PatientCurrent.Children}">
-                            <TextBlock>
-                                <Run Text="{Binding Name}"/>
-                                <Run Text="{Binding CPR}"/>
-                            </TextBlock>    
-                        </ListBox>
-                        <Button Command="{Binding AdmitPatientCommand}">
-                            Indlæg Patient
-                        </Button>
-                        <Button Command="{Binding DischargePatientCommand}">
-                            Udskriv Patient
-                        </Button>
-                    </TextBlock>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
-        <ListBox DataContext="{Binding PatientCurrent}">
-            
-            
-        </ListBox>
-        
+        <StackPanel>
+            <ListBox HorizontalAlignment="Left" VerticalAlignment="Center" ItemsSource="{Binding PatientCurrent }">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                           <Run Text="{Binding  }"
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>            
+        </StackPanel>
     </Grid>
 </Window>
