@@ -147,7 +147,7 @@ namespace P3_Midwife
                 throw (new Exception("Object is not patient or employee"));
         }
 
-        private static void ReadMedicalServiceFromFile()
+        public static void ReadMedicalServiceFromFile()
         {
             Stream ServicesFile = File.Open(Environment.CurrentDirectory + "\\PersonInfo\\Medical_Services.txt", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             using (StreamReader sr = new StreamReader(ServicesFile))

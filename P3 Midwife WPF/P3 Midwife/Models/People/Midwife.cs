@@ -34,5 +34,18 @@ namespace P3_Midwife
                 }
             }
         }
+
+        public void AssignPatientToDRoom(Patient _patient)
+        {
+            DeliveryRoom currentRoom = Ward.DeliveryRooms.Find(x => x.Occupied == false);
+            if (currentRoom != null)
+            {
+                currentRoom.PatientsInRoom.Add(_patient);
+                _patient.InRoom = currentRoom;
+            }
+
+            else
+                throw new Exception("There are no empty rooms to assign patients to");
+        }
     }
 }

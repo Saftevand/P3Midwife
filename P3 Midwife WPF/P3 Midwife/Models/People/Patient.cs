@@ -83,7 +83,7 @@ namespace P3_Midwife
                 return 'D';  
         }
 
-        //TODO: HUSK GENERATE CPR ER OVERLOADET
+        //TODO: HUSK GENERATE CPR ER OVERLOADET den med CPR string er til at teste. ikke sikkert den er nødvendig
         //Function to generate CPR.
         private void GenerateCpr(char gender)
         {
@@ -207,14 +207,15 @@ namespace P3_Midwife
             Children.Add(child);
         }
 
-        public void AdmitPatientToRoom(DeliveryRoom room)
-        {            
-            if (!room.PatientsInRoom.Contains(this))
-            {
-                room.PatientsInRoom.Add(this);
-            }
-            else throw new ArgumentException(_name + " with CPR:" + CPR.ToString() + " is already in room:" + room.RoomID.ToString());
-        }
+        // erstattet af funktion i Midwife - assignPatientToDRoom
+        //public void AdmitPatientToRoom(DeliveryRoom room)
+        //{            
+        //    if (!room.PatientsInRoom.Contains(this))
+        //    {
+        //        room.PatientsInRoom.Add(this);
+        //    }
+        //    else throw new ArgumentException(_name + " with CPR:" + CPR.ToString() + " is already in room:" + room.RoomID.ToString());
+        //}
 
         public void DischargePatientFromRoom(DeliveryRoom room)
         {
