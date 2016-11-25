@@ -17,6 +17,7 @@ namespace P3_Midwife
             this.Price = price;
             this.Name = name;
             this.AbbrevationName = abbrevationName;
+            Ward.MedicalServicesList.Add(this);
         }
 
         public override string ToString()

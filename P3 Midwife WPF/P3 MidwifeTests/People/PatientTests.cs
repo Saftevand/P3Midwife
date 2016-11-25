@@ -49,18 +49,17 @@ namespace P3_Midwife.Tests
             Assert.IsFalse(TestDeliveryRoom.PatientsInRoom.Contains(TestPatientAdmit));
         }
 
+        //TODO: denne test skal måske ikke være der da den skriver i filer
         //[TestMethod()]
-        //public string GenerateCPRTest()
+        //public void GenerateCPRTest()
         //{
-        //    int[] TestCPR = { 2, 4, 1, 1, 1, 6, 0, 0, 0, 0 };
-        //    List<string> TestCPRList = new List<string>();
-        //    TestCPRList.Add("2411164007");
+        //    string expectedCpr = "2411164007";
 
-        //    Patient TestPatient = new Patient(' ', )
+        //    Patient TestPatient = new Patient("1111111111", "Test Tester");
 
+        //    TestPatient.CreateChild('D', "241116");
 
-
-
+        //    Assert.IsTrue(TestPatient.Children.First().CPR == expectedCpr);
         //}
         #endregion
     }

@@ -32,6 +32,7 @@ namespace P3_Midwife
         private List<_fetusObservation> _fetusObservationList;
         private List<_birthInformation> _birthInformationList;
         private Bill _bill = new Bill();
+        public static int RecordID;
      
 
         public struct _vaginalExploration
@@ -81,11 +82,6 @@ namespace P3_Midwife
             private string _bleedingCause;
             private string _birthPosition;
         }
-
-        public Record(Patient Patient)
-        {
-            this._patient = Patient;
-        }
         #endregion
 
         #region Properties
@@ -115,8 +111,16 @@ namespace P3_Midwife
         public Patient RecordsPatient { get { return _patient; } }
         #endregion
 
-        
+        public Record(Patient Patient)
+        {
+            this._patient = Patient;
+            this.IsActive = true;
+            RecordID++;
+        }
 
-
+        public void AddMedicalServiceToBill(MedicalService medicalService)
+        {
+            CurrentBill.BillItemList.Add(medicalService);
+        }
     }
 }
