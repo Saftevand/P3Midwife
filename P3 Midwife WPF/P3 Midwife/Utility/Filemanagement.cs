@@ -12,11 +12,13 @@ namespace P3_Midwife
         public static string _exePath = AppDomain.CurrentDomain.BaseDirectory;
         public static List<string> _Files = new List<string>();
 
+        //TODO: bliver ikke brugt endnu
         public static void CreateDirectory(string NameOfDirectory)
         {
             Directory.CreateDirectory(NameOfDirectory);
         }
 
+        //TODO: bliver ikke brugt endnu
         public static void CreateFile(string Directory, string NameOfFile)
         {
             File.Create(Path.Combine(Directory, NameOfFile));
@@ -157,7 +159,6 @@ namespace P3_Midwife
                 {
                     _subStrings = _tempString.Split(' ');
                     MedicalService currentService = new MedicalService(Convert.ToDecimal(_subStrings[2]), _subStrings[1], _subStrings[0]);
-                    Ward.MedicalServicesList.Add(currentService);
                 }
             }
         }

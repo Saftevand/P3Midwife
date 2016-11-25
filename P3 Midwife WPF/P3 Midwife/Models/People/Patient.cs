@@ -56,6 +56,7 @@ namespace P3_Midwife
             this._name = PatientName;
             this.gender = FindGenderFromCPR(PatientCPR);
             Filemanagement.AddPatientOrEmployeeToFile(this);
+            this.RecordList.Add(new Record(this));
         }
 
         public Patient(char _gender)
@@ -83,14 +84,13 @@ namespace P3_Midwife
         }
 
         //TODO: HUSK GENERATE CPR ER OVERLOADET
+        //Function to generate CPR.
         private void GenerateCpr(char gender)
         {
             //Retrieves date for cpr number
             GenerateCpr(gender, DateTime.Today.ToString("ddMMyy"));
         }
 
-        //Function to generate CPR.
-        //TODO: måske skal input ændres. pt tjekker den kun om det er en dreng eller ej.
         private void GenerateCpr(char gender, string CPRString)
         {
             int[] CPR = new int[10];
