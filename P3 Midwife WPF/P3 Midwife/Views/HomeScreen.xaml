@@ -7,14 +7,14 @@
         xmlns:local="clr-namespace:P3_Midwife"
         xmlns:ViewModel="clr-namespace:P3_Midwife"
         mc:Ignorable="d"
-        Title="Menu" Height="900" Width="1600">
+        Title="Menu" Height="600" Width="1200">
         <Window.DataContext>
             <ViewModel:HomeScreenViewModel/>
         </Window.DataContext>
     <Grid>
         <StackPanel Height="280" Width="200" HorizontalAlignment="Left" VerticalAlignment="Bottom">
             <TextBox Text="{Binding CPR, UpdateSourceTrigger=LostFocus}"></TextBox>
-            <Button Command="{Binding }" Margin="5">FindPatient
+            <Button Command="{Binding FindPatientCommand}" Margin="5">FindPatient
             </Button>
         </StackPanel>
 

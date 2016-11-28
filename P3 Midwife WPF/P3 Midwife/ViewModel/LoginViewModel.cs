@@ -35,9 +35,9 @@ namespace P3_Midwife
                 if (Ward.Employees.Exists(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password)))
                 {
                     Employee SendEmp = Ward.Employees.Find(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password));
-                    HomeScreenViewModel HSViewModel = new HomeScreenViewModel();
                     Messenger.Default.Send(new NotificationMessage("ShowHomeScreen"));
-                    Messenger.Default.Send(SendEmp);
+                    Messenger.Default.Send(SendEmp,"ActiveUser");
+                    
 
                 }
                 else

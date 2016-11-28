@@ -15,8 +15,6 @@ namespace P3_Midwife
         {
         }
 
-        public List<Patient> CurrentPatients { get { return _currentPatients; } set { _currentPatients = value; } }
-
         private void transferPatientFromDRoom(Patient _patient)
         {
             Filemanagement.RemovePatientFromRoomFile(_patient);

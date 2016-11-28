@@ -21,23 +21,6 @@ namespace P3_Midwife.Views
         public PatientWindow()
         {
             InitializeComponent();
-            Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
-        }
-
-        private void NotificationMessageRecieved(NotificationMessage msg)
-        {
-            if (msg.Notification == "ShowMainView")
-            {
-                var MainWindow = new MainWindow();
-                MainWindow.Show();
-                this.Close();
-            }
-            else if (msg.Notification == "ShowHomeScreen")
-            {
-                var HomeScreenViem = new HomeScreen();
-                HomeScreenViem.Show();
-                this.Close();
-            }
         }
     }
 }

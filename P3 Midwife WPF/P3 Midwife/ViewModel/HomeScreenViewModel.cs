@@ -18,11 +18,10 @@ namespace P3_Midwife
         public RelayCommand FindPatientCommand { get; }
         public RelayCommand GetCurrentPatientList { get; }
         public RelayCommand OpenAddPatientCommand { get; }
-        public RelayCommand AddPatientComand { get; }
+        public RelayCommand OpenPatientCommand { get; }
         public static DependencyProperty EmployeeProperty = DependencyProperty.Register(nameof(CurrentEmployee), typeof(Employee), typeof(HomeScreenViewModel));
         public static DependencyProperty PatientProperty = DependencyProperty.Register(nameof(CurrentPatient), typeof(Patient), typeof(HomeScreenViewModel));
         public static DependencyProperty CPRProperty = DependencyProperty.Register(nameof(CPR), typeof(string), typeof(HomeScreenViewModel));
-        public static DependencyProperty CPREnteredProperty = DependencyProperty.Register(nameof(CPREntered), typeof(string), typeof(HomeScreenViewModel));
         public static DependencyProperty SelectedPatientProperty = DependencyProperty.Register(nameof(SelectedPatient), typeof(Patient), typeof(HomeScreenViewModel));
         public ObservableCollection<Patient> _currentPatients = new ObservableCollection<Patient>();
 
@@ -31,16 +30,21 @@ namespace P3_Midwife
             get { return _currentPatients; }
         }
 
-        public string CPREntered
-        {
-            get { return (string)this.GetValue(CPREnteredProperty); }
-            set { this.SetValue(CPREnteredProperty, value); }
-        }
+            
 
         public Employee CurrentEmployee
         {
             get { return (Employee)this.GetValue(EmployeeProperty); }
-            set { this.SetValue(EmployeeProperty, value);  }
+            set
+            {
+                foreach (Patient item in value.CurrentPatients)
+                {
+                    if (!_currentPatients.Contains(item))
+                    {
+                        _currentPatients.Add(item);
+                    }
+                }
+                this.SetValue(EmployeeProperty, value);  }
         }
 
         public Patient CurrentPatient
@@ -57,7 +61,7 @@ namespace P3_Midwife
 
         public Patient FindPatient(string CPR)
         {
-            return _patientList.Find(x => x.CPR == CPR);
+            return Ward.Patients.Find(x => x.CPR == CPR);
         }
 
         public Patient SelectedPatient
@@ -71,33 +75,10 @@ namespace P3_Midwife
             }
         }
 
-        private void recieveEMP(Employee newEmp)
-        {
-            CurrentEmployee = newEmp;
-            
-
-            foreach (Patient patient in CurrentEmployee.CurrentPatients)
-            {
-                _currentPatients.Add(patient);
-            }
-        }
-
         public HomeScreenViewModel()
         {
-            Messenger.Default.Register<Employee>(this, (Emp) =>
-            {
-                recieveEMP(Emp);
-
-                CurrentEmployee = Emp;
-
-                if (CurrentEmployee.GetType() == typeof(Midwife))
-                {
-                    foreach (Patient patient in CurrentEmployee.CurrentPatients)
-                    {
-                        _currentPatients.Add(patient);
-                    }
-                }
-            });
+            Messenger.Default.Register<Employee>(this, "ActiveUser", (ActiveUser) => { CurrentEmployee = ActiveUser; });
+            Messenger.Default.Register<Employee>(this, "ReturnEmployee", (ActiveUser) => { CurrentEmployee = ActiveUser; });
             this.LogOutCommand = new RelayCommand(parameter =>
             {
                 CurrentEmployee = null;
@@ -107,19 +88,22 @@ namespace P3_Midwife
             {
                 Application.Current.Shutdown();
             });
-            this.FindPatientCommand = new RelayCommand(parameter => { FindPatient(CPR); });
+            this.FindPatientCommand = new RelayCommand(parameter => 
+            {
+                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ShowPatientView"));
+                Messenger.Default.Send<Patient>(FindPatient(CPR), "Patient");
+            });
             this.OpenAddPatientCommand = new RelayCommand(parameter =>
-                {
-                    Messenger.Default.Send(new NotificationMessage("AddPatientMsg"));
-                }
-            );
-            this.AddPatientComand = new RelayCommand(parameter =>
-                {
-                    if (Ward.Patients.Find(x => x.CPR == CPREntered) != null)
-                    {
-                        CurrentEmployee.CurrentPatients.Add(Ward.Patients.Find(x => x.CPR == CPREntered));
-                    }
-                });
+            {
+                Messenger.Default.Send(new NotificationMessage("AddPatientMsg"));
+                Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
+            });
+            this.OpenPatientCommand = new RelayCommand(parameter =>
+            {
+                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ShowPatientView"));
+                Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
+            });
+            
         }
     }
 }
