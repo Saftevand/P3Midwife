@@ -26,7 +26,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>
-                           <Run Text="{Binding  }"
+                           <Run Text="{Binding  }"/>
                         </TextBlock>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
