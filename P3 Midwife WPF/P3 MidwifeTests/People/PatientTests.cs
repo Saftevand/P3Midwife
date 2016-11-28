@@ -29,25 +29,25 @@ namespace P3_Midwife.Tests
         #endregion
 
         #region AddAndRemovePatientFromRoom
-        [TestMethod()]
-        public void AdmitPatientToRoomTest()
-        {
-            Patient TestPatientAdmit = new Patient("1234567890", "TestName");
-            TestPatientAdmit.AdmitPatientToRoom(TestDeliveryRoom);
+        //[TestMethod()]
+        //public void AdmitPatientToRoomTest()
+        //{
+        //    Patient TestPatientAdmit = new Patient("1234567890", "TestName");
+        //    TestPatientAdmit.AdmitPatientToRoom(TestDeliveryRoom);
 
-            Assert.AreEqual(TestDeliveryRoom.PatientsInRoom.First(), TestPatientAdmit); 
-        }
+        //    Assert.AreEqual(TestDeliveryRoom.PatientsInRoom.First(), TestPatientAdmit); 
+        //}
 
-        [TestMethod()]
-        public void DischargePatientFromRoomTest()
-        {
-            Patient TestPatientAdmit = new Patient("1234567890", "TestName");
+        //[TestMethod()]
+        //public void DischargePatientFromRoomTest()
+        //{
+        //    Patient TestPatientAdmit = new Patient("1234567890", "TestName");
 
-            TestPatientAdmit.AdmitPatientToRoom(TestDeliveryRoom);
-            TestPatientAdmit.DischargePatientFromRoom(TestDeliveryRoom);
+        //    TestPatientAdmit.AdmitPatientToRoom(TestDeliveryRoom);
+        //    TestPatientAdmit.DischargePatientFromRoom(TestDeliveryRoom);
 
-            Assert.IsFalse(TestDeliveryRoom.PatientsInRoom.Contains(TestPatientAdmit));
-        }
+        //    Assert.IsFalse(TestDeliveryRoom.PatientsInRoom.Contains(TestPatientAdmit));
+        //}
 
         //TODO: denne test skal måske ikke være der da den skriver i filer
         //[TestMethod()]

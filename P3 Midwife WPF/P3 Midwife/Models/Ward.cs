@@ -20,7 +20,7 @@ namespace P3_Midwife
             Filemanagement.ReadEmployees(Environment.CurrentDirectory + "\\PersonInfo", "Employee_info.txt");
             Filemanagement.ReadPatients(Environment.CurrentDirectory + "\\PersonInfo", "Patient_info.txt");
             Filemanagement.ReadRooms();
-           // Filemanagement.ReadMedicalServiceFromFile();
+            //Filemanagement.ReadMedicalServiceFromFile();
         }
 
         //public static void AdmitPatient(string _cpr, string _name)

@@ -159,6 +159,8 @@ namespace P3_Midwife
                 {
                     _subStrings = _tempString.Split(' ');
                     MedicalService currentService = new MedicalService(Convert.ToDecimal(_subStrings[2]), _subStrings[1], _subStrings[0]);
+                    Ward.MedicalServicesList.Add(currentService);
+                    TextEditor.values.Add(_subStrings[0], _subStrings[1]);
                 }
             }
         }

@@ -51,7 +51,7 @@ namespace P3_Midwife
         public string Gender { get { return gender.ToString(); } }
 
 
-        public int Age { get { return /*CalculateAge()*/ 29; } }
+        public int Age { get { return CalcAge(); } }
 
       
 
@@ -209,7 +209,6 @@ namespace P3_Midwife
             return 11 - rest;
         }
 
-
         public void CreateChild(char _gender)
         {
             Patient child = new Patient(_gender);
@@ -224,28 +223,18 @@ namespace P3_Midwife
             Children.Add(child);
         }
 
-        // erstattet af funktion i Midwife - assignPatientToDRoom
-        //public void AdmitPatientToRoom(DeliveryRoom room)
-        //{            
-        //    if (!room.PatientsInRoom.Contains(this))
-        //    {
-        //        room.PatientsInRoom.Add(this);
-        //    }
-        //    else throw new ArgumentException(_name + " with CPR:" + CPR.ToString() + " is already in room:" + room.RoomID.ToString());
-        //}
-
-        public void DischargePatientFromRoom(DeliveryRoom room)
+        public int CalcAge()
         {
-            if (room.PatientsInRoom.Contains(this))
+            long cpr = long.Parse(this.CPR);
+            int date = (int)(cpr / 10000);
+            int year = ((100 - (date % 100)) + DateTime.Today.Year) % 100;
+            date /= 100;
+            if (date % 100 < DateTime.Today.Month || date / 100 < DateTime.Today.Day)
             {
-                room.PatientsInRoom.Remove(this);
+                return year;
             }
-            else throw new ArgumentException(_name + " with CPR:" + CPR.ToString() + " is NOT in room:" + room.RoomID.ToString());
-        }
-
-        public int calcAgeFromCPR(string _cpr)
-        {
-            throw new NotImplementedException();
+            else
+                return --year;
         }
 
         public override string ToString()

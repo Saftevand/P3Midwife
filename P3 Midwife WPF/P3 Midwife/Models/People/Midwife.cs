@@ -12,8 +12,7 @@ namespace P3_Midwife
 
         public Midwife(int id, string name, string password, int telephonenumber, string email, int clearance) 
             : base(id, name, password, telephonenumber, email, clearance)
-        {
-        }
+        { }
 
         private void transferPatientFromDRoom(Patient _patient)
         {
