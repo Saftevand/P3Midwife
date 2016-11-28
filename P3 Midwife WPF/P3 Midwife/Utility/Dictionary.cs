@@ -25,5 +25,7 @@ namespace P3_Midwife
         }
 
         public List<string> ListOfWords { get { return _listOfWords; } set { _listOfWords = value; } }
+
+
     }
 }

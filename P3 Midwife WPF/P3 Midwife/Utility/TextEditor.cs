@@ -36,6 +36,22 @@ namespace P3_Midwife
             
             return result;
         }
+        public static Dictionary<string, string> values = new Dictionary<string, string>()
+        {
+            { "HAN.", "Hells Angels" },
+            { "VE.", "Vaginal Eksploration" },
+            { "FE.", "Fisse" }
+        };
+
+        public static string WordReplacement(string p)
+        {
+            StringBuilder b = new StringBuilder(p);
+            foreach (string k in values.Keys)
+            {
+                b.Replace(k, values[k]);
+            }
+            return b.ToString();
+        }
 
     }
 }
