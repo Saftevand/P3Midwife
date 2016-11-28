@@ -226,6 +226,11 @@ namespace P3_Midwife
             else throw new ArgumentException(_name + " with CPR:" + CPR.ToString() + " is NOT in room:" + room.RoomID.ToString());
         }
 
+        public int calcAgeFromCPR(string _cpr)
+        {
+            throw new NotImplementedException();
+        }
+
         public override string ToString()
         {
             return this.CPR + " " + this.Name;
