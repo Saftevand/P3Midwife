@@ -40,11 +40,14 @@ namespace P3_Midwife
             get { return (Employee)this.GetValue(EmployeeProperty); }
             set
             {
-                foreach (Patient item in value.CurrentPatients)
+                if (value.CurrentPatients != null)
                 {
-                    if (!_currentPatients.Contains(item))
+                    foreach (Patient item in value.CurrentPatients)
                     {
-                        _currentPatients.Add(item);
+                        if (!_currentPatients.Contains(item))
+                        {
+                            _currentPatients.Add(item);
+                        }
                     }
                 }
                 this.SetValue(EmployeeProperty, value);  }
@@ -72,11 +75,11 @@ namespace P3_Midwife
             get { return (Patient)this.GetValue(SelectedPatientProperty); }
             set
             {
-                if (value != this.CurrentPatient)
-                {
+                //if (value != this.CurrentPatient)
+                //{
                     this.SetValue(SelectedPatientProperty, value);
-                    OnPropertyChanged(nameof(this.SelectedPatient));
-                }
+                //  OnPropertyChanged(nameof(this.SelectedPatient));
+                //}
 
                 
                 //this.OnPropertyChanged(nameof());
@@ -120,9 +123,11 @@ namespace P3_Midwife
                 Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
                 Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
             });
-            this.PatientSelected = new RelayCommand(parameter =>
+            this.OpenPatientOnClick = new RelayCommand(parameter =>
             {
-                
+                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ShowPatientView"));
+                Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
+                Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
             });
             
         }

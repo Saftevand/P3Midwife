@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:P3_Midwife.Views"
         xmlns:ViewModel="clr-namespace:P3_Midwife.ViewModel"
         mc:Ignorable="d"
-        Title="PatientWindow" Height="600" Width="1200">
+        Title="PatientWindow" Height="720" Width="1280">
         <Window.DataContext>
             <ViewModel:PatientViewModel/>
         </Window.DataContext>
@@ -22,11 +22,11 @@
         </Menu>
 
         <StackPanel>
-            <ListBox HorizontalAlignment="Left" VerticalAlignment="Center" ItemsSource="{Binding PatientCurrent }">
+            <ListBox HorizontalAlignment="Left" VerticalAlignment="Center" ItemsSource="{Binding }" DisplayMemberPath="{Binding Name Age CPR}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>
-                           <Run Text="{Binding  }"/>
+                           
                         </TextBlock>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

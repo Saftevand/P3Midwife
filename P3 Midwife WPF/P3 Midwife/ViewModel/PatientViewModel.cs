@@ -35,7 +35,7 @@ namespace P3_Midwife.ViewModel
         public PatientViewModel()
         {
             Messenger.Default.Register<Patient>(this, "Patient", (ActivePatient) => { PatientCurrent = ActivePatient; });
-            Messenger.Default.Register<Employee>(this, "ReturnEmployee", (ActiveUser) => { CurrentEmployee = ActiveUser; });
+            Messenger.Default.Register<Employee>(this, "Employee", (ActiveUser) => { CurrentEmployee = ActiveUser; });
             this.LogOutCommand = new RelayCommand(parameter =>
             {
                 Messenger.Default.Send(new NotificationMessage("ShowMainView"));
@@ -47,6 +47,7 @@ namespace P3_Midwife.ViewModel
             this.BackCommand = new RelayCommand(Parameter =>
             {
                 Messenger.Default.Send(new NotificationMessage("ShowHomeView"));
+                Messenger.Default.Send<Employee>(CurrentEmployee, "ReturnEmployee");
             });
             this.AdmitPatientCommand = new RelayCommand(Parameter =>
             {
