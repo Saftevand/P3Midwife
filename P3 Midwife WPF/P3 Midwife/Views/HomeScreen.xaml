@@ -26,12 +26,12 @@
         </Menu>
 
         <StackPanel>
-            <ListBox ItemsSource="{Binding CurrentPatients}" HorizontalAlignment="Left" VerticalAlignment="Center" SelectedItem="{Binding SelectedPatient}">
+            <ListBox ItemsSource="{Binding CurrentPatients}"  HorizontalAlignment="Left" VerticalAlignment="Center" SelectedItem="{Binding Path=CurrentPatient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem="False" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>
                             <Run Text="{Binding Name}"/>
-                            <Run Text="{Binding CPR}"/>
+                            <Run Text="{Binding CPR}"/> 
                         </TextBlock>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GalaSoft.MvvmLight.Messaging;
 
@@ -21,6 +22,17 @@ namespace P3_Midwife.Views
         public PatientWindow()
         {
             InitializeComponent();
+            Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
+        }
+
+        private void NotificationMessageRecieved(NotificationMessage msg)
+        {
+            if (msg.Notification == "ShowHomeView")
+            {
+                var HomeScreenViem = new HomeScreen();
+                HomeScreenViem.Show();
+                this.Close();
+            }
         }
     }
 }

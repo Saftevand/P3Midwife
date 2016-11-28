@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using GalaSoft.MvvmLight.Messaging;
+using System.ComponentModel;
 using System.Collections.ObjectModel;
 
 namespace P3_Midwife
 {
-    public class HomeScreenViewModel : DependencyObject
+    public class HomeScreenViewModel : DependencyObject, INotifyPropertyChanged
     {
         private List<Patient> _patientList;
         public RelayCommand LogOutCommand { get; }
@@ -19,18 +20,20 @@ namespace P3_Midwife
         public RelayCommand GetCurrentPatientList { get; }
         public RelayCommand OpenAddPatientCommand { get; }
         public RelayCommand OpenPatientCommand { get; }
+        public RelayCommand OpenPatientOnClick { get; }
+        public RelayCommand PatientSelected { get; private set; }
         public static DependencyProperty EmployeeProperty = DependencyProperty.Register(nameof(CurrentEmployee), typeof(Employee), typeof(HomeScreenViewModel));
         public static DependencyProperty PatientProperty = DependencyProperty.Register(nameof(CurrentPatient), typeof(Patient), typeof(HomeScreenViewModel));
         public static DependencyProperty CPRProperty = DependencyProperty.Register(nameof(CPR), typeof(string), typeof(HomeScreenViewModel));
         public static DependencyProperty SelectedPatientProperty = DependencyProperty.Register(nameof(SelectedPatient), typeof(Patient), typeof(HomeScreenViewModel));
         public ObservableCollection<Patient> _currentPatients = new ObservableCollection<Patient>();
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public ObservableCollection<Patient> CurrentPatients
         {
             get { return _currentPatients; }
-        }
-
-            
+        }            
 
         public Employee CurrentEmployee
         {
@@ -69,10 +72,22 @@ namespace P3_Midwife
             get { return (Patient)this.GetValue(SelectedPatientProperty); }
             set
             {
-                this.SetValue(SelectedPatientProperty, value);
-                Messenger.Default.Send(new NotificationMessage("ShowPatientView"));
-                Messenger.Default.Send(SelectedPatient);
+                if (value != this.CurrentPatient)
+                {
+                    this.SetValue(SelectedPatientProperty, value);
+                    OnPropertyChanged(nameof(this.SelectedPatient));
+                }
+
+                
+                //this.OnPropertyChanged(nameof());
+                //Messenger.Default.Send(new NotificationMessage("ShowPatientView"));
+                //Messenger.Default.Send(SelectedPatient);
             }
+        }
+
+        private void OnPropertyChanged(string info)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
         }
 
         public HomeScreenViewModel()
@@ -92,6 +107,7 @@ namespace P3_Midwife
             {
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ShowPatientView"));
                 Messenger.Default.Send<Patient>(FindPatient(CPR), "Patient");
+                Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
             });
             this.OpenAddPatientCommand = new RelayCommand(parameter =>
             {
@@ -102,6 +118,11 @@ namespace P3_Midwife
             {
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ShowPatientView"));
                 Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
+                Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
+            });
+            this.PatientSelected = new RelayCommand(parameter =>
+            {
+                
             });
             
         }

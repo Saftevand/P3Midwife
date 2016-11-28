@@ -12,11 +12,6 @@ namespace P3_Midwife
         public SOSU(int id, string name, string password, int telephonenumber, string email, int clearance) 
             : base(id, name, password, telephonenumber, email, clearance)
         {
-            this.ID = id;
-            this.Name = name;
-            this.Password = password;
-            this.TelephoneNumber = telephonenumber;
-            this.Email = email;
         }
 
     }

@@ -51,7 +51,7 @@ namespace P3_Midwife
         public string Gender { get { return gender.ToString(); } }
 
 
-        public int Age { get { return CalculateAge(); } }
+        public int Age { get { return /*CalculateAge()*/ 29; } }
 
       
 
@@ -64,7 +64,6 @@ namespace P3_Midwife
             this.CPR = PatientCPR;
             this._name = PatientName;
             this.gender = FindGenderFromCPR(PatientCPR);
-            Filemanagement.AddPatientOrEmployeeToFile(this);
             this.RecordList.Add(new Record(this));
         }
 
@@ -129,7 +128,7 @@ namespace P3_Midwife
             string Age = CPR.Substring(0, 6);
             string CurrentDate = DateTime.Today.ToString("ddMMyy");
 
-            return 28 ;
+            return 28;
             //TODO Calculate age!
         }
 

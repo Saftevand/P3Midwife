@@ -17,20 +17,27 @@ namespace P3_Midwife.ViewModel
         public RelayCommand BackCommand { get; }
         public RelayCommand AdmitPatientCommand { get; }
         public RelayCommand DischargePatientCommand { get; }
-        public static DependencyProperty PatientNameProperty = DependencyProperty.Register(nameof(PatientCurrent), typeof(Patient), typeof(PatientViewModel));
+        public static DependencyProperty PatientProperty = DependencyProperty.Register(nameof(PatientCurrent), typeof(Patient), typeof(PatientViewModel));
+        public static DependencyProperty EmployeeProperty = DependencyProperty.Register(nameof(CurrentEmployee), typeof(Employee), typeof(PatientViewModel));
 
         public Patient PatientCurrent
         {
-            get { return (Patient)this.GetValue(PatientNameProperty); }
-            set { this.SetValue(PatientNameProperty, value); }
+            get { return (Patient)this.GetValue(PatientProperty); }
+            set { this.SetValue(PatientProperty, value); }
         } 
+
+        public Employee CurrentEmployee
+        {
+            get { return (Employee)this.GetValue(EmployeeProperty); }
+            set { this.SetValue(EmployeeProperty, value); }
+        }
 
         public PatientViewModel()
         {
             Messenger.Default.Register<Patient>(this, "Patient", (ActivePatient) => { PatientCurrent = ActivePatient; });
+            Messenger.Default.Register<Employee>(this, "ReturnEmployee", (ActiveUser) => { CurrentEmployee = ActiveUser; });
             this.LogOutCommand = new RelayCommand(parameter =>
             {
-                //CurrentEmployee = null; //Fixe
                 Messenger.Default.Send(new NotificationMessage("ShowMainView"));
             });
             this.ExitCommand = new RelayCommand(parameter =>
