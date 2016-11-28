@@ -15,17 +15,19 @@ namespace P3_Midwife
         //private Record _record;
         private List<MedicalService> _billItemList = new List<MedicalService>();
         private decimal _totalPrice;
+        private int _recordID;
         #endregion
-        
-        public Bill(/*Record record*/)
-        {
-            //this._record = record;
-        }
+
 
         #region Properties
         public List<MedicalService> BillItemList { get { return _billItemList; } set {; } }
         public decimal TotalPrice { get { return CalculateTotalPrice(); } }
         #endregion
+
+        public Bill(int recordID)
+        {
+            this._recordID = recordID;
+        }
 
         #region Methods
         public override string ToString()
@@ -47,16 +49,6 @@ namespace P3_Midwife
             }
             _totalPrice = result;
             return result;
-        }
-
-        public void AddToBillItemList(MedicalService BI)
-        {
-            _billItemList.Add(BI);
-        }
-
-        public void RemoveFromBillItemList(MedicalService BI)
-        {
-            _billItemList.Remove(BI);
         }
         #endregion
     }

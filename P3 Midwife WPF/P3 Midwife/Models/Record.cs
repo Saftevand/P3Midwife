@@ -31,7 +31,7 @@ namespace P3_Midwife
         private List<_micturition> _micturitionList;
         private List<_fetusObservation> _fetusObservationList;
         private List<_birthInformation> _birthInformationList;
-        private Bill _bill = new Bill();
+        private Bill _bill;
         public static int RecordID;
      
 
@@ -115,12 +115,13 @@ namespace P3_Midwife
         {
             this._patient = Patient;
             this.IsActive = true;
+            this.CurrentBill = new Bill(RecordID);
             RecordID++;
         }
 
-        public void AddMedicalServiceToBill(MedicalService medicalService)
+        public int CalculateSGA(/*TODO - patrick gøred*/)
         {
-            CurrentBill.BillItemList.Add(medicalService);
+            throw new NotImplementedException("Patrick laver den");
         }
     }
 }

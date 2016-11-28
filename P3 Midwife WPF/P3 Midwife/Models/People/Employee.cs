@@ -35,5 +35,12 @@ namespace P3_Midwife
         {
             return this.Name + " " + this.Password + " " + this.TelephoneNumber + " " + this.Email + " " + this.Clearance;
         }
+
+        public Patient FindPatient(string cpr)
+        {
+            return Ward.Patients.Find(x => x.CPR == cpr);
+        }
+
+
     }
 }

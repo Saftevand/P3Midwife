@@ -123,15 +123,6 @@ namespace P3_Midwife
             this.CPR = result;
         }
 
-        private int CalculateAge()
-        {
-            string Age = CPR.Substring(0, 6);
-            string CurrentDate = DateTime.Today.ToString("ddMMyy");
-
-            return 28;
-            //TODO Calculate age!
-        }
-
         // Function to check if last digit matches the gender of the child
         private bool GenderCPRMatch(char _gender, int[] _cpr)
         {
@@ -207,20 +198,6 @@ namespace P3_Midwife
             int rest = 0;
             rest = _total % 11;
             return 11 - rest;
-        }
-
-        public void CreateChild(char _gender)
-        {
-            Patient child = new Patient(_gender);
-            child.Mother = this;
-            Children.Add(child);
-        }
-
-        public void CreateChild(char _gender, string _date)
-        {
-            Patient child = new Patient(_gender, _date);
-            child.Mother = this;
-            Children.Add(child);
         }
 
         public int CalcAge()
