@@ -36,6 +36,7 @@ namespace P3_Midwife
             return this.Name + " " + this.Password + " " + this.TelephoneNumber + " " + this.Email + " " + this.Clearance;
         }
 
+        //Finds a patient in the wards patient list based on cpr
         public Patient FindPatient(string cpr)
         {
             return Ward.Patients.Find(x => x.CPR == cpr);

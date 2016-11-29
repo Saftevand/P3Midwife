@@ -35,8 +35,8 @@ namespace P3_Midwife
 
         private Bill _bill;
         public static int RecordID;
-
-
+        public int thisRecordID;
+     
         public struct _vaginalExploration
         {
             private DateTime _time;
@@ -158,8 +158,15 @@ namespace P3_Midwife
         {
             this._patient = Patient;
             this.IsActive = true;
-            this.CurrentBill = new Bill(RecordID);
-            RecordID++;
+            thisRecordID = RecordID++;
+            this.CurrentBill = new Bill(this);
+        }
+
+        //Creates Bill file and deactivates the bill.
+        public void ArchiveBill()
+        {
+            Filemanagement.WriteBill(this.CurrentBill);
+            this.CurrentBill.Active = false;
         }
 
         public int CalculateSGA(/*TODO - patrick gøred*/)
