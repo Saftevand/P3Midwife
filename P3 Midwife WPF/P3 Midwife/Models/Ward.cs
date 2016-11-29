@@ -23,6 +23,8 @@ namespace P3_Midwife
             //Filemanagement.ReadMedicalServiceFromFile();
         }
 
+        //TODO: HVOR FANDEN SKAL LOGIN/LOGUD/AUTOLOGUD LIGGE?!?!
+
         //public static void AdmitPatient(string _cpr, string _name)
         //{
         //    Patient patientToAdd = new Patient(_cpr, _name);

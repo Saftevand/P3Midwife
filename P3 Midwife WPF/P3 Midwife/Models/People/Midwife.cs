@@ -14,7 +14,7 @@ namespace P3_Midwife
             : base(id, name, password, telephonenumber, email, clearance)
         { }
 
-        private void transferPatientFromDRoom(Patient _patient)
+        private void TransferPatient(Patient _patient)
         {
             Filemanagement.RemovePatientFromRoomFile(_patient);
             Filemanagement.RemovePatientFromFile(_patient);
@@ -44,5 +44,55 @@ namespace P3_Midwife
             else
                 throw new Exception("There are no empty rooms to assign patients to");
         }
+
+        //TODO: Do we need method RequestTestSample? a bit like RegisterTreatmentToBill 
+        public void RegisterTreatmentToBill(Patient _patient, MedicalService _medicalService)
+        {
+            Record currentRecord = _patient.RecordList.Find(x => x.IsActive == true);
+            if (currentRecord != null)
+            {
+                currentRecord.CurrentBill.BillItemList.Add(_medicalService);
+            }
+            else
+            {
+                throw new Exception("No active record for patient");
+            }
+        }
+
+        public void RemoveTreatmentFromBill(Patient _patient, MedicalService _medicalService)
+        {
+            if (_patient.RecordList.Last().IsActive == true)
+            {
+                _patient.RecordList.Last().CurrentBill.BillItemList.Remove(_medicalService);
+            }
+            else
+            {
+                throw new Exception("No active record for patient");
+            }
+        }
+
+        public void AdmitPatient(string _cpr, string _name)
+        {
+            Patient patientToAdd = new Patient(_cpr, _name);
+            Ward.Patients.Add(patientToAdd);
+            Filemanagement.AddPatientOrEmployeeToFile(patientToAdd);
+            AssignPatientToDRoom(patientToAdd);
+        }
+
+        public void CreatePatient(Patient _mother, char _gender)
+        {
+            Patient child = new Patient(_gender);
+            child.Mother = _mother;
+            _mother.Children.Add(child);
+        }
+
+        public void CreatePatient(Patient _mother, char _gender, string _date)
+        {
+            Patient child = new Patient(_gender, _date);
+            child.Mother = _mother;
+            _mother.Children.Add(child);
+        }
+
+        
     }
 }

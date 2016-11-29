@@ -11,22 +11,22 @@ namespace P3_Midwife.Tests
     [TestClass()]
     public class TextEditorTests
     {
-        [TestMethod()]
-        public void CheckWordTest()
-        {
-            Patient TestPatient = new Patient("1234567890", "TestName");
-            string TestString = "TEST";
-            List<MedicalService> TestList = new List<MedicalService>();
+        //[TestMethod()]
+        //public void CheckWordTest()
+        //{
+        //    Patient TestPatient = new Patient("1234567890", "TestName");
+        //    string TestString = "TEST";
+        //    List<MedicalService> TestList = new List<MedicalService>();
 
-            TestList.Add(new MedicalService(20, TestString, "TS"));
-            TestPatient.RecordList.Add(new Record(TestPatient));
-            TestPatient.RecordList.First().CurrentBill.AddToBillItemList(new MedicalService(20, "testname", "tn"));
-            TestPatient.RecordList.First().IsActive = true;
+        //    TestList.Add(new MedicalService(20, TestString, "TS"));
+        //    TestPatient.RecordList.Add(new Record(TestPatient));
+        //    TestPatient.RecordList.First().CurrentBill.AddToBillItemList(new MedicalService(20, "testname", "tn"));
+        //    TestPatient.RecordList.First().IsActive = true;
 
-            TextEditor.CheckWord(TestString, TestList, TestPatient);
+        //    TextEditor.CheckWord(TestString, TestList, TestPatient);
 
-            Assert.IsNotNull(TestPatient.RecordList);
-        }
+        //    Assert.IsNotNull(TestPatient.RecordList);
+        //}
 
         [TestMethod()]
         public void AutoFillTest()
