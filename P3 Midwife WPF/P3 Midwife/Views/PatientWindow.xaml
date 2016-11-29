@@ -32,11 +32,7 @@
                 <ListBoxItem Content="{Binding PatientCurrent.CPR}" Selected="ListBoxItem_Selected" Height="22"/>
             </ListBox>
             <ListView x:Name="PatientInfo" Height="191" Margin="0,0,0.6,0" SelectionChanged="listView_SelectionChanged" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding PatientCurrent}" SelectionMode="Single" ClipToBounds="True">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn/>
-                    </GridView>
-                </ListView.View>
+
                 <ListViewItem Content="{Binding PatientCurrent.Name}" Margin="0" Selected="ListViewItem_Selected" Height="20"/>
                 <ListViewItem Content="{Binding PatientCurrent.CPR}" Margin="0" Height="20"/>
                 <ListViewItem Content="{Binding PatientCurrent.Gender, Mode=OneWay}" Margin="0" Height="20"/>
