@@ -13,6 +13,5 @@ namespace P3_Midwife
             : base(id, name, password, telephonenumber, email, clearance)
         {
         }
-
     }
 }

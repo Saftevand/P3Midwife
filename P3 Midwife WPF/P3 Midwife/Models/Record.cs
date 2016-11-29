@@ -120,6 +120,7 @@ namespace P3_Midwife
             this.CurrentBill = new Bill(this);
         }
 
+        //Creates Bill file and deactivates the bill.
         public void ArchiveBill()
         {
             Filemanagement.WriteBill(this.CurrentBill);
