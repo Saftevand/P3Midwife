@@ -19,11 +19,35 @@ namespace P3_Midwife.ViewModel
         public RelayCommand DischargePatientCommand { get; }
         public static DependencyProperty PatientProperty = DependencyProperty.Register(nameof(PatientCurrent), typeof(Patient), typeof(PatientViewModel));
         public static DependencyProperty EmployeeProperty = DependencyProperty.Register(nameof(CurrentEmployee), typeof(Employee), typeof(PatientViewModel));
+        public static DependencyProperty SelectedChildProperty = DependencyProperty.Register(nameof(SelectedChild), typeof(Patient), typeof(PatientViewModel));
+        private ObservableCollection<Patient> _children = new ObservableCollection<Patient>();
+
+        public ObservableCollection<Patient> Children
+        {
+            get { return _children; }
+            set { _children = value; }
+        }
+
+        public Patient SelectedChild
+        {
+            get { return (Patient)this.GetValue(SelectedChildProperty); }
+            set { this.SetValue(SelectedChildProperty, value); }
+        }
 
         public Patient PatientCurrent
         {
             get { return (Patient)this.GetValue(PatientProperty); }
-            set { this.SetValue(PatientProperty, value); }
+            set
+            {
+                if (value!= null)
+                {
+                    foreach (var item in value.Children)
+                    {
+                        Children.Add(item);
+                    }
+                    { this.SetValue(PatientProperty, value); }
+                } 
+            }
         } 
 
         public Employee CurrentEmployee

@@ -26,7 +26,7 @@
         </Menu>
 
         <StackPanel>
-            <ListBox ItemsSource="{Binding CurrentPatients}"  HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectedItem="{Binding CurrentPatient}">
+            <ListBox ItemsSource="{Binding CurrentPatients}"  HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectedItem="{Binding SelectedPatient, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Tag="{Binding SelectedPatient}" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>

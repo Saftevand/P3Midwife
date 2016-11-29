@@ -67,6 +67,11 @@ namespace P3_Midwife
             this.RecordList.Add(new Record(this));
         }
 
+        public Patient(string PatientCPR)
+        {
+            CPR = PatientCPR;
+        }
+
         public Patient(char _gender)
         {
             GenerateCpr(_gender);
@@ -216,7 +221,13 @@ namespace P3_Midwife
 
         public override string ToString()
         {
-            return this.CPR + " " + this.Name;
+            string result = this.CPR + " " + this.Name;
+
+            foreach (Patient  children in _children)
+            {
+                result += " " + children.CPR;
+            }
+            return result;
         }
     }
 }

@@ -7,12 +7,16 @@
         xmlns:local="clr-namespace:P3_Midwife.Views"
         xmlns:ViewModel="clr-namespace:P3_Midwife.ViewModel"
         mc:Ignorable="d"
-        Title="PatientWindow" Height="720" Width="1280">
-        <Window.DataContext>
-            <ViewModel:PatientViewModel/>
-        </Window.DataContext>
-    <Grid>
-        
+        Title="PatientWindow" Height="601.4" Width="1268.2">
+    <Window.DataContext>
+        <ViewModel:PatientViewModel/>
+    </Window.DataContext>
+    <Grid Margin="0,0,1159.6,505.4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="21*"/>
+            <RowDefinition Height="16*"/>
+        </Grid.RowDefinitions>
+
         <Menu Width="50" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left">
             <MenuItem Header="Menu">
                 <MenuItem Command="{Binding BackCommand}" Header="Tilbage"/>
@@ -20,17 +24,25 @@
                 <MenuItem Command="{Binding ExitCommand}" Header="Exit"/>
             </MenuItem>
         </Menu>
-
-        <StackPanel>
-            <ListBox HorizontalAlignment="Left" VerticalAlignment="Center" ItemsSource="{Binding }" DisplayMemberPath="{Binding Name Age CPR}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock>
-                           
-                        </TextBlock>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>            
+        <StackPanel Margin="0,67.4,-219,-452.6" Grid.Row="1">
+            <ListBox Height="89" Margin="0,0,-0.4,0">
+                <ListBoxItem Content="{Binding PatientCurrent.Name}" Height="20"/>
+                <ListBoxItem Content="{Binding PatientCurrent.Age}" Height="20"/>
+                <ListBoxItem Content="{Binding PatientCurrent.Gender}" Height="20"/>
+                <ListBoxItem Content="{Binding PatientCurrent.CPR}" Selected="ListBoxItem_Selected" Height="22"/>
+            </ListBox>
+            <ListView x:Name="PatientInfo" Height="191" Margin="0,0,0.6,0" SelectionChanged="listView_SelectionChanged" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding PatientCurrent}" SelectionMode="Single" ClipToBounds="True">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+                <ListViewItem Content="{Binding PatientCurrent.Name}" Margin="0" Selected="ListViewItem_Selected" Height="20"/>
+                <ListViewItem Content="{Binding PatientCurrent.CPR}" Margin="0" Height="20"/>
+                <ListViewItem Content="{Binding PatientCurrent.Gender, Mode=OneWay}" Margin="0" Height="20"/>
+                <ListViewItem Content="{Binding PatientCurrent.Age, Mode=OneWay}" Margin="0" Height="20"/>
+            </ListView>
         </StackPanel>
     </Grid>
+
 </Window>
