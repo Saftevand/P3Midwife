@@ -25,6 +25,22 @@ namespace P3_Midwife
             _Files.Add(Path.Combine(Directory, NameOfFile));
         }
 
+        public static void ReadRecords(string Directory, string NameOfFile)
+        {
+            Stream RecordFile = File.Open(Path.Combine(Directory, NameOfFile), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using (StreamReader sr = new StreamReader(RecordFile))
+            {
+                string _tempString;
+                string[] _subStrings;
+
+                while ((_tempString = sr.ReadLine()) != null)
+                {
+                    _subStrings = _tempString.Split(' ');
+                    //Patrick tager den her fra
+                }
+            }
+
+        }
         //TODO: directory er ikke nødvendige som parametre. alle filer er i samme mappe
         public static void ReadEmployees(string Directory, string NameOfFile)
         {
@@ -58,11 +74,36 @@ namespace P3_Midwife
             {
                 string _tempString;
                 string[] _subStrings;
+                string tempName;
+                int counter;
+                Patient tempPatient;
+                Patient tempPatientChildren;
 
                 while ((_tempString = sr.ReadLine()) != null)
                 {
                     _subStrings = _tempString.Split(' ');
-                    Ward.Patients.Add(new Patient(_subStrings[0], _subStrings[1]));
+                    tempName = "";
+                    counter = 0;
+
+                    foreach (string substring in _subStrings)
+                    {
+                        if (!(substring.Contains("1") || substring.Contains("2") || substring.Contains("3") || substring.Contains("4") || substring.Contains("5") || substring.Contains("6") || substring.Contains("7") || substring.Contains("8") || substring.Contains("9") || substring.Contains("0") ))
+                        {
+                            tempName += substring;
+                            counter++;
+                        }
+                    }
+
+                    tempPatient = new Patient(_subStrings[0], tempName);
+                    for (int i = counter+1; i < _subStrings.Length; i++)
+                    {
+                        tempPatientChildren = new Patient(_subStrings[i]);
+                        tempPatient.Children.Add(tempPatientChildren);
+                        Ward.Patients.Add(tempPatientChildren);
+                    }
+
+                    Ward.Patients.Add(tempPatient);
+
                 }
             }
         }
