@@ -7,11 +7,13 @@ using System.Windows;
 using GalaSoft.MvvmLight.Messaging;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
 
 namespace P3_Midwife
 {
     public class HomeScreenViewModel : DependencyObject, INotifyPropertyChanged
     {
+        private int AutoLogoutTimer = 240;
         private List<Patient> _patientList;
         public RelayCommand LogOutCommand { get; }
         public RelayCommand ExitCommand { get; }
@@ -29,6 +31,64 @@ namespace P3_Midwife
         public ObservableCollection<Patient> _currentPatients = new ObservableCollection<Patient>();
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+
+        [DllImport("user32.dll")]
+        static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
+
+        // Struct we'll need to pass to the function
+        internal struct LASTINPUTINFO
+        {
+            public uint cbSize;
+            public uint dwTime;
+        }
+
+        BackgroundWorker bw = new BackgroundWorker();
+
+        private int GetLastInput()
+        {
+            int systemUptime = Environment.TickCount;
+            // The tick at which the last input was recorded
+            int LastInputTicks = 0;
+            // The number of ticks that passed since last input
+            int IdleTicks = 0;
+
+            // Set the struct
+            LASTINPUTINFO LastInputInfo = new LASTINPUTINFO();
+            LastInputInfo.cbSize = (uint)Marshal.SizeOf(LastInputInfo);
+            LastInputInfo.dwTime = 0;
+
+            // If we have a value from the function
+            if (GetLastInputInfo(ref LastInputInfo))
+            {
+                // Get the number of ticks at the point when the last activity was seen
+                LastInputTicks = (int)LastInputInfo.dwTime;
+                // Number of idle ticks = system uptime ticks - number of ticks at last input
+                IdleTicks = systemUptime - LastInputTicks;
+            }
+            return IdleTicks / 1000;
+        }
+
+        private void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            
+            while (true)
+            {
+                if (GetLastInput() > AutoLogoutTimer)
+                {
+                    e.Cancel = true;
+                    break;
+                }
+            }
+        }       
+
+        void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled == true)
+            {
+                Messenger.Default.Send(new NotificationMessage("ShowMainView"));
+            }
+        }
 
         public ObservableCollection<Patient> CurrentPatients
         {
@@ -129,7 +189,12 @@ namespace P3_Midwife
                 Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
                 Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
             });
-            
+            bw.WorkerReportsProgress = true;
+            bw.WorkerSupportsCancellation = true;
+            bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+            //bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
+            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+            bw.RunWorkerAsync();
         }
     }
 }
