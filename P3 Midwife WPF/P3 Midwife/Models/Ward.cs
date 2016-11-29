@@ -20,7 +20,7 @@ namespace P3_Midwife
             Filemanagement.ReadEmployees(Environment.CurrentDirectory + "\\PersonInfo", "Employee_info.txt");
             Filemanagement.ReadPatients(Environment.CurrentDirectory + "\\PersonInfo", "Patient_info.txt");
             Filemanagement.ReadRooms();
-            //Filemanagement.ReadMedicalServiceFromFile();
+            Filemanagement.ReadMedicalServiceFromFile();
         }
 
         //TODO: HVOR FANDEN SKAL LOGIN/LOGUD/AUTOLOGUD LIGGE?!?!

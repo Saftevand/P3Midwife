@@ -10,7 +10,6 @@ namespace P3_Midwife
     public static class Filemanagement
     {
         public static string _exePath = AppDomain.CurrentDomain.BaseDirectory;
-        public static List<string> _Files = new List<string>();
 
         //TODO: bliver ikke brugt endnu
         public static void CreateDirectory(string NameOfDirectory)
@@ -21,8 +20,7 @@ namespace P3_Midwife
         //TODO: bliver ikke brugt endnu
         public static void CreateFile(string Directory, string NameOfFile)
         {
-            File.Create(Path.Combine(Directory, NameOfFile));
-            _Files.Add(Path.Combine(Directory, NameOfFile));
+            File.Create(Path.Combine(Directory, NameOfFile)).Close();
         }
 
         //TODO: directory er ikke nødvendige som parametre. alle filer er i samme mappe
@@ -162,6 +160,21 @@ namespace P3_Midwife
                     Ward.MedicalServicesList.Add(currentService);
                     TextEditor.values.Add(_subStrings[0], _subStrings[1]);
                 }
+            }
+        }
+
+        public static void WriteBill(Bill bill)
+        {
+            CreateFile(Environment.CurrentDirectory + "\\PersonInfo", bill.BillsRecord.RecordsPatient.CPR + "_" + bill.RecordID.ToString() + ".txt");
+            string AccountFile = (Path.Combine(Environment.CurrentDirectory + "\\PersonInfo", bill.BillsRecord.RecordsPatient.CPR + "_" + bill.RecordID.ToString() + ".txt"));
+
+            using (StreamWriter sw = new StreamWriter(AccountFile))
+            {
+                foreach (MedicalService item in bill.BillItemList)
+                {
+                    sw.WriteLine(item.ToString());
+                }
+                sw.WriteLine("Total price : " + bill.TotalPrice.ToString());
             }
         }
     }

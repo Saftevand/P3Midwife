@@ -33,6 +33,7 @@ namespace P3_Midwife
         private List<_birthInformation> _birthInformationList;
         private Bill _bill;
         public static int RecordID;
+        public int thisRecordID;
      
 
         public struct _vaginalExploration
@@ -115,8 +116,14 @@ namespace P3_Midwife
         {
             this._patient = Patient;
             this.IsActive = true;
-            this.CurrentBill = new Bill(RecordID);
-            RecordID++;
+            thisRecordID = RecordID++;
+            this.CurrentBill = new Bill(this);
+        }
+
+        public void ArchiveBill()
+        {
+            this.CurrentBill.Active = false;
+            //Filemanagement print bill ud.
         }
 
         public int CalculateSGA(/*TODO - patrick gøred*/)
