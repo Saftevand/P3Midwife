@@ -122,8 +122,8 @@ namespace P3_Midwife
 
         public void ArchiveBill()
         {
+            Filemanagement.WriteBill(this.CurrentBill);
             this.CurrentBill.Active = false;
-            //Filemanagement print bill ud.
         }
 
         public int CalculateSGA(/*TODO - patrick gøred*/)
