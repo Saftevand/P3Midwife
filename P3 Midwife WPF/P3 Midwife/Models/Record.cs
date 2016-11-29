@@ -26,14 +26,16 @@ namespace P3_Midwife
         private int _apgarTenMinutes;
         private DateTime _timeOfBirth;
         private string _diagnosis;
-        private List<_vaginalExploration> _vaginalExplorationList;
-        private List<_contractionIVDrip> _contractionIVDRIPList;
-        private List<_micturition> _micturitionList;
-        private List<_fetusObservation> _fetusObservationList;
-        private List<_birthInformation> _birthInformationList;
+        private List<_vaginalExploration> _vaginalExplorationList = new List<_vaginalExploration>();
+        private List<_contractionIVDrip> _contractionIVDRIPList = new List<_contractionIVDrip>();
+        private List<_micturition> _micturitionList = new List<_micturition>();
+        private List<_fetusObservation> _fetusObservationList = new List<_fetusObservation>();
+        private List<_birthInformation> _birthInformationList = new List<_birthInformation>();
+        
+
         private Bill _bill;
         public static int RecordID;
-     
+
 
         public struct _vaginalExploration
         {
@@ -45,9 +47,50 @@ namespace P3_Midwife
             private string _consistency;
             private string _location;
             private string _amnioticFluid;
+
+            public DateTime Time
+            {
+                get { return _time; }
+                set { _time = value; }
+            }
+            public int Collum
+            {
+                get { return _collum; }
+                set { _collum = value; }
+            }
+            public int Dilation
+            {
+                get { return _dilation; }
+                set { _dilation = value; }
+            }
+            public string Position
+            {
+                get { return _position; }
+                set { _position = value; }
+            }
+            public int Rotation
+            {
+                get { return _rotation; }
+                set { _rotation = value; }
+            }
+            public string Consistency
+            {
+                get { return _consistency; }
+                set { _consistency = value; }
+            }
+            public string Location
+            {
+                get { return _location; }
+                set { _location = value; }
+            }
+            public string AmnioticFluid
+            {
+                get { return _amnioticFluid; }
+                set { _amnioticFluid = value; }
+            }
         }
 
-        public struct _contractionIVDrip
+            public struct _contractionIVDrip
         {
             private DateTime _time;
             private int _numberOfContractionsPerMinutes;
