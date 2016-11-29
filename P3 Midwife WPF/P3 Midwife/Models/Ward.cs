@@ -15,15 +15,16 @@ namespace P3_Midwife
         public static List<DeliveryRoom> DeliveryRooms = new List<DeliveryRoom>();
         public static List<MedicalService> MedicalServicesList = new List<MedicalService>();
 
+        //constructor to initialize the static lists.
         static Ward()
         {
             Filemanagement.ReadEmployees(Environment.CurrentDirectory + "\\PersonInfo", "Employee_info.txt");
             Filemanagement.ReadPatients(Environment.CurrentDirectory + "\\PersonInfo", "Patient_info.txt");
             Filemanagement.ReadRooms();
-            //Filemanagement.ReadMedicalServiceFromFile();
+            Filemanagement.ReadMedicalServiceFromFile();
         }
-
         //TODO: HVOR FANDEN SKAL LOGIN/LOGUD/AUTOLOGUD LIGGE?!?!
+
 
         //public static void AdmitPatient(string _cpr, string _name)
         //{
@@ -42,6 +43,6 @@ namespace P3_Midwife
         //}
 
 
-
+        
     }
 }

@@ -10,31 +10,31 @@ namespace P3_Midwife
     public class Patient
     {
         private char gender;
-        private int GA;
-        private int weekDay;
-        private int weightGram;
-        private int lenghtCM;
-        private int fetus;
-        private int HO;
-        private int AO;
-        private int placentaWeightGram;
-        private char kVitamin;
-        private string diag;
-        private int abgar1;
-        private int abgar5;
-        private int abgar10;
-        private string note;
-        //TODO: visse bools skal måske have andre typer.
-        private bool suck;
-        private bool nose;
-        private bool throat;
-        private bool ventricle;
-        private bool bloodsugar;
-        private decimal arteriaPH;
-        private decimal arteriaSBE;
-        private decimal venePH;
-        private decimal veneSBE;
-        private DateTime timeOfBirth;
+        //private int GA;
+        //private int weekDay;
+        //private int weightGram;
+        //private int lenghtCM;
+        //private int fetus;
+        //private int HO;
+        //private int AO;
+        //private int placentaWeightGram;
+        //private char kVitamin;
+        //private string diag;
+        //private int abgar1;
+        //private int abgar5;
+        //private int abgar10;
+        //private string note;
+        ////TODO: visse bools skal måske have andre typer.
+        //private bool suck;
+        //private bool nose;
+        //private bool throat;
+        //private bool ventricle;
+        //private bool bloodsugar;
+        //private decimal arteriaPH;
+        //private decimal arteriaSBE;
+        //private decimal venePH;
+        //private decimal veneSBE;
+        //private DateTime timeOfBirth;
         private string _name;
         public Patient Mother;
         public DeliveryRoom InRoom;
@@ -67,6 +67,11 @@ namespace P3_Midwife
             this.RecordList.Add(new Record(this));
         }
 
+        public Patient(string PatientCPR)
+        {
+            CPR = PatientCPR;
+        }
+
         public Patient(char _gender)
         {
             GenerateCpr(_gender);
@@ -83,6 +88,7 @@ namespace P3_Midwife
             this.InRoom = this.Mother.InRoom;
         }
 
+        //looks at last digit of CPR to get gender
         private char FindGenderFromCPR(string _cpr)
         {
             if ((int)char.GetNumericValue(_cpr[9]) % 2 == 0)
@@ -200,6 +206,7 @@ namespace P3_Midwife
             return 11 - rest;
         }
 
+        //Calculates age besed on CPR number
         public int CalcAge()
         {
             long cpr = long.Parse(this.CPR);
@@ -216,7 +223,13 @@ namespace P3_Midwife
 
         public override string ToString()
         {
-            return this.CPR + " " + this.Name;
+            string result = this.CPR + " " + this.Name;
+
+            foreach (Patient  children in _children)
+            {
+                result += " " + children.CPR;
+            }
+            return result;
         }
     }
 }

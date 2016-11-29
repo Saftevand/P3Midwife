@@ -17,7 +17,7 @@
             <Label>
                 Indtast CPR
             </Label>
-            <TextBox Text="{Binding CPREntered, UpdateSourceTrigger=LostFocus}" Name="TextBoxEnteredCPR" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBox Text="{Binding CPREntered, UpdateSourceTrigger=LostFocus}" Name="TextBoxEnteredCPR" VerticalAlignment="Center" HorizontalAlignment="Center" Width="75">
                 
             </TextBox>
             <Button Command="{Binding AddPatientComand}" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">
