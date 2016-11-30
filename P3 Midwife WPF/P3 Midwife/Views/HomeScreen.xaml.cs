@@ -29,15 +29,15 @@ namespace P3_Midwife
         {
             InitializeComponent();
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
-            /*bw.RunWorkerAsync();
+            bw.RunWorkerAsync();
             //bw.WorkerReportsProgress = true;
             bw.WorkerSupportsCancellation = true;
             bw.DoWork += new DoWorkEventHandler(bw_DoWork);
             //bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
-            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);*/
+            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
         }
 
-        /*[DllImport("user32.dll")]
+        [DllImport("user32.dll")]
         static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
 
         // Struct we'll need to pass to the function
@@ -91,9 +91,12 @@ namespace P3_Midwife
         {
             if (e.Cancelled == true)
             {
+                bw.DoWork -= new DoWorkEventHandler(bw_DoWork);
+                //bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
+                bw.RunWorkerCompleted -= new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
                 Messenger.Default.Send(new NotificationMessage("ShowMainView"));
             }
-        }*/
+        }
 
        
         private void NotificationMessageRecieved(NotificationMessage msg)
