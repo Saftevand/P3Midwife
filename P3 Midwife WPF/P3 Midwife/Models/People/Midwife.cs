@@ -34,7 +34,7 @@ namespace P3_Midwife
         }
 
         //Puts a patient in a vacant room
-        public void AssignPatientToDRoom(Patient _patient)
+        private void AssignPatientToDRoom(Patient _patient)
         {
             DeliveryRoom currentRoom = Ward.DeliveryRooms.Find(x => x.Occupied == false);
             if (currentRoom != null)
