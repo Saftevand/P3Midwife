@@ -54,11 +54,11 @@ namespace P3_Midwife
                     _subStrings = _tempString.Split(' ');
                     if (_subStrings[4] == "1")
                     {
-                        Ward.Employees.Add(new Midwife(i, _subStrings[0], _subStrings[1], Convert.ToInt32(_subStrings[2]), _subStrings[3].ToUpper(), Convert.ToInt32(_subStrings[4])));
+                        Ward.Employees.Add(new Midwife(i, _subStrings[0], _subStrings[1], Convert.ToInt32(_subStrings[2]), _subStrings[3].ToUpper()));
                     }
                     else if (_subStrings[4] == "2")
                     {
-                        Ward.Employees.Add(new SOSU(i, _subStrings[0], _subStrings[1], Convert.ToInt32(_subStrings[2]), _subStrings[3].ToUpper(), Convert.ToInt32(_subStrings[4])));
+                        Ward.Employees.Add(new SOSU(i, _subStrings[0], _subStrings[1], Convert.ToInt32(_subStrings[2]), _subStrings[3].ToUpper()));
                     }
                     i++;
                 }

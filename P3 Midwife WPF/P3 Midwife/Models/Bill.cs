@@ -23,7 +23,7 @@ namespace P3_Midwife
         public List<MedicalService> BillItemList { get { return _billItemList; } set {; } }
         public decimal TotalPrice { get { return CalculateTotalPrice(); } }
         public bool Active { get; set; }
-        public Record BillsRecord;
+        public Record BillsRecord { get; set; }
         public int RecordID { get; set; }
         #endregion
 
