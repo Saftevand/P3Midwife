@@ -8,16 +8,15 @@ namespace P3_Midwife
 {
    public class MedicalService
    {
-        public string Name { get; }
-        public decimal Price { get; }
-        public string AbbrevationName { get; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        public string AbbrevationName { get; set; }
 
         public MedicalService(decimal price, string name, string abbrevationName)
         {
             this.Price = price;
             this.Name = name;
             this.AbbrevationName = abbrevationName;
-            Ward.MedicalServicesList.Add(this);
         }
 
         public override string ToString()

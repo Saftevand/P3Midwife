@@ -11,7 +11,7 @@ namespace P3_Midwife.Tests
     [TestClass()]
     public class BillTests
     {
-        Bill BillTest = new Bill(1);
+        Bill BillTest = new Bill(new Record(new Patient('d')));
 
         [TestMethod()]
         public void BillTestContructorRecord()
