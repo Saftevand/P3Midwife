@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Messaging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,40 +11,30 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using GalaSoft.MvvmLight.Messaging;
-
 
 namespace P3_Midwife.Views
 {
-    public partial class RecordWindow : Window
+    public partial class NewChildWindow : Window
     {
-        public RecordWindow()
+        public NewChildWindow()
         {
             InitializeComponent();
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
-
         }
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (msg.Notification == "ShowLoginView")
+            if (msg.Notification == "ReturnToRecordView")
+            {
+                var RecordScreenView = new RecordWindow();
+                RecordScreenView.Show();
+                this.Close();
+            }
+            else if (msg.Notification == "ShowMainView2")
             {
                 var MainWindow = new MainWindow();
                 MainWindow.Show();
-                this.Close();
-            }
-            else if (msg.Notification == "ReturnToRecordView")
-            {
-                var PatientView = new PatientWindow();
-                PatientView.Show();
-                this.Close();
-            }
-            else if (msg.Notification == "ShowNewChildView")
-            {
-                var NewChildView = new NewChildWindow();
-                NewChildView.Show();
                 this.Close();
             }
         }
