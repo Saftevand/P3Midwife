@@ -26,7 +26,7 @@
         </Menu>
 
         <StackPanel>
-            <ListBox ItemsSource="{Binding CurrentPatients}"  HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectedItem="{Binding SelectedPatient, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Tag="{Binding SelectedPatient}" >
+            <ListBox ItemsSource="{Binding CurrentPatients}"  HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectedItem="{Binding SelectedPatient, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Tag="{Binding SelectedPatient}" Margin="0,20,0,0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>
@@ -39,7 +39,7 @@
             <Button Command="{Binding OpenPatientOnClick}" HorizontalAlignment="Left">
                 PatientInfo
             </Button>
-            <Button Command="{Binding OpenAddPatientCommand}" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Button Command="{Binding OpenAddPatientCommand}" HorizontalAlignment="Right" VerticalAlignment="Center">
                 Tilføj patient
             </Button>
         </StackPanel>
