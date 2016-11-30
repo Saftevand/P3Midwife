@@ -23,13 +23,7 @@
 
         <StackPanel>
             <ListView x:Name="BirthInfo" DataContext="{Binding BirthInformationListProperty}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn>
-                            <ListViewItem Content="{Binding }"
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
+
             </ListView>
         </StackPanel>
 

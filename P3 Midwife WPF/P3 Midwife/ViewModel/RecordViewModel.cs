@@ -34,7 +34,7 @@ namespace P3_Midwife.ViewModel
             Messenger.Default.Register<Record>(this, "Record", (ActiveRecord) => { RecordCurrent = ActiveRecord; });
             this.LogOutCommand = new RelayCommand(parameter =>
             {
-                Messenger.Default.Send(new NotificationMessage("ShowMainView"));
+                Messenger.Default.Send(new NotificationMessage("ShowMainViewRecord"));
             });
             this.ExitCommand = new RelayCommand(parameter =>
             {

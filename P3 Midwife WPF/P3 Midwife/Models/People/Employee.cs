@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using System.ComponentModel;
 using System.Windows;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace P3_Midwife
 {
     public abstract class Employee
-    {        
+    {      
         public int ID { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }

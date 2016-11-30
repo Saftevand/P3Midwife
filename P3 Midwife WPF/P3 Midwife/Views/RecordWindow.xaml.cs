@@ -28,7 +28,7 @@ namespace P3_Midwife.Views
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (msg.Notification == "ShowMainView")
+            if (msg.Notification == "ShowMainViewRecord")
             {
                 var MainWindow = new MainWindow();
                 MainWindow.Show();
