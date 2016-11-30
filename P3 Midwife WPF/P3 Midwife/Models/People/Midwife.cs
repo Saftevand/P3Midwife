@@ -15,7 +15,7 @@ namespace P3_Midwife
         { }
 
         //Removes a patient from ward
-        private void TransferPatient(Patient _patient)
+        public void TransferPatient(Patient _patient)
         {
             Filemanagement.RemovePatientFromRoomFile(_patient);
             Filemanagement.RemovePatientFromFile(_patient);
