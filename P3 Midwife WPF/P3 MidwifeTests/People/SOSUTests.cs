@@ -17,7 +17,7 @@ namespace P3_Midwife.Tests
         static int telephonenumber = 123345678;
         static string email = "mail@mail.com";
 
-        SOSU TestSOSU = new SOSU(id, name, password, telephonenumber, email, 1);
+        SOSU TestSOSU = new SOSU(id, name, password, telephonenumber, email);
 
         [TestMethod()]
         public void SOSUConstructorTestID()

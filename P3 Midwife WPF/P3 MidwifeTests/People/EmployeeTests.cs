@@ -11,7 +11,7 @@ namespace P3_Midwife.Tests
     [TestClass()]
     public class EmployeeTests
     {
-        Employee TestEmployee = new Midwife(1, "TestName", "password", 12345678, "mail@mail.com", 1);
+        Employee TestEmployee = new Midwife(1, "TestName", "password", 12345678, "mail@mail.com");
 
         #region ConstructorTests
         [TestMethod()]
@@ -45,11 +45,13 @@ namespace P3_Midwife.Tests
         }
 
         [TestMethod()]
-        public void EmployeeTestConstructorClearance()
+        public void EmployeeTestFindPatient()
         {
-            Assert.IsNotNull(TestEmployee.Clearance);
-        }
+            Ward.Patients.Add(new Patient("1111111111", "testname"));
+            Patient foundpatient = TestEmployee.FindPatient("1111111111");
 
+            Assert.AreEqual("testname", foundpatient.Name);
+        }
 
         #endregion
     }

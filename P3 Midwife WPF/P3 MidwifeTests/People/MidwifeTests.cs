@@ -17,8 +17,9 @@ namespace P3_Midwife.Tests
         static int telephonenumber = 123345678;
         static string email = "mail@mail.com";
 
-        Midwife TestMidwife = new Midwife(id, name, password, telephonenumber, email, 1);
+        Midwife TestMidwife = new Midwife(id, name, password, telephonenumber, email);
 
+        #region ConstructorTests
         [TestMethod()]
         public void MidwifeConstructorTestID()
         {
@@ -48,5 +49,6 @@ namespace P3_Midwife.Tests
         {
             Assert.AreEqual(email, TestMidwife.Email);
         }
+        #endregion
     }
 }

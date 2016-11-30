@@ -69,7 +69,7 @@ namespace P3_Midwife
 
         public Patient(string PatientCPR)
         {
-            CPR = PatientCPR;
+            this.CPR = PatientCPR;
         }
 
         public Patient(char _gender)
@@ -97,7 +97,7 @@ namespace P3_Midwife
                 return 'D';  
         }
 
-        //TODO: HUSK GENERATE CPR ER OVERLOADET den med CPR string er til at teste. ikke sikkert den er nødvendig
+        //TODO: HUSK GENERATE CPR ER OVERLOADET den med "date" er til at teste. ikke sikkert den er nødvendig
         //Function to generate CPR.
         private void GenerateCpr(char gender)
         {
@@ -105,7 +105,7 @@ namespace P3_Midwife
             GenerateCpr(gender, DateTime.Today.ToString("ddMMyy"));
         }
 
-        private void GenerateCpr(char gender, string CPRString)
+        private void GenerateCpr(char gender, string date)
         {
             int[] CPR = new int[10];
             
@@ -113,7 +113,7 @@ namespace P3_Midwife
 
             //Puts date into int array for later calculations
             int count = 0;
-            foreach (char item in CPRString)
+            foreach (char item in date)
             {
                 CPR[count] = (int)char.GetNumericValue(item);
                 count++;
@@ -207,7 +207,7 @@ namespace P3_Midwife
         }
 
         //Calculates age besed on CPR number
-        public int CalcAge()
+        private int CalcAge()
         {
             long cpr = long.Parse(this.CPR);
             int date = (int)(cpr / 10000);
