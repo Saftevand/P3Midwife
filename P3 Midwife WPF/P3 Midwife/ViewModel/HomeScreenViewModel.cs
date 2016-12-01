@@ -15,7 +15,7 @@ namespace P3_Midwife
 {
     public class HomeScreenViewModel : DependencyObject, INotifyPropertyChanged
     {
-        private int AutoLogoutTimer = 100000;
+        private int AutoLogoutTimer = 3;
         private List<Patient> _patientList;
         public RelayCommand LogOutCommand { get; }
         public RelayCommand ExitCommand { get; }
@@ -85,7 +85,7 @@ namespace P3_Midwife
         {            
             if (e.Cancelled == true)
             {
-                Messenger.Default.Send(new NotificationMessage("ShowMainView"));
+                Messenger.Default.Send(new NotificationMessage("FromHomeToLogIn"));
                 bw.CancelAsync();
                 bw.RunWorkerAsync();            
             }

@@ -23,8 +23,6 @@ namespace P3_Midwife
 { 
     public partial class HomeScreen : Window
     {
-        int count = 0;
-        private int AutoLogoutTimer = 100000;
         public HomeScreen()
         {
             InitializeComponent();
@@ -33,14 +31,7 @@ namespace P3_Midwife
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (msg.Notification == "FromHomeToLogIn")
-            {
-                MainWindow MainWindow = new MainWindow();
-                MainWindow.Show();
-                this.Close();
-            }
-
-            else if (msg.Notification == "FromHomeToDialog")
+            if (msg.Notification == "FromHomeToDialog")
             {
                 var AddPatientDialogWindow = new DialogWindow();
                 AddPatientDialogWindow.Show();
@@ -49,7 +40,7 @@ namespace P3_Midwife
             {
                 var PatientView = new PatientWindow();
                 PatientView.Show();
-                this.Close();
+                Hide();
             }
         }
 
