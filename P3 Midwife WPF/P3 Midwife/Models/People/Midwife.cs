@@ -4,18 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace P3_Midwife
 {
     public class Midwife : Employee
     {
 
-        public Midwife(int id, string name, string password, int telephonenumber, string email, int clearance) 
-            : base(id, name, password, telephonenumber, email, clearance)
+        public Midwife(int id, string name, string password, int telephonenumber, string email) 
+            : base(id, name, password, telephonenumber, email)
         { }
 
         //Removes a patient from ward
-        private void TransferPatient(Patient _patient)
+        public void TransferPatient(Patient _patient)
         {
             Filemanagement.RemovePatientFromRoomFile(_patient);
             Filemanagement.RemovePatientFromFile(_patient);
@@ -34,7 +35,7 @@ namespace P3_Midwife
         }
 
         //Puts a patient in a vacant room
-        public void AssignPatientToDRoom(Patient _patient)
+        private void AssignPatientToDRoom(Patient _patient)
         {
             DeliveryRoom currentRoom = Ward.DeliveryRooms.Find(x => x.Occupied == false);
             if (currentRoom != null)

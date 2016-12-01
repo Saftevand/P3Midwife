@@ -17,8 +17,9 @@ namespace P3_Midwife.Tests
         static int telephonenumber = 123345678;
         static string email = "mail@mail.com";
 
-        Midwife TestMidwife = new Midwife(id, name, password, telephonenumber, email, 1);
+        Midwife TestMidwife = new Midwife(id, name, password, telephonenumber, email);
 
+        #region ConstructorTests
         [TestMethod()]
         public void MidwifeConstructorTestID()
         {
@@ -48,5 +49,29 @@ namespace P3_Midwife.Tests
         {
             Assert.AreEqual(email, TestMidwife.Email);
         }
+        #endregion
+
+        #region MethodTests
+
+        //EVERYTHING WRITES TO DB?!?! HOW CAN WE TEST?!?!?
+        //[TestMethod()]
+        //public void MidwifeTestAdmitPatient()
+        //{
+        //    TestMidwife.AdmitPatient("9999999999", "tester");
+        //    Patient tester = TestMidwife.FindPatient("9999999999");
+
+        //    Assert.IsNotNull(tester);
+        //}
+
+        //[TestMethod()]
+        //public void MidwifeTestTransferPatient()
+        //{
+        //    TestMidwife.AdmitPatient("9999999999", "tester");
+        //    Patient tester = TestMidwife.FindPatient("9999999999");
+
+        //    Assert.IsNotNull(tester);
+        //}
+
+        #endregion
     }
 }

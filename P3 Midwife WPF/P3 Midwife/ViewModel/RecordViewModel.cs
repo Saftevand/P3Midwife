@@ -10,10 +10,14 @@ using System.Collections.ObjectModel;
 namespace P3_Midwife.ViewModel
 {
     public class RecordViewModel : DependencyObject
-    {
+    {        
+        private Employee _currentEmployee;
         public RelayCommand LogOutCommand { get; }
         public RelayCommand ExitCommand { get; }
         public RelayCommand BackCommand { get; }
+        public RelayCommand NewChildCommand { get; }
+        public RelayCommand MedicinCommand { get; }
+        public static DependencyProperty PatientProperty = DependencyProperty.Register(nameof(PatientCurrent), typeof(Patient), typeof(RecordViewModel));
         public static DependencyProperty RecordProperty = DependencyProperty.Register(nameof(RecordCurrent), typeof(Record), typeof(RecordViewModel));
         public static DependencyProperty BirthInfoProperty = DependencyProperty.Register(nameof(BirthInfo), typeof(Record._birthInformation), typeof(RecordViewModel));
         public static DependencyProperty ContractionIVDripProperty = DependencyProperty.Register(nameof(ContractionIVDripInfo), typeof(Record._contractionIVDrip), typeof(RecordViewModel));
@@ -64,13 +68,28 @@ namespace P3_Midwife.ViewModel
             get { return (Record)this.GetValue(RecordProperty); }
             set { this.SetValue(RecordProperty, value); }
         }
+        public Patient PatientCurrent
+        {
+            get { return (Patient)this.GetValue(PatientProperty); }
+            set { this.SetValue(PatientProperty, value); }
+        }
+        public Employee EmployeeCurrent
+        {
+            get { return _currentEmployee; }
+            set { _currentEmployee = value; }
+        }
+
 
         public RecordViewModel()
         {
             Messenger.Default.Register<Record>(this, "Record", (ActiveRecord) => { RecordCurrent = ActiveRecord; });
+            Messenger.Default.Register<Patient>(this, "PatientToRecordView", (ActivePatient) => { PatientCurrent = ActivePatient; });
+            Messenger.Default.Register<Employee>(this, "EmployeetoRecordView", (ActiveEmployee) => { EmployeeCurrent = ActiveEmployee; });
             this.LogOutCommand = new RelayCommand(parameter =>
             {
-                Messenger.Default.Send(new NotificationMessage("ShowMainView"));
+
+                Messenger.Default.Send(new NotificationMessage("ShowMainViewRecord"));
+                Messenger.Default.Send(new NotificationMessage("ShowMainView1"));
             });
             this.ExitCommand = new RelayCommand(parameter =>
             {
@@ -79,6 +98,18 @@ namespace P3_Midwife.ViewModel
             this.BackCommand = new RelayCommand(Parameter =>
             {
                 Messenger.Default.Send(new NotificationMessage("ShowPatientView"));
+                Messenger.Default.Send(PatientCurrent, "Patient");
+                Messenger.Default.Send(PatientCurrent, "Employee");
+            });
+            this.NewChildCommand = new RelayCommand(parameter =>
+            {
+                Messenger.Default.Send(new NotificationMessage("ShowNewChildView"));
+                Messenger.Default.Send(PatientCurrent, "PatientToNewChildView");
+                Messenger.Default.Send(PatientCurrent, "EmployeetoNewChildView");
+            });
+            this.MedicinCommand = new RelayCommand(parameter =>
+            {
+
             });
         }
     }

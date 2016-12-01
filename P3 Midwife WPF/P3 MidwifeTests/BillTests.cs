@@ -11,7 +11,7 @@ namespace P3_Midwife.Tests
     [TestClass()]
     public class BillTests
     {
-        Midwife testwife = new Midwife(1, "midwifeName", "midwifePass", 12345678, "email", 1);
+        Midwife testwife = new Midwife(1, "midwifeName", "midwifePass", 12345678, "email");
         Patient testpatient = new P3_Midwife.Patient("1234567890", "testPerson");
         
 
@@ -24,31 +24,32 @@ namespace P3_Midwife.Tests
         }
 
         [TestMethod()]
-        public void CalculateTotalPriceTest()
+        public void BillPriceTest()
         {
             Bill BillTest = new Bill(new Record(testpatient));
             Assert.IsNotNull(BillTest.TotalPrice);
         }
 
         [TestMethod()]
-        public void CalculateTotalPriceTest2()
+        public void AddToBillItemListTest()
         {
-            
-            Record RecordTest = new Record(testpatient);
-            Bill BillTest = new Bill(RecordTest);
+            testpatient.RecordList.Add(new Record(testpatient));
+            testpatient.RecordList[0].CurrentBill = new Bill(testpatient.RecordList[0]);
             MedicalService testservice = new MedicalService(30, "TestName", "TM");
             testwife.RegisterTreatmentToBill(testpatient, testservice);
 
-            System.Diagnostics.Debug.WriteLine("fightlikeaman!!   " + BillTest.TotalPrice);
-            Assert.IsTrue(BillTest.TotalPrice == 30);
+            Assert.IsNotNull(testpatient.RecordList[0].CurrentBill.BillItemList);
         }
 
         [TestMethod()]
-        public void AddToBillItemListTest()
+        public void CalculateTotalPriceTest()
         {
-            Bill BillTest = new Bill(new Record(testpatient));
-            testwife.RegisterTreatmentToBill(testpatient, new MedicalService(20, "TestName", "TM"));
-            Assert.IsNotNull(BillTest.BillItemList);
+            testpatient.RecordList.Add(new Record(testpatient));
+            testpatient.RecordList[0].CurrentBill = new Bill(testpatient.RecordList[0]);
+            MedicalService testservice = new MedicalService(30, "TestName", "TM");
+            testwife.RegisterTreatmentToBill(testpatient, testservice);
+
+            Assert.IsTrue(testpatient.RecordList[0].CurrentBill.TotalPrice == 30);
         }
     }
 }

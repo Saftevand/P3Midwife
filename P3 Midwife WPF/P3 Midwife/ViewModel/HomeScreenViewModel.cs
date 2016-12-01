@@ -8,12 +8,14 @@ using GalaSoft.MvvmLight.Messaging;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Windows.Threading;
 
 namespace P3_Midwife
 {
     public class HomeScreenViewModel : DependencyObject, INotifyPropertyChanged
     {
-        private int AutoLogoutTimer = 240;
+        private int AutoLogoutTimer = 100000;
         private List<Patient> _patientList;
         public RelayCommand LogOutCommand { get; }
         public RelayCommand ExitCommand { get; }
@@ -32,7 +34,7 @@ namespace P3_Midwife
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-
+        /*//Userinactive der ikke virker bare lad det stå her lidt
         [DllImport("user32.dll")]
         static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
 
@@ -48,9 +50,7 @@ namespace P3_Midwife
         private int GetLastInput()
         {
             int systemUptime = Environment.TickCount;
-            // The tick at which the last input was recorded
             int LastInputTicks = 0;
-            // The number of ticks that passed since last input
             int IdleTicks = 0;
 
             // Set the struct
@@ -71,25 +71,24 @@ namespace P3_Midwife
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
-            
             while (true)
-            {
+            {                                
                 if (GetLastInput() > AutoLogoutTimer)
-                {
+                {                    
                     e.Cancel = true;
                     break;
-                }
+                }                
             }
         }       
 
         void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
+        {            
             if (e.Cancelled == true)
             {
                 Messenger.Default.Send(new NotificationMessage("ShowMainView"));
             }
-        }
-
+        }*/
+        
         public ObservableCollection<Patient> CurrentPatients
         {
             get { return _currentPatients; }
@@ -110,7 +109,8 @@ namespace P3_Midwife
                         }
                     }
                 }
-                this.SetValue(EmployeeProperty, value);  }
+                this.SetValue(EmployeeProperty, value);
+            }
         }
 
         public Patient CurrentPatient
@@ -158,9 +158,9 @@ namespace P3_Midwife
             Messenger.Default.Register<Employee>(this, "ActiveUser", (ActiveUser) => { CurrentEmployee = ActiveUser; });
             Messenger.Default.Register<Employee>(this, "ReturnEmployee", (ActiveUser) => { CurrentEmployee = ActiveUser; });
             this.LogOutCommand = new RelayCommand(parameter =>
-            {
-                CurrentEmployee = null;
+            {                                
                 Messenger.Default.Send(new NotificationMessage("ShowMainView"));
+                CurrentEmployee = null;
             });
             this.ExitCommand = new RelayCommand(parameter =>
             {
@@ -189,12 +189,12 @@ namespace P3_Midwife
                 Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
                 Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
             });
-            bw.WorkerReportsProgress = true;
+            /*bw.RunWorkerAsync();
+            //bw.WorkerReportsProgress = true;
             bw.WorkerSupportsCancellation = true;
             bw.DoWork += new DoWorkEventHandler(bw_DoWork);
             //bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
-            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
-            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);*/
         }
     }
 }
