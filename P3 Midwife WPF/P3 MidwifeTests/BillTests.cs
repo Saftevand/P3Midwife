@@ -11,32 +11,44 @@ namespace P3_Midwife.Tests
     [TestClass()]
     public class BillTests
     {
-        Bill BillTest = new Bill(new Record(new Patient('d')));
+        Midwife testwife = new Midwife(1, "midwifeName", "midwifePass", 12345678, "email", 1);
+        Patient testpatient = new P3_Midwife.Patient("1234567890", "testPerson");
+        
 
         [TestMethod()]
         public void BillTestContructorRecord()
         {
+            Bill BillTest = new Bill(new Record(testpatient));
+            testwife.RegisterTreatmentToBill(testpatient, new MedicalService(10, "testService", "TS"));
             Assert.IsNotNull(BillTest.BillItemList);
         }
 
         [TestMethod()]
         public void CalculateTotalPriceTest()
         {
+            Bill BillTest = new Bill(new Record(testpatient));
             Assert.IsNotNull(BillTest.TotalPrice);
         }
 
-        //[TestMethod()]
-        //public void CalculateTotalPriceTest2()
-        //{
-        //    BillTest.AddToBillItemList(new MedicalService(20, "TestName", "TM"));
-        //    Assert.IsTrue(BillTest.TotalPrice == 20);
-        //}
+        [TestMethod()]
+        public void CalculateTotalPriceTest2()
+        {
+            
+            Record RecordTest = new Record(testpatient);
+            Bill BillTest = new Bill(RecordTest);
+            MedicalService testservice = new MedicalService(30, "TestName", "TM");
+            testwife.RegisterTreatmentToBill(testpatient, testservice);
 
-        //[TestMethod()]
-        //public void AddToBillItemListTest()
-        //{
-        //    BillTest.AddToBillItemList(new MedicalService(20, "TestName", "TM"));
-        //    Assert.IsNotNull(BillTest.BillItemList);
-        //}
+            System.Diagnostics.Debug.WriteLine("fightlikeaman!!   " + BillTest.TotalPrice);
+            Assert.IsTrue(BillTest.TotalPrice == 30);
+        }
+
+        [TestMethod()]
+        public void AddToBillItemListTest()
+        {
+            Bill BillTest = new Bill(new Record(testpatient));
+            testwife.RegisterTreatmentToBill(testpatient, new MedicalService(20, "TestName", "TM"));
+            Assert.IsNotNull(BillTest.BillItemList);
+        }
     }
 }

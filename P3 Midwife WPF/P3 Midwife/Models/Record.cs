@@ -96,12 +96,44 @@ namespace P3_Midwife
             private int _numberOfContractionsPerMinutes;
             private int _contractionPain;
             private int _SDripMLPerHour;
+
+            public DateTime Time
+            {
+                get { return _time; }
+                set { _time = value; }
+            }
+            public int NumberOfCantrationsPerMinutes
+            {
+                get { return _numberOfContractionsPerMinutes; }
+                set { _numberOfContractionsPerMinutes = value; }
+            }
+            public int ContractionPain
+            {
+                get { return _contractionPain; }
+                set { _contractionPain = value; }
+            }
+            public int SDripMLPerHour
+            {
+                get { return _SDripMLPerHour; }
+                set { _SDripMLPerHour = value; }
+            }
         }
 
         public struct _micturition
         {
             private DateTime _time;
             private string _micturitionNote;
+
+            public DateTime Time
+            {
+                get { return _time; }
+                set { _time = value; }
+            }
+            public string MicturitionNote
+            {
+                get { return _micturitionNote; }
+                set { _micturitionNote = value; }
+            }
         }
 
         public struct _fetusObservation
@@ -113,6 +145,42 @@ namespace P3_Midwife
             private string _STAN;
             private double _scalppH;
             private double _scalpLactate;
+
+            public DateTime Time
+            {
+                get { return _time; }
+                set { _time = value; }
+            }
+            public string HeartFrequency
+            {
+                get { return _hearthfrequency; }
+                set { _hearthfrequency = value; }
+            }
+            public string CTG
+            {
+                get { return _CTG; }
+                set { _CTG = value; }
+            }
+            public string CTGClassification
+            {
+                get { return _CTGClassification; }
+                set { _CTGClassification = value; }
+            }
+            public string STAN
+            {
+                get { return _STAN; }
+                set { _STAN = value; }
+            }
+            public double ScalpPH
+            {
+                get { return _scalppH; }
+                set { _scalppH = value; }
+            }
+            public double ScalpLactate
+            {
+                get { return _scalpLactate; }
+                set { _scalpLactate = value; }
+            }
         }
 
         public struct _birthInformation
@@ -124,6 +192,42 @@ namespace P3_Midwife
             private double _bloodAmount;
             private string _bleedingCause;
             private string _birthPosition;
+
+            public DateTime Time
+            {
+                get { return _time; }
+                set { _time = value; }
+            }
+            public string Result
+            {
+                get { return _result; }
+                set { _result = value; }
+            }
+            public string AmnioticFluid
+            {
+                get { return _amnioticFluid; }
+                set { _amnioticFluid = value; }
+            }
+            public string AmountOfFluid
+            {
+                get { return _amountOfFluid; }
+                set { _amountOfFluid = value; }
+            }
+            public double BloodAmount
+            {
+                get { return _bloodAmount; }
+                set { _bloodAmount = value; }
+            }
+            public string BleedingCause
+            {
+                get { return _bleedingCause; }
+                set { _bleedingCause = value; }
+            }
+            public string BirthPosition
+            {
+                get { return _birthPosition; }
+                set { _birthPosition = value; }
+            }
         }
         #endregion
 

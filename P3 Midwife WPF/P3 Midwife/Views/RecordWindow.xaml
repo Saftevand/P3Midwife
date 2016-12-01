@@ -27,6 +27,114 @@
                     <GridView>
                         <GridViewColumn>
                             <ListViewItem Content="{Binding }"></ListViewItem>
+
+            <ListView x:Name="BirthInfo" ItemsSource="{Binding BirthInfo}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding BirthInfo.AmnioticFluid}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding BirthInfo.AmountOfFluid}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding BirthInfo.BirthPosition}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding BirthInfo.BleedingCause}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding BirthInfo.BloodAmount}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding BirthInfo.Result}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding BirhtInfo.Time}"/>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView x:Name="ContractionIVDrip" ItemsSource="{Binding ContractionIVDripInfo}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding ContractionIVDripInfo.ContractionPain}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding ContractionIVDripInfo.NumberOfCantrationsPerMinutes}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding ContractionIVDripInfo.SDripMLPerHour}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding ContractionIVDripInfo.Time}"/>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView x:Name="FetusObservation" ItemsSource="{Binding FetusObservationInfo}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding FetusObservationInfo.CTG}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding FetusObservationInfo.CTGClassification}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding FetusObservationInfo.HeartFrequency}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding FetusObservationInfo.ScalpLactate}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding FetusObservationInfo.ScalpPH}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding FetusObservationInfo.STAN}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding FetusObservationInfo.Time}"/>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView x:Name="Micturition" ItemsSource="{Binding MicturitionInfo}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding MicturitionInfo.MicturitionNote}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding MicturitionInfo.Time}"/>
+                        </GridViewColumn>                       
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView x:Name="VaginalExploration" ItemsSource="{Binding VaginalExplorationInfo}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding VaginalExplorationInfo.AmnioticFluid}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding VaginalExplorationInfo.Collum}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding VaginalExplorationInfo.Consistency}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding VaginalExplorationInfo.Dilation}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding VaginalExplorationInfo.Location}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding VaginalExplorationInfo.Position}"/>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <ListViewItem Content="{Binding VaginalExplorationInfo.Time}"/>
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
