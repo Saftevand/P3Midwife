@@ -34,7 +34,7 @@ namespace P3_Midwife
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        /*//Userinactive der ikke virker bare lad det stå her lidt
+        //Userinactive der ikke virker bare lad det stå her lidt
         [DllImport("user32.dll")]
         static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
 
@@ -86,8 +86,10 @@ namespace P3_Midwife
             if (e.Cancelled == true)
             {
                 Messenger.Default.Send(new NotificationMessage("ShowMainView"));
+                bw.CancelAsync();
+                bw.RunWorkerAsync();            
             }
-        }*/
+        }
         
         public ObservableCollection<Patient> CurrentPatients
         {
@@ -189,12 +191,12 @@ namespace P3_Midwife
                 Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
                 Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
             });
-            /*bw.RunWorkerAsync();
+            bw.RunWorkerAsync();
             //bw.WorkerReportsProgress = true;
             bw.WorkerSupportsCancellation = true;
             bw.DoWork += new DoWorkEventHandler(bw_DoWork);
             //bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
-            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);*/
+            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
         }
     }
 }
