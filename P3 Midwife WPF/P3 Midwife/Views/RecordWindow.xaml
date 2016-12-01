@@ -286,8 +286,7 @@
                             </GridViewColumn>
                             <GridViewColumn>
                                 <ListViewItem Content="{Binding VaginalExplorationInfo.Time}"/>
-                                <ListViewItem Content="{Binding VaginalExplorationInfo.Rotation}"/>
-                            </GridViewColumn>
+                           </GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
