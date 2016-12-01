@@ -159,7 +159,7 @@ namespace P3_Midwife
             Messenger.Default.Register<Employee>(this, "ReturnEmployee", (ActiveUser) => { CurrentEmployee = ActiveUser; });
             this.LogOutCommand = new RelayCommand(parameter =>
             {                                
-                Messenger.Default.Send(new NotificationMessage("ShowMainView"));
+                Messenger.Default.Send(new NotificationMessage("FromHomeToLogIn"));
                 CurrentEmployee = null;
             });
             this.ExitCommand = new RelayCommand(parameter =>
@@ -174,18 +174,18 @@ namespace P3_Midwife
             });
             this.OpenAddPatientCommand = new RelayCommand(parameter =>
             {
-                Messenger.Default.Send(new NotificationMessage("AddPatientMsg"));
+                Messenger.Default.Send(new NotificationMessage("FromHomeToDialog"));
                 Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
             });
             this.OpenPatientCommand = new RelayCommand(parameter =>
             {
-                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ShowPatientView"));
+                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("FromHomeToPatient"));
                 Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
                 Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
             });
             this.OpenPatientOnClick = new RelayCommand(parameter =>
             {
-                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ShowPatientView"));
+                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("FromHomeToPatient"));
                 Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
                 Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
             });

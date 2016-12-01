@@ -101,23 +101,19 @@ namespace P3_Midwife
        
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (msg.Notification == "ShowMainView")
+            if (msg.Notification == "FromHomeToLogIn")
             {
-                if ( count < 1)
-                {
-                    MainWindow MainWindow = new MainWindow();
-                    MainWindow.Show();
-                }
-                count++;
+                MainWindow MainWindow = new MainWindow();
+                MainWindow.Show();
                 this.Close();
             }
 
-            else if (msg.Notification == "AddPatientMsg")
+            else if (msg.Notification == "FromHomeToDialog")
             {
                 var AddPatientDialogWindow = new DialogWindow();
                 AddPatientDialogWindow.Show();
             }
-            else if (msg.Notification == "ShowPatientView")
+            else if (msg.Notification == "FromHomeToPatient")
             {
                 var PatientView = new PatientWindow();
                 PatientView.Show();

@@ -21,7 +21,6 @@ namespace P3_Midwife
     /// </summary>
     public partial class MainWindow : Window
     {
-        int count = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -30,14 +29,10 @@ namespace P3_Midwife
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (msg.Notification == "ShowHomeScreen")
+            if (msg.Notification == "FromLogInToHome")
             {
-                if (count < 1)
-                {
                     HomeScreen HomeScreenViem = new HomeScreen();
                     HomeScreenViem.Show();
-                }
-                count++;
                 this.Close();
             }
         }

@@ -10,11 +10,28 @@ namespace P3_Midwife
     {
         #region Instansvariabler
         private Patient _patient;
+        private DateTime _date = new DateTime();
         private double _circumferenceHead;
         private double _circumferenceStomach;
+        private double _weight;
+        private double _length;
         private double _bloodSugar;
-        private string _GA;
+        private string _GA_Uger;
+        private string _GA_Dage;
+        private int _ho;
+        private int _ao;
+        private int _fetuspre;
+        private string _numberofchildren;
+        private string _furtherNotice;
+        private bool _sucking;
         private List<String> _diseases;
+        private bool _nose;
+        private bool _pharynx;
+        private bool _ventricle;
+        private double _NSapH;
+        private double _NSaSBE;
+        private double _NSvpH;
+        private double _NSvSBE;
         private double _navelpHVenous;
         private double _navelpHArterial;
         private double _navelBaseExcess;
@@ -240,7 +257,16 @@ namespace P3_Midwife
         public double CircumferenceHead { get { return this._circumferenceHead; } set { this._circumferenceHead = value; } }
         public double CircumferenceStomach { get; set; }
         public double BloodSugar { get { return this._bloodSugar; } set { this._bloodSugar = value; } }
-        public string GA { get { return this._GA; } set { this._GA = value; } }
+        public string GA_Week { get { return this._GA_Uger; } set { this._GA_Uger = value; } }
+        public string GA_Day { get { return this._GA_Dage; } set { this._GA_Dage = value; } }
+        public double Weight { get { return this._weight; } set { this._weight = value; } }
+        public double Length { get { return this._length; } set { this._length = value; } }
+        public int HO { get { return this._ho; } set { this._ho = value; } }
+        public int AO { get { return this._ao; } set { this._ao = value; } }
+        public bool Sucking { get { return this._sucking; } set { this._sucking = value; } }
+        public int FetusPre { get { return this._fetuspre; } set { this._fetuspre = value; } }
+        public string FurtherNotice { get { return this._furtherNotice; } set { this._furtherNotice = value; } }
+        public string NumberOfChildren { get { return this._numberofchildren; } set { this._numberofchildren = value; } }
         public List<string> Diseases { get { return this._diseases; } set { this._diseases = value; } }
         public double NavelpHVenous { get { return this._navelpHVenous; } set { this._navelpHVenous = value; } }
         public double NavelpHArterial { get { return this._navelpHArterial; } set { this._navelpHArterial = value; } }
@@ -256,6 +282,14 @@ namespace P3_Midwife
         public Bill CurrentBill { get { return _bill; } set { _bill = value; } }
         public bool IsActive { get; set; }
         public Patient RecordsPatient { get { return _patient; } }
+        public bool Nose { get { return this._nose; } set { this._nose = value; } }
+        public bool Pharynx { get { return this._pharynx; } set { this._pharynx = value; } }
+        public bool Ventricle { get { return this._ventricle; } set { this._ventricle = value; } }
+        public double NSapH { get { return this._NSapH; } set { this._NSapH = value; } }
+        public double NSaSBE { get { return this._NSaSBE; } set { this._NSaSBE = value; } }
+        public double NSvpH { get { return this._NSvpH; } set { this._NSvpH = value; } }
+        public double NSvSBE { get { return this._NSvSBE; } set { this._NSvSBE = value; } }
+        public DateTime Date { get { return this._date; } set { this._date = value; } }
         #endregion
 
         public Record(Patient Patient)
