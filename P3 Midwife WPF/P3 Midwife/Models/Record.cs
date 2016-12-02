@@ -13,27 +13,24 @@ namespace P3_Midwife
         private DateTime _date = new DateTime();
         private double _circumferenceHead;
         private double _circumferenceStomach;
-        private double _weight;
-        private double _length;
+        private double _weight;//
+        private double _length;//
         private double _bloodSugar;
         private List<String> _diseases = new List<string>();
         private string _GA;
-        private int _ho;
-        private int _ao;
-        private int _fetuspre;
-        private string _numberofchildren;
-        private string _furtherNotice;
-        private bool _sucking;
-        private bool _nose;
-        private bool _pharynx;
-        private bool _ventricle;
-        private double _NSapH;
-        private double _NSaSBE;
-        private double _NSvpH;
-        private double _NSvSBE;
+        private int _ho;//
+        private int _ao;//
+        private int _fetuspre;//
+        private string _numberofchildren; //tvillinger...
+        private string _furtherNotice; //bemærkninger
+        private bool _sucking;//
+        private bool _nose;//
+        private bool _pharynx;//
+        private bool _ventricle;//
         private double _navelpHVenous;
         private double _navelpHArterial;
-        private double _navelBaseExcess;
+        private double _navelBaseExcessVenous;//
+        private double _navelBaseExcessArterial;//
         private int _fetusPosition;
         private double _placentaWeight;
         private bool _KVitamin;
@@ -161,7 +158,8 @@ namespace P3_Midwife
         public List<string> Diseases { get { return this._diseases; } set { this._diseases = value; } }
         public double NavelpHVenous { get { return this._navelpHVenous; } set { this._navelpHVenous = value; } }
         public double NavelpHArterial { get { return this._navelpHArterial; } set { this._navelpHArterial = value; } }
-        public double NavelBaseExcess { get { return this._navelBaseExcess; } set { this._navelBaseExcess = value; } }
+        public double NavelBaseExcessArterial { get { return this._navelBaseExcessArterial; } set { this._navelBaseExcessArterial = value; } }
+        public double NavelBaseExcessVenous { get { return this._navelBaseExcessVenous; } set { this._navelBaseExcessVenous = value; } }
         public int FetusPosition { get { return this._fetusPosition; } set { this._fetusPosition = value; } }
         public double PlacentaWeight { get { return this._placentaWeight; } set { this._placentaWeight = value; } }
         public bool KVitamin { get { return this._KVitamin; } set { this._KVitamin = value; } }
@@ -177,10 +175,6 @@ namespace P3_Midwife
         public bool Nose { get { return this._nose; } set { this._nose = value; } }
         public bool Pharynx { get { return this._pharynx; } set { this._pharynx = value; } }
         public bool Ventricle { get { return this._ventricle; } set { this._ventricle = value; } }
-        public double NSapH { get { return this._NSapH; } set { this._NSapH = value; } }
-        public double NSaSBE { get { return this._NSaSBE; } set { this._NSaSBE = value; } }
-        public double NSvpH { get { return this._NSvpH; } set { this._NSvpH = value; } }
-        public double NSvSBE { get { return this._NSvSBE; } set { this._NSvSBE = value; } }
         public DateTime Date { get { return this._date; } set { this._date = value; } }
         #endregion
 

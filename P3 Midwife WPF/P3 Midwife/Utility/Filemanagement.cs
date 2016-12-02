@@ -75,10 +75,10 @@ namespace P3_Midwife
             if(String.IsNullOrWhiteSpace(File.ReadAllText(Path.Combine(_AdminPath, "Employee_info.txt"))))
             {
                 StreamWriter file = new StreamWriter(Path.Combine(_AdminPath, "Employee_info.txt"));
-                file.WriteLine("Gitte Bredahl 123 56189416 palminde@hotmail.com 1");
-                file.WriteLine("Pernille Johansen kode 18748643 PernilleJ@hotmail.com 1");
-                file.WriteLine("Amalie Knudsen sosu 89435135 AmalieK@hotmail.com 2");
-                file.WriteLine("Mette Hansen 321 49846516 Metteh@hotmail.com 2");
+                file.WriteLine("1 Gitte Bredahl 123 56189416 palminde@hotmail.com 1");
+                file.WriteLine("2 Pernille Johansen kode 18748643 PernilleJ@hotmail.com 1");
+                file.WriteLine("3 Amalie Knudsen sosu 89435135 AmalieK@hotmail.com 2");
+                file.WriteLine("4 Mette Hansen 321 49846516 Metteh@hotmail.com 2");
                 file.Close();
             }
             else
@@ -273,15 +273,26 @@ namespace P3_Midwife
                         recordToBeAdded.GA = VariInfo[6];
                         recordToBeAdded.NavelpHVenous = Convert.ToDouble(VariInfo[7]);
                         recordToBeAdded.NavelpHArterial = Convert.ToDouble(VariInfo[8]);
-                        recordToBeAdded.NavelBaseExcess = Convert.ToDouble(VariInfo[9]);
-                        recordToBeAdded.FetusPosition = Convert.ToInt32(VariInfo[10]);
-                        recordToBeAdded.PlacentaWeight = Convert.ToDouble(VariInfo[11]);
-                        recordToBeAdded.KVitamin = Convert.ToBoolean(VariInfo[12]);
-                        recordToBeAdded.ApgarOneMinute = Convert.ToInt32(VariInfo[13]);
-                        recordToBeAdded.ApgarFiveMinutes = Convert.ToInt32(VariInfo[14]);
-                        recordToBeAdded.ApgarTenMinutes = Convert.ToInt32(VariInfo[15]);
-                        recordToBeAdded.Diagnosis = VariInfo[16];
-                        for (int h = 17; h < VariInfo.Length; h++)
+                        recordToBeAdded.NavelBaseExcessArterial = Convert.ToDouble(VariInfo[9]);
+                        recordToBeAdded.NavelBaseExcessVenous = Convert.ToDouble(VariInfo[10]);
+                        recordToBeAdded.FetusPosition = Convert.ToInt32(VariInfo[11]);
+                        recordToBeAdded.PlacentaWeight = Convert.ToDouble(VariInfo[12]);
+                        recordToBeAdded.KVitamin = Convert.ToBoolean(VariInfo[13]);
+                        recordToBeAdded.ApgarOneMinute = Convert.ToInt32(VariInfo[14]);
+                        recordToBeAdded.ApgarFiveMinutes = Convert.ToInt32(VariInfo[15]);
+                        recordToBeAdded.ApgarTenMinutes = Convert.ToInt32(VariInfo[16]);
+                        recordToBeAdded.AO = Convert.ToInt32(VariInfo[17]);
+                        recordToBeAdded.HO = Convert.ToInt32(VariInfo[18]);
+                        recordToBeAdded.Weight = Convert.ToDouble(VariInfo[19]);
+                        recordToBeAdded.Length = Convert.ToDouble(VariInfo[20]);
+                        recordToBeAdded.NumberOfChildren = VariInfo[21];
+                        recordToBeAdded.FurtherNotice = VariInfo[22];
+                        recordToBeAdded.Sucking = Convert.ToBoolean(VariInfo[23]);
+                        recordToBeAdded.Nose = Convert.ToBoolean(VariInfo[24]);
+                        recordToBeAdded.Pharynx = Convert.ToBoolean(VariInfo[25]);
+                        recordToBeAdded.Ventricle = Convert.ToBoolean(VariInfo[26]);
+                        recordToBeAdded.Diagnosis = VariInfo[27];
+                        for (int h = 28; h < VariInfo.Length; h++)
                         {
                             recordToBeAdded.Diseases.Add(VariInfo[h]);
                         }
@@ -431,11 +442,11 @@ namespace P3_Midwife
                 while ((_tempString = sr.ReadLine()) != null)
                 {
                     _subStrings = _tempString.Split(' ');
-                    if (_subStrings[4] == "1")
+                    if (_subStrings[6] == "1")
                     {
                         Ward.Employees.Add(new Midwife(Convert.ToInt32(_subStrings[0]), _subStrings[1] +" "+ _subStrings[2], _subStrings[3], Convert.ToInt32(_subStrings[4]), _subStrings[5]));
                     }
-                    else if (_subStrings[4] == "2")
+                    else if (_subStrings[6] == "2")
                     {
                         Ward.Employees.Add(new SOSU(Convert.ToInt32(_subStrings[0]), _subStrings[1] + " " + _subStrings[2], _subStrings[3], Convert.ToInt32(_subStrings[4]), _subStrings[5]));
                     }
