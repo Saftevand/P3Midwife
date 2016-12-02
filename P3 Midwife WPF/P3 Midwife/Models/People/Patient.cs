@@ -10,55 +10,46 @@ namespace P3_Midwife
     public class Patient
     {
         private char gender;
-        private int GA;
-        private int weekDay;
-        private int weightGram;
-        private int lenghtCM;
-        private int fetus;
-        private int HO;
-        private int AO;
-        private int placentaWeightGram;
-        private char kVitamin;
-        private string diag;
-        private int abgar1;
-        private int abgar5;
-        private int abgar10;
-        private string note;
-        //TODO: visse bools skal måske have andre typer.
-        private bool suck;
-        private bool nose;
-        private bool throat;
-        private bool ventricle;
-        private bool bloodsugar;
-        private decimal arteriaPH;
-        private decimal arteriaSBE;
-        private decimal venePH;
-        private decimal veneSBE;
-        private DateTime timeOfBirth;
+        //private int GA;
+        //private int weekDay;
+        //private int weightGram;
+        //private int lenghtCM;
+        //private int fetus;
+        //private int HO;
+        //private int AO;
+        //private int placentaWeightGram;
+        //private char kVitamin;
+        //private string diag;
+        //private int abgar1;
+        //private int abgar5;
+        //private int abgar10;
+        //private string note;
+        ////TODO: visse bools skal måske have andre typer.
+        //private bool suck;
+        //private bool nose;
+        //private bool throat;
+        //private bool ventricle;
+        //private bool bloodsugar;
+        //private decimal arteriaPH;
+        //private decimal arteriaSBE;
+        //private decimal venePH;
+        //private decimal veneSBE;
+        //private DateTime timeOfBirth;
         private string _name;
         public Patient Mother;
         public DeliveryRoom InRoom;
         private List<Patient> _children = new List<Patient>();
-
-        public string CPR { get; set; }
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
-
-        private List<Record> _recordList = new List<Record>();
-        public string Gender { get { return gender.ToString(); } }
-
-
-        public int Age { get { return CalcAge(); } }
-
-      
-
         public List<Patient> Children { get { return _children; } set { _children = value; } }
         public List<Record> RecordList { get { return _recordList; } set { _recordList = value; } }
-        
+        private List<Record> _recordList = new List<Record>();
 
+        public string CPR { get; set; }
+        public string Name { get { return _name; } set { _name = value; }}
+        public string Gender { get { return gender.ToString(); } set {  gender = Convert.ToChar(value); }}
+        public int Age { get { return CalcAge(); } }           
+
+
+        #region Constructors
         public Patient(string PatientCPR, string PatientName)
         {
             this.CPR = PatientCPR;
@@ -69,7 +60,7 @@ namespace P3_Midwife
 
         public Patient(string PatientCPR)
         {
-            CPR = PatientCPR;
+            this.CPR = PatientCPR;
         }
 
         public Patient(char _gender)
@@ -88,6 +79,14 @@ namespace P3_Midwife
             this.InRoom = this.Mother.InRoom;
         }
 
+        public Patient()
+        {
+
+        }
+        #endregion
+
+        #region Methods
+        //looks at last digit of CPR to get gender
         private char FindGenderFromCPR(string _cpr)
         {
             if ((int)char.GetNumericValue(_cpr[9]) % 2 == 0)
@@ -96,7 +95,7 @@ namespace P3_Midwife
                 return 'D';  
         }
 
-        //TODO: HUSK GENERATE CPR ER OVERLOADET den med CPR string er til at teste. ikke sikkert den er nødvendig
+        //TODO: HUSK GENERATE CPR ER OVERLOADET den med "date" er til at teste. ikke sikkert den er nødvendig
         //Function to generate CPR.
         private void GenerateCpr(char gender)
         {
@@ -104,7 +103,7 @@ namespace P3_Midwife
             GenerateCpr(gender, DateTime.Today.ToString("ddMMyy"));
         }
 
-        private void GenerateCpr(char gender, string CPRString)
+        private void GenerateCpr(char gender, string date)
         {
             int[] CPR = new int[10];
             
@@ -112,7 +111,7 @@ namespace P3_Midwife
 
             //Puts date into int array for later calculations
             int count = 0;
-            foreach (char item in CPRString)
+            foreach (char item in date)
             {
                 CPR[count] = (int)char.GetNumericValue(item);
                 count++;
@@ -205,7 +204,8 @@ namespace P3_Midwife
             return 11 - rest;
         }
 
-        public int CalcAge()
+        //Calculates age besed on CPR number
+        private int CalcAge()
         {
             long cpr = long.Parse(this.CPR);
             int date = (int)(cpr / 10000);
@@ -218,6 +218,8 @@ namespace P3_Midwife
             else
                 return --year;
         }
+
+        #endregion
 
         public override string ToString()
         {

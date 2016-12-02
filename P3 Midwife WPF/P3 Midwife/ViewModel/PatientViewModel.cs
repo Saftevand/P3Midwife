@@ -17,6 +17,7 @@ namespace P3_Midwife.ViewModel
         public RelayCommand BackCommand { get; }
         public RelayCommand AdmitPatientCommand { get; }
         public RelayCommand DischargePatientCommand { get; }
+        public RelayCommand CreateRecordCommand { get; }
         public static DependencyProperty PatientProperty = DependencyProperty.Register(nameof(PatientCurrent), typeof(Patient), typeof(PatientViewModel));
         public static DependencyProperty EmployeeProperty = DependencyProperty.Register(nameof(CurrentEmployee), typeof(Employee), typeof(PatientViewModel));
         public static DependencyProperty SelectedChildProperty = DependencyProperty.Register(nameof(SelectedChild), typeof(Patient), typeof(PatientViewModel));
@@ -61,8 +62,8 @@ namespace P3_Midwife.ViewModel
             Messenger.Default.Register<Patient>(this, "Patient", (ActivePatient) => { PatientCurrent = ActivePatient; });
             Messenger.Default.Register<Employee>(this, "Employee", (ActiveUser) => { CurrentEmployee = ActiveUser; });
             this.LogOutCommand = new RelayCommand(parameter =>
-            {
-                Messenger.Default.Send(new NotificationMessage("ShowMainView"));
+            {                
+                Messenger.Default.Send(new NotificationMessage("FromPatientToMain"));
             });
             this.ExitCommand = new RelayCommand(parameter =>
             {
@@ -70,7 +71,7 @@ namespace P3_Midwife.ViewModel
             });
             this.BackCommand = new RelayCommand(Parameter =>
             {
-                Messenger.Default.Send(new NotificationMessage("ShowHomeView"));
+                Messenger.Default.Send(new NotificationMessage("FromPatientToHome"));
                 Messenger.Default.Send<Employee>(CurrentEmployee, "ReturnEmployee");
             });
             this.AdmitPatientCommand = new RelayCommand(Parameter =>
@@ -80,6 +81,13 @@ namespace P3_Midwife.ViewModel
             this.DischargePatientCommand = new RelayCommand(Parameter =>
             {
                 // TODO - Needs to be implemented
+            });
+            this.CreateRecordCommand = new RelayCommand(parameter =>
+            {
+                PatientCurrent.RecordList.Add(new Record(PatientCurrent));
+                Messenger.Default.Send(new NotificationMessage("FromPatientToRecord"));
+                Messenger.Default.Send(PatientCurrent, "PatientToRecordView");
+                Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");
             });
         }
     }

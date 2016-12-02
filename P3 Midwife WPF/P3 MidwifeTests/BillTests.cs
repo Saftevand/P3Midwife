@@ -11,32 +11,45 @@ namespace P3_Midwife.Tests
     [TestClass()]
     public class BillTests
     {
-        Bill BillTest = new Bill(1);
+        Midwife testwife = new Midwife(1, "midwifeName", "midwifePass", 12345678, "email");
+        Patient testpatient = new P3_Midwife.Patient("1234567890", "testPerson");
+        
 
         [TestMethod()]
         public void BillTestContructorRecord()
         {
+            Bill BillTest = new Bill(new Record(testpatient));
+            testwife.RegisterTreatmentToBill(testpatient, new MedicalService(10, "testService", "TS"));
             Assert.IsNotNull(BillTest.BillItemList);
+        }
+
+        [TestMethod()]
+        public void BillPriceTest()
+        {
+            Bill BillTest = new Bill(new Record(testpatient));
+            Assert.IsNotNull(BillTest.TotalPrice);
+        }
+
+        [TestMethod()]
+        public void AddToBillItemListTest()
+        {
+            testpatient.RecordList.Add(new Record(testpatient));
+            testpatient.RecordList[0].CurrentBill = new Bill(testpatient.RecordList[0]);
+            MedicalService testservice = new MedicalService(30, "TestName", "TM");
+            testwife.RegisterTreatmentToBill(testpatient, testservice);
+
+            Assert.IsNotNull(testpatient.RecordList[0].CurrentBill.BillItemList);
         }
 
         [TestMethod()]
         public void CalculateTotalPriceTest()
         {
-            Assert.IsNotNull(BillTest.TotalPrice);
+            testpatient.RecordList.Add(new Record(testpatient));
+            testpatient.RecordList[0].CurrentBill = new Bill(testpatient.RecordList[0]);
+            MedicalService testservice = new MedicalService(30, "TestName", "TM");
+            testwife.RegisterTreatmentToBill(testpatient, testservice);
+
+            Assert.IsTrue(testpatient.RecordList[0].CurrentBill.TotalPrice == 30);
         }
-
-        //[TestMethod()]
-        //public void CalculateTotalPriceTest2()
-        //{
-        //    BillTest.AddToBillItemList(new MedicalService(20, "TestName", "TM"));
-        //    Assert.IsTrue(BillTest.TotalPrice == 20);
-        //}
-
-        //[TestMethod()]
-        //public void AddToBillItemListTest()
-        //{
-        //    BillTest.AddToBillItemList(new MedicalService(20, "TestName", "TM"));
-        //    Assert.IsNotNull(BillTest.BillItemList);
-        //}
     }
 }

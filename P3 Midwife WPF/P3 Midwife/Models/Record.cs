@@ -10,11 +10,27 @@ namespace P3_Midwife
     {
         #region Instansvariabler
         private Patient _patient;
+        private DateTime _date = new DateTime();
         private double _circumferenceHead;
         private double _circumferenceStomach;
+        private double _weight;
+        private double _length;
         private double _bloodSugar;
-        private string _GA;
         private List<String> _diseases = new List<string>();
+        private string _GA;
+        private int _ho;
+        private int _ao;
+        private int _fetuspre;
+        private string _numberofchildren;
+        private string _furtherNotice;
+        private bool _sucking;
+        private bool _nose;
+        private bool _pharynx;
+        private bool _ventricle;
+        private double _NSapH;
+        private double _NSaSBE;
+        private double _NSvpH;
+        private double _NSvSBE;
         private double _navelpHVenous;
         private double _navelpHArterial;
         private double _navelBaseExcess;
@@ -32,9 +48,9 @@ namespace P3_Midwife
         private List<_fetusObservation> _fetusObservationList = new List<_fetusObservation>();
         private List<_birthInformation> _birthInformationList = new List<_birthInformation>();
         private Bill _bill;
-        public static int RecordID;//
+        public static int RecordID;
+        public int thisRecordID;
      
-
         public struct _vaginalExploration
         {
             private DateTime _time;
@@ -56,10 +72,9 @@ namespace P3_Midwife
             public string Consistency { get { return _consistency; } set { _consistency = value; } }
             public string Location { get { return _location; } set { _location = value; } }
             public string AmnioticFluid { get { return _amnioticFluid; } set { _amnioticFluid = value; } }
-
         }
 
-        public struct _contractionIVDrip
+            public struct _contractionIVDrip
         {
             private DateTime _time;
             private int _numberOfContractionsPerMinute;
@@ -135,6 +150,14 @@ namespace P3_Midwife
         public double CircumferenceStomach { get; set; }
         public double BloodSugar { get { return this._bloodSugar; } set { this._bloodSugar = value; } }
         public string GA { get { return this._GA; } set { this._GA = value; } }
+        public double Weight { get { return this._weight; } set { this._weight = value; } }
+        public double Length { get { return this._length; } set { this._length = value; } }
+        public int HO { get { return this._ho; } set { this._ho = value; } }
+        public int AO { get { return this._ao; } set { this._ao = value; } }
+        public bool Sucking { get { return this._sucking; } set { this._sucking = value; } }
+        public int FetusPre { get { return this._fetuspre; } set { this._fetuspre = value; } }
+        public string FurtherNotice { get { return this._furtherNotice; } set { this._furtherNotice = value; } }
+        public string NumberOfChildren { get { return this._numberofchildren; } set { this._numberofchildren = value; } }
         public List<string> Diseases { get { return this._diseases; } set { this._diseases = value; } }
         public double NavelpHVenous { get { return this._navelpHVenous; } set { this._navelpHVenous = value; } }
         public double NavelpHArterial { get { return this._navelpHArterial; } set { this._navelpHArterial = value; } }
@@ -151,15 +174,31 @@ namespace P3_Midwife
         public bool IsActive { get; set; }
         public Patient RecordsPatient { get { return _patient; } }
         public int ThisRecordID { get; set; }
+        public bool Nose { get { return this._nose; } set { this._nose = value; } }
+        public bool Pharynx { get { return this._pharynx; } set { this._pharynx = value; } }
+        public bool Ventricle { get { return this._ventricle; } set { this._ventricle = value; } }
+        public double NSapH { get { return this._NSapH; } set { this._NSapH = value; } }
+        public double NSaSBE { get { return this._NSaSBE; } set { this._NSaSBE = value; } }
+        public double NSvpH { get { return this._NSvpH; } set { this._NSvpH = value; } }
+        public double NSvSBE { get { return this._NSvSBE; } set { this._NSvSBE = value; } }
+        public DateTime Date { get { return this._date; } set { this._date = value; } }
         #endregion
 
         public Record(Patient Patient)
         {
             this._patient = Patient;
             this.IsActive = true;
-            this.CurrentBill = new Bill(RecordID);
             ThisRecordID = RecordID;
             RecordID++;
+            thisRecordID = RecordID++;
+            this.CurrentBill = new Bill(this);
+        }
+
+        //Creates Bill file and deactivates the bill.
+        public void ArchiveBill()
+        {
+            Filemanagement.WriteBill(this.CurrentBill);
+            this.CurrentBill.Active = false;
         }
 
         public int CalculateSGA(/*TODO - patrick gøred*/)

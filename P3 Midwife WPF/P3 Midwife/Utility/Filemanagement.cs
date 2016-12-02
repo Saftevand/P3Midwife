@@ -13,6 +13,7 @@ namespace P3_Midwife
         private static string _DatabasePath = Path.Combine(_exePath, "DatabaseFiles");
         private static string _AdminPath = Path.Combine(_DatabasePath, "Administraties");
         private static string _PatientsPath = Path.Combine(_DatabasePath, "Patients");
+
         //TODO: bliver ikke brugt endnu
         public static void CreateDirectory(string NameOfDirectory)
         {
@@ -22,6 +23,7 @@ namespace P3_Midwife
         public static void CreateFile(string Directory, string NameOfFile)
         {
             File.Create(Path.Combine(Directory, NameOfFile + ".txt")).Close();
+            File.Create(Path.Combine(Directory, NameOfFile)).Close();
         }
 
         public static void InitialiseFoldersAndFiles()
@@ -385,7 +387,6 @@ namespace P3_Midwife
                 }
             }
         }
-
         public static void ReadRooms(string FilePath)
         {
             Stream AccountFile = File.Open(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
@@ -421,7 +422,6 @@ namespace P3_Midwife
 
         public static void ReadEmployees(string FilePath)
         {
-            int i = 1;
             Stream AccountFile = File.Open(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             using (StreamReader sr = new StreamReader(AccountFile))
             {
@@ -433,16 +433,29 @@ namespace P3_Midwife
                     _subStrings = _tempString.Split(' ');
                     if (_subStrings[4] == "1")
                     {
-                        Ward.Employees.Add(new Midwife(i, _subStrings[0], _subStrings[1], Convert.ToInt32(_subStrings[2]), _subStrings[3].ToUpper(), Convert.ToInt32(_subStrings[4])));
+                        Ward.Employees.Add(new Midwife(Convert.ToInt32(_subStrings[0]), _subStrings[1] +" "+ _subStrings[2], _subStrings[3], Convert.ToInt32(_subStrings[4]), _subStrings[5]));
                     }
                     else if (_subStrings[4] == "2")
                     {
-                        Ward.Employees.Add(new SOSU(i, _subStrings[0], _subStrings[1], Convert.ToInt32(_subStrings[2]), _subStrings[3].ToUpper(), Convert.ToInt32(_subStrings[4])));
+                        Ward.Employees.Add(new SOSU(Convert.ToInt32(_subStrings[0]), _subStrings[1] + " " + _subStrings[2], _subStrings[3], Convert.ToInt32(_subStrings[4]), _subStrings[5]));
                     }
-                    i++;
                 }
             }
         }
         #endregion
+        public static void WriteBill(Bill bill)
+        {
+            CreateFile(Environment.CurrentDirectory + "\\PersonInfo", bill.BillsRecord.RecordsPatient.CPR + "_" + bill.RecordID.ToString() + ".txt");
+            string AccountFile = (Path.Combine(Environment.CurrentDirectory + "\\PersonInfo", bill.BillsRecord.RecordsPatient.CPR + "_" + bill.RecordID.ToString() + ".txt"));
+
+            using (StreamWriter sw = new StreamWriter(AccountFile))
+            {
+                foreach (MedicalService item in bill.BillItemList)
+                {
+                    sw.WriteLine(item.ToString());
+                }
+                sw.WriteLine("Total price : " + bill.TotalPrice.ToString());
+            }
+        }
     }
 }

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Windows;
 using GalaSoft.MvvmLight.Messaging;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+
 
 namespace P3_Midwife
 {
@@ -21,8 +24,6 @@ namespace P3_Midwife
         }
         public string Password {private get; set; }
 
-
-
         public LoginViewModel()
         {
             //_employees.Add(new Midwife(1, "Gitte", "x", 42660666, "x"));
@@ -35,17 +36,14 @@ namespace P3_Midwife
                 if (Ward.Employees.Exists(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password)))
                 {
                     Employee SendEmp = Ward.Employees.Find(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password));
-                    Messenger.Default.Send(new NotificationMessage("ShowHomeScreen"));
-                    Messenger.Default.Send(SendEmp,"ActiveUser");
-                    
-
+                    Messenger.Default.Send(new NotificationMessage("FromLogInToHome"));
+                    Messenger.Default.Send(SendEmp,"ActiveUser");               
                 }
                 else
                 {
                     MessageBox.Show("Ugyldigt login", "Fejl");
                 }
             });
-        }
-        
+        }        
     }
 }

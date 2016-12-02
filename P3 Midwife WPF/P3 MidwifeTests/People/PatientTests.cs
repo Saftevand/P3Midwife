@@ -11,7 +11,6 @@ namespace P3_Midwife.Tests
     [TestClass()]
     public class PatientTests
     {
-        DeliveryRoom TestDeliveryRoom = new DeliveryRoom(1, true);
         Patient TestPatient = new Patient("1234567890", "TestName");
 
         #region ConstructorTests
@@ -26,41 +25,22 @@ namespace P3_Midwife.Tests
         {
             Assert.IsNotNull(TestPatient.Name);
         }
+
+        [TestMethod()]
+        public void PatientTestConstructorGender()
+        {
+            Assert.AreEqual(TestPatient.Gender, "P");
+        }
         #endregion
 
-        #region AddAndRemovePatientFromRoom
-        //[TestMethod()]
-        //public void AdmitPatientToRoomTest()
-        //{
-        //    Patient TestPatientAdmit = new Patient("1234567890", "TestName");
-        //    TestPatientAdmit.AdmitPatientToRoom(TestDeliveryRoom);
+        #region MethodTests
 
-        //    Assert.AreEqual(TestDeliveryRoom.PatientsInRoom.First(), TestPatientAdmit); 
-        //}
-
-        //[TestMethod()]
-        //public void DischargePatientFromRoomTest()
-        //{
-        //    Patient TestPatientAdmit = new Patient("1234567890", "TestName");
-
-        //    TestPatientAdmit.AdmitPatientToRoom(TestDeliveryRoom);
-        //    TestPatientAdmit.DischargePatientFromRoom(TestDeliveryRoom);
-
-        //    Assert.IsFalse(TestDeliveryRoom.PatientsInRoom.Contains(TestPatientAdmit));
-        //}
-
-        //TODO: denne test skal måske ikke være der da den skriver i filer
-        //[TestMethod()]
-        //public void GenerateCPRTest()
-        //{
-        //    string expectedCpr = "2411164007";
-
-        //    Patient TestPatient = new Patient("1111111111", "Test Tester");
-
-        //    TestPatient.CreateChild('D', "241116");
-
-        //    Assert.IsTrue(TestPatient.Children.First().CPR == expectedCpr);
-        //}
+        [TestMethod()]
+        public void PatientTestCalcAge()
+        {
+            Patient AgeTester = new Patient("0109940000", "name");
+            Assert.AreEqual(AgeTester.Age, 22);
+        }
         #endregion
     }
 }

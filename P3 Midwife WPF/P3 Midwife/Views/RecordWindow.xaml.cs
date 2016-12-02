@@ -17,35 +17,35 @@ using GalaSoft.MvvmLight.Messaging;
 
 namespace P3_Midwife.Views
 {
-    public partial class PatientWindow : Window
+    public partial class RecordWindow : Window
     {
-        public PatientWindow()
+        public RecordWindow()
         {
             InitializeComponent();
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
+
         }
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (msg.Notification == "FromPatientToHome")
+            if (msg.Notification == "FromRecordToLogIn")
             {
-                var HomeScreenView = new HomeScreen();
-                HomeScreenView.Show();
+                var MainWindow = new MainWindow();
+                MainWindow.Show();
                 this.Close();
             }
-            else if (msg.Notification == "FromPatientToRecord")
+            else if (msg.Notification == "FromRecordToPatient")
             {
-                var RecordScreenView = new RecordWindow();
-                RecordScreenView.Show();
+                var PatientView = new PatientWindow();
+                PatientView.Show();
                 this.Close();
             }
-            else if (msg.Notification == "FromPatientToMain")
+            else if (msg.Notification == "FromRecordToCNewChild")
             {
-                var MainScreenView = new MainWindow();
-                MainScreenView.Show();
+                var NewChildView = new NewChildWindow();
+                NewChildView.Show();
                 this.Close();
             }
         }
-
     }
 }

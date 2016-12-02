@@ -15,18 +15,23 @@ namespace P3_Midwife
         //private Record _record;
         private List<MedicalService> _billItemList = new List<MedicalService>();
         private decimal _totalPrice;
-        private int _recordID;
+        private Record _recordID;
         #endregion
 
 
         #region Properties
         public List<MedicalService> BillItemList { get { return _billItemList; } set {; } }
         public decimal TotalPrice { get { return CalculateTotalPrice(); } }
+        public bool Active { get; set; }
+        public Record BillsRecord { get; set; }
+        public int RecordID { get; set; }
         #endregion
 
-        public Bill(int recordID)
+        public Bill(Record record)
         {
-            this._recordID = recordID;
+            this.RecordID = record.thisRecordID;
+            this.Active = true;
+            this.BillsRecord = record;
         }
 
         #region Methods

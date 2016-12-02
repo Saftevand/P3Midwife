@@ -4,17 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace P3_Midwife
 {
     public class Midwife : Employee
     {
 
-        public Midwife(int id, string name, string password, int telephonenumber, string email, int clearance) 
-            : base(id, name, password, telephonenumber, email, clearance)
+        public Midwife(int id, string name, string password, int telephonenumber, string email) 
+            : base(id, name, password, telephonenumber, email)
         { }
 
-        private void TransferPatient(Patient _patient)
+        //Removes a patient from ward
+        public void TransferPatient(Patient _patient)
         {
             Filemanagement.RemovePatientFromRoomFile(_patient);
             Filemanagement.RemovePatientFromFile(_patient);
@@ -32,7 +34,8 @@ namespace P3_Midwife
             }
         }
 
-        public void AssignPatientToDRoom(Patient _patient)
+        //Puts a patient in a vacant room
+        private void AssignPatientToDRoom(Patient _patient)
         {
             DeliveryRoom currentRoom = Ward.DeliveryRooms.Find(x => x.Occupied == false);
             if (currentRoom != null)
@@ -46,6 +49,7 @@ namespace P3_Midwife
         }
 
         //TODO: Do we need method RequestTestSample? a bit like RegisterTreatmentToBill 
+        //Adds a MedicalService to the a patient's record's bill.
         public void RegisterTreatmentToBill(Patient _patient, MedicalService _medicalService)
         {
             Record currentRecord = _patient.RecordList.Find(x => x.IsActive == true);
@@ -59,6 +63,7 @@ namespace P3_Midwife
             }
         }
 
+        //Removes a specific medicalservice to a patients bill
         public void RemoveTreatmentFromBill(Patient _patient, MedicalService _medicalService)
         {
             if (_patient.RecordList.Last().IsActive == true)
@@ -70,7 +75,8 @@ namespace P3_Midwife
                 throw new Exception("No active record for patient");
             }
         }
-
+        
+        //Admits patient to the ward. Also places patient in a room using the AssignPatientToDRoom method
         public void AdmitPatient(string _cpr, string _name)
         {
             Patient patientToAdd = new Patient(_cpr, _name);
@@ -79,6 +85,7 @@ namespace P3_Midwife
             AssignPatientToDRoom(patientToAdd);
         }
 
+        //Method to create a patient when a baby is born.
         public void CreatePatient(Patient _mother, char _gender)
         {
             Patient child = new Patient(_gender);
@@ -91,8 +98,6 @@ namespace P3_Midwife
             Patient child = new Patient(_gender, _date);
             child.Mother = _mother;
             _mother.Children.Add(child);
-        }
-
-        
+        } 
     }
 }
