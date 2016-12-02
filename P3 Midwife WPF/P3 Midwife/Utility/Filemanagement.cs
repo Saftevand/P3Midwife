@@ -431,11 +431,11 @@ namespace P3_Midwife
                 while ((_tempString = sr.ReadLine()) != null)
                 {
                     _subStrings = _tempString.Split(' ');
-                    if (_subStrings[4] == "1")
+                    if (_subStrings[5] == "1")
                     {
                         Ward.Employees.Add(new Midwife(Convert.ToInt32(_subStrings[0]), _subStrings[1] +" "+ _subStrings[2], _subStrings[3], Convert.ToInt32(_subStrings[4]), _subStrings[5]));
                     }
-                    else if (_subStrings[4] == "2")
+                    else if (_subStrings[5] == "2")
                     {
                         Ward.Employees.Add(new SOSU(Convert.ToInt32(_subStrings[0]), _subStrings[1] + " " + _subStrings[2], _subStrings[3], Convert.ToInt32(_subStrings[4]), _subStrings[5]));
                     }
