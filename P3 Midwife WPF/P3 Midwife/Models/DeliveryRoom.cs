@@ -20,5 +20,10 @@ namespace P3_Midwife
         
         public List<Patient> PatientsInRoom { get { return _patientsInRoomList; } set { _patientsInRoomList = value; }}
 
+        public override string ToString()
+        {
+            return (RoomID.ToString() + " " + Occupied.ToString());
+        }
+
     }
 }

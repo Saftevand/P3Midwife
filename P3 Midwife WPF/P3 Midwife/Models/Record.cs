@@ -14,7 +14,7 @@ namespace P3_Midwife
         private double _circumferenceStomach;
         private double _bloodSugar;
         private string _GA;
-        private List<String> _diseases;
+        private List<String> _diseases = new List<string>();
         private double _navelpHVenous;
         private double _navelpHArterial;
         private double _navelBaseExcess;
@@ -24,15 +24,15 @@ namespace P3_Midwife
         private int _apgarOneMinute;
         private int _apgarFiveMinutes;
         private int _apgarTenMinutes;
-        private DateTime _timeOfBirth;
+        private DateTime _timeOfBirth;//
         private string _diagnosis;
-        private List<_vaginalExploration> _vaginalExplorationList;
-        private List<_contractionIVDrip> _contractionIVDRIPList;
-        private List<_micturition> _micturitionList;
-        private List<_fetusObservation> _fetusObservationList;
-        private List<_birthInformation> _birthInformationList;
+        private List<_vaginalExploration> _vaginalExplorationList = new List<_vaginalExploration>();
+        private List<_contractionIVDrip> _contractionIVDRIPList = new List<_contractionIVDrip>();
+        private List<_micturition> _micturitionList = new List<_micturition>();
+        private List<_fetusObservation> _fetusObservationList = new List<_fetusObservation>();
+        private List<_birthInformation> _birthInformationList = new List<_birthInformation>();
         private Bill _bill;
-        public static int RecordID;
+        public static int RecordID;//
      
 
         public struct _vaginalExploration
@@ -45,20 +45,43 @@ namespace P3_Midwife
             private string _consistency;
             private string _location;
             private string _amnioticFluid;
+            private string _note;
+
+            public string Note { get { return _note; } set { _note = value; } }
+            public DateTime Time { get { return _time; } set { _time = value; } }
+            public int Collum { get { return _collum; } set { _collum = value; } }
+            public int Dialation { get { return _dilation; } set { _dilation = value; } }
+            public string Position { get { return _position; } set { _position = value; } }
+            public int Rotation { get { return _rotation; } set { _rotation = value; } }
+            public string Consistency { get { return _consistency; } set { _consistency = value; } }
+            public string Location { get { return _location; } set { _location = value; } }
+            public string AmnioticFluid { get { return _amnioticFluid; } set { _amnioticFluid = value; } }
+
         }
 
         public struct _contractionIVDrip
         {
             private DateTime _time;
-            private int _numberOfContractionsPerMinutes;
+            private int _numberOfContractionsPerMinute;
             private int _contractionPain;
             private int _SDripMLPerHour;
+            private string _note;
+            public string Note { get { return _note; } set { _note = value; } }
+
+            public DateTime Time { get { return _time; } set { _time = value; } }
+            public int NumberOfContractionsPerMinute { get { return _numberOfContractionsPerMinute; } set { _numberOfContractionsPerMinute = value; } }
+            public int ContractionPain { get { return _contractionPain; } set { _contractionPain = value; } }
+            public int SDripMlPerHour { get { return _SDripMLPerHour; } set { _SDripMLPerHour = value; } }
         }
 
         public struct _micturition
         {
             private DateTime _time;
             private string _micturitionNote;
+            private string _note;
+            public string Note { get { return _note; } set { _note = value; } }
+            public DateTime Time { get { return _time; } set { _time = value; } }
+            public string MicturitionNote { get { return _micturitionNote; } set { _micturitionNote = value; } }
         }
 
         public struct _fetusObservation
@@ -70,6 +93,15 @@ namespace P3_Midwife
             private string _STAN;
             private double _scalppH;
             private double _scalpLactate;
+            private string _note;
+            public string Note { get { return _note; } set { _note = value; } }
+            public DateTime Time { get { return _time; } set { _time = value; } }
+            public string HearthFrequency { get { return _hearthfrequency; } set { _hearthfrequency = value; } }
+            public string CTG { get { return _CTG; } set { _CTG = value; } }
+            public string CTGClassification { get { return _CTGClassification; } set { _CTGClassification = value; } }
+            public string STAN { get { return _STAN; } set { _STAN = value; } }
+            public double ScalppH { get { return _scalppH; } set { _scalppH = value; } }
+            public double ScalpLactate { get { return _scalpLactate; } set { _scalpLactate = value; } }
         }
 
         public struct _birthInformation
@@ -81,6 +113,15 @@ namespace P3_Midwife
             private double _bloodAmount;
             private string _bleedingCause;
             private string _birthPosition;
+            private string _note;
+            public string Note { get { return _note; } set { _note = value; } }
+            public DateTime Time { get { return _time; } set { _time = value; } }
+            public string Result { get { return _result; } set { _result = value; } }
+            public string AmnioticFluid { get { return _amnioticFluid; } set { _amnioticFluid = value; } }
+            public string AmountOfFluid { get { return _amountOfFluid; } set { _amountOfFluid = value; } }
+            public double BloodAmount { get { return _bloodAmount; } set { _bloodAmount = value; } }
+            public string BleedingCause { get { return _bleedingCause; } set { _bleedingCause = value; } }
+            public string BirthPosition { get { return _birthPosition; } set { _birthPosition = value; } }
         }
         #endregion
 
@@ -109,6 +150,7 @@ namespace P3_Midwife
         public Bill CurrentBill { get { return _bill; } set { _bill = value; } }
         public bool IsActive { get; set; }
         public Patient RecordsPatient { get { return _patient; } }
+        public int ThisRecordID { get; set; }
         #endregion
 
         public Record(Patient Patient)
@@ -116,6 +158,7 @@ namespace P3_Midwife
             this._patient = Patient;
             this.IsActive = true;
             this.CurrentBill = new Bill(RecordID);
+            ThisRecordID = RecordID;
             RecordID++;
         }
 
