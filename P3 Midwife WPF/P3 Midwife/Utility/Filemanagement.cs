@@ -131,21 +131,30 @@ namespace P3_Midwife
         {
             StreamReader sr;
             List<List<string>> information = new List<List<string>>();
-            int CIVDripCounter = 0;
-            int vgExpCounter = 0;
-            int micturitionCounter = 0;
-            int fetusObsCounter = 0;
-            int birthInfoCounter = 0;
-            int variCounter = 0;
-            Record recordToBeAdded = new Record(patient);
+            int CIVDripCounter;
+            int vgExpCounter;
+            int micturitionCounter;
+            int fetusObsCounter;
+            int birthInfoCounter;
+            int variCounter;
+            int fileCounter = 0;
+            Record recordToBeAdded;
             string lortstreng;
             string[] filer = Directory.GetFiles(Path.Combine(_PatientsPath, patient.CPR.ToString())).Where(x => !x.Contains("info")).ToArray();
+            
             foreach (string fil in filer)
             {
+                recordToBeAdded = new Record(patient);
+                CIVDripCounter = 0;
+                vgExpCounter = 0;
+                micturitionCounter = 0;
+                fetusObsCounter = 0;
+                birthInfoCounter = 0;
+                variCounter = 0;
                 sr = new StreamReader(fil);
                 information.Add(sr.ReadToEnd().Split('_').ToList());
-                information[0].RemoveAt(0);
-                foreach (string paragraph in information[0])
+                information[fileCounter].RemoveAt(0);
+                foreach (string paragraph in information[fileCounter])
                 {
                     lortstreng = paragraph.Split('|')[0];
                     switch (lortstreng)
@@ -178,7 +187,7 @@ namespace P3_Midwife
                     string[] CIVDripInfo;
                     for (; i < CIVDripCounter; i++)
                     {
-                        CIVDripInfo = information[0][i].Split('|');
+                        CIVDripInfo = information[fileCounter][i].Split('|');
                         Record._contractionIVDrip temp = new Record._contractionIVDrip();
                         temp.Time = DateTime.ParseExact(CIVDripInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
                         temp.NumberOfContractionsPerMinute = Convert.ToInt32(CIVDripInfo[2]);
@@ -300,6 +309,7 @@ namespace P3_Midwife
                     sr.Close();
                 }
                 patient.RecordList.Add(recordToBeAdded);
+                fileCounter++;
             }
         }
 
@@ -327,6 +337,13 @@ namespace P3_Midwife
                     file.Write(patient.CPR.ToString());
                 }
             }
+            file.Close();
+        }
+
+        public static void SaveRecord(Record record)
+        {
+            StreamWriter file = new StreamWriter(Path.Combine(_PatientsPath, record.RecordsPatient.CPR.ToString(), "_Record"+record.ThisRecordID.ToString()+".txt"));
+            file.Write(record.ToFile());
             file.Close();
         }
 
