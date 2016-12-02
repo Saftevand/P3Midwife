@@ -28,20 +28,19 @@ namespace P3_Midwife.Views
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (msg.Notification == "ShowMainViewRecord")
-            if (msg.Notification == "ShowLoginView")
+            if (msg.Notification == "FromRecordToLogIn")
             {
                 var MainWindow = new MainWindow();
                 MainWindow.Show();
                 this.Close();
             }
-            else if (msg.Notification == "ReturnToRecordView")
+            else if (msg.Notification == "FromRecordToPatient")
             {
                 var PatientView = new PatientWindow();
                 PatientView.Show();
                 this.Close();
             }
-            else if (msg.Notification == "ShowNewChildView")
+            else if (msg.Notification == "FromRecordToCNewChild")
             {
                 var NewChildView = new NewChildWindow();
                 NewChildView.Show();

@@ -10,11 +10,27 @@ namespace P3_Midwife
     {
         #region Instansvariabler
         private Patient _patient;
+        private DateTime _date = new DateTime();
         private double _circumferenceHead;
         private double _circumferenceStomach;
+        private double _weight;
+        private double _length;
         private double _bloodSugar;
+        private List<String> _diseases = new List<string>();
         private string _GA;
-        private List<String> _diseases;
+        private int _ho;
+        private int _ao;
+        private int _fetuspre;
+        private string _numberofchildren;
+        private string _furtherNotice;
+        private bool _sucking;
+        private bool _nose;
+        private bool _pharynx;
+        private bool _ventricle;
+        private double _NSapH;
+        private double _NSaSBE;
+        private double _NSvpH;
+        private double _NSvSBE;
         private double _navelpHVenous;
         private double _navelpHArterial;
         private double _navelBaseExcess;
@@ -24,15 +40,13 @@ namespace P3_Midwife
         private int _apgarOneMinute;
         private int _apgarFiveMinutes;
         private int _apgarTenMinutes;
-        private DateTime _timeOfBirth;
+        private DateTime _timeOfBirth;//
         private string _diagnosis;
         private List<_vaginalExploration> _vaginalExplorationList = new List<_vaginalExploration>();
         private List<_contractionIVDrip> _contractionIVDRIPList = new List<_contractionIVDrip>();
         private List<_micturition> _micturitionList = new List<_micturition>();
         private List<_fetusObservation> _fetusObservationList = new List<_fetusObservation>();
         private List<_birthInformation> _birthInformationList = new List<_birthInformation>();
-        
-
         private Bill _bill;
         public static int RecordID;
         public int thisRecordID;
@@ -47,93 +61,42 @@ namespace P3_Midwife
             private string _consistency;
             private string _location;
             private string _amnioticFluid;
+            private string _note;
 
-            public DateTime Time
-            {
-                get { return _time; }
-                set { _time = value; }
-            }
-            public int Collum
-            {
-                get { return _collum; }
-                set { _collum = value; }
-            }
-            public int Dilation
-            {
-                get { return _dilation; }
-                set { _dilation = value; }
-            }
-            public string Position
-            {
-                get { return _position; }
-                set { _position = value; }
-            }
-            public int Rotation
-            {
-                get { return _rotation; }
-                set { _rotation = value; }
-            }
-            public string Consistency
-            {
-                get { return _consistency; }
-                set { _consistency = value; }
-            }
-            public string Location
-            {
-                get { return _location; }
-                set { _location = value; }
-            }
-            public string AmnioticFluid
-            {
-                get { return _amnioticFluid; }
-                set { _amnioticFluid = value; }
-            }
+            public string Note { get { return _note; } set { _note = value; } }
+            public DateTime Time { get { return _time; } set { _time = value; } }
+            public int Collum { get { return _collum; } set { _collum = value; } }
+            public int Dialation { get { return _dilation; } set { _dilation = value; } }
+            public string Position { get { return _position; } set { _position = value; } }
+            public int Rotation { get { return _rotation; } set { _rotation = value; } }
+            public string Consistency { get { return _consistency; } set { _consistency = value; } }
+            public string Location { get { return _location; } set { _location = value; } }
+            public string AmnioticFluid { get { return _amnioticFluid; } set { _amnioticFluid = value; } }
         }
 
             public struct _contractionIVDrip
         {
             private DateTime _time;
-            private int _numberOfContractionsPerMinutes;
+            private int _numberOfContractionsPerMinute;
             private int _contractionPain;
             private int _SDripMLPerHour;
+            private string _note;
+            public string Note { get { return _note; } set { _note = value; } }
 
-            public DateTime Time
-            {
-                get { return _time; }
-                set { _time = value; }
-            }
-            public int NumberOfCantrationsPerMinutes
-            {
-                get { return _numberOfContractionsPerMinutes; }
-                set { _numberOfContractionsPerMinutes = value; }
-            }
-            public int ContractionPain
-            {
-                get { return _contractionPain; }
-                set { _contractionPain = value; }
-            }
-            public int SDripMLPerHour
-            {
-                get { return _SDripMLPerHour; }
-                set { _SDripMLPerHour = value; }
-            }
+            public DateTime Time { get { return _time; } set { _time = value; } }
+            public int NumberOfContractionsPerMinute { get { return _numberOfContractionsPerMinute; } set { _numberOfContractionsPerMinute = value; } }
+            public int ContractionPain { get { return _contractionPain; } set { _contractionPain = value; } }
+            public int SDripMlPerHour { get { return _SDripMLPerHour; } set { _SDripMLPerHour = value; } }
         }
 
         public struct _micturition
         {
             private DateTime _time;
             private string _micturitionNote;
-
-            public DateTime Time
-            {
-                get { return _time; }
-                set { _time = value; }
-            }
-            public string MicturitionNote
-            {
-                get { return _micturitionNote; }
-                set { _micturitionNote = value; }
-            }
+            private string _note;
+            public string Note { get { return _note; } set { _note = value; } }
+            public DateTime Time { get { return _time; } set { _time = value; } }
+            public string MicturitionNote { get { return _micturitionNote; } set { _micturitionNote = value; } }
         }
 
         public struct _fetusObservation
@@ -145,42 +108,15 @@ namespace P3_Midwife
             private string _STAN;
             private double _scalppH;
             private double _scalpLactate;
-
-            public DateTime Time
-            {
-                get { return _time; }
-                set { _time = value; }
-            }
-            public string HeartFrequency
-            {
-                get { return _hearthfrequency; }
-                set { _hearthfrequency = value; }
-            }
-            public string CTG
-            {
-                get { return _CTG; }
-                set { _CTG = value; }
-            }
-            public string CTGClassification
-            {
-                get { return _CTGClassification; }
-                set { _CTGClassification = value; }
-            }
-            public string STAN
-            {
-                get { return _STAN; }
-                set { _STAN = value; }
-            }
-            public double ScalpPH
-            {
-                get { return _scalppH; }
-                set { _scalppH = value; }
-            }
-            public double ScalpLactate
-            {
-                get { return _scalpLactate; }
-                set { _scalpLactate = value; }
-            }
+            private string _note;
+            public string Note { get { return _note; } set { _note = value; } }
+            public DateTime Time { get { return _time; } set { _time = value; } }
+            public string HearthFrequency { get { return _hearthfrequency; } set { _hearthfrequency = value; } }
+            public string CTG { get { return _CTG; } set { _CTG = value; } }
+            public string CTGClassification { get { return _CTGClassification; } set { _CTGClassification = value; } }
+            public string STAN { get { return _STAN; } set { _STAN = value; } }
+            public double ScalppH { get { return _scalppH; } set { _scalppH = value; } }
+            public double ScalpLactate { get { return _scalpLactate; } set { _scalpLactate = value; } }
         }
 
         public struct _birthInformation
@@ -192,42 +128,15 @@ namespace P3_Midwife
             private double _bloodAmount;
             private string _bleedingCause;
             private string _birthPosition;
-
-            public DateTime Time
-            {
-                get { return _time; }
-                set { _time = value; }
-            }
-            public string Result
-            {
-                get { return _result; }
-                set { _result = value; }
-            }
-            public string AmnioticFluid
-            {
-                get { return _amnioticFluid; }
-                set { _amnioticFluid = value; }
-            }
-            public string AmountOfFluid
-            {
-                get { return _amountOfFluid; }
-                set { _amountOfFluid = value; }
-            }
-            public double BloodAmount
-            {
-                get { return _bloodAmount; }
-                set { _bloodAmount = value; }
-            }
-            public string BleedingCause
-            {
-                get { return _bleedingCause; }
-                set { _bleedingCause = value; }
-            }
-            public string BirthPosition
-            {
-                get { return _birthPosition; }
-                set { _birthPosition = value; }
-            }
+            private string _note;
+            public string Note { get { return _note; } set { _note = value; } }
+            public DateTime Time { get { return _time; } set { _time = value; } }
+            public string Result { get { return _result; } set { _result = value; } }
+            public string AmnioticFluid { get { return _amnioticFluid; } set { _amnioticFluid = value; } }
+            public string AmountOfFluid { get { return _amountOfFluid; } set { _amountOfFluid = value; } }
+            public double BloodAmount { get { return _bloodAmount; } set { _bloodAmount = value; } }
+            public string BleedingCause { get { return _bleedingCause; } set { _bleedingCause = value; } }
+            public string BirthPosition { get { return _birthPosition; } set { _birthPosition = value; } }
         }
         #endregion
 
@@ -241,6 +150,14 @@ namespace P3_Midwife
         public double CircumferenceStomach { get; set; }
         public double BloodSugar { get { return this._bloodSugar; } set { this._bloodSugar = value; } }
         public string GA { get { return this._GA; } set { this._GA = value; } }
+        public double Weight { get { return this._weight; } set { this._weight = value; } }
+        public double Length { get { return this._length; } set { this._length = value; } }
+        public int HO { get { return this._ho; } set { this._ho = value; } }
+        public int AO { get { return this._ao; } set { this._ao = value; } }
+        public bool Sucking { get { return this._sucking; } set { this._sucking = value; } }
+        public int FetusPre { get { return this._fetuspre; } set { this._fetuspre = value; } }
+        public string FurtherNotice { get { return this._furtherNotice; } set { this._furtherNotice = value; } }
+        public string NumberOfChildren { get { return this._numberofchildren; } set { this._numberofchildren = value; } }
         public List<string> Diseases { get { return this._diseases; } set { this._diseases = value; } }
         public double NavelpHVenous { get { return this._navelpHVenous; } set { this._navelpHVenous = value; } }
         public double NavelpHArterial { get { return this._navelpHArterial; } set { this._navelpHArterial = value; } }
@@ -256,12 +173,23 @@ namespace P3_Midwife
         public Bill CurrentBill { get { return _bill; } set { _bill = value; } }
         public bool IsActive { get; set; }
         public Patient RecordsPatient { get { return _patient; } }
+        public int ThisRecordID { get; set; }
+        public bool Nose { get { return this._nose; } set { this._nose = value; } }
+        public bool Pharynx { get { return this._pharynx; } set { this._pharynx = value; } }
+        public bool Ventricle { get { return this._ventricle; } set { this._ventricle = value; } }
+        public double NSapH { get { return this._NSapH; } set { this._NSapH = value; } }
+        public double NSaSBE { get { return this._NSaSBE; } set { this._NSaSBE = value; } }
+        public double NSvpH { get { return this._NSvpH; } set { this._NSvpH = value; } }
+        public double NSvSBE { get { return this._NSvSBE; } set { this._NSvSBE = value; } }
+        public DateTime Date { get { return this._date; } set { this._date = value; } }
         #endregion
 
         public Record(Patient Patient)
         {
             this._patient = Patient;
             this.IsActive = true;
+            ThisRecordID = RecordID;
+            RecordID++;
             thisRecordID = RecordID++;
             this.CurrentBill = new Bill(this);
         }

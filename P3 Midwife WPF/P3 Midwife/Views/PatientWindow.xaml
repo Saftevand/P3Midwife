@@ -26,10 +26,10 @@
         </Menu>
         <StackPanel Margin="0,67.4,-219,-452.6" Grid.Row="1">
             <ListBox HorizontalAlignment="Left" Width="200" Margin="0,20,0,0">
-                <ListBoxItem Content="{Binding PatientCurrent.Name}" Height="20"/>
-                <ListBoxItem Content="{Binding PatientCurrent.Age}" Height="20"/>
-                <ListBoxItem Content="{Binding PatientCurrent.Gender}" Height="20"/>
-                <ListBoxItem Content="{Binding PatientCurrent.CPR}" Selected="ListBoxItem_Selected" Height="22"/>
+                <ListBoxItem Content="{Binding PatientCurrent.Name}"/>
+                <ListBoxItem Content="{Binding PatientCurrent.Age}"/>
+                <ListBoxItem Content="{Binding PatientCurrent.Gender}" />
+                <ListBoxItem Content="{Binding PatientCurrent.CPR}"/>
             </ListBox>
             <Button Command="{Binding CreateRecordCommand}" Margin="201,0,0,0">
                 Ny Journal

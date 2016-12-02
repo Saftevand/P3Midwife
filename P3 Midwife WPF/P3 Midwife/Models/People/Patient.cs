@@ -39,26 +39,17 @@ namespace P3_Midwife
         public Patient Mother;
         public DeliveryRoom InRoom;
         private List<Patient> _children = new List<Patient>();
-
-        public string CPR { get; set; }
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
-
-        private List<Record> _recordList = new List<Record>();
-        public string Gender { get { return gender.ToString(); } }
-
-
-        public int Age { get { return CalcAge(); } }
-
-      
-
         public List<Patient> Children { get { return _children; } set { _children = value; } }
         public List<Record> RecordList { get { return _recordList; } set { _recordList = value; } }
-        
+        private List<Record> _recordList = new List<Record>();
 
+        public string CPR { get; set; }
+        public string Name { get { return _name; } set { _name = value; }}
+        public string Gender { get { return gender.ToString(); } set {  gender = Convert.ToChar(value); }}
+        public int Age { get { return CalcAge(); } }           
+
+
+        #region Constructors
         public Patient(string PatientCPR, string PatientName)
         {
             this.CPR = PatientCPR;
@@ -88,6 +79,13 @@ namespace P3_Midwife
             this.InRoom = this.Mother.InRoom;
         }
 
+        public Patient()
+        {
+
+        }
+        #endregion
+
+        #region Methods
         //looks at last digit of CPR to get gender
         private char FindGenderFromCPR(string _cpr)
         {
@@ -220,6 +218,8 @@ namespace P3_Midwife
             else
                 return --year;
         }
+
+        #endregion
 
         public override string ToString()
         {
