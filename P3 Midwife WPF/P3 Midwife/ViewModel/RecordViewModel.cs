@@ -17,6 +17,7 @@ namespace P3_Midwife.ViewModel
         public RelayCommand BackCommand { get; }
         public RelayCommand NewChildCommand { get; }
         public RelayCommand MedicinCommand { get; }
+        public RelayCommand SaveAndComplete { get; }
         public static DependencyProperty PatientProperty = DependencyProperty.Register(nameof(PatientCurrent), typeof(Patient), typeof(RecordViewModel));
         public static DependencyProperty RecordProperty = DependencyProperty.Register(nameof(RecordCurrent), typeof(Record), typeof(RecordViewModel));
         public static DependencyProperty BirthInfoProperty = DependencyProperty.Register(nameof(BirthInfo), typeof(Record._birthInformation), typeof(RecordViewModel));
@@ -97,6 +98,13 @@ namespace P3_Midwife.ViewModel
                 Messenger.Default.Send(new NotificationMessage("FromRecordToCNewChild"));
                 Messenger.Default.Send(PatientCurrent, "PatientToNewChildView");
                 Messenger.Default.Send(EmployeeCurrent, "EmployeetoNewChildView");
+            });
+            this.SaveAndComplete = new RelayCommand(parameter =>
+            {
+                PatientCurrent.RecordList.Add(RecordCurrent);
+                Messenger.Default.Send(new NotificationMessage("FromRecordToPatient"));
+                Messenger.Default.Send(PatientCurrent, "Patient");
+                Messenger.Default.Send(EmployeeCurrent, "Employee");
             });
             this.MedicinCommand = new RelayCommand(parameter =>
             {

@@ -30,9 +30,9 @@
 
         <StackPanel Grid.ColumnSpan="3">
             <ListBox x:Name="BirthInfo" Margin="199,20,0,0">
-                <TextBlock x:Name="BItextBlock" TextWrapping="Wrap" Text="Fødselsoplysninger" />
-
+                <TextBlock x:Name="BItextBlock" TextWrapping="Wrap" Text="Fødselsoplysninger"/>
             </ListBox>
+
             <ListView x:Name="BirthInfoHeader" Margin="199,0,0,0">
                 <ListView.View>
                     <GridView>
@@ -302,6 +302,9 @@
                 </Button>
                 <Button Command="{Binding MedicinCommand}">
                     Medicin
+                </Button>
+                <Button Command="{Binding SaveAndComplete}">
+                    Gem og afslut
                 </Button>
             </StackPanel>
         </ListView>

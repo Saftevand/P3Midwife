@@ -23,7 +23,6 @@ namespace P3_Midwife
         public static void CreateFile(string Directory, string NameOfFile)
         {
             File.Create(Path.Combine(Directory, NameOfFile + ".txt")).Close();
-            File.Create(Path.Combine(Directory, NameOfFile)).Close();
         }
 
         public static void InitialiseFoldersAndFiles()
@@ -79,6 +78,7 @@ namespace P3_Midwife
                 file.WriteLine("2 Pernille Johansen kode 18748643 PernilleJ@hotmail.com 1");
                 file.WriteLine("3 Amalie Knudsen sosu 89435135 AmalieK@hotmail.com 2");
                 file.WriteLine("4 Mette Hansen 321 49846516 Metteh@hotmail.com 2");
+                file.WriteLine("5 x x x 1 x 1");
                 file.Close();
             }
             else
