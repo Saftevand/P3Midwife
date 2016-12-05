@@ -136,7 +136,7 @@ namespace P3_Midwife.ViewModel
                 RecordCurrent.FetusObservationList.Add(FetusObservationInfo);
                 RecordCurrent.VaginalExplorationList.Add(VaginalExplorationInfo);
                 PatientCurrent.RecordList.Add(RecordCurrent);
-                Messenger.Default.Send(new NotificationMessage("FromRecordToPatient"));
+                Messenger.Default.Send(new NotificationMessage("ToPatient"));
                 Messenger.Default.Send(PatientCurrent, "Patient");
                 Messenger.Default.Send(EmployeeCurrent, "Employee");
             });

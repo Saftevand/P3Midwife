@@ -81,10 +81,8 @@ namespace P3_Midwife
                 file.WriteLine("5 x x x 1 x 1");
                 file.Close();
             }
-            else
-            {
-                ReadEmployees(Path.Combine(_AdminPath, "Employee_info.txt"));
-            }
+
+            ReadEmployees(Path.Combine(_AdminPath, "Employee_info.txt"));
         }
 
         private static void WriteInitialMedicalServicesFile()

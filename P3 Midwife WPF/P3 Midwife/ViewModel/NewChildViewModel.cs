@@ -58,7 +58,7 @@ namespace P3_Midwife.ViewModel
                 CurrentNewChild.GenerateCpr(Convert.ToChar(CurrentNewChild.Gender));
                 CurrentNewChild.Mother = CurrentPatient;
                 CurrentPatient.Children.Add(CurrentNewChild);
-                Messenger.Default.Send(new NotificationMessage("FromNewChildToRecord"));
+                Messenger.Default.Send(new NotificationMessage("ToRecord"));
                 Messenger.Default.Send(CurrentPatient, "PatientToRecordView");
                 Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");
                 //tempRecord.AO = CurrentRecord.AO;

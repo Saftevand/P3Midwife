@@ -95,13 +95,9 @@ namespace P3_Midwife.ViewModel
             });
             this.CreateRecordCommand = new RelayCommand(parameter =>
             {
-<<<<<<< HEAD
                 PatientCurrent.RecordList.Add(new Record(PatientCurrent));
                 Messenger.Default.Send(new NotificationMessage("ToRecord"));
-=======
                 Record tempRecord = new Record(PatientCurrent);
-                Messenger.Default.Send(new NotificationMessage("FromPatientToRecord"));
->>>>>>> 66f25291b8b42ea0187cc58883aa28b04bb66282
                 Messenger.Default.Send(PatientCurrent, "PatientToRecordView");
                 Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");
                 Messenger.Default.Send(tempRecord, "NewRecordToRecordView");
