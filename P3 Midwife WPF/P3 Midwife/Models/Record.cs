@@ -69,6 +69,11 @@ namespace P3_Midwife
             public string Consistency { get { return _consistency; } set { _consistency = value; } }
             public string Location { get { return _location; } set { _location = value; } }
             public string AmnioticFluid { get { return _amnioticFluid; } set { _amnioticFluid = value; } }
+
+            public override string ToString()
+            {
+                return ("_vaginalExp|" + Time.ToString() + "|" + Collum.ToString() + "|" + Dialation.ToString() + "|" + Position + "|" + Rotation.ToString() + "|" + Consistency + "|" + Location + "|" + AmnioticFluid);
+            }
         }
 
             public struct _contractionIVDrip
@@ -79,21 +84,28 @@ namespace P3_Midwife
             private int _SDripMLPerHour;
             private string _note;
             public string Note { get { return _note; } set { _note = value; } }
-
             public DateTime Time { get { return _time; } set { _time = value; } }
             public int NumberOfContractionsPerMinute { get { return _numberOfContractionsPerMinute; } set { _numberOfContractionsPerMinute = value; } }
             public int ContractionPain { get { return _contractionPain; } set { _contractionPain = value; } }
             public int SDripMlPerHour { get { return _SDripMLPerHour; } set { _SDripMLPerHour = value; } }
+
+            public override string ToString()
+            {
+                return ("_contractionIVDrip|" + Time.ToString() + "|" + NumberOfContractionsPerMinute.ToString() + "|" + ContractionPain.ToString() + "|" + SDripMlPerHour.ToString() + "|" + Note);
+            }
         }
 
         public struct _micturition
         {
             private DateTime _time;
             private string _micturitionNote;
-            private string _note;
-            public string Note { get { return _note; } set { _note = value; } }
             public DateTime Time { get { return _time; } set { _time = value; } }
             public string MicturitionNote { get { return _micturitionNote; } set { _micturitionNote = value; } }
+
+            public override string ToString()
+            {
+                return ("_micturition|" + Time.ToString() + "|" + MicturitionNote);
+            }
         }
 
         public struct _fetusObservation
@@ -114,6 +126,11 @@ namespace P3_Midwife
             public string STAN { get { return _STAN; } set { _STAN = value; } }
             public double ScalppH { get { return _scalppH; } set { _scalppH = value; } }
             public double ScalpLactate { get { return _scalpLactate; } set { _scalpLactate = value; } }
+
+            public override string ToString()
+            {
+                return ("_fetusObservation|" + Time.ToString() + "|" + HearthFrequency + "|" + CTG + "|" + CTGClassification + "|" + STAN + "|" + ScalppH.ToString() + "|" + ScalpLactate.ToString());
+            }
         }
 
         public struct _birthInformation
@@ -134,6 +151,11 @@ namespace P3_Midwife
             public double BloodAmount { get { return _bloodAmount; } set { _bloodAmount = value; } }
             public string BleedingCause { get { return _bleedingCause; } set { _bleedingCause = value; } }
             public string BirthPosition { get { return _birthPosition; } set { _birthPosition = value; } }
+
+            public override string ToString()
+            {
+                return ("_birthInformation|" + Time.ToString() + "|" + Result + "|" + AmnioticFluid + "|" + AmountOfFluid + "|" + BloodAmount.ToString() + "|" + BleedingCause + "|" + BirthPosition);
+            }
         }
         #endregion
 
@@ -198,6 +220,37 @@ namespace P3_Midwife
         public int CalculateSGA(/*TODO - patrick gøred*/)
         {
             throw new NotImplementedException("Patrick laver den");
+        }
+
+        public string ToFile()
+        {
+            string ReturnString = "";
+            foreach (_contractionIVDrip item in _contractionIVDRIPList)
+            {
+                ReturnString = ReturnString + item.ToString();
+            }
+            foreach (_vaginalExploration item in _vaginalExplorationList)
+            {
+                ReturnString = ReturnString + item.ToString();
+            }
+            foreach (_micturition item in _micturitionList)
+            {
+                ReturnString = ReturnString + item.ToString();
+            }
+            foreach (_fetusObservation item in FetusObservationList)
+            {
+                ReturnString = ReturnString + item.ToString();
+            }
+            foreach (_birthInformation item in BirthInformationList)
+            {
+                ReturnString = ReturnString + item.ToString();
+            }
+            ReturnString = (ReturnString + "_variables|" + ThisRecordID.ToString() + "|" + TimeOfBirth.ToString() + "|" + CircumferenceHead.ToString() + "|" + CircumferenceStomach.ToString() + "|" + BloodSugar.ToString() + "|" + GA + "|" + NavelpHVenous.ToString() + "|" + NavelpHArterial.ToString() + "|" + NavelBaseExcessArterial.ToString() + "|" + NavelBaseExcessVenous.ToString() + "|" + FetusPosition.ToString() + "|" + PlacentaWeight.ToString() + "|" + KVitamin.ToString() + "|" + ApgarOneMinute.ToString() + "|" + ApgarFiveMinutes.ToString() + "|" + ApgarTenMinutes.ToString() + "|" + AO.ToString() + "|" + HO.ToString() + "|" + Weight.ToString() + "|" + Length.ToString() + "|" + NumberOfChildren + "|" + FurtherNotice + "|" + Sucking.ToString() + "|" + Nose.ToString() + "|" + Pharynx.ToString() + "|" + Ventricle.ToString() + "|" + Diagnosis);
+            foreach (string item in Diseases)
+            {
+                ReturnString = ReturnString + "|" + item;
+            }
+            return (ReturnString);
         }
     }
 }
