@@ -22,13 +22,204 @@
             </MenuItem>
         </Menu>
 
-        <ListView x:Name="listView" HorizontalAlignment="Left" Height="654" Margin="0,20,0,0" VerticalAlignment="Top" Width="200">
-            <ListViewItem Content="{Binding CurrentPatient.Name}" Margin="0"/>
-            <ListViewItem Content="{Binding CurrentPatient.Age}" Margin="0"/>
-            <ListViewItem Content="{Binding CurrentPatient.Gender}" Margin="0"/>
-            <ListViewItem Content="{Binding CurrentPatient.CPR}" Margin="0"/>
+        <ListView x:Name="listView" HorizontalAlignment="Left" Height="700" Margin="0,20,0,0" VerticalAlignment="Top" Width="200">
+
         </ListView>
-        
-        
+
+        <ListView  x:Name="TopHeader" VerticalAlignment="Top" Height="100" Margin="199,20,0,0" Width="2000">
+            <StackPanel>
+                <TextBlock>
+                                <Run Text="Moder: "/>
+                                <Run Text="{Binding CurrentPatient.Name}"/>
+                                <Run Text=" "/>
+                                <Run Text="{Binding CurrentPatient.CPR}"/>
+                </TextBlock>
+                <TextBlock>
+                                <Run Text="Jordemoder: "/>
+                                <Run Text="{Binding CurrentEmployee.Name}"/>
+                </TextBlock>
+                <TextBlock>
+                                <Run Text="Rum: "/>
+                                <Run Text="{Binding CurrentRoom}"/>
+                </TextBlock>
+            </StackPanel>
+        </ListView>
+        <ListView Margin="199,118,0,0">
+            <StackPanel>
+                <TextBlock>
+                    <Label>
+                        <Run Text="Dato og tidspunkt"/>
+                    </Label>
+                    <TextBox Text="{Binding CurrentRecord.Date}" Width="25"/>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="Køn (D/P/U"/>
+                    </Label>
+                    <TextBox Text="{Binding CurrentNewChild.Gender}" Width="25"/>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="GA"/>
+                    </Label>
+                    <TextBox Text="{Binding CurrentRecord.GA_Week}" Width="25"/>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="Uger-dag"/>
+                    </Label>
+                    <TextBox Text="{Binding CurrentRecord.GA_Day}" Width="25"/>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="Vægt"/>
+                    </Label>
+                    <TextBox Text="{Binding CurrentRecord.Weight}" Width="25"/>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="Længde"/>
+                    </Label>
+                    <TextBox Text="{Binding CurrentRecord.Length}" Width="25"/>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="Fosterpræ"/>
+                    </Label>
+                    <TextBox Text="{Binding CurrentRecord.FetusPre}" Width="25"/>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="HO"/>
+                    </Label>
+                    <TextBox Text="{Binding CurrentRecord.HO}" Width="25"/>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="AO"/>
+                    </Label>
+                    <TextBox Text="{Binding CurrentRecord.AO}" Width="25"/>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="Placentavægt"/>
+                    </Label>
+                    <TextBox Text="{Binding CurrentRecord.PlacentaWeight}" Width="25"/>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="K. vit (I/D/N)"/>
+                    </Label>
+                    <TextBox Text="{Binding CurrentRecord.KVitamin}" Width="25"/>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="Diag."/>
+                    </Label>
+                    <TextBox Text="{Binding CurrentRecord.Diagnosis}" Width="25"/>
+                </TextBlock>
+            </StackPanel>
+        </ListView>
+
+        <ListView Margin="738,119,0,0" BorderThickness="0">
+            <StackPanel>
+                <TextBlock>
+                    <Label>
+                        <Run Text="Apgarbedømmelse 1 min"/>
+                    </Label>
+                    <TextBox Text="{Binding CurrentRecord.ApgarOneMinute}" Width="25"/>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="Apgarbedømmelse 5 min"/>
+                    </Label>
+                    <TextBox Text="{Binding CurrentRecord.ApgarFiveMinutes}" Width="25"/>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="Apgarbedømmelse 10 min"/>
+                    </Label>
+                    <TextBox Text="{Binding CurrentRecord.ApgarTenMinutes}" Width="25"/>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="Bemærk"/>
+                    </Label>
+                    <TextBox Text="{Binding CurrentRecord.FurtherNotice}" Width="75" Height="40"/>
+                </TextBlock>
+            </StackPanel>
+        </ListView>
+        <ListView Margin="738,364,0,0" BorderThickness="0">
+            <StackPanel>
+                <TextBlock>
+                    <Label>
+                        <Run Text="Sugning"/>
+                    </Label>
+                    <CheckBox IsChecked="{Binding CurrentRecord.Sucking}"/>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="Næse"/>
+                    </Label>
+                        <CheckBox IsChecked="{Binding CurrentRecord.Nose}"/>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="Svælg"/>
+                    </Label>
+                    <CheckBox IsChecked="{Binding CurrentRecord.Pharynx}" />
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="Ventrikel"/>
+                    </Label>
+                    <CheckBox IsChecked="{Binding CurrentRecord.Ventricle}"/>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="Blodsukker"/>
+                    </Label>
+                    <TextBox Text="{Binding CurrentRecord.BloodSugar}" Width="25"/>
+                </TextBlock>
+            </StackPanel>
+        </ListView>
+        <ListView Margin="1009,364,0,0" BorderThickness="0">
+            <StackPanel>
+                <TextBlock>
+                    <Label>
+                        <Run Text="NS-Arterie"/>
+                    </Label>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="pH"/>
+                    </Label>
+                    <TextBox Text="{Binding CurrentRecord.NSapH}" Width="25"/>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="SBE"/>
+                    </Label>
+                    <TextBox Text="{Binding CurrentRecord.NSaSBE}" Width="25"/>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="NS - Vene"/>
+                    </Label>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="pH"/>
+                    </Label>
+                    <TextBox Text="{Binding CurrentRecord.NSvpH}" Width="25"/>
+                </TextBlock>
+                <TextBlock>
+                    <Label>
+                        <Run Text="SBE"/>
+                    </Label>
+                    <TextBox Text="{Binding CurrentRecord.NSvSBE}" Width="25"/>
+                </TextBlock>
+            </StackPanel>
+        </ListView>
     </Grid>
 </Window>

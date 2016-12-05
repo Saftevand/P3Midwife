@@ -27,7 +27,7 @@ namespace P3_Midwife.ViewModel
         private ObservableCollection<Record._birthInformation> _birthInformationList = new ObservableCollection<Record._birthInformation>();
         private ObservableCollection<Record._vaginalExploration> _vaginalExploration = new ObservableCollection<Record._vaginalExploration>();
     
-        public ObservableCollection<Record._vaginalExploration> VaginalExplorationProperty
+        public ObservableCollection<Record._vaginalExploration> VaginalExplorationListProperty
         {
             get { return _vaginalExploration; }
             set { _vaginalExploration = value; }
@@ -87,9 +87,7 @@ namespace P3_Midwife.ViewModel
             Messenger.Default.Register<Employee>(this, "EmployeetoRecordView", (ActiveEmployee) => { EmployeeCurrent = ActiveEmployee; });
             this.LogOutCommand = new RelayCommand(parameter =>
             {
-
-                Messenger.Default.Send(new NotificationMessage("ShowMainViewRecord"));
-                Messenger.Default.Send(new NotificationMessage("ShowMainView1"));
+                Messenger.Default.Send(new NotificationMessage("FromRecordToLogIn"));
             });
             this.ExitCommand = new RelayCommand(parameter =>
             {
@@ -97,15 +95,15 @@ namespace P3_Midwife.ViewModel
             });
             this.BackCommand = new RelayCommand(Parameter =>
             {
-                Messenger.Default.Send(new NotificationMessage("ShowPatientView"));
+                Messenger.Default.Send(new NotificationMessage("FromRecordToPatient"));
                 Messenger.Default.Send(PatientCurrent, "Patient");
-                Messenger.Default.Send(PatientCurrent, "Employee");
+                Messenger.Default.Send(EmployeeCurrent, "Employee");
             });
             this.NewChildCommand = new RelayCommand(parameter =>
             {
-                Messenger.Default.Send(new NotificationMessage("ShowNewChildView"));
+                Messenger.Default.Send(new NotificationMessage("FromRecordToCNewChild"));
                 Messenger.Default.Send(PatientCurrent, "PatientToNewChildView");
-                Messenger.Default.Send(PatientCurrent, "EmployeetoNewChildView");
+                Messenger.Default.Send(EmployeeCurrent, "EmployeetoNewChildView");
             });
             this.MedicinCommand = new RelayCommand(parameter =>
             {

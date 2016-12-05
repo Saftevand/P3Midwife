@@ -44,14 +44,14 @@ namespace P3_Midwife.Tests
             Assert.IsNotNull(TestEmployee.Email);
         }
 
-        [TestMethod()]
-        public void EmployeeTestFindPatient()
-        {
-            Ward.Patients.Add(new Patient("1111111111", "testname"));
-            Patient foundpatient = TestEmployee.FindPatient("1111111111");
+        //[TestMethod()]
+        //public void EmployeeTestFindPatient()
+        //{
+        //    Ward.Patients.Add(new Patient("1111111111", "testname"));
+        //    Patient foundpatient = TestEmployee.FindPatient("1111111111");
 
-            Assert.AreEqual("testname", foundpatient.Name);
-        }
+        //    Assert.AreEqual("testname", foundpatient.Name);
+        //}
 
         #endregion
     }
