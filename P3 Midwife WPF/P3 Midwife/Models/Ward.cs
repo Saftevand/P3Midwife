@@ -18,10 +18,9 @@ namespace P3_Midwife
         //constructor to initialize the static lists.
         static Ward()
         {
-            Filemanagement.ReadEmployees(Environment.CurrentDirectory + "\\PersonInfo", "Employee_info.txt");
-            Filemanagement.ReadPatients(Environment.CurrentDirectory + "\\PersonInfo", "Patient_info.txt");
-            Filemanagement.ReadRooms();
-            Filemanagement.ReadMedicalServiceFromFile();
+            Filemanagement.InitialiseFoldersAndFiles();
+            Filemanagement.CreatePatientFolderAndFile(new Patient("1805961577", "Patrick Alminde"));
+            Filemanagement.ReadPatients();
         }
         //TODO: HVOR FANDEN SKAL LOGIN/LOGUD/AUTOLOGUD LIGGE?!?!
     }

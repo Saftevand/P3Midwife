@@ -16,7 +16,11 @@ namespace P3_Midwife
 {
     public class HomeScreenViewModel : DependencyObject, INotifyPropertyChanged
     {
+<<<<<<< HEAD
         private int AutoLogoutTimer = 30;
+=======
+        private int AutoLogoutTimer = 3000;
+>>>>>>> 66f25291b8b42ea0187cc58883aa28b04bb66282
         private List<Patient> _patientList;
         public RelayCommand LogOutCommand { get; }
         public RelayCommand ExitCommand { get; }

@@ -6,17 +6,26 @@
         xmlns:local="clr-namespace:P3_Midwife"
         xmlns:ViewModel="clr-namespace:P3_Midwife"
         mc:Ignorable="d"
-        Title="NewLife-Login" Height="350" Width="525">
+        Title="M.A.R.S-Login" Height="350" Width="525" BorderThickness="2" BorderBrush="LightSkyBlue">
     <Window.DataContext>
         <ViewModel:LoginViewModel/>
     </Window.DataContext>
     <Grid>
+<<<<<<< HEAD
         <StackPanel Height="336">
             <Label Foreground="Blue" Margin="5,5,5,0">Email</Label>
             <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
             <Label Foreground="Blue" Margin="5,5,5,0">Password</Label>
             <PasswordBox PasswordChanged="PasswordBox_PasswordChanged"/>
             <Button Name="btnDefault" IsDefault="True" Command="{Binding LoginCommand}" Margin="5">Login</Button>
+=======
+        <StackPanel Height="336" Background="AliceBlue">
+            <Label Foreground="Blue" Margin="5,20,5,0" Width="200" FontSize="15">Brugernavn</Label>
+            <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" Height="23" Margin="0,-5" Width="200"/>
+            <Label Foreground="Blue" Margin="5,10,5,0" Width="200" FontSize="15">Kodeord</Label>
+            <PasswordBox PasswordChanged="PasswordBox_PasswordChanged" Width="200" Height="23" Margin="0,-5"/>
+            <Button Command="{Binding LoginCommand}" Margin="100,20" Content="Log ind"/>
+>>>>>>> 66f25291b8b42ea0187cc58883aa28b04bb66282
         </StackPanel>
     </Grid>
 </Window>
