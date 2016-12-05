@@ -5,6 +5,7 @@
                 <Setter Property="Background" Value="AliceBlue"/>
                 <Setter Property="BorderBrush" Value="LightSkyBlue"/>
                 <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Focusable" Value="False"/>
             </Style>
             <Style TargetType="Button">
                 <Setter Property="Background" Value="DarkOrange"/>
