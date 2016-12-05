@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using GalaSoft.MvvmLight.Messaging;
 using System.Collections.ObjectModel;
-
+using System.Diagnostics;
 
 namespace P3_Midwife.ViewModel
 {
@@ -62,8 +62,9 @@ namespace P3_Midwife.ViewModel
             Messenger.Default.Register<Patient>(this, "Patient", (ActivePatient) => { PatientCurrent = ActivePatient; });
             Messenger.Default.Register<Employee>(this, "Employee", (ActiveUser) => { CurrentEmployee = ActiveUser; });
             this.LogOutCommand = new RelayCommand(parameter =>
-            {                
-                Messenger.Default.Send(new NotificationMessage("FromPatientToMain"));
+            {
+                Process.Start(Application.ResourceAssembly.Location);
+                Application.Current.Shutdown();
             });
             this.ExitCommand = new RelayCommand(parameter =>
             {
@@ -71,7 +72,7 @@ namespace P3_Midwife.ViewModel
             });
             this.BackCommand = new RelayCommand(Parameter =>
             {
-                Messenger.Default.Send(new NotificationMessage("FromPatientToHome"));
+                Messenger.Default.Send(new NotificationMessage("ToHome"));
                 Messenger.Default.Send<Employee>(CurrentEmployee, "ReturnEmployee");
             });
             this.AdmitPatientCommand = new RelayCommand(Parameter =>
@@ -85,7 +86,7 @@ namespace P3_Midwife.ViewModel
             this.CreateRecordCommand = new RelayCommand(parameter =>
             {
                 PatientCurrent.RecordList.Add(new Record(PatientCurrent));
-                Messenger.Default.Send(new NotificationMessage("FromPatientToRecord"));
+                Messenger.Default.Send(new NotificationMessage("ToRecord"));
                 Messenger.Default.Send(PatientCurrent, "PatientToRecordView");
                 Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");
             });

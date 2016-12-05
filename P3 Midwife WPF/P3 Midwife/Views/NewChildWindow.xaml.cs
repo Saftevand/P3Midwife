@@ -25,18 +25,11 @@ namespace P3_Midwife.Views
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (msg.Notification == "FromNewChildToRecord")
-            {
-                var RecordScreenView = new RecordWindow();
-                RecordScreenView.Show();
-                this.Close();
-            }
-            else if (msg.Notification == "FromNewChildToLogIn")
-            {
-                var MainWindow = new MainWindow();
-                MainWindow.Show();
-                this.Close();
-            }
+            if (msg.Notification == "ToNewChild")
+                Show();
+
+            else
+                Hide();
         }
     }
 }

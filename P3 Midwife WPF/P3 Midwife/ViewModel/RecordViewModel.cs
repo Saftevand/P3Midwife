@@ -80,7 +80,8 @@ namespace P3_Midwife.ViewModel
             Messenger.Default.Register<Employee>(this, "EmployeetoRecordView", (ActiveEmployee) => { EmployeeCurrent = ActiveEmployee; });
             this.LogOutCommand = new RelayCommand(parameter =>
             {
-                Messenger.Default.Send(new NotificationMessage("FromRecordToLogIn"));
+                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                Application.Current.Shutdown();
             });
             this.ExitCommand = new RelayCommand(parameter =>
             {
@@ -88,13 +89,13 @@ namespace P3_Midwife.ViewModel
             });
             this.BackCommand = new RelayCommand(Parameter =>
             {
-                Messenger.Default.Send(new NotificationMessage("FromRecordToPatient"));
+                Messenger.Default.Send(new NotificationMessage("ToPatient"));
                 Messenger.Default.Send(PatientCurrent, "Patient");
                 Messenger.Default.Send(EmployeeCurrent, "Employee");
             });
             this.NewChildCommand = new RelayCommand(parameter =>
             {
-                Messenger.Default.Send(new NotificationMessage("FromRecordToCNewChild"));
+                Messenger.Default.Send(new NotificationMessage("ToNewChild"));
                 Messenger.Default.Send(PatientCurrent, "PatientToNewChildView");
                 Messenger.Default.Send(EmployeeCurrent, "EmployeetoNewChildView");
             });
