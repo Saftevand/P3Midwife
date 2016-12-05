@@ -29,11 +29,11 @@
 
 
         <StackPanel Grid.ColumnSpan="3">
-            <ListBox x:Name="BirthInfo" Margin="199,20,0,0">
+            <ListView x:Name="BirthInfo" Margin="199,0,0,0">
                 <TextBlock x:Name="BItextBlock" TextWrapping="Wrap" Text="Fødselsoplysninger" />
 
-            </ListBox>
-            <ListView x:Name="BirthInfoHeader" Margin="199,0,0,0">
+            </ListView>
+            <ListView x:Name="BirthInfoHeader" Margin="199,0,0,0" BorderThickness="0">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn>
@@ -61,28 +61,28 @@
                 </ListView.View>
 
             </ListView>
-            <ListView x:Name="BirthInfoContent" ItemsSource="{Binding BirthInfo}" Margin="199,0,0,0">
+            <ListView x:Name="BirthInfoContent" ItemsSource="{Binding BirthInfo}" Margin="199,0,0,0" BorderThickness="0">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn>
+                        <GridViewColumn Width="101.5">
                             <ListViewItem Content="{Binding BirhtInfo.Time}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="72.5">
                             <ListViewItem Content="{Binding BirthInfo.AmnioticFluid}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="95">
                             <ListViewItem Content="{Binding BirthInfo.AmountOfFluid}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="98">
                             <ListViewItem Content="{Binding BirthInfo.BirthPosition}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="94">
                             <ListViewItem Content="{Binding BirthInfo.BleedingCause}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="104">
                             <ListViewItem Content="{Binding BirthInfo.BloodAmount}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="57">
                             <ListViewItem Content="{Binding BirthInfo.Result}"/>
                         </GridViewColumn>
                     </GridView>
@@ -93,7 +93,7 @@
                      <TextBlock x:Name="CItextBlock" TextWrapping="Wrap" Text="Veer og S-drop" />
                  </ListView>
 
-            <ListView x:Name="ContractionIVDripHeader" Margin="199,0,0,0">
+            <ListView x:Name="ContractionIVDripHeader" Margin="199,0,0,0" BorderThickness="0">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn>
@@ -111,19 +111,19 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <ListView x:Name="ContractionIVDrip" ItemsSource="{Binding ContractionIVDripInfo}" Margin="199,0,0,0">
+            <ListView x:Name="ContractionIVDrip" ItemsSource="{Binding ContractionIVDripInfo}" Margin="199,0,0,0" BorderThickness="0">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn>
+                        <GridViewColumn Width="101.5">
                             <ListViewItem Content="{Binding ContractionIVDripInfo.Time}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="58.5">
                             <ListViewItem Content="{Binding ContractionIVDripInfo.ContractionPain}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="98.5">
                             <ListViewItem Content="{Binding ContractionIVDripInfo.NumberOfCantrationsPerMinutes}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="82.5">
                             <ListViewItem Content="{Binding ContractionIVDripInfo.SDripMLPerHour}"/>
                         </GridViewColumn>
                     </GridView>
@@ -136,7 +136,7 @@
                  </ListView>
 
 
-                 <ListView x:Name="FetusObservationHeader" Margin="199,0,0,0">
+                 <ListView x:Name="FetusObservationHeader" Margin="199,0,0,0" BorderThickness="0">
                      <ListView.View>
                          <GridView>
                              <GridViewColumn>
@@ -163,28 +163,28 @@
                          </GridView>
                      </ListView.View>
                  </ListView>
-            <ListView x:Name="FetusObservation" ItemsSource="{Binding FetusObservationInfo}" Margin="199,0,0,0">
+            <ListView x:Name="FetusObservation" ItemsSource="{Binding FetusObservationInfo}" Margin="199,0,0,0" BorderThickness="0">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn>
+                        <GridViewColumn Width="101.5">
                             <ListViewItem Content="{Binding FetusObservationInfo.Time}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="36">
                             <ListViewItem Content="{Binding FetusObservationInfo.CTG}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="106.5">
                             <ListViewItem Content="{Binding FetusObservationInfo.CTGClassification}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="90.5">
                             <ListViewItem Content="{Binding FetusObservationInfo.HeartFrequency}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="129">
                             <ListViewItem Content="{Binding FetusObservationInfo.ScalpLactate}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="63">
                             <ListViewItem Content="{Binding FetusObservationInfo.ScalpPH}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="42.5">
                             <ListViewItem Content="{Binding FetusObservationInfo.STAN}"/>
                         </GridViewColumn>
                     </GridView>
@@ -192,11 +192,11 @@
             </ListView>
 
             <ListView x:Name="MicturitionInfo" Margin="199,0,0,0">
-                     <TextBlock x:Name="MtextBlock" TextWrapping="Wrap" Text="Vandladning" />
+                     <TextBlock x:Name="MtextBlock" TextWrapping="Wrap" Text="Vandladning"/>
                  </ListView>
 
 
-                 <ListView x:Name="MicturitionHeader" Margin="199,0,0,0">
+                 <ListView x:Name="MicturitionHeader" Margin="199,0,-2,0" BorderThickness="0">
                      <ListView.View>
                          <GridView>
                              <GridViewColumn>
@@ -208,13 +208,13 @@
                          </GridView>
                      </ListView.View>
                  </ListView>
-            <ListView x:Name="Micturition" ItemsSource="{Binding MicturitionInfo}" Margin="199,0,0,0">
+            <ListView x:Name="Micturition" ItemsSource="{Binding MicturitionInfo}" Margin="199,0,0,0" BorderThickness="0">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn>
+                        <GridViewColumn Width="101.5">
                             <ListViewItem Content="{Binding MicturitionInfo.Time}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="81">
                             <ListViewItem Content="{Binding MicturitionInfo.MicturitionNote}"/>
                         </GridViewColumn>
                     </GridView>
@@ -224,7 +224,7 @@
             <ListView x:Name="VaginalExplorationInfo" Margin="199,0,0,0">
                      <TextBlock x:Name="VEtextBlock" TextWrapping="Wrap" Text="Vaginal Exploration"/>
                  </ListView>
-            <ListView x:Name="VaginalExplorationHeader" Margin="199,0,0,0">
+            <ListView x:Name="VaginalExplorationHeader" Margin="199,0,0,0" BorderThickness="0">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn>
@@ -255,34 +255,31 @@
                 </ListView.View>
 
             </ListView>
-            <ListView x:Name="VaginalExploration" ItemsSource="{Binding VaginalExplorationInfo}" Margin="199,0,0,0">
+            <ListView x:Name="VaginalExploration" ItemsSource="{Binding VaginalExplorationInfo}" Margin="199,0,0,0" BorderThickness="0">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn>
+                        <GridViewColumn Width="101.5">
                             <ListViewItem Content="{Binding VaginalExplorationInfo.Time}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="73">
                             <ListViewItem Content="{Binding VaginalExplorationInfo.AmnioticFluid}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="77.5">
                             <ListViewItem Content="{Binding VaginalExplorationInfo.Collum}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="69.5">
                             <ListViewItem Content="{Binding VaginalExplorationInfo.Consistency}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="81">
                             <ListViewItem Content="{Binding VaginalExplorationInfo.Dilation}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="44">
                             <ListViewItem Content="{Binding VaginalExplorationInfo.Location}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="57">
                             <ListViewItem Content="{Binding VaginalExplorationInfo.Position}"/>
                         </GridViewColumn>
-                        <GridViewColumn>
-                            <ListViewItem Content="{Binding VaginalExplorationInfo.Time}"/>
-                        </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Width="58.5">
                             <ListViewItem Content="{Binding VaginalExplorationInfo.Rotation}"/>
                         </GridViewColumn>
                     </GridView>
@@ -290,7 +287,7 @@
             </ListView>
         </StackPanel>
 
-        <ListView x:Name="listView" HorizontalAlignment="Left" Height="700" Margin="0,20,0,0" VerticalAlignment="Top" Width="200">
+        <ListView x:Name="listView" HorizontalAlignment="Left" Height="669" Margin="0,20,0,0" VerticalAlignment="Top" Width="199" BorderThickness="3" BorderBrush="LightSkyBlue">
             <ListViewItem Content="{Binding PatientCurrent.Name}" Margin="0"/>
             <ListViewItem Content="{Binding PatientCurrent.Age}" Margin="0"/>
             <ListViewItem Content="{Binding PatientCurrent.Gender}" Margin="0"/>

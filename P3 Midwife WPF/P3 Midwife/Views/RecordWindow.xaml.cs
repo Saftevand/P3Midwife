@@ -48,19 +48,6 @@ namespace P3_Midwife.Views
             }
         }
 
-        private void ContractionIVDripHeader_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
-        }
-
-        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void BirthInfoHeader_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }
