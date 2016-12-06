@@ -19,5 +19,6 @@
             <Button Name="btnDefault" IsDefault="True" Command="{Binding LoginCommand}" Margin="100,20" Content="Log ind"/>
             <Button Name="btnLogOut" Visibility="Hidden" Command="{Binding LogOutCommand}" Margin="190,5,190,20" Content="Anden bruger" Width="Auto"/>
         </StackPanel>
+
     </Grid>
 </Window>
