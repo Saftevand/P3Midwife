@@ -22,11 +22,18 @@ namespace P3_Midwife.ViewModel
         public static DependencyProperty EmployeeProperty = DependencyProperty.Register(nameof(CurrentEmployee), typeof(Employee), typeof(PatientViewModel));
         public static DependencyProperty SelectedChildProperty = DependencyProperty.Register(nameof(SelectedChild), typeof(Patient), typeof(PatientViewModel));
         private ObservableCollection<Patient> _children = new ObservableCollection<Patient>();
+        private ObservableCollection<Record> _records = new ObservableCollection<Record>();
 
         public ObservableCollection<Patient> Children
         {
             get { return _children; }
             set { _children = value; }
+        }
+
+        public ObservableCollection<Record> Records
+        {
+            get { return _records; }
+            set { _records = value; }
         }
 
         public Patient SelectedChild
@@ -76,18 +83,22 @@ namespace P3_Midwife.ViewModel
             });
             this.AdmitPatientCommand = new RelayCommand(Parameter =>
             {
-                // TODO - Needs to be implemented
+                CurrentEmployee.CurrentPatients.Add(PatientCurrent);
             });
             this.DischargePatientCommand = new RelayCommand(Parameter =>
             {
-                // TODO - Needs to be implemented
+                if (CurrentEmployee.CurrentPatients.Contains(PatientCurrent))
+                {
+                    CurrentEmployee.CurrentPatients.Remove(PatientCurrent);
+                }
             });
             this.CreateRecordCommand = new RelayCommand(parameter =>
             {
-                PatientCurrent.RecordList.Add(new Record(PatientCurrent));
+                Record tempRecord = new Record(PatientCurrent);
                 Messenger.Default.Send(new NotificationMessage("FromPatientToRecord"));
                 Messenger.Default.Send(PatientCurrent, "PatientToRecordView");
                 Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");
+                Messenger.Default.Send(tempRecord, "NewRecordToRecordView");
             });
         }
     }
