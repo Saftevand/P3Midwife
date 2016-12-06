@@ -26,7 +26,7 @@
 
         </ListView>
 
-        <ListView  x:Name="TopHeader" VerticalAlignment="Top" Height="100" Margin="199,20,0,0" Width="2000">
+        <ListView  x:Name="TopHeader" VerticalAlignment="Top" Height="100" Margin="199,20,0,0" Width="1075">
             <StackPanel>
                 <TextBlock>
                                 <Run Text="Moder: "/>
