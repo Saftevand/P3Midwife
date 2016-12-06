@@ -19,33 +19,27 @@ namespace P3_Midwife.Views
 {
     public partial class RecordWindow : Window
     {
+        bool isNotClosed;
         public RecordWindow()
         {
             InitializeComponent();
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
-
         }
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (msg.Notification == "FromRecordToLogIn")
+            if (msg.Notification == "ToRecord" && !isNotClosed)
+                Show();
+            else if (msg.Notification == "RecordSave")
             {
-                var MainWindow = new MainWindow();
-                MainWindow.Show();
-                this.Close();
+                Close();
+                isNotClosed = true;
+                new RecordWindow();
             }
-            else if (msg.Notification == "FromRecordToPatient")
-            {
-                var PatientView = new PatientWindow();
-                PatientView.Show();
-                this.Close();
-            }
-            else if (msg.Notification == "FromRecordToCNewChild")
-            {
-                var NewChildView = new NewChildWindow();
-                NewChildView.Show();
-                this.Close();
-            }
+            else
+                Hide();
         }
+
+
     }
 }

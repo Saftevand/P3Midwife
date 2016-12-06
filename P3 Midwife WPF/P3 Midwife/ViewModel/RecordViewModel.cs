@@ -17,20 +17,55 @@ namespace P3_Midwife.ViewModel
         public RelayCommand BackCommand { get; }
         public RelayCommand NewChildCommand { get; }
         public RelayCommand MedicinCommand { get; }
+        public RelayCommand SaveAndCompleteCommand { get; }
+        public RelayCommand AddBirthInfo { get; }
+        public RelayCommand AddContractionIVDripInfo { get; }
+        public RelayCommand AddFetusObservationInfo { get; }
+        public RelayCommand AddMicturitionInfo { get; }
+        public RelayCommand AddVaginalExplorationInfo { get; }
+
         public static DependencyProperty PatientProperty = DependencyProperty.Register(nameof(PatientCurrent), typeof(Patient), typeof(RecordViewModel));
         public static DependencyProperty RecordProperty = DependencyProperty.Register(nameof(RecordCurrent), typeof(Record), typeof(RecordViewModel));
         public static DependencyProperty BirthInfoProperty = DependencyProperty.Register(nameof(BirthInfo), typeof(Record._birthInformation), typeof(RecordViewModel));
         public static DependencyProperty ContractionIVDripProperty = DependencyProperty.Register(nameof(ContractionIVDripInfo), typeof(Record._contractionIVDrip), typeof(RecordViewModel));
         public static DependencyProperty FetusObservationProperty = DependencyProperty.Register(nameof(FetusObservationInfo), typeof(Record._fetusObservation), typeof(RecordViewModel));
-        public static DependencyProperty MicturitionProperty = DependencyProperty.Register(nameof(Microsoft), typeof(Record._micturition), typeof(RecordViewModel));
+        public static DependencyProperty MicturitionProperty = DependencyProperty.Register(nameof(MicturitionInfo), typeof(Record._micturition), typeof(RecordViewModel));
         public static DependencyProperty VaginalExplorationProperty = DependencyProperty.Register(nameof(VaginalExplorationInfo), typeof(Record._vaginalExploration), typeof(RecordViewModel));
         private ObservableCollection<Record._birthInformation> _birthInformationList = new ObservableCollection<Record._birthInformation>();
-        
+        private ObservableCollection<Record._contractionIVDrip> _contractrionIVDripList= new ObservableCollection<Record._contractionIVDrip>();
+        private ObservableCollection<Record._fetusObservation> _fetusObservationList = new ObservableCollection<Record._fetusObservation>();
+        private ObservableCollection<Record._micturition> _micturitionList = new ObservableCollection<Record._micturition>();
+        private ObservableCollection<Record._vaginalExploration> _vaginalExplorationList = new ObservableCollection<Record._vaginalExploration>();
+
         public ObservableCollection<Record._birthInformation> BirthInformationListProperty
         {
             get { return _birthInformationList; }
             set { _birthInformationList = value; }
-        } 
+        }
+
+        public ObservableCollection<Record._contractionIVDrip> ContractionListProperty
+        {
+            get { return _contractrionIVDripList; }
+            set { _contractrionIVDripList = value; }
+        }
+
+        public ObservableCollection<Record._fetusObservation> FetusObservationListProperty
+        {
+            get { return _fetusObservationList; }
+            set { _fetusObservationList = value; }
+        }
+
+        public ObservableCollection<Record._micturition> MicturitionListProperty
+        {
+            get { return _micturitionList; }
+            set { _micturitionList = value; }
+        }
+
+        public ObservableCollection<Record._vaginalExploration> VaginalExplorationListProperty
+        {
+            get { return _vaginalExplorationList; }
+            set { _vaginalExplorationList = value; }
+        }
         public Record._birthInformation BirthInfo
         {
             get { return (Record._birthInformation)this.GetValue(BirthInfoProperty); }
@@ -75,12 +110,13 @@ namespace P3_Midwife.ViewModel
 
         public RecordViewModel()
         {
-            Messenger.Default.Register<Record>(this, "Record", (ActiveRecord) => { RecordCurrent = ActiveRecord; });
+            Messenger.Default.Register<Record>(this, "NewRecordToRecordView", (ActiveRecord) => { RecordCurrent = ActiveRecord; });
             Messenger.Default.Register<Patient>(this, "PatientToRecordView", (ActivePatient) => { PatientCurrent = ActivePatient; });
             Messenger.Default.Register<Employee>(this, "EmployeetoRecordView", (ActiveEmployee) => { EmployeeCurrent = ActiveEmployee; });
             this.LogOutCommand = new RelayCommand(parameter =>
             {
-                Messenger.Default.Send(new NotificationMessage("FromRecordToLogIn"));
+                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                Application.Current.Shutdown();
             });
             this.ExitCommand = new RelayCommand(parameter =>
             {
@@ -88,19 +124,68 @@ namespace P3_Midwife.ViewModel
             });
             this.BackCommand = new RelayCommand(Parameter =>
             {
-                Messenger.Default.Send(new NotificationMessage("FromRecordToPatient"));
+                Messenger.Default.Send(new NotificationMessage("ToPatient"));
                 Messenger.Default.Send(PatientCurrent, "Patient");
                 Messenger.Default.Send(EmployeeCurrent, "Employee");
             });
             this.NewChildCommand = new RelayCommand(parameter =>
             {
-                Messenger.Default.Send(new NotificationMessage("FromRecordToCNewChild"));
+                Messenger.Default.Send(new NotificationMessage("ToNewChild"));
                 Messenger.Default.Send(PatientCurrent, "PatientToNewChildView");
                 Messenger.Default.Send(EmployeeCurrent, "EmployeetoNewChildView");
             });
+            this.SaveAndCompleteCommand = new RelayCommand(parameter =>
+            {
+                Messenger.Default.Send(new NotificationMessage("RecordSave"));
+                RecordCurrent.BirthInformationList.AddRange(BirthInformationListProperty);
+                RecordCurrent.ContractionIVDripList.AddRange(ContractionListProperty);
+                RecordCurrent.MicturitionList.AddRange(MicturitionListProperty);
+                RecordCurrent.VaginalExplorationList.AddRange(VaginalExplorationListProperty);
+                RecordCurrent.FetusObservationList.AddRange(FetusObservationListProperty);
+                if (PatientCurrent.RecordList.Find(x => x.ThisRecordID == RecordCurrent.ThisRecordID) == null)
+                {
+                    PatientCurrent.RecordList.Add(RecordCurrent);
+                }
+                Messenger.Default.Send(new NotificationMessage("ToPatient"));
+                Messenger.Default.Send(PatientCurrent, "Patient");
+                Messenger.Default.Send(EmployeeCurrent, "Employee");
+            });
             this.MedicinCommand = new RelayCommand(parameter =>
             {
+                //nyt vindue skal laves her
+            });
+            this.AddBirthInfo= new RelayCommand(parameter =>
+            {
+                Record._birthInformation tempBirthInfo = new Record._birthInformation();
+                BirthInformationListProperty.Add(tempBirthInfo);
+                BirthInfo = tempBirthInfo;
 
+            });
+            this.AddContractionIVDripInfo = new RelayCommand(parameter =>
+            {
+                Record._contractionIVDrip tempContractionIVDripInfo = new Record._contractionIVDrip();
+                ContractionListProperty.Add(tempContractionIVDripInfo);
+                ContractionIVDripInfo = tempContractionIVDripInfo;
+
+            });
+            this.AddFetusObservationInfo = new RelayCommand(parameter =>
+            {
+                Record._fetusObservation tempFetusObservationInfo = new Record._fetusObservation();
+                FetusObservationListProperty.Add(tempFetusObservationInfo);
+                FetusObservationInfo = tempFetusObservationInfo;
+
+            });
+            this.AddMicturitionInfo = new RelayCommand(parameter =>
+            {
+                Record._micturition tempMicturitionInfo = new Record._micturition();
+                MicturitionListProperty.Add(tempMicturitionInfo);
+                MicturitionInfo = tempMicturitionInfo;
+            });
+            this.AddVaginalExplorationInfo = new RelayCommand(parameter =>
+            {
+                Record._vaginalExploration tempVaginalExplorationInfo = new Record._vaginalExploration();
+                VaginalExplorationListProperty.Add(tempVaginalExplorationInfo);
+                VaginalExplorationInfo = tempVaginalExplorationInfo;
             });
         }
     }

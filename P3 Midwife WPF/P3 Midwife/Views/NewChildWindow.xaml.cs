@@ -17,6 +17,7 @@ namespace P3_Midwife.Views
 {
     public partial class NewChildWindow : Window
     {
+        bool isNotClosed;
         public NewChildWindow()
         {
             InitializeComponent();
@@ -25,18 +26,16 @@ namespace P3_Midwife.Views
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (msg.Notification == "FromNewChildToRecord")
+            if (msg.Notification == "ToNewChild" && !isNotClosed)
+                Show();
+            else if (msg.Notification == "ChildSave")
             {
-                var RecordScreenView = new RecordWindow();
-                RecordScreenView.Show();
-                this.Close();
+                Close();
+                isNotClosed = true;
+                new NewChildWindow();
             }
-            else if (msg.Notification == "FromNewChildToLogIn")
-            {
-                var MainWindow = new MainWindow();
-                MainWindow.Show();
-                this.Close();
-            }
+            else
+                Hide();
         }
     }
 }

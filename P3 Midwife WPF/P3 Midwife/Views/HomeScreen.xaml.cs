@@ -23,36 +23,23 @@ namespace P3_Midwife
 { 
     public partial class HomeScreen : Window
     {
-        int count = 0;
-        private int AutoLogoutTimer = 100000;
         public HomeScreen()
         {
             InitializeComponent();
-            Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);           
-        }     
+            Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
+            new DialogWindow();
+            new RecordWindow();
+            new PatientWindow();
+            new NewChildWindow();
+            Show();     
+        }
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (msg.Notification == "FromHomeToLogIn")
-            {
-                MainWindow MainWindow = new MainWindow();
-                MainWindow.Show();
-                this.Close();
-            }
-
-            else if (msg.Notification == "FromHomeToDialog")
-            {
-                var AddPatientDialogWindow = new DialogWindow();
-                AddPatientDialogWindow.Show();
-            }
-            else if (msg.Notification == "FromHomeToPatient")
-            {
-                var PatientView = new PatientWindow();
-                PatientView.Show();
-                this.Close();
-            }
-        }
-
-       
+            if (msg.Notification == "ToHome" || msg.Notification == "FromLogInToHome")
+                Show();
+            else if(msg.Notification != "ToDialog")
+                Hide();
+        }    
     }
 }

@@ -11,11 +11,11 @@
     <Window.DataContext>
         <ViewModel:PatientViewModel/>
     </Window.DataContext>
-    <Grid Margin="0,0,1159.6,505.4">
-        <Grid.RowDefinitions>
+    <Grid>
+        <!--<Grid.RowDefinitions>
             <RowDefinition Height="21*"/>
             <RowDefinition Height="16*"/>
-        </Grid.RowDefinitions>
+        </Grid.RowDefinitions>-->
 
         <Menu Width="50" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left">
             <MenuItem Header="Menu">
@@ -24,17 +24,30 @@
                 <MenuItem Command="{Binding ExitCommand}" Header="Exit"/>
             </MenuItem>
         </Menu>
-        <StackPanel Margin="0,67.4,-219,-452.6" Grid.Row="1">
-            <ListBox HorizontalAlignment="Left" Width="200" Margin="0,20,0,0">
-                <ListBoxItem Content="{Binding PatientCurrent.Name}"/>
-                <ListBoxItem Content="{Binding PatientCurrent.Age}"/>
-                <ListBoxItem Content="{Binding PatientCurrent.Gender}" />
-                <ListBoxItem Content="{Binding PatientCurrent.CPR}"/>
-            </ListBox>
-            <Button Command="{Binding CreateRecordCommand}" Margin="201,0,0,0">
-                Ny Journal
-            </Button>
-        </StackPanel>
+
+        <ListView HorizontalAlignment="Left" Height="700" Width="200" Margin="0,20,0,0">
+            <StackPanel>
+                <ListViewItem Content="{Binding PatientCurrent.Name}"/>
+                <ListViewItem Content="{Binding PatientCurrent.Age}"/>
+                <ListViewItem Content="{Binding PatientCurrent.Gender}" />
+                <ListViewItem Content="{Binding PatientCurrent.CPR}"/>
+                <Button Command="{Binding CreateRecordCommand}" Margin="40,500,0,0">
+                    Ny Journal
+                </Button>
+            </StackPanel> 
+        </ListView>
+        <ListView Margin="199, 20,0,0" Width="1081" Height="700" ItemsSource="{Binding Records}" HorizontalAlignment="Left">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <Run Text="{Binding Date}"/>
+                        <Run Text="{Binding IsActive}"/>
+                        <Run Text="{Binding Diagnosis}"/>
+                    </TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
     </Grid>
 
 </Window>

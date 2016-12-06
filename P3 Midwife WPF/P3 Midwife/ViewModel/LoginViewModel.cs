@@ -16,27 +16,26 @@ namespace P3_Midwife
     {
         private List<Employee> _employees = new List<Employee>();
         public RelayCommand LoginCommand { get; }
+        public RelayCommand LogOutCommand { get; }
         public static DependencyProperty EmailProperty = DependencyProperty.Register(nameof(Email), typeof(string), typeof(LoginViewModel));
         public string Email
         {
             get { return (string)this.GetValue(EmailProperty); }
             set { this.SetValue(EmailProperty, value); }
         }
+        private string last = "FromLogInToHome";
         public string Password {private get; set; }
 
         public LoginViewModel()
         {
-            //_employees.Add(new Midwife(1, "Gitte", "x", 42660666, "x"));
-            //_employees.First().CurrentPatients.Add(new Patient("1234567890", "TestName"));
-            //_employees.First().CurrentPatients.Add(new Patient("0987654321", "NameTest"));
-
             this.LoginCommand = new RelayCommand(parameter =>
             {
                 //TODO: Crashes if no email is entered and login pressed or if only numbers are entered
                 if (Ward.Employees.Exists(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password)))
                 {
                     Employee SendEmp = Ward.Employees.Find(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password));
-                    Messenger.Default.Send(new NotificationMessage("FromLogInToHome"));
+                    Messenger.Default.Send(new NotificationMessage("StartWorker"));
+                    Messenger.Default.Send(new NotificationMessage(last));
                     Messenger.Default.Send(SendEmp,"ActiveUser");               
                 }
                 else
@@ -44,6 +43,21 @@ namespace P3_Midwife
                     MessageBox.Show("Ugyldigt login", "Fejl");
                 }
             });
-        }        
+            this.LogOutCommand = new RelayCommand(parameter =>
+            {
+                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                Application.Current.Shutdown();
+            });
+            Messenger.Default.Register<NotificationMessage>(this, setLast);
+
+        }
+
+        private void setLast(NotificationMessage msg)
+        {
+            if (msg.Notification != "LogOut" && msg.Notification != "StartWorker")
+            {
+                last = msg.Notification;
+            }
+        }
     }
 }

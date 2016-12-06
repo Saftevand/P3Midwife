@@ -23,10 +23,15 @@
         </Menu>
 
         <ListView x:Name="listView" HorizontalAlignment="Left" Height="700" Margin="0,20,0,0" VerticalAlignment="Top" Width="200">
-
+            <Button Command="{Binding SaveAndComplete}">
+                Gem og afslut
+            </Button>
+            <Button Command="{Binding BackCommand}">
+                Annuller
+            </Button>
         </ListView>
 
-        <ListView  x:Name="TopHeader" VerticalAlignment="Top" Height="100" Margin="199,20,0,0" Width="2000">
+        <ListView  x:Name="TopHeader" VerticalAlignment="Top" Height="100" Margin="199,20,0,0" Width="1075">
             <StackPanel>
                 <TextBlock>
                                 <Run Text="Moder: "/>
@@ -145,7 +150,7 @@
                     <Label>
                         <Run Text="Bemærk"/>
                     </Label>
-                    <TextBox Text="{Binding CurrentRecord.FurtherNotice}" Width="75" Height="40"/>
+                    <TextBox Text="{Binding CurrentRecord.FurtherNotice}" Width="300" Height="60"/>
                 </TextBlock>
             </StackPanel>
         </ListView>

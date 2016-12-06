@@ -10,12 +10,17 @@ using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Threading;
+using System.Diagnostics;
 
 namespace P3_Midwife
 {
     public class HomeScreenViewModel : DependencyObject, INotifyPropertyChanged
     {
+
         private int AutoLogoutTimer = 3;
+
+        private int AutoLogoutTimer = 30000;
+
         private List<Patient> _patientList;
         public RelayCommand LogOutCommand { get; }
         public RelayCommand ExitCommand { get; }
@@ -69,12 +74,15 @@ namespace P3_Midwife
             return IdleTicks / 1000;
         }
 
+        private bool Cancel = false;
+
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
             while (true)
             {                                
                 if (GetLastInput() > AutoLogoutTimer)
-                {                    
+                {
+                    Cancel = true;                    
                     e.Cancel = true;
                     break;
                 }                
@@ -85,12 +93,30 @@ namespace P3_Midwife
         {            
             if (e.Cancelled == true)
             {
-                Messenger.Default.Send(new NotificationMessage("ShowMainView"));
+                if (Cancel == true)
+                {
+                    Cancel = false;
+                    Messenger.Default.Send(new NotificationMessage("LogOut"));
+                    //logoutCommand();
+                }
                 bw.CancelAsync();
-                bw.RunWorkerAsync();            
             }
         }
-        
+
+        void bw_StartWorker(NotificationMessage msg)
+        {
+            if (msg.Notification == "StartWorker")
+            {
+                bw.RunWorkerAsync();
+            }
+        }
+
+        public void logoutCommand()
+        {
+            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
+        }
+
         public ObservableCollection<Patient> CurrentPatients
         {
             get { return _currentPatients; }
@@ -153,16 +179,17 @@ namespace P3_Midwife
         private void OnPropertyChanged(string info)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
-        }
+        }        
 
         public HomeScreenViewModel()
         {
             Messenger.Default.Register<Employee>(this, "ActiveUser", (ActiveUser) => { CurrentEmployee = ActiveUser; });
             Messenger.Default.Register<Employee>(this, "ReturnEmployee", (ActiveUser) => { CurrentEmployee = ActiveUser; });
+            Messenger.Default.Register<NotificationMessage>(this, bw_StartWorker);
+
             this.LogOutCommand = new RelayCommand(parameter =>
-            {                                
-                Messenger.Default.Send(new NotificationMessage("FromHomeToLogIn"));
-                CurrentEmployee = null;
+            {
+                logoutCommand();
             });
             this.ExitCommand = new RelayCommand(parameter =>
             {
@@ -170,26 +197,29 @@ namespace P3_Midwife
             });
             this.FindPatientCommand = new RelayCommand(parameter => 
             {
-                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ShowPatientView"));
-                Messenger.Default.Send<Patient>(FindPatient(CPR), "Patient");
-                Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
+                    Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
+                    Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
+                    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));
             });
             this.OpenAddPatientCommand = new RelayCommand(parameter =>
             {
-                Messenger.Default.Send(new NotificationMessage("FromHomeToDialog"));
+                Messenger.Default.Send(new NotificationMessage("ToDialog"));
                 Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
             });
             this.OpenPatientCommand = new RelayCommand(parameter =>
             {
-                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("FromHomeToPatient"));
                 Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
                 Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
+                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));
             });
             this.OpenPatientOnClick = new RelayCommand(parameter =>
-            {
-                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("FromHomeToPatient"));
-                Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
-                Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
+            {                                               
+                if (SelectedPatient != null)
+                {
+                    Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
+                    Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
+                    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));
+                }
             });
             bw.RunWorkerAsync();
             //bw.WorkerReportsProgress = true;
