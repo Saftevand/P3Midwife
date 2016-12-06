@@ -166,7 +166,7 @@ namespace P3_Midwife
         private void OnPropertyChanged(string info)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
-        }
+        }        
 
         public HomeScreenViewModel()
         {
@@ -182,9 +182,9 @@ namespace P3_Midwife
             });
             this.FindPatientCommand = new RelayCommand(parameter => 
             {
-                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));
-                Messenger.Default.Send<Patient>(FindPatient(CPR), "Patient");
-                Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
+                    Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
+                    Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
+                    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));
             });
             this.OpenAddPatientCommand = new RelayCommand(parameter =>
             {
@@ -193,15 +193,18 @@ namespace P3_Midwife
             });
             this.OpenPatientCommand = new RelayCommand(parameter =>
             {
-                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));
                 Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
                 Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
+                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));
             });
             this.OpenPatientOnClick = new RelayCommand(parameter =>
-            {
-                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));
-                Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
-                Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
+            {                                               
+                if (SelectedPatient != null)
+                {
+                    Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
+                    Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
+                    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));
+                }
             });
             bw.RunWorkerAsync();
             //bw.WorkerReportsProgress = true;
