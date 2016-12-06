@@ -38,7 +38,7 @@ namespace P3_Midwife
         {                    
             if (msg.Notification == "ToHome")
                 Show();
-            else
+            else if(msg.Notification != "ToDialog")
                 Hide();
         }    
     }
