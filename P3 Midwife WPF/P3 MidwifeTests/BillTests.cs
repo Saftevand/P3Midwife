@@ -15,13 +15,13 @@ namespace P3_Midwife.Tests
         Patient testpatient = new P3_Midwife.Patient("1234567890", "testPerson");
         
 
-        [TestMethod()]
-        public void BillTestContructorRecord()
-        {
-            Bill BillTest = new Bill(new Record(testpatient));
-            testwife.RegisterTreatmentToBill(testpatient, new MedicalService(10, "testService", "TS"));
-            Assert.IsNotNull(BillTest.BillItemList);
-        }
+        //[TestMethod()]
+        //public void BillTestContructorRecord()
+        //{
+        //    Bill BillTest = new Bill(new Record(testpatient));
+        //    testwife.RegisterTreatmentToBill(testpatient, new MedicalService(10, "testService", "TS"));
+        //    Assert.IsNotNull(BillTest.BillItemList);
+        //}
 
         [TestMethod()]
         public void BillPriceTest()
