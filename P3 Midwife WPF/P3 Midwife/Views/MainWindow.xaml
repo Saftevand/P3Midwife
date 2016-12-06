@@ -18,5 +18,6 @@
             <PasswordBox PasswordChanged="PasswordBox_PasswordChanged" Width="200" Height="23" Margin="0,-5"/>
             <Button Name="btnDefault" IsDefault="True" Command="{Binding LoginCommand}" Margin="100,20" Content="Log ind"/>
         </StackPanel>
+
     </Grid>
 </Window>
