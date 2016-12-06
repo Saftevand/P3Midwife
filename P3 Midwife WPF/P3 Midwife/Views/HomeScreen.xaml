@@ -12,37 +12,34 @@
             <ViewModel:HomeScreenViewModel/>
         </Window.DataContext>
     <Grid>
-        <StackPanel Height="280" Width="200" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-            <TextBox Text="{Binding CPR, UpdateSourceTrigger=LostFocus}"></TextBox>
-            <Button Command="{Binding FindPatientCommand}" Margin="5">FindPatient
-            </Button>
-        </StackPanel>
-
-        <Menu Width="50" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left">
+        <Menu Width="45" Height="18" VerticalAlignment="Top" HorizontalAlignment="Left">
             <MenuItem Header="Menu">
                 <MenuItem Command="{Binding LogOutCommand}" Header="Log ud"/>
                 <MenuItem Command="{Binding ExitCommand}" Header="Exit"/>
             </MenuItem>
         </Menu>
 
-        <StackPanel>
-            <ListBox ItemsSource="{Binding CurrentPatients}"  HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectedItem="{Binding SelectedPatient, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Tag="{Binding SelectedPatient}" Margin="0,20,0,0">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock>
-                            <Run Text="{Binding Name}"/>
-                            <Run Text="{Binding CPR}"/> 
-                        </TextBlock>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <Button Command="{Binding OpenPatientOnClick}" HorizontalAlignment="Left">
-                PatientInfo
-            </Button>
-            <Button Command="{Binding OpenAddPatientCommand}" HorizontalAlignment="Right" VerticalAlignment="Center">
-                Tilføj patient
-            </Button>
+        <StackPanel Margin="15,17,0,0" Height="500" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <ListView BorderThickness="2" Height="500">
+                <TextBox MaxLength="10" Width="184" Text="{Binding CPR, UpdateSourceTrigger=LostFocus}"/>
+                <Button Command="{Binding FindPatientCommand}">Find patient</Button>
+                <Button Command="{Binding OpenAddPatientCommand}">Tilføj patient</Button>
+                <Button Command="{Binding OpenPatientOnClick}">PatientInfo</Button>
+                <ListBox Width="184" ItemsSource="{Binding CurrentPatients}" Margin="0,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectedItem="{Binding SelectedPatient, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Tag="{Binding SelectedPatient}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock><Run Text="{Binding Name}"/><Run Text=" "/><Run Text="{Binding CPR}"/></TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ListView>
         </StackPanel>
+
+        <ListView Margin="300,43,50,30" Background="AliceBlue">
+            <ListViewItem VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock>Her skal der være noget sødt</TextBlock>
+            </ListViewItem>
+        </ListView>
     </Grid>
 </Window>
 
