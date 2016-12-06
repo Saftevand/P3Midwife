@@ -12,10 +12,22 @@
             <ViewModel:HomeScreenViewModel/>
         </Window.DataContext>
     <Grid>
-        <StackPanel Height="280" Width="200" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+        
+        <StackPanel Width="200" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Button Command="{Binding OpenPatientOnClick}" HorizontalAlignment="Center">PatientInfo</Button>
+            <ListBox Height="150" ItemsSource="{Binding CurrentPatients}"  HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectedItem="{Binding SelectedPatient, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Tag="{Binding SelectedPatient}" Margin="0,20,0,0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <Run Text="{Binding Name}"/>
+                            <Run Text="{Binding CPR}"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Command="{Binding OpenAddPatientCommand}" HorizontalAlignment="Center" VerticalAlignment="Center">Tilføj patient</Button>
             <TextBox Text="{Binding CPR, UpdateSourceTrigger=LostFocus}"></TextBox>
-            <Button Command="{Binding FindPatientCommand}" Margin="5">FindPatient
-            </Button>
+            <Button Command="{Binding FindPatientCommand}" Margin="5">FindPatient</Button>
         </StackPanel>
 
         <Menu Width="50" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left">
@@ -24,25 +36,6 @@
                 <MenuItem Command="{Binding ExitCommand}" Header="Exit"/>
             </MenuItem>
         </Menu>
-
-        <StackPanel>
-            <ListBox ItemsSource="{Binding CurrentPatients}"  HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectedItem="{Binding SelectedPatient, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Tag="{Binding SelectedPatient}" Margin="0,20,0,0">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock>
-                            <Run Text="{Binding Name}"/>
-                            <Run Text="{Binding CPR}"/> 
-                        </TextBlock>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <Button Command="{Binding OpenPatientOnClick}" HorizontalAlignment="Left">
-                PatientInfo
-            </Button>
-            <Button Command="{Binding OpenAddPatientCommand}" HorizontalAlignment="Right" VerticalAlignment="Center">
-                Tilføj patient
-            </Button>
-        </StackPanel>
     </Grid>
 </Window>
 

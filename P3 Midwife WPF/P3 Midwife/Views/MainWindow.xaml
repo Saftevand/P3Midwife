@@ -13,10 +13,11 @@
     <Grid>
         <StackPanel Height="336" Background="AliceBlue">
             <Label Foreground="Blue" Margin="5,20,5,0" Width="200" FontSize="15">Brugernavn</Label>
-            <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" Height="23" Margin="0,-5" Width="200"/>
+            <TextBox Name="Username" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" Height="23" Margin="0,-5" Width="200"/>
             <Label Foreground="Blue" Margin="5,10,5,0" Width="200" FontSize="15">Kodeord</Label>
-            <PasswordBox PasswordChanged="PasswordBox_PasswordChanged" Width="200" Height="23" Margin="0,-5"/>
+            <PasswordBox Name="Password" PasswordChanged="PasswordBox_PasswordChanged" Width="200" Height="23" Margin="0,-5"/>
             <Button Name="btnDefault" IsDefault="True" Command="{Binding LoginCommand}" Margin="100,20" Content="Log ind"/>
+            <Button Name="btnLogOut" Visibility="Hidden" Command="{Binding LogOutCommand}" Margin="190,5,190,20" Content="Anden bruger" Width="Auto"/>
         </StackPanel>
     </Grid>
 </Window>

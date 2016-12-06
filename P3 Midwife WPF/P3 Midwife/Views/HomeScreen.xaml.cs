@@ -36,7 +36,7 @@ namespace P3_Midwife
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (msg.Notification == "ToHome")
+            if (msg.Notification == "ToHome" || msg.Notification == "FromLogInToHome")
                 Show();
             else
                 Hide();

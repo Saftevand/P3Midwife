@@ -19,6 +19,7 @@ namespace P3_Midwife.Views
 {
     public partial class RecordWindow : Window
     {
+        bool isNotClosed;
         public RecordWindow()
         {
             InitializeComponent();
@@ -27,8 +28,14 @@ namespace P3_Midwife.Views
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (msg.Notification == "ToRecord")
+            if (msg.Notification == "ToRecord" && !isNotClosed)
                 Show();
+            else if (msg.Notification == "RecordSave")
+            {
+                Close();
+                isNotClosed = true;
+                new RecordWindow();
+            }
             else
                 Hide();
         }

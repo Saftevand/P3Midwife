@@ -85,6 +85,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Utility\Words.cs" />
+    <Compile Include="Utility\WordSuggesetionProvider.cs" />
     <Compile Include="ViewModel\DialogWindowViewModel.cs" />
     <Compile Include="ViewModel\NewChildViewModel.cs" />
     <Compile Include="ViewModel\PatientViewModel.cs" />

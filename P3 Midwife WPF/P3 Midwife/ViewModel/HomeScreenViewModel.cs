@@ -92,9 +92,18 @@ namespace P3_Midwife
                 if (Cancel == true)
                 {
                     Cancel = false;
-                    logoutCommand();
+                    Messenger.Default.Send(new NotificationMessage("LogOut"));
+                    //logoutCommand();
                 }
                 bw.CancelAsync();
+            }
+        }
+
+        void bw_StartWorker(NotificationMessage msg)
+        {
+            if (msg.Notification == "StartWorker")
+            {
+                bw.RunWorkerAsync();
             }
         }
 
@@ -172,6 +181,8 @@ namespace P3_Midwife
         {
             Messenger.Default.Register<Employee>(this, "ActiveUser", (ActiveUser) => { CurrentEmployee = ActiveUser; });
             Messenger.Default.Register<Employee>(this, "ReturnEmployee", (ActiveUser) => { CurrentEmployee = ActiveUser; });
+            Messenger.Default.Register<NotificationMessage>(this, bw_StartWorker);
+
             this.LogOutCommand = new RelayCommand(parameter =>
             {
                 logoutCommand();
