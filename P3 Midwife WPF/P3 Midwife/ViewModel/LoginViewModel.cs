@@ -26,10 +26,6 @@ namespace P3_Midwife
 
         public LoginViewModel()
         {
-            //_employees.Add(new Midwife(1, "Gitte", "x", 42660666, "x"));
-            //_employees.First().CurrentPatients.Add(new Patient("1234567890", "TestName"));
-            //_employees.First().CurrentPatients.Add(new Patient("0987654321", "NameTest"));
-
             this.LoginCommand = new RelayCommand(parameter =>
             {
                 //TODO: Crashes if no email is entered and login pressed or if only numbers are entered

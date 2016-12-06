@@ -27,25 +27,10 @@ namespace P3_Midwife.Views
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (msg.Notification == "FromPatientToHome")
-            {
-                var HomeScreenView = new HomeScreen();
-                HomeScreenView.Show();
-                this.Close();
-            }
-            else if (msg.Notification == "FromPatientToRecord")
-            {
-                var RecordScreenView = new RecordWindow();
-                RecordScreenView.Show();
-                this.Close();
-            }
-            else if (msg.Notification == "FromPatientToMain")
-            {
-                var MainScreenView = new MainWindow();
-                MainScreenView.Show();
-                this.Close();
-            }
+            if (msg.Notification == "ToPatient")
+                Show();
+            else
+                Hide();
         }
-
     }
 }

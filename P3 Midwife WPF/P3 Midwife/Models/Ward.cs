@@ -23,6 +23,7 @@ namespace P3_Midwife
             Filemanagement.ReadPatients();
             //Filemanagement.ReadBirthRecords(Patients[0]);
             //Filemanagement.SaveRecord(Patients[0].RecordList[1]);
+
         }
         //TODO: HVOR FANDEN SKAL LOGIN/LOGUD/AUTOLOGUD LIGGE?!?!
     }

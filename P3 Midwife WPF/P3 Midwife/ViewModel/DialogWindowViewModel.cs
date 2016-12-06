@@ -40,7 +40,7 @@ namespace P3_Midwife.ViewModel
                     CurrentEmployee.CurrentPatients.Add(Ward.Patients.Find(x => x.CPR == CPREntered));
                     MessageBox.Show(Ward.Patients.Find(x => x.CPR == CPREntered).Name + " er blevet tilføjet");
                     Messenger.Default.Send<Employee>(CurrentEmployee, "ReturnEmployee");
-                    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("CloseDialogWindow"));
+                    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToHome"));
                 }
                 else
                 {

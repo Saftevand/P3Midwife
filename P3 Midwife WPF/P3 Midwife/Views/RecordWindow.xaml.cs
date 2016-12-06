@@ -23,29 +23,14 @@ namespace P3_Midwife.Views
         {
             InitializeComponent();
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
-
         }
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (msg.Notification == "FromRecordToLogIn")
-            {
-                var MainWindow = new MainWindow();
-                MainWindow.Show();
-                this.Close();
-            }
-            else if (msg.Notification == "FromRecordToPatient")
-            {
-                var PatientView = new PatientWindow();
-                PatientView.Show();
-                this.Close();
-            }
-            else if (msg.Notification == "FromRecordToCNewChild")
-            {
-                var NewChildView = new NewChildWindow();
-                NewChildView.Show();
-                this.Close();
-            }
+            if (msg.Notification == "ToRecord")
+                Show();
+            else
+                Hide();
         }
 
 

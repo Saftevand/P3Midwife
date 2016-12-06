@@ -26,24 +26,15 @@ namespace P3_Midwife
         {
             InitializeComponent();
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
+            Show();
         }
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
             if (msg.Notification == "FromLogInToHome")
             {
-                if (HomeScreenViem == null)
-                {
-                    HomeScreenViem = new HomeScreen();
-                }
-                HomeScreenViem.Show();
-                Hide();
-            }
-
-            if (msg.Notification == "FromHomeToLogIn")
-            {
-                Show();
-                HomeScreenViem.Hide();
+                HomeScreenViem = new HomeScreen();
+                Close();
             }
         }
 

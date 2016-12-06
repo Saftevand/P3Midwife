@@ -29,12 +29,12 @@
 
 
         <StackPanel Grid.ColumnSpan="3">
-            <ListView x:Name="BirthInfo" Margin="199,0,0,0">
-                <TextBlock x:Name="BItextBlock" TextWrapping="Wrap" Text="Fødselsoplysninger" />
+            <ListBox x:Name="BirthInfo" Margin="199,20,0,0">
+                <TextBlock x:Name="BItextBlock" TextWrapping="Wrap" Text="Fødselsoplysninger"/>
+            </ListBox>
 
-            </ListView>
-            <ListView x:Name="BirthInfoHeader" Margin="199,0,0,0" BorderThickness="0">
-                <ListView.View>
+                <ListView x:Name="BirthInfoHeader" Margin="199,0,0,0">
+                    <ListView.View>
                     <GridView>
                         <GridViewColumn>
                             <ListViewItem Content="Udførelse startet"/>
@@ -65,10 +65,10 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="101.5">
-                            <ListViewItem Content="{Binding BirhtInfo.Time}"/>
+                            <TextBox Text="{Binding BirhtInfo.Time}"/>
                         </GridViewColumn>
                         <GridViewColumn Width="72.5">
-                            <ListViewItem Content="{Binding BirthInfo.AmnioticFluid}"/>
+                            <TextBox Text="{Binding BirthInfo.AmnioticFluid, UpdateSourceTrigger=PropertyChanged}"/>
                         </GridViewColumn>
                         <GridViewColumn Width="95">
                             <ListViewItem Content="{Binding BirthInfo.AmountOfFluid}"/>
@@ -299,6 +299,9 @@
                 </Button>
                 <Button Command="{Binding MedicinCommand}">
                     Medicin
+                </Button>
+                <Button Command="{Binding SaveAndComplete}">
+                    Gem og afslut
                 </Button>
             </StackPanel>
         </ListView>

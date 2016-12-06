@@ -38,6 +38,7 @@ namespace P3_Midwife
         private int _apgarFiveMinutes;
         private int _apgarTenMinutes;
         private DateTime _timeOfBirth;//
+        private Patient _mother;
         private string _diagnosis;
         private List<_vaginalExploration> _vaginalExplorationList = new List<_vaginalExploration>();
         private List<_contractionIVDrip> _contractionIVDRIPList = new List<_contractionIVDrip>();
@@ -198,6 +199,7 @@ namespace P3_Midwife
         public bool Pharynx { get { return this._pharynx; } set { this._pharynx = value; } }
         public bool Ventricle { get { return this._ventricle; } set { this._ventricle = value; } }
         public DateTime Date { get { return this._date; } set { this._date = value; } }
+        public Patient Mother { get { return _mother; } set { _mother = value; } }
         #endregion
 
         public Record(Patient Patient)
@@ -205,6 +207,7 @@ namespace P3_Midwife
             this._patient = Patient;
             this.IsActive = true;
             ThisRecordID = RecordID;
+            this._date = DateTime.Now;
             RecordID++;
             thisRecordID = RecordID++;
             this.CurrentBill = new Bill(this);
