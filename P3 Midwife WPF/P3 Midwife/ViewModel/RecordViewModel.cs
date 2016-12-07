@@ -147,6 +147,7 @@ namespace P3_Midwife.ViewModel
             });
             this.SaveAndCompleteCommand = new RelayCommand(parameter =>
             {
+                Messenger.Default.Send(new NotificationMessage("RecordSave"));
                 RecordCurrent.BirthInformationList.AddRange(BirthInformationListProperty);
                 RecordCurrent.ContractionIVDripList.AddRange(ContractionListProperty);
                 RecordCurrent.MicturitionList.AddRange(MicturitionListProperty);

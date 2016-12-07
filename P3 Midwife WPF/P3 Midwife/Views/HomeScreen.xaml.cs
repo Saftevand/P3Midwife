@@ -32,11 +32,11 @@ namespace P3_Midwife
             new PatientWindow();
             new NewChildWindow();
             Show();     
-        }     
+        }
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (msg.Notification == "ToHome")
+            if (msg.Notification == "ToHome" || msg.Notification == "FromLogInToHome")
                 Show();
             else if(msg.Notification != "ToDialog")
                 Hide();

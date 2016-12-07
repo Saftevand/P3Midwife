@@ -17,16 +17,26 @@ namespace P3_Midwife
 {
     public partial class DialogWindow : Window
     {
+        bool isNotClosed;
         public DialogWindow()
         {
             InitializeComponent();
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
+            isNotClosed = false;
         }
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (msg.Notification == "ToDialog")
+            if (msg.Notification == "ToDialog" && !isNotClosed)
+            {
                 Show();
+            }
+            else if (msg.Notification == "DialogSave")
+            {
+                Close();
+                isNotClosed = true;
+                new DialogWindow();
+            }
             else
                 Hide();            
         }

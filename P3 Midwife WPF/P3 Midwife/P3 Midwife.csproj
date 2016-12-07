@@ -85,7 +85,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+<<<<<<< HEAD
     <Compile Include="Utility\RtfToFlowDocumentConverter.cs" />
+=======
+    <Compile Include="Utility\Words.cs" />
+    <Compile Include="Utility\WordSuggesetionProvider.cs" />
+>>>>>>> 361839c598f07ff3d783aaa70dd79ffb01a75695
     <Compile Include="ViewModel\DialogWindowViewModel.cs" />
     <Compile Include="ViewModel\NewChildViewModel.cs" />
     <Compile Include="ViewModel\PatientViewModel.cs" />

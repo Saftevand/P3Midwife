@@ -484,5 +484,23 @@ namespace P3_Midwife
                 sw.WriteLine("Total price : " + bill.TotalPrice.ToString());
             }
         }
+
+        public static List<string> DanishWordList = new List<string>();
+
+        public static void ReadWords()
+        {
+            using (StreamReader reader = new StreamReader(Environment.CurrentDirectory + "\\PersonInfo\\Words.dos", System.Text.Encoding.GetEncoding("iso-8859-1")))
+            {
+                string line;
+                while (!reader.EndOfStream)
+                {
+                    line = reader.ReadLine();
+                    DanishWordList.Add(line.ToLower());
+                }
+            }
+        }
+
+
+
     }
 }

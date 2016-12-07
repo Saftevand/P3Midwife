@@ -21,7 +21,7 @@ namespace P3_Midwife
     /// </summary>
     public partial class MainWindow : Window
     {
-        HomeScreen HomeScreenViem;
+        HomeScreen HomeScreenView = null;
         public MainWindow()
         {
             InitializeComponent();
@@ -31,11 +31,23 @@ namespace P3_Midwife
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
+            Hide();
             if (msg.Notification == "FromLogInToHome")
             {
-                HomeScreenViem = new HomeScreen();
-                Close();
+                if (HomeScreenView == null)
+                {
+                    HomeScreenView = new HomeScreen();
+                }
+                else
+                    HomeScreenView.Show();
             }
+            else if (msg.Notification == "LogOut")
+            {
+                Password.Clear();
+                Username.IsReadOnly = true;
+                btnLogOut.Visibility = Visibility.Visible;
+                Show();
+            }           
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)

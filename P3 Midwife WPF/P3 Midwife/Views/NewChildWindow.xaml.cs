@@ -17,6 +17,7 @@ namespace P3_Midwife.Views
 {
     public partial class NewChildWindow : Window
     {
+        bool isNotClosed;
         public NewChildWindow()
         {
             InitializeComponent();
@@ -25,9 +26,14 @@ namespace P3_Midwife.Views
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (msg.Notification == "ToNewChild")
+            if (msg.Notification == "ToNewChild" && !isNotClosed)
                 Show();
-
+            else if (msg.Notification == "ChildSave")
+            {
+                Close();
+                isNotClosed = true;
+                new NewChildWindow();
+            }
             else
                 Hide();
         }
