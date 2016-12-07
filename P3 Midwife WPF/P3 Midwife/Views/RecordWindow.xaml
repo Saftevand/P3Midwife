@@ -37,7 +37,7 @@
             <ListView Margin="199,0,0,0">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <StackPanel>
+                        <StackPanel>                           
                             <TextBlock Text="Udførelse startet "/>
                             <ListView ItemsSource="{Binding BirthInformationListProperty}">
                                 <ListView.ItemTemplate>
@@ -117,6 +117,7 @@
                         <Button Command="{Binding AddBirthInfo}" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                             Gem
                         </Button>
+        
                     </StackPanel>
                 </StackPanel>
             </ListView>

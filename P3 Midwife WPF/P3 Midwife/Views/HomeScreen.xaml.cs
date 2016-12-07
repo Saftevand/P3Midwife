@@ -23,6 +23,7 @@ namespace P3_Midwife
 { 
     public partial class HomeScreen : Window
     {
+        public Button targetButton;
         public HomeScreen()
         {
             InitializeComponent();
@@ -34,12 +35,15 @@ namespace P3_Midwife
             Show();     
         }
 
+
+
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
+                       
             if (msg.Notification == "ToHome" || msg.Notification == "FromLogInToHome")
                 Show();
             else if(msg.Notification != "ToDialog")
                 Hide();
-        }    
+        }
     }
 }

@@ -21,7 +21,7 @@
 
         <StackPanel Margin="15,17,0,0" Height="500" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center">
             <ListView BorderThickness="2" Height="500">
-                <TextBox MaxLength="10" Width="184" Text="{Binding CPR, UpdateSourceTrigger=LostFocus}"/>
+                <TextBox Name="lol" MaxLength="10" Width="184" Text="{Binding CPR, UpdateSourceTrigger=LostFocus}"/>
                 <Button Command="{Binding FindPatientCommand}">Find patient</Button>
                 <Button Command="{Binding OpenAddPatientCommand}">Tilføj patient</Button>
                 <Button Command="{Binding OpenPatientOnClick}" >PatientInfo</Button>
