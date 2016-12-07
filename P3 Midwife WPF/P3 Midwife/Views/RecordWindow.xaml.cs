@@ -29,17 +29,16 @@ namespace P3_Midwife.Views
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
             if (msg.Notification == "ToRecord" && !isNotClosed)
-                Show();
+                
+                this.Show();
             else if (msg.Notification == "RecordSave")
             {
-                Close();
-                isNotClosed = true;
+                this.Close();
+                this.isNotClosed = true;
                 new RecordWindow();
             }
             else
-                Hide();
+                this.Hide();
         }
-
-
     }
 }
