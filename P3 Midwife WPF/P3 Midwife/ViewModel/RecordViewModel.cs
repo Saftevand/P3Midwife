@@ -157,7 +157,7 @@ namespace P3_Midwife.ViewModel
             this.AddBirthInfo= new RelayCommand(parameter =>
             {
                 Record._birthInformation tempBirthInfo = new Record._birthInformation();
-                BirthInformationListProperty.Add(tempBirthInfo);
+                BirthInformationListProperty.Add(BirthInfo);
                 BirthInfo = tempBirthInfo;
 
             });
@@ -187,6 +187,28 @@ namespace P3_Midwife.ViewModel
                 VaginalExplorationListProperty.Add(tempVaginalExplorationInfo);
                 VaginalExplorationInfo = tempVaginalExplorationInfo;
             });
+
+
+            if (BirthInformationListProperty.Count == 0)
+            {
+                BirthInformationListProperty.Add(new Record._birthInformation());
+            }
+            if (ContractionListProperty.Count == 0)
+            {
+                ContractionListProperty.Add(new Record._contractionIVDrip());
+            }
+            if (MicturitionListProperty.Count == 0)
+            {
+                MicturitionListProperty.Add(new Record._micturition());
+            }
+            if (VaginalExplorationListProperty.Count == 0)
+            {
+                VaginalExplorationListProperty.Add(new Record._vaginalExploration());
+            }
+            if (FetusObservationListProperty.Count == 0)
+            {
+                FetusObservationListProperty.Add(new Record._fetusObservation());
+            }
         }
     }
 }
