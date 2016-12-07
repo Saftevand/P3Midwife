@@ -58,7 +58,7 @@ namespace P3_Midwife.ViewModel
                 CurrentNewChild.GenerateCpr(Convert.ToChar(CurrentNewChild.Gender));
                 CurrentNewChild.Mother = CurrentPatient;
                 CurrentPatient.Children.Add(CurrentNewChild);
-                Messenger.Default.Send(new NotificationMessage("FromNewChildToRecord"));
+                Messenger.Default.Send(new NotificationMessage("ToRecord"));
                 Messenger.Default.Send(CurrentPatient, "PatientToRecordView");
                 Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");
                 //tempRecord.AO = CurrentRecord.AO;
@@ -94,7 +94,8 @@ namespace P3_Midwife.ViewModel
             });
             this.LogOutCommand = new RelayCommand(parameter =>
             {
-                Messenger.Default.Send(new NotificationMessage("FromNewChildToLogIn"));
+                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                Application.Current.Shutdown();
             });
             this.ExitCommand = new RelayCommand(parameter =>
             {
@@ -102,7 +103,7 @@ namespace P3_Midwife.ViewModel
             });
             this.BackCommand = new RelayCommand(Parameter =>
             {
-                Messenger.Default.Send(new NotificationMessage("FromNewChildToRecord"));
+                Messenger.Default.Send(new NotificationMessage("ToRecord"));
                 Messenger.Default.Send(CurrentPatient, "PatientToRecordView");
                 Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");
             });

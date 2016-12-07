@@ -76,7 +76,7 @@ namespace P3_Midwife
                 return ("_vaginalExp|" + Time.ToString() + "|" + Collum.ToString() + "|" + Dialation.ToString() + "|" + Position + "|" + Rotation.ToString() + "|" + Consistency + "|" + Location + "|" + AmnioticFluid);
             }
         }
-
+            
             public struct _contractionIVDrip
         {
             private DateTime _time;

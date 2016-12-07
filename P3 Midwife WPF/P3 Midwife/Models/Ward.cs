@@ -19,9 +19,15 @@ namespace P3_Midwife
         static Ward()
         {
             Filemanagement.InitialiseFoldersAndFiles();
-            Filemanagement.CreatePatientFolderAndFile(new Patient("1805961577", "Patrick Alminde"));
-            Filemanagement.CreatePatientFolderAndFile(new Patient("1234567890", "Meh"));
+            Filemanagement.CreatePatientFolderAndFile(new Patient("1234567890", "Patrick Almind"));
+            Filemanagement.CreatePatientFolderAndFile(new Patient("2345678901", "Patrick Almin"));
+            Filemanagement.CreatePatientFolderAndFile(new Patient("3456789012", "Patrick Almi"));
+            Filemanagement.CreatePatientFolderAndFile(new Patient("4567890123", "Patrick Alm"));
+            Filemanagement.CreatePatientFolderAndFile(new Patient("5678901234", "Patrick Al"));
             Filemanagement.ReadPatients();
+            //Filemanagement.ReadBirthRecords(Patients[0]);
+            //Filemanagement.SaveRecord(Patients[0].RecordList[1]);
+
         }
         //TODO: HVOR FANDEN SKAL LOGIN/LOGUD/AUTOLOGUD LIGGE?!?!
     }

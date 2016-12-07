@@ -26,24 +26,20 @@ namespace P3_Midwife
         public HomeScreen()
         {
             InitializeComponent();
-            Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);           
+            Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
+            new DialogWindow();
+            new RecordWindow();
+            new PatientWindow();
+            new NewChildWindow();
+            Show();     
         }     
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (msg.Notification == "FromHomeToDialog")
-            {
-                var AddPatientDialogWindow = new DialogWindow();
-                AddPatientDialogWindow.Show();
-            }
-            else if (msg.Notification == "FromHomeToPatient")
-            {
-                var PatientView = new PatientWindow();
-                PatientView.Show();
+            if (msg.Notification == "ToHome")
+                Show();
+            else if(msg.Notification != "ToDialog")
                 Hide();
-            }
-        }
-
-       
+        }    
     }
 }

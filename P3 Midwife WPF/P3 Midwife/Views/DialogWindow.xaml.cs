@@ -24,12 +24,11 @@ namespace P3_Midwife
         }
 
         private void NotificationMessageRecieved(NotificationMessage msg)
-        {            
-            if (msg.Notification == "CloseDialogWindow")
-            {
-                this.Close();
-            }
-            
+        {
+            if (msg.Notification == "ToDialog")
+                Show();
+            else
+                Hide();            
         }
     }
 }
