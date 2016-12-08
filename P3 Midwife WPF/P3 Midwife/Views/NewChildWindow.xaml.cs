@@ -15,9 +15,9 @@ using System.Windows.Shapes;
 
 namespace P3_Midwife.Views
 {
-    public partial class NewChildWindow : Window
+    public partial class NewChildWindow : BaseWindow
     {
-        bool isNotClosed;
+        bool isNotClosed = true;
         WordSuggesetionProvider provider;
         public NewChildWindow()
         {
@@ -25,6 +25,7 @@ namespace P3_Midwife.Views
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
             txtAuto.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
             provider = new WordSuggesetionProvider();
+            isNotClosed = false;
         }
 
         private void txtAuto_TextChanged(object sender, TextChangedEventArgs e)
@@ -48,13 +49,16 @@ namespace P3_Midwife.Views
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
+
             if (msg.Notification == "ToNewChild" && !isNotClosed)
+            {
                 Show();
+            }
             else if (msg.Notification == "ChildSave")
             {
-                Close();
+                BaseWindow.cancel = true;
                 isNotClosed = true;
-                new NewChildWindow();
+                Close();
             }
             else
                 Hide();

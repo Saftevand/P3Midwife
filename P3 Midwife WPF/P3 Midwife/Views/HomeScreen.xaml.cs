@@ -21,7 +21,7 @@ using System.Collections.ObjectModel;
 
 namespace P3_Midwife
 { 
-    public partial class HomeScreen : Window
+    public partial class HomeScreen : BaseWindow
     {
         public Button targetButton;
         public HomeScreen()
@@ -29,13 +29,9 @@ namespace P3_Midwife
             InitializeComponent();
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
             new DialogWindow();
-            new RecordWindow();
             new PatientWindow();
-            new NewChildWindow();
             Show();     
         }
-
-
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {

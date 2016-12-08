@@ -189,9 +189,10 @@ namespace P3_Midwife.ViewModel
             });
             this.NewChildCommand = new RelayCommand(parameter =>
             {
-                Messenger.Default.Send(new NotificationMessage("ToNewChild"));
+                new P3_Midwife.Views.NewChildWindow();
                 Messenger.Default.Send(PatientCurrent, "PatientToNewChildView");
                 Messenger.Default.Send(EmployeeCurrent, "EmployeetoNewChildView");
+                Messenger.Default.Send(new NotificationMessage("ToNewChild"));
             });
             this.SaveAndCompleteCommand = new RelayCommand(parameter =>
             {

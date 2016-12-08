@@ -19,6 +19,7 @@ namespace P3_Midwife
             FrequentlyUsedWords.Add(_word);
         }
 
+        //Method to filter the current text into storing frequently used words and sentences.
         public List<string> GetSuggestions(string filter)
         {
             list.Clear();
@@ -37,44 +38,41 @@ namespace P3_Midwife
             if (filter.Count(x => x == ' ') > 1)
             {
                 text = suggestWords(filter);
+                text = text.Remove(text.Length - 1);
             }
             if (text.Length < 3)
             {
                 return list;
             }
+
+            //If last char is space, add the last word list and last sentence to a storing sentence list.
             if (last == ' ')
             {
-                addWordToList(text.Remove(text.Length - 1));
+                addWordToList(text);
                 if (filter.Count(x => x == ' ') > 2)
                 {
                     createSentence(filter);
                 }
-
-                string word = text.Remove(text.Length - 1);
-
-                for (int i = 0; i < sentenceSuggestion.FindAll(x => x.word == word).Count(); i++)
+                //Suggest word that suits previous word.
+                for (int i = 0; i < sentenceSuggestion.FindAll(x => x.word == text).Count(); i++)
                 {
-                    list.Add(sentenceSuggestion.Find(x => x.word == word).secWord);
+                    list.Add(sentenceSuggestion.Find(x => x.word == text).secWord);
                 }
                 return list;
             }
-
             rankList(FrequentlyUsedWords.FindAll(s => s.StartsWith(text)));
-
             if (list.Count < 5)
             {
                 list.AddRange(dic.FindAll(s => s.StartsWith(text)));
             }
-
-            list.Remove(text);
-
+            list.RemoveAll(x => x == text);
             return list;
         }
 
         private void rankList(List<string> usedWords)
         {
             List<Words> words = new List<Words>();
-
+            //Loop to recognise the use of words, and rank them after times occured.
             foreach (string item in usedWords)
             {
                 if (words.Exists(x => x.word == item))
