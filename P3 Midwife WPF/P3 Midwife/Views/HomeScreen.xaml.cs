@@ -21,7 +21,7 @@ using System.Collections.ObjectModel;
 
 namespace P3_Midwife
 { 
-    public partial class HomeScreen : Window
+    public partial class HomeScreen : BaseWindow
     {
         public Button targetButton;
         public HomeScreen()
@@ -34,8 +34,6 @@ namespace P3_Midwife
             new NewChildWindow();
             Show();     
         }
-
-
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {

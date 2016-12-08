@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace P3_Midwife.Views
 {
-    public partial class NewChildWindow : Window
+    public partial class NewChildWindow : BaseWindow
     {
         bool isNotClosed;
         WordSuggesetionProvider provider;

@@ -17,7 +17,7 @@ using GalaSoft.MvvmLight.Messaging;
 
 namespace P3_Midwife.Views
 {
-    public partial class RecordWindow : Window
+    public partial class RecordWindow : BaseWindow
     {
         bool isNotClosed;
         public RecordWindow()
