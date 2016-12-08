@@ -22,10 +22,19 @@ namespace P3_Midwife.Views
 {
     public class BaseWindow : Window
     {
+        public static bool cancel;
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
-            Application.Current.Shutdown();
+            if (cancel == true)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                Application.Current.Shutdown();
+            }
+            cancel = false;
         }
     }
 }

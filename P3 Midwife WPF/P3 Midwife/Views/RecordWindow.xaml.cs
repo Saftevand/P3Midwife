@@ -33,6 +33,7 @@ namespace P3_Midwife.Views
                 this.Show();
             else if (msg.Notification == "RecordSave")
             {
+                BaseWindow.cancel = true;
                 this.Close();
                 this.isNotClosed = true;
                 new RecordWindow();
