@@ -49,13 +49,15 @@ namespace P3_Midwife.Views
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
+
             if (msg.Notification == "ToNewChild" && !isNotClosed)
+            {
                 Show();
+            }
             else if (msg.Notification == "ChildSave")
             {
                 BaseWindow.cancel = true;
                 isNotClosed = true;
-                new NewChildWindow();
                 Close();
             }
             else
