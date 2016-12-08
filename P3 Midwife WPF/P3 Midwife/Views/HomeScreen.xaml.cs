@@ -35,15 +35,20 @@ namespace P3_Midwife
             Show();     
         }
 
-
-
         private void NotificationMessageRecieved(NotificationMessage msg)
-        {
-                       
+        {                       
             if (msg.Notification == "ToHome" || msg.Notification == "FromLogInToHome")
+            {
                 Show();
+            }
+            else if (msg.Notification == "NoCPRInput")
+            {
+                MessageBox.Show("Intet CPR registreret!\nIndtast venligst et CPR nummer i tekstboksen");
+            }            
             else if(msg.Notification != "ToDialog")
+            {
                 Hide();
+            }                
         }
     }
 }

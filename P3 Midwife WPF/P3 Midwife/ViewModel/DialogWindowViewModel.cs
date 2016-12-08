@@ -45,7 +45,7 @@ namespace P3_Midwife.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Der er ingen personer med det CPR nummer");
+                    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("NoPersonWithCPR"));
                 }
                
             });

@@ -54,7 +54,7 @@ namespace P3_Midwife.ViewModel
 
             this.SaveAndComplete = new RelayCommand(parameter =>
             {
-                CurrentPatient.RecordList.Add(CurrentRecord);
+                //CurrentPatient.RecordList.Add(CurrentRecord);
                 CurrentNewChild.GenerateCpr(Convert.ToChar(CurrentNewChild.Gender));
                 CurrentNewChild.Mother = CurrentPatient;
                 CurrentPatient.Children.Add(CurrentNewChild);

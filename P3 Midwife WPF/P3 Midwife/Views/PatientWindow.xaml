@@ -31,23 +31,50 @@
                 <ListViewItem Content="{Binding PatientCurrent.Age}"/>
                 <ListViewItem Content="{Binding PatientCurrent.Gender}" />
                 <ListViewItem Content="{Binding PatientCurrent.CPR}"/>
+                <ListViewItem Content="Børn: "/>
+                <ListView ItemsSource="{Binding Children}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding Name}"/>
+                                <Run Text=" - "/>
+                                <Run Text="{Binding CPR}"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
                 <Button Command="{Binding CreateRecordCommand}" Margin="40,500,0,0">
                     Ny Journal
                 </Button>
             </StackPanel> 
         </ListView>
-        <ListView Margin="199, 20,0,0" Width="1081" Height="700" ItemsSource="{Binding Records}" HorizontalAlignment="Left">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock>
-                        <Run Text="{Binding Date}"/>
-                        <Run Text="{Binding IsActive}"/>
-                        <Run Text="{Binding Diagnosis}"/>
-                    </TextBlock>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+
+        <ListView Margin="199, 20, 0, 0"> 
+            <StackPanel>
+                <TextBlock>
+                    <Run Text="  Dato                            "/>
+                    <Run Text="  |  "/>
+                    <Run Text="Indlagt"/>
+                    <Run Text="  |  "/>
+                    <Run Text="Diagnose"/>
+                </TextBlock>
+                <ListView ItemsSource="{Binding Records}" SelectedItem="{Binding RecordSelected}">                    <!--MouseDoubleClick="ListView_MouseDoubleClick"-->
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding Date}"/>
+                                <Run Text="  |  "/>
+                                <Run Text="{Binding IsActive}"/>
+                                <Run Text="       |  "/>
+                                <Run Text="{Binding Diagnosis}"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button Command="{Binding OpenRecordCommand}"> <!-- Til test, skal fjernes efter -->
+                    adadsad
+                </Button>
+            </StackPanel>
         </ListView>
-
     </Grid>
-
 </Window>

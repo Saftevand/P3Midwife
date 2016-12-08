@@ -205,7 +205,9 @@ namespace P3_Midwife
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));
                 }
                 else
-                    MessageBox.Show("lol");
+                {
+                    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("NoCPRInput"));
+                }
             });
             this.OpenAddPatientCommand = new RelayCommand(parameter =>
             {

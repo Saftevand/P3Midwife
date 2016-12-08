@@ -29,16 +29,23 @@ namespace P3_Midwife.Views
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
             if (msg.Notification == "ToRecord" && !isNotClosed)
-                
-                this.Show();
-            else if (msg.Notification == "RecordSave")
             {
+                this.Show();
+            }
+            else if (msg.Notification == "RecordSave")
+            {                
                 this.Close();
                 this.isNotClosed = true;
                 new RecordWindow();
             }
+            else if (msg.Notification == "AccessDenied")
+            {
+                MessageBox.Show("Adgang nægtet!");
+            }
             else
+            {
                 this.Hide();
+            }
         }
     }
 }

@@ -130,9 +130,16 @@ namespace P3_Midwife.ViewModel
             });
             this.NewChildCommand = new RelayCommand(parameter =>
             {
-                Messenger.Default.Send(new NotificationMessage("ToNewChild"));
-                Messenger.Default.Send(PatientCurrent, "PatientToNewChildView");
-                Messenger.Default.Send(EmployeeCurrent, "EmployeetoNewChildView");
+                if (EmployeeCurrent is Midwife)
+                {
+                    Messenger.Default.Send(new NotificationMessage("ToNewChild"));
+                    Messenger.Default.Send(PatientCurrent, "PatientToNewChildView");
+                    Messenger.Default.Send(EmployeeCurrent, "EmployeetoNewChildView");
+                }
+                else
+                {
+                    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("AccessDenied"));
+                }
             });
             this.SaveAndCompleteCommand = new RelayCommand(parameter =>
             {
@@ -142,17 +149,19 @@ namespace P3_Midwife.ViewModel
                 RecordCurrent.MicturitionList.AddRange(MicturitionListProperty);
                 RecordCurrent.VaginalExplorationList.AddRange(VaginalExplorationListProperty);
                 RecordCurrent.FetusObservationList.AddRange(FetusObservationListProperty);
-                if (PatientCurrent.RecordList.Find(x => x.ThisRecordID == RecordCurrent.ThisRecordID) == null)
-                {
-                    PatientCurrent.RecordList.Add(RecordCurrent);
-                }
+
+                //if (!PatientCurrent.RecordList.Exists(x => x.ThisRecordID == RecordCurrent.ThisRecordID))
+                //{
+                //    PatientCurrent.RecordList.Add(RecordCurrent);
+                //}
+                               
                 Messenger.Default.Send(new NotificationMessage("ToPatient"));
                 Messenger.Default.Send(PatientCurrent, "Patient");
                 Messenger.Default.Send(EmployeeCurrent, "Employee");
             });
             this.MedicinCommand = new RelayCommand(parameter =>
             {
-                //nyt vindue skal laves her
+                //nyt vindue skal laves her -- eller?
             });
             this.AddBirthInfo= new RelayCommand(parameter =>
             {
