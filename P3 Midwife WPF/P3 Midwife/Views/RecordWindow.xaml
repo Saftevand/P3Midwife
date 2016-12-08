@@ -29,9 +29,9 @@
 
 
         <StackPanel Grid.ColumnSpan="3">
-            <ListBox x:Name="BirthInfo" Margin="199,20,0,0">
+            <ListView x:Name="BirthInfo" Margin="199,20,0,0">
                 <TextBlock x:Name="BItextBlock" TextWrapping="Wrap" Text="Fødselsoplysninger"/>
-            </ListBox>
+            </ListView>
 
             <ListView x:Name="BirthInfoHeader" Margin="199,0,0,0">
                 <ListView.View>
@@ -55,7 +55,7 @@
                             <ListViewItem Content="Mængde af blod"/>
                         </GridViewColumn>
                         <GridViewColumn>
-                            <ListViewItem Content="Resultat"/>
+                            <ListViewItem Content="Resultat" Focusable="False"/>
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
