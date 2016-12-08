@@ -17,26 +17,39 @@ using GalaSoft.MvvmLight.Messaging;
 
 namespace P3_Midwife.Views
 {
-    public partial class RecordWindow : Window
+    public partial class RecordWindow : BaseWindow
     {
         bool isNotClosed;
+        Patient CurrentPatient;
+        Record CurrentRecord;
         public RecordWindow()
         {
             InitializeComponent();
+            Messenger.Default.Register<Patient>(this, "PatientToRecordView", patientValidation);
+            Messenger.Default.Register<Record>(this, "NewRecordToRecordView", recordValidation);
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
+        }
+
+        private void recordValidation(Record _currentRecord)
+        {
+            CurrentRecord = _currentRecord;
+        }
+
+        private void patientValidation(Patient _currentPatient)
+        {
+            CurrentPatient = _currentPatient;
         }
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (msg.Notification == "ToRecord" && !isNotClosed)
-            {
+            if (msg.Notification == "ToRecord" && !isNotClosed && CurrentPatient.RecordList.Any(x => x.ThisRecordID == CurrentRecord.ThisRecordID))               
                 this.Show();
-            }
+
             else if (msg.Notification == "RecordSave")
-            {                
+            {
+                BaseWindow.cancel = true;
                 this.Close();
                 this.isNotClosed = true;
-                new RecordWindow();
             }
             else if (msg.Notification == "AccessDenied")
             {

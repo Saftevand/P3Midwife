@@ -29,5 +29,21 @@ namespace P3_Midwife
                 return _tempEmployees;
             }
         }*/
+
+        /*     MÅ ABSOLUT IKKE SLETTES!!!!!! plz Spørg ham med den støste diller inden sletning.... altså Simon ;)
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="DarkOrange"/>
+                    </Trigger>
+                </Style.Triggers> */
     }
 }

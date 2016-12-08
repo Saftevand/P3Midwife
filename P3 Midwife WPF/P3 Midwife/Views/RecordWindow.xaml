@@ -1,4 +1,4 @@
-﻿<Window x:Class="P3_Midwife.Views.RecordWindow"
+﻿<local:BaseWindow x:Class="P3_Midwife.Views.RecordWindow"
         x:Name="RView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,6 +7,7 @@
         xmlns:ViewModel="clr-namespace:P3_Midwife.ViewModel"
         xmlns:local="clr-namespace:P3_Midwife.Views"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="RecordWindow" Height="720" Width="1280" Background="WhiteSmoke" BorderThickness="1" BorderBrush="LightSkyBlue">
 
     <Window.DataContext>
@@ -29,10 +30,9 @@
 
 
         <StackPanel Grid.ColumnSpan="3">
-            <ListBox x:Name="BirthInfo" Margin="199,20,0,0">
+            <ListView x:Name="BirthInfo" Margin="199,20,0,0">
                 <TextBlock x:Name="BItextBlock" TextWrapping="Wrap" Text="Fødselsoplysninger"/>
-            </ListBox>
-
+            </ListView>
 
             <ListView Margin="199,0,0,0">
                 <StackPanel>
@@ -410,6 +410,11 @@
                     </StackPanel>
                 </StackPanel>
             </ListView>
+            <TextBlock Margin="199,0,0,0" Height="100">
+                <Run Text="{Binding RecordCurrent.Note}"/>
+            </TextBlock>
+                <TextBox Margin="199,0,0,0" Height="100" Text="{Binding RecordCurrent.NewNote,UpdateSourceTrigger=PropertyChanged}">
+            </TextBox>
         </StackPanel>
 
         <ListView x:Name="listView" HorizontalAlignment="Left" Height="669" Margin="0,20,0,0" VerticalAlignment="Top" Width="200" BorderThickness="3" BorderBrush="LightSkyBlue">
@@ -428,7 +433,32 @@
                 <Button Command="{Binding SaveAndCompleteCommand}">
                     Gem og afslut
                 </Button>
+                <TextBlock Text="Modtaget medicin"/>
+                <ListView Height="150" ItemsSource="{Binding MedicalServicesList}" SelectedItem="{Binding SelectedMedicalServiceInfo, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Name="ReceivedMedicine" Tag="{Binding SelectedMedicalServiceInfo}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding Name}"/>
+                                <Run Text="{Binding AbbrevationName}"/>
+                                <Run Text="{Binding Price}"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListView>
+                <Button Command="{Binding RemoveMedicalService}" Content="Fjern Medicin" FontSize="12" Height="20" Width="100">
+                </Button>
+                <ComboBox Text="Vælg medicin" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding MedicalServices}" SelectedItem="{Binding SelectedAvailableMedicalServiceInfo, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Name="AddedMedicine" Tag="{Binding SelectedAvailableMedicalServiceInfo}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding Name}"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button Command="{Binding AddMedicalService}" Height="20" Width="100" FontSize="12" Content="Tilføj medicin">
+                </Button>
             </StackPanel>
         </ListView>
     </Grid>
-</Window>
+</local:BaseWindow>

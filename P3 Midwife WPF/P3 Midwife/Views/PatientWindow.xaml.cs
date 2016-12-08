@@ -17,7 +17,7 @@ using System.Windows.Controls.Primitives;
 
 namespace P3_Midwife.Views
 {
-    public partial class PatientWindow : Window
+    public partial class PatientWindow : BaseWindow
     {
         public PatientWindow()
         {

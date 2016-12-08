@@ -13,5 +13,6 @@ namespace P3_Midwife
     /// </summary>
     public partial class App : Application
     {
+        
     }
 }
