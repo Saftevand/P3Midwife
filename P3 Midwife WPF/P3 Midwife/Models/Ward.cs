@@ -26,6 +26,7 @@ namespace P3_Midwife
             Filemanagement.CreatePatientFolderAndFile(new Patient("4567890123", "Patrick Alm"));
             Filemanagement.CreatePatientFolderAndFile(new Patient("5678901234", "Patrick Al"));
             Filemanagement.ReadPatients();
+            //Filemanagement.ReadWords();
             //Filemanagement.ReadBirthRecords(Patients[0]);
             //Filemanagement.SaveRecord(Patients[0].RecordList[1]);
 

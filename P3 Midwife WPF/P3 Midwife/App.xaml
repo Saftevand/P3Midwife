@@ -2,11 +2,10 @@
     <Application.Resources>
         <ResourceDictionary>
 
-            <Style TargetType="Grid">
-                <Setter Property="Background" Value="AliceBlue"/>
-            </Style>
 
-            <Style TargetType="ListViewItem">
+            <!--<Style x:Key="ListViewItemWhite" TargetType="ListViewItem">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ListViewItem}">
@@ -20,9 +19,10 @@
                     <Trigger Property="IsMouseOver" Value="True">
                         <Setter Property="BorderThickness" Value="0"/>
                         <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="0"/>
                     </Trigger>
                 </Style.Triggers>
-            </Style>
+            </Style>-->
             
             <Style TargetType="ListView">
                 <Setter Property="Background" Value="AliceBlue"/>
@@ -34,8 +34,8 @@
             <Style TargetType="{x:Type Button}">
                 <Setter Property="Background" Value="DarkOrange"/>
                 <Setter Property="Foreground" Value="White"/>
-                <Setter Property="Width" Value="100"/>
-                <Setter Property="Height" Value="25"/>
+                <Setter Property="Width" Value="120"/>
+                <Setter Property="Height" Value="35"/>
                 <Setter Property="FontWeight" Value="Bold"/>
                 <Setter Property="FontSize" Value="16"/>
                 <Setter Property="Margin" Value="5,5"/>
@@ -46,6 +46,13 @@
                 <Setter Property="Foreground" Value="White"/>
                 <Setter Property="FontWeight" Value="DemiBold"/>
             </Style>
+
+            <Style TargetType="Menu">
+                <Setter Property="Background" Value="SteelBlue"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontWeight" Value="DemiBold"/>
+            </Style>
+            
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:P3_Midwife.ViewModel" />
         </ResourceDictionary>
   </Application.Resources>

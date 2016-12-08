@@ -91,6 +91,9 @@
     <Compile Include="ViewModel\NewChildViewModel.cs" />
     <Compile Include="ViewModel\PatientViewModel.cs" />
     <Compile Include="ViewModel\RecordViewModel.cs" />
+    <Compile Include="Views\AddMedicalServicesView.xaml.cs">
+      <DependentUpon>AddMedicalServicesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
@@ -118,6 +121,10 @@
     <Compile Include="Views\RecordWindow.xaml.cs">
       <DependentUpon>RecordWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AddMedicalServicesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -48,6 +48,8 @@ namespace P3_Midwife
         private Bill _bill;
         public static int RecordID;
         public int thisRecordID;
+        private string _note;
+        private string _newNote;
      
         public struct _vaginalExploration
         {
@@ -59,9 +61,7 @@ namespace P3_Midwife
             private string _consistency;
             private string _location;
             private string _amnioticFluid;
-            private string _note;
 
-            public string Note { get { return _note; } set { _note = value; } }
             public DateTime Time { get { return _time; } set { _time = value; } }
             public int Collum { get { return _collum; } set { _collum = value; } }
             public int Dialation { get { return _dilation; } set { _dilation = value; } }
@@ -83,8 +83,6 @@ namespace P3_Midwife
             private int _numberOfContractionsPerMinute;
             private int _contractionPain;
             private int _SDripMLPerHour;
-            private string _note;
-            public string Note { get { return _note; } set { _note = value; } }
             public DateTime Time { get { return _time; } set { _time = value; } }
             public int NumberOfContractionsPerMinute { get { return _numberOfContractionsPerMinute; } set { _numberOfContractionsPerMinute = value; } }
             public int ContractionPain { get { return _contractionPain; } set { _contractionPain = value; } }
@@ -92,7 +90,7 @@ namespace P3_Midwife
 
             public override string ToString()
             {
-                return ("_contractionIVDrip|" + Time.ToString() + "|" + NumberOfContractionsPerMinute.ToString() + "|" + ContractionPain.ToString() + "|" + SDripMlPerHour.ToString() + "|" + Note);
+                return ("_contractionIVDrip|" + Time.ToString() + "|" + NumberOfContractionsPerMinute.ToString() + "|" + ContractionPain.ToString() + "|" + SDripMlPerHour.ToString());
             }
         }
 
@@ -118,8 +116,6 @@ namespace P3_Midwife
             private string _STAN;
             private double _scalppH;
             private double _scalpLactate;
-            private string _note;
-            public string Note { get { return _note; } set { _note = value; } }
             public DateTime Time { get { return _time; } set { _time = value; } }
             public string HearthFrequency { get { return _hearthfrequency; } set { _hearthfrequency = value; } }
             public string CTG { get { return _CTG; } set { _CTG = value; } }
@@ -143,8 +139,6 @@ namespace P3_Midwife
             private double _bloodAmount;
             private string _bleedingCause;
             private string _birthPosition;
-            private string _note;
-            public string Note { get { return _note; } set { _note = value; } }
             public DateTime Time { get { return _time; } set { _time = value; } }
             public string Result { get { return _result; } set { _result = value; } }
             public string AmnioticFluid { get { return _amnioticFluid; } set { _amnioticFluid = value; } }
@@ -200,6 +194,8 @@ namespace P3_Midwife
         public bool Ventricle { get { return this._ventricle; } set { this._ventricle = value; } }
         public DateTime Date { get { return this._date; } set { this._date = value; } }
         public Patient Mother { get { return _mother; } set { _mother = value; } }
+        public string Note { get { return _note; } set { _note += value; } }
+        public string NewNote { get { return _newNote; } set { _newNote = value; } }
         #endregion
 
         public Record(Patient Patient)

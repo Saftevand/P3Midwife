@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:P3_Midwife.Views"
         xmlns:ViewModel="clr-namespace:P3_Midwife.ViewModel"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="PatientWindow" Height="720" Width="1280">
     <Window.DataContext>
         <ViewModel:PatientViewModel/>

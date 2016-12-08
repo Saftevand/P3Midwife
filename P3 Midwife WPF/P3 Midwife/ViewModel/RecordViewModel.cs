@@ -23,6 +23,9 @@ namespace P3_Midwife.ViewModel
         public RelayCommand AddFetusObservationInfo { get; }
         public RelayCommand AddMicturitionInfo { get; }
         public RelayCommand AddVaginalExplorationInfo { get; }
+        public RelayCommand RemoveMedicalService { get; }
+        public RelayCommand AddMedicalService { get; }
+        public RelayCommand OpenMedicalServicesToAdd { get; }
 
         public static DependencyProperty PatientProperty = DependencyProperty.Register(nameof(PatientCurrent), typeof(Patient), typeof(RecordViewModel));
         public static DependencyProperty RecordProperty = DependencyProperty.Register(nameof(RecordCurrent), typeof(Record), typeof(RecordViewModel));
@@ -31,11 +34,39 @@ namespace P3_Midwife.ViewModel
         public static DependencyProperty FetusObservationProperty = DependencyProperty.Register(nameof(FetusObservationInfo), typeof(Record._fetusObservation), typeof(RecordViewModel));
         public static DependencyProperty MicturitionProperty = DependencyProperty.Register(nameof(MicturitionInfo), typeof(Record._micturition), typeof(RecordViewModel));
         public static DependencyProperty VaginalExplorationProperty = DependencyProperty.Register(nameof(VaginalExplorationInfo), typeof(Record._vaginalExploration), typeof(RecordViewModel));
+        public static DependencyProperty SelectedMedicalServiceProperty = DependencyProperty.Register(nameof(SelectedMedicalServiceInfo), typeof(MedicalService), typeof(RecordViewModel));
+        public static DependencyProperty SelectedAvailableMedicalServiceProperty = DependencyProperty.Register(nameof(SelectedAvailableMedicalServiceInfo), typeof(MedicalService), typeof(RecordViewModel));
         private ObservableCollection<Record._birthInformation> _birthInformationList = new ObservableCollection<Record._birthInformation>();
         private ObservableCollection<Record._contractionIVDrip> _contractrionIVDripList= new ObservableCollection<Record._contractionIVDrip>();
         private ObservableCollection<Record._fetusObservation> _fetusObservationList = new ObservableCollection<Record._fetusObservation>();
         private ObservableCollection<Record._micturition> _micturitionList = new ObservableCollection<Record._micturition>();
         private ObservableCollection<Record._vaginalExploration> _vaginalExplorationList = new ObservableCollection<Record._vaginalExploration>();
+        private ObservableCollection<MedicalService> _medicalServicesList = new ObservableCollection<MedicalService>();
+        private ObservableCollection<MedicalService> _availableMedicalServices = new ObservableCollection<MedicalService>();
+
+        public ObservableCollection<MedicalService> MedicalServices
+        {
+            get { return _availableMedicalServices; }
+            set { _availableMedicalServices = value; }
+        }
+
+        public MedicalService SelectedAvailableMedicalServiceInfo
+        {
+            get { return (MedicalService)this.GetValue(SelectedAvailableMedicalServiceProperty); }
+            set { this.SetValue(SelectedAvailableMedicalServiceProperty, value); }
+        }
+
+        public MedicalService SelectedMedicalServiceInfo
+        {
+            get { return (MedicalService)this.GetValue(SelectedMedicalServiceProperty); }
+            set { this.SetValue(SelectedMedicalServiceProperty, value); }
+        }
+
+        public ObservableCollection<MedicalService> MedicalServicesList
+        {
+            get { return _medicalServicesList; }
+            set { _medicalServicesList = value; }
+        }
 
         public ObservableCollection<Record._birthInformation> BirthInformationListProperty
         {
@@ -94,7 +125,11 @@ namespace P3_Midwife.ViewModel
         public Record RecordCurrent
         {
             get { return (Record)this.GetValue(RecordProperty); }
-            set { this.SetValue(RecordProperty, value); }
+            set
+            {
+                this.SetValue(RecordProperty, value);
+                _medicalServicesList.AddRange(RecordCurrent.CurrentBill.BillItemList);
+            }
         }
         public Patient PatientCurrent
         {
@@ -107,12 +142,36 @@ namespace P3_Midwife.ViewModel
             set { _currentEmployee = value; }
         }
 
-
         public RecordViewModel()
         {
+            Messenger.Default.Register<NotificationMessage>(this, "LogOut", parameter =>
+            {
+                RecordCurrent.Note = RecordCurrent.NewNote;
+                RecordCurrent.NewNote = null;
+            });
             Messenger.Default.Register<Record>(this, "NewRecordToRecordView", (ActiveRecord) => { RecordCurrent = ActiveRecord; });
             Messenger.Default.Register<Patient>(this, "PatientToRecordView", (ActivePatient) => { PatientCurrent = ActivePatient; });
             Messenger.Default.Register<Employee>(this, "EmployeetoRecordView", (ActiveEmployee) => { EmployeeCurrent = ActiveEmployee; });
+
+            
+
+            _availableMedicalServices.AddRange(Ward.MedicalServicesList);
+
+            this.AddMedicalService = new RelayCommand(parameter =>
+            {
+                _medicalServicesList.Add(SelectedAvailableMedicalServiceInfo);
+            });
+
+            this.OpenMedicalServicesToAdd = new RelayCommand(parameter =>
+            {
+                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("AddMedicalServices"));
+            });
+
+            this.RemoveMedicalService = new RelayCommand(parameter =>
+            {
+                MedicalServicesList.Remove(SelectedMedicalServiceInfo);
+            });
+
             this.LogOutCommand = new RelayCommand(parameter =>
             {
                 System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
@@ -157,7 +216,7 @@ namespace P3_Midwife.ViewModel
             this.AddBirthInfo= new RelayCommand(parameter =>
             {
                 Record._birthInformation tempBirthInfo = new Record._birthInformation();
-                BirthInformationListProperty.Add(tempBirthInfo);
+                BirthInformationListProperty.Add(BirthInfo);
                 BirthInfo = tempBirthInfo;
 
             });
@@ -187,6 +246,28 @@ namespace P3_Midwife.ViewModel
                 VaginalExplorationListProperty.Add(tempVaginalExplorationInfo);
                 VaginalExplorationInfo = tempVaginalExplorationInfo;
             });
+
+
+            if (BirthInformationListProperty.Count == 0)
+            {
+                BirthInformationListProperty.Add(new Record._birthInformation());
+            }
+            if (ContractionListProperty.Count == 0)
+            {
+                ContractionListProperty.Add(new Record._contractionIVDrip());
+            }
+            if (MicturitionListProperty.Count == 0)
+            {
+                MicturitionListProperty.Add(new Record._micturition());
+            }
+            if (VaginalExplorationListProperty.Count == 0)
+            {
+                VaginalExplorationListProperty.Add(new Record._vaginalExploration());
+            }
+            if (FetusObservationListProperty.Count == 0)
+            {
+                FetusObservationListProperty.Add(new Record._fetusObservation());
+            }
         }
     }
 }

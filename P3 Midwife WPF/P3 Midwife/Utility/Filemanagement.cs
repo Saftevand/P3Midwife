@@ -124,7 +124,6 @@ namespace P3_Midwife
             file.Close();
         }
 
-
         public static void ReadBirthRecords(Patient patient)
         {
             StreamReader sr;
@@ -190,7 +189,6 @@ namespace P3_Midwife
                         temp.Time = DateTime.ParseExact(CIVDripInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
                         temp.NumberOfContractionsPerMinute = Convert.ToInt32(CIVDripInfo[2]);
                         temp.SDripMlPerHour = Convert.ToInt32(CIVDripInfo[3]);
-                        temp.Note = CIVDripInfo[4];
                         recordToBeAdded.ContractionIVDripList.Add(temp);
                     }
                 }
@@ -210,7 +208,6 @@ namespace P3_Midwife
                         temp.Consistency = vagExpInfo[6];
                         temp.Location = vagExpInfo[7];
                         temp.AmnioticFluid = vagExpInfo[8];
-                        temp.Note = vagExpInfo[9];
                         recordToBeAdded.VaginalExplorationList.Add(temp);
                     }
                 }
@@ -242,7 +239,6 @@ namespace P3_Midwife
                         temp.STAN = fetusObsInfo[5];
                         temp.ScalppH = Convert.ToDouble(fetusObsInfo[6]);
                         temp.ScalpLactate = Convert.ToDouble(fetusObsInfo[7]);
-                        temp.Note = fetusObsInfo[8];
                         recordToBeAdded.FetusObservationList.Add(temp);
                     }
                 }
@@ -261,7 +257,6 @@ namespace P3_Midwife
                         temp.BloodAmount = Convert.ToDouble(birthInfo[5]);
                         temp.BleedingCause = birthInfo[6];
                         temp.BirthPosition = birthInfo[7];
-                        temp.Note = birthInfo[8];
                         recordToBeAdded.BirthInformationList.Add(temp);
                     }
                 }
