@@ -27,8 +27,7 @@
                 <TextBox Name="lol" MaxLength="10" Width="184" Text="{Binding CPR, UpdateSourceTrigger=LostFocus}"/>
                 <Button Command="{Binding FindPatientCommand}">Find patient</Button>
                 <Button Command="{Binding OpenAddPatientCommand}">Tilføj patient</Button>
-                <Button Command="{Binding OpenPatientOnClick}" >PatientInfo</Button>
-                <ListBox Width="184" ItemsSource="{Binding CurrentPatients}" Margin="0,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectedItem="{Binding SelectedPatient, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Name="ActivePatientsListBox" Tag="{Binding SelectedPatient}">
+                <ListBox Width="184" Name="chosenPatient" ItemsSource="{Binding CurrentPatients}" Margin="0,5,0,0" SelectionChanged="ActivePatientsListBox_SelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectedItem="{Binding SelectedPatient, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Tag="{Binding CurrentEmployee}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock><Run Text="{Binding Name}"/><Run Text=" "/><Run Text="{Binding CPR}"/></TextBlock>
