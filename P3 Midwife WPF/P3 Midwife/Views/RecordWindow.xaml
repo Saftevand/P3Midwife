@@ -5,13 +5,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ViewModel="clr-namespace:P3_Midwife.ViewModel"
-        xmlns:local="clr-namespace:P3_Midwife.Views"
+        xmlns:local="clr-namespace:P3_Midwife.Views" 
         mc:Ignorable="d"
         Title="RecordWindow" Height="720" Width="1280" Background="WhiteSmoke" BorderThickness="1" BorderBrush="LightSkyBlue">
 
     <Window.DataContext>
         <ViewModel:RecordViewModel/>
     </Window.DataContext>
+
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -27,7 +28,7 @@
             </MenuItem>
         </Menu>
 
-        <StackPanel Grid.ColumnSpan="3">
+        <StackPanel Grid.ColumnSpan="3" Margin="0,10,0,-10">
             <ListBox x:Name="BirthInfo" Margin="199,20,0,0">
                 <TextBlock x:Name="BItextBlock" TextWrapping="Wrap" Text="Fødselsoplysninger" />
             </ListBox>
@@ -59,76 +60,69 @@
                     </GridView>
                 </ListView.View>
 
-<<<<<<< HEAD
-            </ListView>
-            <ListView x:Name="BirthInfoContent" ItemsSource="{Binding BirthInfo}" Margin="199,0,0,0" BorderThickness="0">
-=======
+                <ListView ItemsSource="{Binding BirthInformationListProperty}" Margin="199,0,0,0">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn>
+                                <StackPanel>
+                                    <ListView>
+                                        <TextBox Text="{Binding BirthInfo.Time}"/>
+                                    </ListView>
+                                </StackPanel>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <StackPanel>
+                                    <ListView ItemsSource="{Binding BirthInfo}">
+                                        <TextBox Text="{Binding BirthInfo.AmnioticFluid}"/>
+                                    </ListView>
+                                </StackPanel>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <StackPanel>
+                                    <ListView ItemsSource="{Binding BirthInfo}">
+                                        <TextBox Text="{Binding BirthInfo.AmountOfFluid}"/>
+                                    </ListView>
+                                </StackPanel>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <StackPanel>
+                                    <ListView ItemsSource="{Binding BirthInfo}">
+                                        <TextBox Text="{Binding BirthInfo.BirthPosition}"/>
+                                    </ListView>
+                                </StackPanel>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <StackPanel>
+                                    <ListView ItemsSource="{Binding BirthInfo}">
+                                        <TextBox Text="{Binding BirthInfo.BleedingCause}"/>
+                                    </ListView>
+                                </StackPanel>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <StackPanel>
+                                    <ListView ItemsSource="{Binding BirthInfo}">
+                                        <TextBox Text="{Binding BirthInfo.BloodAmount}"/>
+                                    </ListView>
+                                </StackPanel>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <StackPanel>
+                                    <ListView ItemsSource="{Binding BirthInfo}">
+                                        <TextBox Text="{Binding BirthInfo.Result}"/>
+                                    </ListView>
+                                </StackPanel>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <Button Command="{Binding AddBirthInfo}">Gem</Button>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
 
 
 
-            <ListView ItemsSource="{Binding BirthInformationListProperty}" Margin="199,0,0,0">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView> <!--ItemsSource="{Binding BirthInfo}!-->
-                                    <TextBox Text="{Binding BirthInfo.Time}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding BirthInfo}">
-                                    <TextBox Text="{Binding BirthInfo.AmnioticFluid}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding BirthInfo}">
-                                    <TextBox Text="{Binding BirthInfo.AmountOfFluid}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding BirthInfo}">
-                                    <TextBox Text="{Binding BirthInfo.BirthPosition}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding BirthInfo}">
-                                    <TextBox Text="{Binding BirthInfo.BleedingCause}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding BirthInfo}">
-                                    <TextBox Text="{Binding BirthInfo.BloodAmount}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding BirthInfo}">
-                                    <TextBox Text="{Binding BirthInfo.Result}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <Button Command="{Binding AddBirthInfo}">Gem</Button>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            
-            
-            
-            
-            <!--<ListView x:Name="BirthInfoContent" ItemsSource="{Binding BirthInfo}" Margin="199,0,0,0" BorderThickness="0">
+
+                <!--<ListView x:Name="BirthInfoContent" ItemsSource="{Binding BirthInfo}" Margin="199,0,0,0" BorderThickness="0">
 >>>>>>> 361839c598f07ff3d783aaa70dd79ffb01a75695
                 <ListView.View>
                     <GridView>
@@ -157,74 +151,72 @@
                 </ListView.View>
             </ListView>-->
 
-            <ListView x:Name="ContractionInfo" Margin="199,0,0,0">
-                <TextBlock x:Name="CItextBlock" TextWrapping="Wrap" Text="Veer og S-drop" />
-            </ListView>
+                <ListView x:Name="ContractionInfo" Margin="199,0,0,0">
+                    <TextBlock x:Name="CItextBlock" TextWrapping="Wrap" Text="Veer og S-drop" />
+                </ListView>
 
-            <ListView x:Name="ContractionIVDripHeader" Margin="199,0,0,0" BorderThickness="0">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn>
-                            <ListViewItem Content="Udførelse startet"/>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <ListViewItem Content="Vestyrke"/>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <ListViewItem Content="Veer per 10 min"/>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <ListViewItem Content="S-drop [ml/t]"/>
-                        </GridViewColumn>
-<<<<<<< HEAD
-=======
-                        <!--<GridViewColumn>
+                <ListView x:Name="ContractionIVDripHeader" Margin="199,0,0,0" BorderThickness="0">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn>
+                                <ListViewItem Content="Udførelse startet"/>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <ListViewItem Content="Vestyrke"/>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <ListViewItem Content="Veer per 10 min"/>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <ListViewItem Content="S-drop [ml/t]"/>
+                            </GridViewColumn>
+
+                            <!--<GridViewColumn>
                             <Button Command="{Binding AddContractionIVDripInfo}">Ny</Button>
                         </GridViewColumn>-->
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
 
 
-            <ListView ItemsSource="{Binding ContractionListProperty}" Margin="199,0,0,0">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding ContractionIVDripInfo}">
-                                    <TextBox Text="{Binding ContractionIVDripInfo.Time}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding ContractionIVDripInfo}">
-                                    <TextBox Text="{Binding ContractionIVDripInfo.ContractionPain}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding ContractionIVDripInfo}">
-                                    <TextBox Text="{Binding ContractionIVDripInfo.NumberOfContractionsPerMinute}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding ContractionIVDripInfo}">
-                                    <TextBox Text="{Binding ContractionIVDripInfo.SDripMlPerHour}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <Button Command="{Binding AddContractionIVDripInfo}">Gem</Button>
-                        </GridViewColumn>
->>>>>>> 361839c598f07ff3d783aaa70dd79ffb01a75695
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <!--<ListView x:Name="ContractionIVDrip" ItemsSource="{Binding ContractionIVDripInfo}" Margin="199,0,0,0" BorderThickness="0">
+                <ListView ItemsSource="{Binding ContractionListProperty}" Margin="199,0,0,0">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn>
+                                <StackPanel>
+                                    <ListView ItemsSource="{Binding ContractionIVDripInfo}">
+                                        <TextBox Text="{Binding ContractionIVDripInfo.Time}"/>
+                                    </ListView>
+                                </StackPanel>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <StackPanel>
+                                    <ListView ItemsSource="{Binding ContractionIVDripInfo}">
+                                        <TextBox Text="{Binding ContractionIVDripInfo.ContractionPain}"/>
+                                    </ListView>
+                                </StackPanel>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <StackPanel>
+                                    <ListView ItemsSource="{Binding ContractionIVDripInfo}">
+                                        <TextBox Text="{Binding ContractionIVDripInfo.NumberOfContractionsPerMinute}"/>
+                                    </ListView>
+                                </StackPanel>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <StackPanel>
+                                    <ListView ItemsSource="{Binding ContractionIVDripInfo}">
+                                        <TextBox Text="{Binding ContractionIVDripInfo.SDripMlPerHour}"/>
+                                    </ListView>
+                                </StackPanel>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <Button Command="{Binding AddContractionIVDripInfo}">Gem</Button>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <!--<ListView x:Name="ContractionIVDrip" ItemsSource="{Binding ContractionIVDripInfo}" Margin="199,0,0,0" BorderThickness="0">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="101.5">
@@ -244,131 +236,101 @@
             </ListView>-->
 
 
-            <ListView x:Name="FetusObsInfo" Margin="199,0,0,0">
-                <TextBlock x:Name="FOtextBlock" TextWrapping="Wrap" Text="Fosterobservationer" />
-            </ListView>
+                <ListView x:Name="FetusObsInfo" Margin="199,0,0,0">
+                    <TextBlock x:Name="FOtextBlock" TextWrapping="Wrap" Text="Fosterobservationer" />
+                </ListView>
 
-
-<<<<<<< HEAD
-            <ListView x:Name="FetusObservationHeader" Margin="199,0,0,0" BorderThickness="0">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn>
-                            <ListViewItem Content="Udførelse startet"/>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <ListViewItem Content="CTG"/>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <ListViewItem Content="CTG Klassificering"/>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <ListViewItem Content="Hjertefrekvens"/>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <ListViewItem Content="Skalp-laktet [mmol/L]"/>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <ListViewItem Content="Skalp-pH"/>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <ListViewItem Content="STAN"/>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <ListView x:Name="FetusObservation" ItemsSource="{Binding FetusObservationInfo}" Margin="199,0,0,0" BorderThickness="0">
-=======
-                 <ListView x:Name="FetusObservationHeader" Margin="199,0,0,0" BorderThickness="0">
-                     <ListView.View>
-                         <GridView>
-                             <GridViewColumn>
-                                 <ListViewItem Content="Udførelse startet"/>
-                             </GridViewColumn>
-                             <GridViewColumn>
-                                 <ListViewItem Content="CTG"/>
-                             </GridViewColumn>
-                             <GridViewColumn>
-                                 <ListViewItem Content="CTG Klassificering"/>
-                             </GridViewColumn>
-                             <GridViewColumn>
-                                 <ListViewItem Content="Hjertefrekvens"/>
-                             </GridViewColumn>
-                             <GridViewColumn>
-                                 <ListViewItem Content="Skalp-laktet [mmol/L]"/>
-                             </GridViewColumn>
-                             <GridViewColumn>
-                                 <ListViewItem Content="Skalp-pH"/>
-                             </GridViewColumn>
-                             <GridViewColumn>
-                                 <ListViewItem Content="STAN"/>
-                             </GridViewColumn>
-                        <!--<GridViewColumn>
+                <ListView x:Name="FetusObservation" ItemsSource="{Binding FetusObservationInfo}" Margin="199,0,0,0" BorderThickness="0">
+                    <ListView x:Name="FetusObservationHeader" Margin="199,0,0,0" BorderThickness="0">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn>
+                                    <ListViewItem Content="Udførelse startet"/>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <ListViewItem Content="CTG"/>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <ListViewItem Content="CTG Klassificering"/>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <ListViewItem Content="Hjertefrekvens"/>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <ListViewItem Content="Skalp-laktet [mmol/L]"/>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <ListViewItem Content="Skalp-pH"/>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <ListViewItem Content="STAN"/>
+                                </GridViewColumn>
+                                <!--<GridViewColumn>
                             <Button Command="{Binding AddFetusObservationInfo}">Ny</Button>
                         </GridViewColumn>-->
-                    </GridView>
-                     </ListView.View>
-                 </ListView>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
 
-            <ListView ItemsSource="{Binding FetusObservationListProperty}" Margin="199,0,0,0">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding FetusObservationInfo}">
-                                    <TextBox Text="{Binding FetusObservationInfo.Time}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding FetusObservationInfo}">
-                                    <TextBox Text="{Binding FetusObservationInfo.CTG}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding FetusObservationInfo}">
-                                    <TextBox Text="{Binding FetusObservationInfo.CTGClassification}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding FetusObservationInfo}">
-                                    <TextBox Text="{Binding FetusObservationInfo.HearthFrequency}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding FetusObservationInfo}">
-                                    <TextBox Text="{Binding FetusObservationInfo.ScalpLactate}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding FetusObservationInfo}">
-                                    <TextBox Text="{Binding FetusObservationInfo.ScalppH}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding FetusObservationInfo}">
-                                    <TextBox Text="{Binding FetusObservationInfo.STAN}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <Button Command="{Binding AddFetusObservationInfo}">Gem</Button>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <!--<ListView x:Name="FetusObservation" ItemsSource="{Binding FetusObservationInfo}" Margin="199,0,0,0" BorderThickness="0">
+                    <ListView ItemsSource="{Binding FetusObservationListProperty}" Margin="199,0,0,0">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn>
+                                    <StackPanel>
+                                        <ListView ItemsSource="{Binding FetusObservationInfo}">
+                                            <TextBox Text="{Binding FetusObservationInfo.Time}"/>
+                                        </ListView>
+                                    </StackPanel>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <StackPanel>
+                                        <ListView ItemsSource="{Binding FetusObservationInfo}">
+                                            <TextBox Text="{Binding FetusObservationInfo.CTG}"/>
+                                        </ListView>
+                                    </StackPanel>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <StackPanel>
+                                        <ListView ItemsSource="{Binding FetusObservationInfo}">
+                                            <TextBox Text="{Binding FetusObservationInfo.CTGClassification}"/>
+                                        </ListView>
+                                    </StackPanel>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <StackPanel>
+                                        <ListView ItemsSource="{Binding FetusObservationInfo}">
+                                            <TextBox Text="{Binding FetusObservationInfo.HearthFrequency}"/>
+                                        </ListView>
+                                    </StackPanel>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <StackPanel>
+                                        <ListView ItemsSource="{Binding FetusObservationInfo}">
+                                            <TextBox Text="{Binding FetusObservationInfo.ScalpLactate}"/>
+                                        </ListView>
+                                    </StackPanel>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <StackPanel>
+                                        <ListView ItemsSource="{Binding FetusObservationInfo}">
+                                            <TextBox Text="{Binding FetusObservationInfo.ScalppH}"/>
+                                        </ListView>
+                                    </StackPanel>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <StackPanel>
+                                        <ListView ItemsSource="{Binding FetusObservationInfo}">
+                                            <TextBox Text="{Binding FetusObservationInfo.STAN}"/>
+                                        </ListView>
+                                    </StackPanel>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <Button Command="{Binding AddFetusObservationInfo}">Gem</Button>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <!--<ListView x:Name="FetusObservation" ItemsSource="{Binding FetusObservationInfo}" Margin="199,0,0,0" BorderThickness="0">
 >>>>>>> 361839c598f07ff3d783aaa70dd79ffb01a75695
                 <ListView.View>
                     <GridView>
@@ -397,66 +359,51 @@
                 </ListView.View>
             </ListView>-->
 
-            <ListView x:Name="MicturitionInfo" Margin="199,0,0,0">
-                <TextBlock x:Name="MtextBlock" TextWrapping="Wrap" Text="Vandladning"/>
-            </ListView>
+                    <ListView x:Name="MicturitionInfo" Margin="199,0,0,0">
+                        <TextBlock x:Name="MtextBlock" TextWrapping="Wrap" Text="Vandladning"/>
+                    </ListView>
 
 
-<<<<<<< HEAD
-            <ListView x:Name="MicturitionHeader" Margin="199,0,-2,0" BorderThickness="0">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn>
-                            <ListViewItem Content="Udførelse startet"/>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <ListViewItem Content="Vandladning"/>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <ListView x:Name="Micturition" ItemsSource="{Binding MicturitionInfo}" Margin="199,0,0,0" BorderThickness="0">
-=======
-                 <ListView x:Name="MicturitionHeader" Margin="199,0,-2,0" BorderThickness="0">
-                     <ListView.View>
-                         <GridView>
-                             <GridViewColumn>
-                                 <ListViewItem Content="Udførelse startet"/>
-                             </GridViewColumn>
-                             <GridViewColumn>
-                                 <ListViewItem Content="Vandladning"/>
-                             </GridViewColumn>
-                        <!--<GridViewColumn>
+                    <ListView x:Name="MicturitionHeader" Margin="199,0,-2,0" BorderThickness="0">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn>
+                                    <ListViewItem Content="Udførelse startet"/>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <ListViewItem Content="Vandladning"/>
+                                </GridViewColumn>
+                                <!--<GridViewColumn>
                             <Button Command="{Binding AddMicturitionInfo}">Ny</Button>
                         </GridViewColumn>-->
-                    </GridView>
-                     </ListView.View>
-                 </ListView>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
 
-            <ListView ItemsSource="{Binding MicturitionListProperty}" Margin="199,0,0,0">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding MicturitionInfo}">
-                                    <TextBox Text="{Binding MicturitionInfo.Time}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding MicturitionInfo}">
-                                    <TextBox Text="{Binding MicturitionInfo.MicturitionNote}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <Button Command="{Binding AddMicturitionInfo}">Gem</Button>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <!--<ListView x:Name="Micturition" ItemsSource="{Binding MicturitionInfo}" Margin="199,0,0,0" BorderThickness="0">
+                    <ListView ItemsSource="{Binding MicturitionListProperty}" Margin="199,0,0,0">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn>
+                                    <StackPanel>
+                                        <ListView ItemsSource="{Binding MicturitionInfo}">
+                                            <TextBox Text="{Binding MicturitionInfo.Time}"/>
+                                        </ListView>
+                                    </StackPanel>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <StackPanel>
+                                        <ListView ItemsSource="{Binding MicturitionInfo}">
+                                            <TextBox Text="{Binding MicturitionInfo.MicturitionNote}"/>
+                                        </ListView>
+                                    </StackPanel>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <Button Command="{Binding AddMicturitionInfo}">Gem</Button>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <!--<ListView x:Name="Micturition" ItemsSource="{Binding MicturitionInfo}" Margin="199,0,0,0" BorderThickness="0">
 >>>>>>> 361839c598f07ff3d783aaa70dd79ffb01a75695
                 <ListView.View>
                     <GridView>
@@ -470,178 +417,138 @@
                 </ListView.View>
             </ListView>-->
 
-            <ListView x:Name="VaginalExplorationInfo" Margin="199,0,0,0">
-                <TextBlock x:Name="VEtextBlock" TextWrapping="Wrap" Text="Vaginal Exploration"/>
-            </ListView>
+                    <ListView x:Name="VaginalExplorationInfo" Margin="199,0,0,0">
+                        <TextBlock x:Name="VEtextBlock" TextWrapping="Wrap" Text="Vaginal Exploration"/>
+                    </ListView>
 
-            <ListView x:Name="VaginalExplorationHeader" Margin="199,0,0,0" BorderThickness="0">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn>
-                            <ListViewItem Content="Udførelse startet"/>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <ListViewItem Content="Fostervand"/>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <ListViewItem Content="Collum [cm]"/>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <ListViewItem Content="Konsistens"/>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <ListViewItem Content="Dilation [cm}"/>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <ListViewItem Content="Stand"/>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <ListViewItem Content="Position"/>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <ListViewItem Content="Rotation"/>
-                        </GridViewColumn>
-<<<<<<< HEAD
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                    <ListView x:Name="VaginalExplorationHeader" Margin="199,0,0,0" BorderThickness="0">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn>
+                                    <ListViewItem Content="Udførelse startet"/>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <ListViewItem Content="Fostervand"/>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <ListViewItem Content="Collum [cm]"/>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <ListViewItem Content="Konsistens"/>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <ListViewItem Content="Dilation [cm}"/>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <ListViewItem Content="Stand"/>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <ListViewItem Content="Position"/>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <ListViewItem Content="Rotation"/>
+                                </GridViewColumn>
 
-            <ListView x:Name="VaginalExploration" ItemsSource="{Binding VaginalExplorationInfo}" Margin="199,0,0,0" BorderThickness="0">
-=======
-                        <!--<GridViewColumn>
+                                <!--<GridViewColumn>
                             <Button Command="{Binding AddVaginalExplorationInfo}">Ny</Button>
                         </GridViewColumn>-->
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
 
-            <ListView ItemsSource="{Binding VaginalExplorationListProperty}" Margin="199,0,0,0">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding VaginalExplorationInfo}">
-                                    <TextBox Text="{Binding VaginalExplorationInfo.Time}"/>
-                                </ListView>
+                    <ListView ItemsSource="{Binding VaginalExplorationListProperty}" Margin="199,0,0,0">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn>
+                                    <StackPanel>
+                                        <ListView ItemsSource="{Binding VaginalExplorationInfo}">
+                                            <TextBox Text="{Binding VaginalExplorationInfo.Time}"/>
+                                        </ListView>
+                                    </StackPanel>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <StackPanel>
+                                        <ListView ItemsSource="{Binding VaginalExplorationInfo}">
+                                            <TextBox Text="{Binding VaginalExplorationInfo.AmnioticFluid}"/>
+                                        </ListView>
+                                    </StackPanel>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <StackPanel>
+                                        <ListView ItemsSource="{Binding VaginalExplorationInfo}">
+                                            <TextBox Text="{Binding VaginalExplorationInfo.Collum}"/>
+                                        </ListView>
+                                    </StackPanel>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <StackPanel>
+                                        <ListView ItemsSource="{Binding VaginalExplorationInfo}">
+                                            <TextBox Text="{Binding VaginalExplorationInfo.Consistency}"/>
+                                        </ListView>
+                                    </StackPanel>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <StackPanel>
+                                        <ListView ItemsSource="{Binding VaginalExplorationInfo}">
+                                            <TextBox Text="{Binding VaginalExplorationInfo.Dialation}"/>
+                                        </ListView>
+                                    </StackPanel>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <StackPanel>
+                                        <ListView ItemsSource="{Binding VaginalExplorationInfo}">
+                                            <TextBox Text="{Binding VaginalExplorationInfo.Location}"/>
+                                        </ListView>
+                                    </StackPanel>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <StackPanel>
+                                        <ListView ItemsSource="{Binding VaginalExplorationInfo}">
+                                            <TextBox Text="{Binding VaginalExplorationInfo.Position}"/>
+                                        </ListView>
+                                    </StackPanel>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <StackPanel>
+                                        <ListView ItemsSource="{Binding VaginalExplorationInfo}">
+                                            <TextBox Text="{Binding VaginalExplorationInfo.Rotation}"/>
+                                        </ListView>
+                                    </StackPanel>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <Button Command="{Binding AddVaginalExplorationInfo}">Gem</Button>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <StackPanel>
+                        <ListView x:Name="listView" HorizontalAlignment="Left" Height="669" Margin="0,20,0,0" VerticalAlignment="Top" Width="199" BorderThickness="3" BorderBrush="LightSkyBlue">
+                            <ListViewItem Content="{Binding PatientCurrent.Name}" Margin="0"/>
+                            <ListViewItem Content="{Binding PatientCurrent.Age}" Margin="0"/>
+                            <ListViewItem Content="{Binding PatientCurrent.Gender}" Margin="0"/>
+                            <ListViewItem Content="{Binding PatientCurrent.CPR}" Margin="0"/>
+
+                            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                <Button Command="{Binding NewChildCommand}">
+                                    Nyt barn
+                                </Button>
+                                <Button Command="{Binding MedicinCommand}">
+                                    Medicin
+                                </Button>
+                                <Button Command="{Binding SaveAndCompleteCommand}">
+                                    Gem og afslut
+                                </Button>
                             </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding VaginalExplorationInfo}">
-                                    <TextBox Text="{Binding VaginalExplorationInfo.AmnioticFluid}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding VaginalExplorationInfo}">
-                                    <TextBox Text="{Binding VaginalExplorationInfo.Collum}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding VaginalExplorationInfo}">
-                                    <TextBox Text="{Binding VaginalExplorationInfo.Consistency}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding VaginalExplorationInfo}">
-                                    <TextBox Text="{Binding VaginalExplorationInfo.Dialation}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding VaginalExplorationInfo}">
-                                    <TextBox Text="{Binding VaginalExplorationInfo.Location}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding VaginalExplorationInfo}">
-                                    <TextBox Text="{Binding VaginalExplorationInfo.Position}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <StackPanel>
-                                <ListView ItemsSource="{Binding VaginalExplorationInfo}">
-                                    <TextBox Text="{Binding VaginalExplorationInfo.Rotation}"/>
-                                </ListView>
-                            </StackPanel>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <Button Command="{Binding AddVaginalExplorationInfo}">Gem</Button>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                </ListView>
+                <StackPanel Height="100" Width="100"/>
             </ListView>
-            <!--<ListView x:Name="VaginalExploration" ItemsSource="{Binding VaginalExplorationInfo}" Margin="199,0,0,0" BorderThickness="0">
->>>>>>> 361839c598f07ff3d783aaa70dd79ffb01a75695
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Width="101.5">
-                            <ListViewItem Content="{Binding VaginalExplorationInfo.Time}"/>
-                        </GridViewColumn>
-                        <GridViewColumn Width="73">
-                            <ListViewItem Content="{Binding VaginalExplorationInfo.AmnioticFluid}"/>
-                        </GridViewColumn>
-                        <GridViewColumn Width="77.5">
-                            <ListViewItem Content="{Binding VaginalExplorationInfo.Collum}"/>
-                        </GridViewColumn>
-                        <GridViewColumn Width="69.5">
-                            <ListViewItem Content="{Binding VaginalExplorationInfo.Consistency}"/>
-                        </GridViewColumn>
-                        <GridViewColumn Width="81">
-                            <ListViewItem Content="{Binding VaginalExplorationInfo.Dilation}"/>
-                        </GridViewColumn>
-                        <GridViewColumn Width="44">
-                            <ListViewItem Content="{Binding VaginalExplorationInfo.Location}"/>
-                        </GridViewColumn>
-                        <GridViewColumn Width="57">
-                            <ListViewItem Content="{Binding VaginalExplorationInfo.Position}"/>
-                        </GridViewColumn>
-                        <GridViewColumn Width="58.5">
-                            <ListViewItem Content="{Binding VaginalExplorationInfo.Rotation}"/>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-<<<<<<< HEAD
-            </ListView>
-            <RichTextBox x:Name="TestTextBox" Height="100"  Margin="235,0,0,0">
-                <RichTextBox.co
-                <FlowDocument>
-                    <Paragraph>
-                        <Run Text="{Binding Note,UpdateSourceTrigger=LostFocus}"/>
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox>
-=======
-            </ListView>-->
->>>>>>> 361839c598f07ff3d783aaa70dd79ffb01a75695
         </StackPanel>
+  
+        <local:BindableRichTextBox x:Name="Notes" Document="{Binding Path=Note, Converter={StaticResource RtfConverter},Mode= TwoWay}"
+         
 
-        <ListView x:Name="listView" HorizontalAlignment="Left" Height="669" Margin="0,20,0,0" VerticalAlignment="Top" Width="199" BorderThickness="3" BorderBrush="LightSkyBlue">
-            <ListViewItem Content="{Binding PatientCurrent.Name}" Margin="0"/>
-            <ListViewItem Content="{Binding PatientCurrent.Age}" Margin="0"/>
-            <ListViewItem Content="{Binding PatientCurrent.Gender}" Margin="0"/>
-            <ListViewItem Content="{Binding PatientCurrent.CPR}" Margin="0"/>
 
-            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                <Button Command="{Binding NewChildCommand}">
-                    Nyt barn
-                </Button>
-                <Button Command="{Binding MedicinCommand}">
-                    Medicin
-                </Button>
-                <Button Command="{Binding SaveAndCompleteCommand}">
-                    Gem og afslut
-                </Button>
-            </StackPanel>
-        </ListView>
     </Grid>
 </Window>

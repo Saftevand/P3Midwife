@@ -25,6 +25,7 @@ namespace P3_Midwife.ViewModel
         public RelayCommand AddMicturitionInfo { get; }
         public RelayCommand AddVaginalExplorationInfo { get; }
 
+        public static DependencyProperty StringProperty = DependencyProperty.Register(nameof(NoteString), typeof(String), typeof(RecordViewModel));
         public static DependencyProperty NoteProperty = DependencyProperty.Register(nameof(Note), typeof(FlowDocument), typeof(RecordViewModel));
         public static DependencyProperty PatientProperty = DependencyProperty.Register(nameof(PatientCurrent), typeof(Patient), typeof(RecordViewModel));
         public static DependencyProperty RecordProperty = DependencyProperty.Register(nameof(RecordCurrent), typeof(Record), typeof(RecordViewModel));
@@ -40,7 +41,13 @@ namespace P3_Midwife.ViewModel
         private ObservableCollection<Record._micturition> _micturitionList = new ObservableCollection<Record._micturition>();
         private ObservableCollection<Record._vaginalExploration> _vaginalExplorationList = new ObservableCollection<Record._vaginalExploration>();
 
-        //private FlowDocument _note = new FlowDocument();
+        
+
+        public string NoteString
+        {
+            get { return GetValue(StringProperty) as String; }
+            set { SetValue(StringProperty, value); }
+        }
 
         public FlowDocument Note
         {
@@ -121,6 +128,8 @@ namespace P3_Midwife.ViewModel
 
         public RecordViewModel()
         {
+            NoteString = "Test virk plz";
+            Note = new FlowDocument();
             Messenger.Default.Register<Record>(this, "NewRecordToRecordView", (ActiveRecord) => { RecordCurrent = ActiveRecord; });
             Messenger.Default.Register<Patient>(this, "PatientToRecordView", (ActivePatient) => { PatientCurrent = ActivePatient; });
             Messenger.Default.Register<Employee>(this, "EmployeetoRecordView", (ActiveEmployee) => { EmployeeCurrent = ActiveEmployee; });
