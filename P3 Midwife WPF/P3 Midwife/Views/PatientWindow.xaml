@@ -53,28 +53,21 @@
         <ListView Margin="199, 20, 0, 0"> 
             <StackPanel>
                 <TextBlock>
-                    <Run Text="  Dato                            "/>
-                    <Run Text="  |  "/>
-                    <Run Text="Indlagt"/>
-                    <Run Text="  |  "/>
-                    <Run Text="Diagnose"/>
+                    <Run Text="  Dato                                 Indlagt               Diagnose"/>
                 </TextBlock>
-                <ListView ItemsSource="{Binding Records}" SelectedItem="{Binding RecordSelected}">                    <!--MouseDoubleClick="ListView_MouseDoubleClick"-->
+                <ListView ItemsSource="{Binding Records}" Name="chosenRecord" SelectionChanged="ListView_SelectionChanged" SelectedItem="{Binding RecordSelected, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" Tag="{Binding CurrentEmployee}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextBlock>
                                 <Run Text="{Binding Date}"/>
-                                <Run Text="  |  "/>
+                                <Run Text="     "/>
                                 <Run Text="{Binding IsActive}"/>
-                                <Run Text="       |  "/>
+                                <Run Text="                    "/>
                                 <Run Text="{Binding Diagnosis}"/>
                             </TextBlock>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Command="{Binding OpenRecordCommand}"> <!-- Til test, skal fjernes efter -->
-                    adadsad
-                </Button>
             </StackPanel>
         </ListView>
     </Grid>

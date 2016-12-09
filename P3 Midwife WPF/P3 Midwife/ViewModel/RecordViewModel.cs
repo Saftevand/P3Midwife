@@ -16,7 +16,6 @@ namespace P3_Midwife.ViewModel
         public RelayCommand ExitCommand { get; }
         public RelayCommand BackCommand { get; }
         public RelayCommand NewChildCommand { get; }
-        public RelayCommand MedicinCommand { get; }
         public RelayCommand SaveAndCompleteCommand { get; }
         public RelayCommand AddBirthInfo { get; }
         public RelayCommand AddContractionIVDripInfo { get; }
@@ -210,19 +209,10 @@ namespace P3_Midwife.ViewModel
                 RecordCurrent.MicturitionList.AddRange(MicturitionListProperty);
                 RecordCurrent.VaginalExplorationList.AddRange(VaginalExplorationListProperty);
                 RecordCurrent.FetusObservationList.AddRange(FetusObservationListProperty);
-
-                //if (!PatientCurrent.RecordList.Exists(x => x.ThisRecordID == RecordCurrent.ThisRecordID))
-                //{
-                //    PatientCurrent.RecordList.Add(RecordCurrent);
-                //}
-                               
+                RecordCurrent.IsActive = false;
                 Messenger.Default.Send(new NotificationMessage("ToPatient"));
                 Messenger.Default.Send(PatientCurrent, "Patient");
                 Messenger.Default.Send(EmployeeCurrent, "Employee");
-            });
-            this.MedicinCommand = new RelayCommand(parameter =>
-            {
-                //nyt vindue skal laves her -- eller?
             });
             this.AddBirthInfo= new RelayCommand(parameter =>
             {

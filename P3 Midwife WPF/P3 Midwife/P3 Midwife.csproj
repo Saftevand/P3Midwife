@@ -88,6 +88,7 @@
     <Compile Include="Utility\Words.cs" />
     <Compile Include="Utility\WordSuggesetionProvider.cs" />
     <Compile Include="ViewModel\DialogWindowViewModel.cs" />
+    <Compile Include="ViewModel\FinalRecordWindowViewModel.cs" />
     <Compile Include="ViewModel\NewChildViewModel.cs" />
     <Compile Include="ViewModel\PatientViewModel.cs" />
     <Compile Include="ViewModel\RecordViewModel.cs" />
@@ -96,6 +97,9 @@
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Ward.cs" />
+    <Compile Include="Views\FinalRecordWindow.xaml.cs">
+      <DependentUpon>FinalRecordWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HomeScreen.xaml.cs" />
     <Compile Include="ViewModel\HomeScreenViewModel.cs" />
     <Compile Include="RelayCommand.cs" />
@@ -124,6 +128,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FinalRecordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

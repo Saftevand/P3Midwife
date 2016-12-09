@@ -33,14 +33,18 @@ namespace P3_Midwife.Views
                 Hide();
         }
 
-        //    private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        //    {
-        //        //var item = ((FrameworkElement)e.OriginalSource).DataContext as Track;
-        //        //if (item != null)
-        //        //{
-        //            Messenger.Default.Send(sender, "FromPatientToRecordWithOldRecord");
-        //        //}
-        //    }
-        //}
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Record TempRecord = chosenRecord.SelectedItem as Record;
+            if (TempRecord != null)
+            {
+                if (TempRecord.IsActive == true)
+                {
+                    Messenger.Default.Send<Record>((Record)chosenRecord.SelectedItem, "NewRecordToRecordView");
+                    Messenger.Default.Send<Employee>((Employee)chosenRecord.Tag, "EmployeetoRecordView");
+                    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToRecord"));
+                }
+            }
+        }
     }
 }
