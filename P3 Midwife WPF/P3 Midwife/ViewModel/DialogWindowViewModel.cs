@@ -20,7 +20,7 @@ namespace P3_Midwife.ViewModel
         public Employee CurrentEmployee
         {
             get { return (Employee)this.GetValue(EmployeeProperty); }
-            set { this.SetValue(EmployeeProperty, value);}
+            set { this.SetValue(EmployeeProperty, value); }
         }
 
         public string CPREntered
@@ -37,7 +37,8 @@ namespace P3_Midwife.ViewModel
             {
                 if (Ward.Patients.Find(x => x.CPR == CPREntered) != null)
                 {
-                    CurrentEmployee.CurrentPatients.Add(Ward.Patients.Find(x => x.CPR == CPREntered));
+                    Midwife temp = CurrentEmployee as Midwife;
+                    temp.AdmitPatient(temp.FindPatient(CPREntered));
                     MessageBox.Show(Ward.Patients.Find(x => x.CPR == CPREntered).Name + " er blevet tilføjet");
                     Messenger.Default.Send<Employee>(CurrentEmployee, "ReturnEmployee");
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("DialogSave"));
@@ -47,10 +48,10 @@ namespace P3_Midwife.ViewModel
                 {
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("NoPersonWithCPR"));
                 }
-               
+
             });
             Messenger.Default.Register<Employee>(this, "Employee", (ActiveUser) => { CurrentEmployee = ActiveUser; });
-        }
 
+        }
     }
 }

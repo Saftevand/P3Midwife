@@ -46,52 +46,24 @@ namespace P3_Midwife.ViewModel
             get { return Ward.DeliveryRooms.Find(x => x.PatientsInRoom.Find(z => z.CPR == CurrentPatient.CPR) != null); }
         }
 
+        private void InitNewChild(Employee employee)
+        {
+            CurrentEmployee = employee;
+            Midwife temp = CurrentEmployee as Midwife;
+            temp.CreatePatient(CurrentPatient, CurrentNewChild.Gender, CurrentNewChild.RecordList[0].TimeOfBirth.ToString());
+        }
+
         public NewChildViewModel()
         {
             Messenger.Default.Register<Patient>(this, "PatientToNewChildView", (ActivePatient) => { CurrentPatient = ActivePatient; });
-            Messenger.Default.Register<Employee>(this, "EmployeetoNewChildView", (ActiveEmployee) => { CurrentEmployee = ActiveEmployee; });
-            CurrentNewChild = new Patient();
+            Messenger.Default.Register<Employee>(this, "EmployeetoNewChildView",(ActiveEmployee) => InitNewChild(ActiveEmployee));
 
             this.SaveAndComplete = new RelayCommand(parameter =>
             {
-                //CurrentPatient.RecordList.Add(CurrentRecord);
-                CurrentNewChild.GenerateCpr(Convert.ToChar(CurrentNewChild.Gender));
-                CurrentNewChild.Mother = CurrentPatient;
-                CurrentPatient.Children.Add(CurrentNewChild);
                 Messenger.Default.Send(new NotificationMessage("ChildSave"));
                 Messenger.Default.Send(new NotificationMessage("ToRecord"));
                 Messenger.Default.Send(CurrentPatient, "PatientToRecordView");
                 Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");
-                //tempRecord.AO = CurrentRecord.AO;
-                //tempRecord.ApgarOneMinute = CurrentRecord.ApgarOneMinute;
-                //tempRecord.ApgarFiveMinutes = CurrentRecord.ApgarFiveMinutes;
-                //tempRecord.ApgarTenMinutes = CurrentRecord.ApgarTenMinutes;
-                //tempRecord.BloodSugar = CurrentRecord.BloodSugar;
-                //tempRecord.CircumferenceHead = CurrentRecord.CircumferenceHead;
-                //tempRecord.CircumferenceStomach = CurrentRecord.CircumferenceStomach;
-                //tempRecord.ContractionIVDripList = CurrentRecord.ContractionIVDripList;
-                //tempRecord.CurrentBill = CurrentRecord.CurrentBill;
-                //tempRecord.Date = CurrentRecord.Date;
-                //tempRecord.Diagnosis = CurrentRecord.Diagnosis;
-                //tempRecord.FetusPosition = CurrentRecord.FetusPosition;
-                //tempRecord.FetusPre = CurrentRecord.FetusPre;
-                //tempRecord.FurtherNotice = CurrentRecord.FurtherNotice;
-                //tempRecord.GA = CurrentRecord.GA;
-                //tempRecord.HO = CurrentRecord.HO;
-                //tempRecord.KVitamin = CurrentRecord.KVitamin;
-                //tempRecord.Length = CurrentRecord.Length;
-                //tempRecord.NavelBaseExcessArterial = CurrentRecord.NavelBaseExcessArterial;
-                //tempRecord.NavelBaseExcessVenous = CurrentRecord.NavelBaseExcessVenous;
-                //tempRecord.NavelpHArterial = CurrentRecord.NavelpHArterial;
-                //tempRecord.NavelpHVenous = CurrentRecord.NavelpHVenous;
-                //tempRecord.Nose = CurrentRecord.Nose;
-                //tempRecord.Pharynx = CurrentRecord.Pharynx;
-                //tempRecord.PlacentaWeight = CurrentRecord.PlacentaWeight;
-                //tempRecord.Sucking = CurrentRecord.Sucking;
-                //tempRecord.ThisRecordID = CurrentRecord.ThisRecordID;
-                //tempRecord.TimeOfBirth = CurrentRecord.TimeOfBirth;
-                //tempRecord.Ventricle = CurrentRecord.Ventricle;
-                //tempRecord.Weight = CurrentRecord.Weight;
             });
             this.LogOutCommand = new RelayCommand(parameter =>
             {
