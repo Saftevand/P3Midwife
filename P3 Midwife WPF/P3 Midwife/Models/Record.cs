@@ -13,31 +13,31 @@ namespace P3_Midwife
         private DateTime _date = new DateTime();
         private double _circumferenceHead;
         private double _circumferenceStomach;
-        private double _weight;//
-        private double _length;//
+        private double _weight;
+        private double _length;
         private double _bloodSugar;
         private List<String> _diseases = new List<string>();
         private string _GA;
-        private int _ho;//
-        private int _ao;//
-        private int _fetuspre;//
-        private string _numberofchildren; //tvillinger...
-        private string _furtherNotice; //bemærkninger
-        private bool _sucking;//
-        private bool _nose;//
-        private bool _pharynx;//
-        private bool _ventricle;//
+        private int _ho;
+        private int _ao;
+        private int _fetuspre;
+        private string _numberofchildren;
+        private string _furtherNotice;
+        private bool _sucking;
+        private bool _nose;
+        private bool _pharynx;
+        private bool _ventricle;
         private double _navelpHVenous;
         private double _navelpHArterial;
-        private double _navelBaseExcessVenous;//
-        private double _navelBaseExcessArterial;//
+        private double _navelBaseExcessVenous;
+        private double _navelBaseExcessArterial;
         private int _fetusPosition;
         private double _placentaWeight;
         private bool _KVitamin;
         private int _apgarOneMinute;
         private int _apgarFiveMinutes;
         private int _apgarTenMinutes;
-        private DateTime _timeOfBirth;//
+        private DateTime _timeOfBirth;
         private Patient _mother;
         private string _diagnosis;
         private List<_vaginalExploration> _vaginalExplorationList = new List<_vaginalExploration>();
@@ -244,7 +244,7 @@ namespace P3_Midwife
             {
                 ReturnString = ReturnString + item.ToString();
             }
-            ReturnString = (ReturnString + "_variables|" + ThisRecordID.ToString() + "|" + TimeOfBirth.ToString() + "|" + CircumferenceHead.ToString() + "|" + CircumferenceStomach.ToString() + "|" + BloodSugar.ToString() + "|" + GA + "|" + NavelpHVenous.ToString() + "|" + NavelpHArterial.ToString() + "|" + NavelBaseExcessArterial.ToString() + "|" + NavelBaseExcessVenous.ToString() + "|" + FetusPosition.ToString() + "|" + PlacentaWeight.ToString() + "|" + KVitamin.ToString() + "|" + ApgarOneMinute.ToString() + "|" + ApgarFiveMinutes.ToString() + "|" + ApgarTenMinutes.ToString() + "|" + AO.ToString() + "|" + HO.ToString() + "|" + Weight.ToString() + "|" + Length.ToString() + "|" + NumberOfChildren + "|" + FurtherNotice + "|" + Sucking.ToString() + "|" + Nose.ToString() + "|" + Pharynx.ToString() + "|" + Ventricle.ToString() + "|" + Diagnosis);
+            ReturnString = (ReturnString + "_variables|" + ThisRecordID.ToString() + "|" + TimeOfBirth.ToString() + "|" + CircumferenceHead.ToString() + "|" + CircumferenceStomach.ToString() + "|" + BloodSugar.ToString() + "|" + GA + "|" + NavelpHVenous.ToString() + "|" + NavelpHArterial.ToString() + "|" + NavelBaseExcessArterial.ToString() + "|" + NavelBaseExcessVenous.ToString() + "|" + FetusPosition.ToString() + "|" + PlacentaWeight.ToString() + "|" + KVitamin.ToString() + "|" + ApgarOneMinute.ToString() + "|" + ApgarFiveMinutes.ToString() + "|" + ApgarTenMinutes.ToString() + "|" + AO.ToString() + "|" + HO.ToString() + "|" + Weight.ToString() + "|" + Length.ToString() + "|" + NumberOfChildren + "|" + FurtherNotice + "|" + Sucking.ToString() + "|" + Nose.ToString() + "|" + Pharynx.ToString() + "|" + Ventricle.ToString() + "|" + Diagnosis + "|" + Note);
             foreach (string item in Diseases)
             {
                 ReturnString = ReturnString + "|" + item;

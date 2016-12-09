@@ -194,11 +194,7 @@ namespace P3_Midwife.ViewModel
                     new P3_Midwife.Views.NewChildWindow();
                     Messenger.Default.Send(PatientCurrent, "PatientToNewChildView");
                     Messenger.Default.Send(EmployeeCurrent, "EmployeetoNewChildView");
-                    Messenger.Default.Send(new NotificationMessage("ToNewChild"));
-                }
-                else
-                {
-                    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("AccessDenied"));
+                    Messenger.Default.Send(new NotificationMessage("NewChildDialog"));
                 }
 
             });

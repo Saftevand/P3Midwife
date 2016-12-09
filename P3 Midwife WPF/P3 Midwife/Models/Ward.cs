@@ -27,10 +27,8 @@ namespace P3_Midwife
             Filemanagement.CreatePatientFolderAndFile(new Patient("5678901234", "Patrick Al"));
             Filemanagement.ReadPatients();
             //Filemanagement.ReadWords();
-            //Filemanagement.ReadBirthRecords(Patients[0]);
-            //Filemanagement.SaveRecord(Patients[0].RecordList[1]);
-
+            //Filemanagement.ReadBirthRecords(Patients[1]);
+            //Filemanagement.SaveRecord(Patients[1].RecordList[0]);
         }
-        //TODO: HVOR FANDEN SKAL LOGIN/LOGUD/AUTOLOGUD LIGGE?!?!
     }
 }
