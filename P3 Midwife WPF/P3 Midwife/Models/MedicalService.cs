@@ -21,7 +21,7 @@ namespace P3_Midwife
 
         public override string ToString()
         {
-            return Name + " - Price : " + Price;
+            return Name;
         }
 
     }
