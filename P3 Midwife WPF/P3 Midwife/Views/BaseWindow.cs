@@ -32,6 +32,7 @@ namespace P3_Midwife.Views
             }
             else
             {
+                Filemanagement.SaveToDatabase();
                 Application.Current.Shutdown();
             }
             cancel = false;

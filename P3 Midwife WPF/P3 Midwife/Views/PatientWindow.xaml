@@ -33,7 +33,7 @@
                 <ListViewItem Content="{Binding PatientCurrent.Gender}" />
                 <ListViewItem Content="{Binding PatientCurrent.CPR}"/>
                 <ListViewItem Content="Børn: "/>
-                <ListView ItemsSource="{Binding Children}">
+                <ListView ItemsSource="{Binding Children}" Name="ChildrenListBox" SelectionChanged="ChildrenListBox_SelectionChanged">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextBlock>

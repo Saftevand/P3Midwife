@@ -164,7 +164,7 @@
             <ItemsControl>
                 <StackPanel Width="115">
                     <TextBox x:Name="ApgarOneMinTextBox" Text="{Binding CurrentRecord.ApgarOneMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="0,0,-81.8,0"/>
-                    <ListBox x:Name="w2" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" 
+                    <ListBox x:Name="lbsuggestions2" MouseDoubleClick="lbSuggestions_MouseDoubleClick"  Background="LightYellow" 
             			Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
                 </StackPanel>
                 <StackPanel Width="115">

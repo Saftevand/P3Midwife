@@ -46,5 +46,10 @@ namespace P3_Midwife.Views
                 }
             }
         }
+
+        private void ChildrenListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

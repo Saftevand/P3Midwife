@@ -25,9 +25,9 @@ namespace P3_Midwife.Views
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
             txtAuto.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
 
-        //  ApgarOneMinTextBox.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
-        //  ApgarFiveMinTextBox.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
-        //  ApgarTenMinTextBox.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
+            ApgarOneMinTextBox.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
+            ApgarFiveMinTextBox.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
+            ApgarTenMinTextBox.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
 
             provider = new WordSuggesetionProvider();
             isNotClosed = false;
@@ -35,9 +35,10 @@ namespace P3_Midwife.Views
 
         private void txtAuto_TextChanged(object sender, TextChangedEventArgs e)
         {
+            TextBox senderBox = sender as TextBox; 
             List<string> autoList = new List<string>();
             autoList.Clear();
-            autoList = provider.GetSuggestions(txtAuto.Text.ToLower());
+            autoList = provider.GetSuggestions(senderBox.Text.ToLower());
 
             if (autoList.Count > 0)
             {
@@ -75,7 +76,7 @@ namespace P3_Midwife.Views
             {
                 e.Handled = true;
                 lbSuggestions.SelectedIndex = 0;
-                text_Append();
+                text_Append(sender as TextBox);
             }
             if (e.Key == Key.Down)
             {
@@ -83,20 +84,23 @@ namespace P3_Midwife.Views
             }
         }
 
-        private void text_Append()
+        private void text_Append(TextBox sender)
         {
             string text;
             text = lbSuggestions.SelectedItem.ToString();
-            if (!txtAuto.Text.EndsWith(" "))
+            if (!sender.Text.EndsWith(" "))
             {
-                txtAuto.Text = txtAuto.Text.Remove(txtAuto.Text.LastIndexOf(' ') + 1);
+                sender.Text = sender.Text.Remove(sender.Text.LastIndexOf(' ') + 1);
             }
-            txtAuto.AppendText(text + " ");
-            txtAuto.SelectionStart = txtAuto.Text.Length;
+            sender.AppendText(text + " ");
+            sender.SelectionStart = sender.Text.Length;
         }
 
         private void lbSuggestions_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            
+            ListBox senderListBox = sender as ListBox;
+
             string text;
             if (lbSuggestions.ItemsSource != null)
             {
@@ -117,11 +121,12 @@ namespace P3_Midwife.Views
 
         private void lbSuggestions_PreviewKeyDown(object sender, KeyEventArgs e)
         {
+            TextBox senderBox = sender as TextBox;
             if (e.Key == System.Windows.Input.Key.Tab)
             {
                 e.Handled = true;
-                text_Append();
-                txtAuto.Focus();
+                text_Append(senderBox);
+                senderBox.Focus();
             }
         }
     }

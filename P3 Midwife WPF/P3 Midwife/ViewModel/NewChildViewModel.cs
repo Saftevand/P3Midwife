@@ -64,6 +64,7 @@ namespace P3_Midwife.ViewModel
 
             this.SaveAndComplete = new RelayCommand(parameter => 
             {
+                CurrentRecord.IsActive = true;
                 Messenger.Default.Send(new NotificationMessage("ChildSave"));
                 Messenger.Default.Send(new NotificationMessage("ToRecord"));
                 Messenger.Default.Send(CurrentPatient, "PatientToRecordView");
@@ -71,16 +72,19 @@ namespace P3_Midwife.ViewModel
             });
             this.LogOutCommand = new RelayCommand(parameter =>
             {
+                Filemanagement.SaveToDatabase();
                 System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
                 Application.Current.Shutdown();
             });
             this.ExitCommand = new RelayCommand(parameter =>
             {
+                Filemanagement.SaveRecord(CurrentRecord);
+                Filemanagement.SaveToDatabase();
                 Application.Current.Shutdown();
             });
             this.BackCommand = new RelayCommand(Parameter =>
             {
-       
+                
                 Messenger.Default.Send(new NotificationMessage("ToRecord"));
                 Messenger.Default.Send(CurrentPatient, "PatientToRecordView");
                 Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");

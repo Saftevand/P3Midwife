@@ -187,10 +187,12 @@ namespace P3_Midwife
 
             this.LogOutCommand = new RelayCommand(parameter =>
             {
+                Filemanagement.SaveToDatabase();
                 logoutCommand();
             });
             this.ExitCommand = new RelayCommand(parameter =>
             {
+                Filemanagement.SaveToDatabase();
                 Application.Current.Shutdown();
             });
             this.FindPatientCommand = new RelayCommand(parameter => 

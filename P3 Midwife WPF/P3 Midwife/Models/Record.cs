@@ -12,6 +12,7 @@ namespace P3_Midwife
         private Patient _patient;
         private DateTime _date = new DateTime();
         private double _circumferenceHead;
+        private bool _isCompleted;
         private double _circumferenceStomach;
         private double _weight;
         private double _length;

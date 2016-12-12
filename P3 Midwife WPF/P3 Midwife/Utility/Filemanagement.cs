@@ -32,8 +32,6 @@ namespace P3_Midwife
             InitialiseMainFolders();
             ReadPatients();
             InitialiseAdminFiles();
-            
-
         }
 
         private static void InitialiseMainFolders()
@@ -166,7 +164,7 @@ namespace P3_Midwife
             file.Close();
         }
 
-        private static void SaveRecord(Record record)
+        public static void SaveRecord(Record record)
         {
             StreamWriter file = new StreamWriter(Path.Combine(_PatientsPath, record.RecordsPatient.CPR.ToString(), "_Record"+record.ThisRecordID.ToString()));
             file.Write(record.ToFile());
