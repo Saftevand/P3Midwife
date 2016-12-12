@@ -29,6 +29,7 @@ namespace P3_Midwife.ViewModel
         public RelayCommand AddMedicalService { get; }
         public RelayCommand OpenMedicalServicesToAdd { get; }
         public RelayCommand CreateChildCommand { get; }
+        public RelayCommand Cancel { get; }
 
         public static DependencyProperty ChildBirthDateProperty = DependencyProperty.Register(nameof(ChildBirthDate), typeof(DateTime), typeof(RecordViewModel));
         public static DependencyProperty ChildGenderProperty = DependencyProperty.Register(nameof(ChildGender), typeof(char), typeof(RecordViewModel));
@@ -187,6 +188,10 @@ namespace P3_Midwife.ViewModel
 
         public RecordViewModel()
         {
+            this.Cancel = new RelayCommand(parameter =>
+            {
+                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToRecord"));
+            });
             Messenger.Default.Register<NotificationMessage>(this, "LogOut", parameter =>
             {
                 RecordCurrent.Note = RecordCurrent.NewNote;
