@@ -16,22 +16,28 @@ namespace P3_Midwife
         { }
 
         //Removes a patient from ward
-        public void TransferPatient(Patient _patient)
+        public void TransferPatient(Patient patient)
         {
-            Filemanagement.RemovePatientFromRoomFile(_patient);
-            Filemanagement.RemovePatientFromFile(_patient);
-
-            if(_patient.Children.Count > 0)
+            DeliveryRoom tempRoom =  Ward.DeliveryRooms.Find(x => x.PatientsInRoom.Contains(patient));
+            if (tempRoom != null)
             {
-                foreach (Patient item in _patient.Children)
+                if (patient.Children.Count > 0)
                 {
-                    if (Ward.Patients.Contains(item))
+                    foreach (Patient child in patient.Children)
                     {
-                        Filemanagement.RemovePatientFromFile(item);
-                        Filemanagement.RemovePatientFromRoomFile(item);
+                        if (tempRoom.PatientsInRoom.Contains(child))
+                        {
+                            tempRoom.PatientsInRoom.Remove(child);
+                            CurrentPatients.Remove(child);
+                        }
                     }
                 }
+                tempRoom.PatientsInRoom.Remove(patient);
+                CurrentPatients.Remove(patient);
+                tempRoom.Occupied = false;
             }
+            else throw new ArgumentException("Input patient not found in room");
+            
         }
 
         //Puts a patient in a vacant room
@@ -41,6 +47,7 @@ namespace P3_Midwife
             if (currentRoom != null)
             {
                 currentRoom.PatientsInRoom.Add(_patient);
+                currentRoom.Occupied = true;
             }
             else throw new Exception("There are no empty rooms to assign patients to");
         }
@@ -77,7 +84,7 @@ namespace P3_Midwife
         public void AdmitPatient(Patient patient)
         {
             AssignPatientToDRoom(patient);
-            this._currentPatients.Add(patient);
+            this.CurrentPatients.Add(patient);
         }
 
         //Method to create a patient when a baby is born.
