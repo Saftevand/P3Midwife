@@ -7,8 +7,9 @@
         xmlns:local="clr-namespace:P3_Midwife"
         xmlns:ViewModel="clr-namespace:P3_Midwife.ViewModel"
         mc:Ignorable="d"
+        WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        Title="DialogWindow" Height="200" Width="300" Background="AliceBlue" BorderBrush="LightSkyBlue" BorderThickness="2">
+        Title="DialogWindow" Height="150" Width="300" Background="AliceBlue" BorderBrush="LightSkyBlue" BorderThickness="2">
     <Window.DataContext>
         <ViewModel:DialogWindowViewModel/>
     </Window.DataContext>
@@ -18,11 +19,14 @@
             <Label Foreground="Blue" Margin="92,5,1,-3">
                 Indtast CPR
             </Label>
-            <TextBox Text="{Binding CPREntered, UpdateSourceTrigger=PropertyChanged}" Name="TextBoxEnteredCPR" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Height="20">
+            <TextBox MaxLength="10" Text="{Binding CPREntered, UpdateSourceTrigger=PropertyChanged}" Name="TextBoxEnteredCPR" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Height="20">
                 
             </TextBox>
             <Button Command="{Binding AddPatientComand}" IsDefault="True" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center" Height="19" FontSize="12">
                 Tilføj patient
+            </Button>
+            <Button Command="{Binding Cancel}" VerticalAlignment="Center" HorizontalAlignment="Center" Height="19" FontSize="12">
+                Annuller
             </Button>
         </StackPanel>
     </Grid>
