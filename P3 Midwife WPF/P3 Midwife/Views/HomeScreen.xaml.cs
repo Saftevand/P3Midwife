@@ -30,6 +30,7 @@ namespace P3_Midwife
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
             new DialogWindow();
             new PatientWindow();
+            new FinalRecordWindow();
             Show();     
         }
 

@@ -19,7 +19,7 @@ namespace P3_Midwife
         public void TransferPatient(Patient _patient)
         {
             Filemanagement.RemovePatientFromRoomFile(_patient);
-            Filemanagement.RemovePatientFromFile(_patient);
+            //Filemanagement.RemovePatientFromFile(_patient);
 
             if(_patient.Children.Count > 0)
             {
@@ -27,7 +27,7 @@ namespace P3_Midwife
                 {
                     if (Ward.Patients.Contains(item))
                     {
-                        Filemanagement.RemovePatientFromFile(item);
+                        //Filemanagement.RemovePatientFromFile(item);
                         Filemanagement.RemovePatientFromRoomFile(item);
                     }
                 }

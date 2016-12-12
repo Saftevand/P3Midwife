@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using GalaSoft.MvvmLight.Messaging;
 using System.Collections.ObjectModel;
+using P3_Midwife.Models;
 
 namespace P3_Midwife.ViewModel
 {
@@ -16,35 +17,56 @@ namespace P3_Midwife.ViewModel
         public RelayCommand ExitCommand { get; }
         public RelayCommand BackCommand { get; }
 
-        public static DependencyProperty PatientProperty = DependencyProperty.Register(nameof(PatientCurrent), typeof(Patient), typeof(RecordViewModel));
-        public static DependencyProperty RecordProperty = DependencyProperty.Register(nameof(RecordCurrent), typeof(Record), typeof(RecordViewModel));
-        private ObservableCollection<Record._birthInformation> _birthInformationList = new ObservableCollection<Record._birthInformation>();
-        private ObservableCollection<Record._contractionIVDrip> _contractrionIVDripList = new ObservableCollection<Record._contractionIVDrip>();
-        private ObservableCollection<Record._fetusObservation> _fetusObservationList = new ObservableCollection<Record._fetusObservation>();
-        private ObservableCollection<Record._micturition> _micturitionList = new ObservableCollection<Record._micturition>();
-        private ObservableCollection<Record._vaginalExploration> _vaginalExplorationList = new ObservableCollection<Record._vaginalExploration>();
+        public static DependencyProperty PatientProperty = DependencyProperty.Register(nameof(PatientCurrentf), typeof(Patient), typeof(FinalRecordWindowViewModel));
+        public static DependencyProperty RecordProperty = DependencyProperty.Register(nameof(RecordCurrentf), typeof(Record), typeof(FinalRecordWindowViewModel));
+        public static DependencyProperty NoteProperty = DependencyProperty.Register(nameof(NoteCurrent), typeof(string), typeof(FinalRecordWindowViewModel));
+
+        private ObservableCollection<BirthInformation> _birthInformationList = new ObservableCollection<BirthInformation>();
+        private ObservableCollection<ContractionIVDrip> _contractrionIVDripList = new ObservableCollection<ContractionIVDrip>();
+        private ObservableCollection<FetusObservation> _fetusObservationList = new ObservableCollection<FetusObservation>();
+        private ObservableCollection<Micturition> _micturitionList = new ObservableCollection<Micturition>();
+        private ObservableCollection<VaginalExploration> _vaginalExplorationList = new ObservableCollection<VaginalExploration>();
         private ObservableCollection<MedicalService> _medicalServicesList = new ObservableCollection<MedicalService>();
         private ObservableCollection<MedicalService> _availableMedicalServices = new ObservableCollection<MedicalService>();
 
-        public Record RecordCurrent
+        public string NoteCurrent
+        {
+            get { return (string)this.GetValue(NoteProperty); }
+            set { this.SetValue(NoteProperty, value); }
+        }
+
+        public Record RecordCurrentf
         {
             get { return (Record)this.GetValue(RecordProperty); }
-            set { this.SetValue(RecordProperty, value); }
+            set
+            {
+                this.SetValue(RecordProperty, value);
+
+                BirthInformationListProperty.Clear();
+                ContractionListProperty.Clear();
+                FetusObservationListProperty.Clear();
+                MicturitionListProperty.Clear();
+                VaginalExplorationListProperty.Clear();
+                MedicalServicesList.Clear();
+
+                BirthInformationListProperty.AddRange(RecordCurrentf.BirthInformationList);
+                ContractionListProperty.AddRange(RecordCurrentf.ContractionIVDripList);
+                FetusObservationListProperty.AddRange(RecordCurrentf.FetusObservationList);
+                MicturitionListProperty.AddRange(RecordCurrentf.MicturitionList);
+                VaginalExplorationListProperty.AddRange(RecordCurrentf.VaginalExplorationList);
+                MedicalServicesList.AddRange(RecordCurrentf.CurrentBill.BillItemList);
+            }
         }
-        public Patient PatientCurrent
+        public Patient PatientCurrentf
         {
             get { return (Patient)this.GetValue(PatientProperty); }
             set { this.SetValue(PatientProperty, value); }
         }
-        public Employee EmployeeCurrent
+
+        public Employee EmployeeCurrentf
         {
             get { return _currentEmployee; }
             set { _currentEmployee = value; }
-        }
-        public ObservableCollection<MedicalService> MedicalServices
-        {
-            get { return _availableMedicalServices; }
-            set { _availableMedicalServices = value; }
         }
 
         public ObservableCollection<MedicalService> MedicalServicesList
@@ -53,31 +75,31 @@ namespace P3_Midwife.ViewModel
             set { _medicalServicesList = value; }
         }
 
-        public ObservableCollection<Record._birthInformation> BirthInformationListProperty
+        public ObservableCollection<BirthInformation> BirthInformationListProperty
         {
             get { return _birthInformationList; }
             set { _birthInformationList = value; }
         }
 
-        public ObservableCollection<Record._contractionIVDrip> ContractionListProperty
+        public ObservableCollection<ContractionIVDrip> ContractionListProperty
         {
             get { return _contractrionIVDripList; }
             set { _contractrionIVDripList = value; }
         }
 
-        public ObservableCollection<Record._fetusObservation> FetusObservationListProperty
+        public ObservableCollection<FetusObservation> FetusObservationListProperty
         {
             get { return _fetusObservationList; }
             set { _fetusObservationList = value; }
         }
 
-        public ObservableCollection<Record._micturition> MicturitionListProperty
+        public ObservableCollection<Micturition> MicturitionListProperty
         {
             get { return _micturitionList; }
             set { _micturitionList = value; }
         }
 
-        public ObservableCollection<Record._vaginalExploration> VaginalExplorationListProperty
+        public ObservableCollection<VaginalExploration> VaginalExplorationListProperty
         {
             get { return _vaginalExplorationList; }
             set { _vaginalExplorationList = value; }
@@ -85,9 +107,9 @@ namespace P3_Midwife.ViewModel
 
         public FinalRecordWindowViewModel()
         {
-            Messenger.Default.Register<Record>(this, "NewRecordToRecordView", (ActiveRecord) => { RecordCurrent = ActiveRecord; });
-            Messenger.Default.Register<Patient>(this, "PatientToRecordView", (ActivePatient) => { PatientCurrent = ActivePatient; });
-            Messenger.Default.Register<Employee>(this, "EmployeetoRecordView", (ActiveEmployee) => { EmployeeCurrent = ActiveEmployee; });
+            Messenger.Default.Register<Record>(this, "NewRecordToRecordView", (ActiveRecord) => { RecordCurrentf = ActiveRecord; NoteCurrent = ActiveRecord.Note; });
+            Messenger.Default.Register<Patient>(this, "PatientToRecordView", (ActivePatient) => { PatientCurrentf = ActivePatient; });
+            Messenger.Default.Register<Employee>(this, "EmployeetoRecordView", (ActiveEmployee) => { EmployeeCurrentf = ActiveEmployee; });
 
             this.LogOutCommand = new RelayCommand(parameter =>
             {
@@ -100,9 +122,9 @@ namespace P3_Midwife.ViewModel
             });
             this.BackCommand = new RelayCommand(Parameter =>
             {
-                Messenger.Default.Send(new NotificationMessage("ToRecord"));
-                Messenger.Default.Send(PatientCurrent, "Patient");
-                Messenger.Default.Send(EmployeeCurrent, "Employee");
+                Messenger.Default.Send(new NotificationMessage("ToPatient"));
+                Messenger.Default.Send(PatientCurrentf, "Patient");
+                Messenger.Default.Send(EmployeeCurrentf, "Employee");
             });
         }
     }

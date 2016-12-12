@@ -19,18 +19,18 @@ namespace P3_Midwife.Views
     public partial class FinalRecordWindow : BaseWindow
     {
         bool isNotClosed;
-        int thisID;
+        //int thisID;
         Patient CurrentPatient;
         Record CurrentRecord;
         
-        public FinalRecordWindow(Record RecordShow)
+        public FinalRecordWindow()
         {
             InitializeComponent();
             Messenger.Default.Register<Patient>(this, "PatientToRecordView", patientValidation);
             Messenger.Default.Register<Record>(this, "NewRecordToRecordView", recordValidation);
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
             isNotClosed = false;
-            this.thisID = RecordShow.ThisRecordID;
+            //this.thisID = RecordShow.ThisRecordID;
         }
 
         private void recordValidation(Record _currentRecord)
@@ -45,12 +45,9 @@ namespace P3_Midwife.Views
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (thisID == CurrentRecord.ThisRecordID)
-            {
-                if (msg.Notification == "ToRecord" && !isNotClosed && CurrentRecord.IsActive == false)
-                {
-                    Show();
-                }
+            if (msg.Notification == "ToFinalRecord" && !isNotClosed && CurrentRecord.IsActive == false)
+            { 
+                Show();
             }
             else
             {

@@ -411,7 +411,7 @@
             <TextBlock Margin="199,0,0,0" Height="100">
                 <Run Text="{Binding RecordCurrent.Note}"/>
             </TextBlock>
-                <TextBox Margin="199,0,0,0" Height="100" Text="{Binding RecordCurrent.NewNote,UpdateSourceTrigger=PropertyChanged}">
+                <TextBox Margin="199,0,0,0" Height="100" Text="{Binding RecordCurrent.NewNote, UpdateSourceTrigger=PropertyChanged}">
             </TextBox>
         </StackPanel>
 

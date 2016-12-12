@@ -25,7 +25,14 @@ namespace P3_Midwife.Views
         Record CurrentRecord;
         public RecordWindow(Record RecordShow)
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.InnerException.ToString());
+            }
             Messenger.Default.Register<Patient>(this, "PatientToRecordView", patientValidation);
             Messenger.Default.Register<Record>(this, "NewRecordToRecordView", recordValidation);
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
@@ -60,6 +67,10 @@ namespace P3_Midwife.Views
                 else if (msg.Notification == "AccessDenied")
                 {
                     MessageBox.Show("Adgang nægtet!");
+                }
+                else
+                {
+                    this.Hide();
                 }
             }
             else
