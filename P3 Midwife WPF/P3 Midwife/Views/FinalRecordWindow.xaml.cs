@@ -14,16 +14,16 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GalaSoft.MvvmLight.Messaging;
 
-
 namespace P3_Midwife.Views
 {
-    public partial class RecordWindow : BaseWindow
+    public partial class FinalRecordWindow : BaseWindow
     {
         bool isNotClosed;
         int thisID;
         Patient CurrentPatient;
         Record CurrentRecord;
-        public RecordWindow(Record RecordShow)
+        
+        public FinalRecordWindow(Record RecordShow)
         {
             InitializeComponent();
             Messenger.Default.Register<Patient>(this, "PatientToRecordView", patientValidation);
@@ -47,19 +47,9 @@ namespace P3_Midwife.Views
         {
             if (thisID == CurrentRecord.ThisRecordID)
             {
-                if (msg.Notification == "ToRecord" && !isNotClosed && CurrentRecord.IsActive)
+                if (msg.Notification == "ToRecord" && !isNotClosed && CurrentRecord.IsActive == false)
                 {
                     Show();
-                }
-                else if (msg.Notification == "RecordSave")
-                {
-                    BaseWindow.cancel = true;
-                    this.isNotClosed = true;
-                    this.Close();
-                }
-                else if (msg.Notification == "AccessDenied")
-                {
-                    MessageBox.Show("Adgang nægtet!");
                 }
             }
             else

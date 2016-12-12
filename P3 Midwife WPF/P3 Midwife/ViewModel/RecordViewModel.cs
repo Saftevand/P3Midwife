@@ -232,13 +232,11 @@ namespace P3_Midwife.ViewModel
                 Messenger.Default.Send(EmployeeCurrent, "Employee");
             });
             this.NewChildDialogCommand = new RelayCommand(parameter =>
-            {
-                
+            {  
                 ChildBirthDate = DateTime.Now;
                 Messenger.Default.Send(new NotificationMessage("NewChildDialog"));
                 new P3_Midwife.Views.NewChildWindow();
                    
-
             });
             this.SaveAndCompleteCommand = new RelayCommand(parameter =>
             {
@@ -248,19 +246,10 @@ namespace P3_Midwife.ViewModel
                 RecordCurrent.MicturitionList.AddRange(MicturitionListProperty);
                 RecordCurrent.VaginalExplorationList.AddRange(VaginalExplorationListProperty);
                 RecordCurrent.FetusObservationList.AddRange(FetusObservationListProperty);
-
-                //if (!PatientCurrent.RecordList.Exists(x => x.ThisRecordID == RecordCurrent.ThisRecordID))
-                //{
-                //    PatientCurrent.RecordList.Add(RecordCurrent);
-                //}
-                               
+                RecordCurrent.IsActive = false;
                 Messenger.Default.Send(new NotificationMessage("ToPatient"));
                 Messenger.Default.Send(PatientCurrent, "Patient");
                 Messenger.Default.Send(EmployeeCurrent, "Employee");
-            });
-            this.MedicinCommand = new RelayCommand(parameter =>
-            {
-                //nyt vindue skal laves her -- eller?
             });
             this.AddBirthInfo= new RelayCommand(parameter =>
             {

@@ -16,22 +16,40 @@ namespace P3_Midwife
         { }
 
         //Removes a patient from ward
-        public void TransferPatient(Patient _patient)
+        public void TransferPatient(Patient patient)
         {
+<<<<<<< HEAD
             Filemanagement.RemovePatientFromRoomFile(_patient);
            // Filemanagement.RemovePatientFromFile(_patient);
 
             if(_patient.Children.Count > 0)
+=======
+            DeliveryRoom tempRoom =  Ward.DeliveryRooms.Find(x => x.PatientsInRoom.Contains(patient));
+            if (tempRoom != null)
+>>>>>>> c2a31a0d1796d72d7df69b0d6f296d482e484e34
             {
-                foreach (Patient item in _patient.Children)
+                if (patient.Children.Count > 0)
                 {
-                    if (Ward.Patients.Contains(item))
+                    foreach (Patient child in patient.Children)
                     {
+<<<<<<< HEAD
                       //  Filemanagement.RemovePatientFromFile(item);
                         Filemanagement.RemovePatientFromRoomFile(item);
+=======
+                        if (tempRoom.PatientsInRoom.Contains(child))
+                        {
+                            tempRoom.PatientsInRoom.Remove(child);
+                            CurrentPatients.Remove(child);
+                        }
+>>>>>>> c2a31a0d1796d72d7df69b0d6f296d482e484e34
                     }
                 }
+                tempRoom.PatientsInRoom.Remove(patient);
+                CurrentPatients.Remove(patient);
+                tempRoom.Occupied = false;
             }
+            else throw new ArgumentException("Input patient not found in room");
+            
         }
 
         //Puts a patient in a vacant room
@@ -41,6 +59,10 @@ namespace P3_Midwife
             if (currentRoom != null)
             {
                 currentRoom.PatientsInRoom.Add(_patient);
+<<<<<<< HEAD
+=======
+                currentRoom.Occupied = true;
+>>>>>>> c2a31a0d1796d72d7df69b0d6f296d482e484e34
             }
             else throw new Exception("There are no empty rooms to assign patients to");
         }
@@ -77,7 +99,11 @@ namespace P3_Midwife
         public void AdmitPatient(Patient patient)
         {
             AssignPatientToDRoom(patient);
+<<<<<<< HEAD
             this._currentPatients.Add(patient);
+=======
+            this.CurrentPatients.Add(patient);
+>>>>>>> c2a31a0d1796d72d7df69b0d6f296d482e484e34
         }
 
         //Method to create a patient when a baby is born.
@@ -97,6 +123,7 @@ namespace P3_Midwife
             Filemanagement.CreatePatientFolderAndFile(child);
 
         }
+<<<<<<< HEAD
 
         public void CreatePatient(Patient mother, char gender, DateTime date)
         {
@@ -109,5 +136,7 @@ namespace P3_Midwife
         }
 
 
+=======
+>>>>>>> c2a31a0d1796d72d7df69b0d6f296d482e484e34
     }
 }

@@ -13,14 +13,20 @@ namespace P3_Midwife
         private string _name;
         private Patient _mother;
         private string _CPR;
+<<<<<<< HEAD
         private DateTime _birthDateTime;
+=======
+>>>>>>> c2a31a0d1796d72d7df69b0d6f296d482e484e34
         private List<Patient> _children = new List<Patient>();
         private List<Record> _recordList = new List<Record>();
 
         public string CPR { get { return _CPR; } set { _CPR = value; } }
         public string Name { get { return _name; } set { _name = value; }}
         public char Gender { get { return _gender; } set {  _gender = value; }}
+<<<<<<< HEAD
         public DateTime BirthDateTime { get { return _birthDateTime; } set { _birthDateTime = value; } }
+=======
+>>>>>>> c2a31a0d1796d72d7df69b0d6f296d482e484e34
         public int Age { get { return CalcAge(); } }
         public Patient Mother { get {return _mother; } set { _mother = value; } }
         public List<Patient> Children { get { return _children; } set { _children = value; } }
@@ -48,6 +54,7 @@ namespace P3_Midwife
         }
 
         public Patient(char gender, string today, Patient mother)
+<<<<<<< HEAD
         {
             GenerateCpr(gender, today);
             this._gender = gender;
@@ -58,6 +65,10 @@ namespace P3_Midwife
         {
             this._birthDateTime = birthDateTime;
             GenerateCpr(gender, birthDateTime.ToString("ddMMyy"));
+=======
+        {
+            GenerateCpr(gender, today);
+>>>>>>> c2a31a0d1796d72d7df69b0d6f296d482e484e34
             this._gender = gender;
             this._mother = mother;
             mother.Children.Add(this);

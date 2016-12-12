@@ -55,7 +55,8 @@ namespace P3_Midwife.ViewModel
                         Children.Add(item);
                     }
                     { this.SetValue(PatientProperty, value); }
-
+                    Records.Clear();
+                    //Records.AddRange(PatientCurrent.RecordList.Where(x => !Records.Contains(x)));
                     Records.AddRange(PatientCurrent.RecordList);
 
                 }
@@ -108,7 +109,8 @@ namespace P3_Midwife.ViewModel
             {
                 Record tempRecord = new Record(PatientCurrent);
                 PatientCurrent.RecordList.Add(tempRecord);
-                new P3_Midwife.Views.RecordWindow();
+                new P3_Midwife.Views.RecordWindow(tempRecord);
+                //new P3_Midwife.Views.FinalRecordWindow(tempRecord);
                 Messenger.Default.Send(PatientCurrent, "PatientToRecordView");
                 Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");
                 Messenger.Default.Send(tempRecord, "NewRecordToRecordView");

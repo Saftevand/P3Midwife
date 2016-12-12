@@ -56,8 +56,9 @@ namespace P3_Midwife.ViewModel
 
         public NewChildViewModel()
         {
+
             Messenger.Default.Register<Patient>(this, "PatientToNewChildView", (ActivePatient) => { CurrentPatient = ActivePatient; CurrentRoom = Ward.DeliveryRooms.Find(x => x.PatientsInRoom.Contains(CurrentPatient)); });
-            Messenger.Default.Register<Employee>(this, "EmployeetoNewChildView",(ActiveEmployee) => InitNewChild(ActiveEmployee));
+            Messenger.Default.Register<Employee>(this, "EmployeetoNewChildView",(ActiveEmployee) => CurrentEmployee =ActiveEmployee);
             Messenger.Default.Register<Patient>(this, "ChildToNewChildView", (ActiveChild) => { CurrentNewChild = ActiveChild; });
 
 
