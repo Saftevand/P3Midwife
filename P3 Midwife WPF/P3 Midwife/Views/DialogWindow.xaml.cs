@@ -31,6 +31,10 @@ namespace P3_Midwife
             {
                 Show();
             }
+            else if (msg.Notification == "NoPersonWithCPR")
+            {
+                MessageBox.Show("Der er ingen personer med det CPR nummer");
+            }
             else if (msg.Notification == "DialogSave")
             {
                 Close();

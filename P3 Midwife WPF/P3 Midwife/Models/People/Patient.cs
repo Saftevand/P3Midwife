@@ -9,52 +9,30 @@ namespace P3_Midwife
 {
     public class Patient
     {
-        private char gender;
-        //private int GA;
-        //private int weekDay;
-        //private int weightGram;
-        //private int lenghtCM;
-        //private int fetus;
-        //private int HO;
-        //private int AO;
-        //private int placentaWeightGram;
-        //private char kVitamin;
-        //private string diag;
-        //private int abgar1;
-        //private int abgar5;
-        //private int abgar10;
-        //private string note;
-        ////TODO: visse bools skal måske have andre typer.
-        //private bool suck;
-        //private bool nose;
-        //private bool throat;
-        //private bool ventricle;
-        //private bool bloodsugar;
-        //private decimal arteriaPH;
-        //private decimal arteriaSBE;
-        //private decimal venePH;
-        //private decimal veneSBE;
-        //private DateTime timeOfBirth;
+        private char _gender;
         private string _name;
-        public Patient Mother;
-        public DeliveryRoom InRoom;
+        private Patient _mother;
+        private string _CPR;
+        private DateTime _birthDateTime;
         private List<Patient> _children = new List<Patient>();
-        public List<Patient> Children { get { return _children; } set { _children = value; } }
-        public List<Record> RecordList { get { return _recordList; } set { _recordList = value; } }
         private List<Record> _recordList = new List<Record>();
 
-        public string CPR { get; set; }
+        public string CPR { get { return _CPR; } set { _CPR = value; } }
         public string Name { get { return _name; } set { _name = value; }}
-        public string Gender { get { return gender.ToString(); } set {  gender = Convert.ToChar(value); }}
-        public int Age { get { return CalcAge(); } }           
+        public char Gender { get { return _gender; } set {  _gender = value; }}
+        public DateTime BirthDateTime { get { return _birthDateTime; } set { _birthDateTime = value; } }
+        public int Age { get { return CalcAge(); } }
+        public Patient Mother { get {return _mother; } set { _mother = value; } }
+        public List<Patient> Children { get { return _children; } set { _children = value; } }
+        public List<Record> RecordList { get { return _recordList; } set { _recordList = value; } }
 
 
         #region Constructors
         public Patient(string PatientCPR, string PatientName)
         {
-            this.CPR = PatientCPR;
+            this._CPR = PatientCPR;
             this._name = PatientName;
-            this.gender = FindGenderFromCPR(PatientCPR);
+            this._gender = FindGenderFromCPR(PatientCPR);
            // this.RecordList.Add(new Record(this));
         }
 
@@ -63,20 +41,26 @@ namespace P3_Midwife
             this.CPR = PatientCPR;
         }
 
-        public Patient(char _gender)
+        public Patient(char gender)
         {
-            GenerateCpr(_gender);
-            this.gender = _gender;
-            Filemanagement.AddPatientOrEmployeeToFile(this);
-            this.InRoom = this.Mother.InRoom;
+            GenerateCpr(gender);
+            this._gender = gender;
         }
 
-        public Patient(char _gender, string _today)
+        public Patient(char gender, string today, Patient mother)
         {
-            GenerateCpr(_gender, _today);
-            this.gender = _gender;
-            Filemanagement.AddPatientOrEmployeeToFile(this);
-            this.InRoom = this.Mother.InRoom;
+            GenerateCpr(gender, today);
+            this._gender = gender;
+            this._mother = mother;
+            mother.Children.Add(this);
+        }
+        public Patient(char gender, DateTime birthDateTime, Patient mother)
+        {
+            this._birthDateTime = birthDateTime;
+            GenerateCpr(gender, birthDateTime.ToString("ddMMyy"));
+            this._gender = gender;
+            this._mother = mother;
+            mother.Children.Add(this);
         }
 
         public Patient()

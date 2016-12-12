@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:P3_Midwife"
         xmlns:ViewModel="clr-namespace:P3_Midwife.ViewModel"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="DialogWindow" Height="200" Width="300" Background="AliceBlue" BorderBrush="LightSkyBlue" BorderThickness="2">
     <Window.DataContext>
         <ViewModel:DialogWindowViewModel/>

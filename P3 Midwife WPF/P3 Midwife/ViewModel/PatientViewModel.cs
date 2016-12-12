@@ -18,9 +18,10 @@ namespace P3_Midwife.ViewModel
         public RelayCommand AdmitPatientCommand { get; }
         public RelayCommand DischargePatientCommand { get; }
         public RelayCommand CreateRecordCommand { get; }
+        public RelayCommand OpenRecordCommand { get; }
         public static DependencyProperty PatientProperty = DependencyProperty.Register(nameof(PatientCurrent), typeof(Patient), typeof(PatientViewModel));
         public static DependencyProperty EmployeeProperty = DependencyProperty.Register(nameof(CurrentEmployee), typeof(Employee), typeof(PatientViewModel));
-        public static DependencyProperty SelectedChildProperty = DependencyProperty.Register(nameof(SelectedChild), typeof(Patient), typeof(PatientViewModel));
+        public static DependencyProperty SelectedRecord = DependencyProperty.Register(nameof(RecordSelected), typeof(Record), typeof(PatientViewModel)); 
         private ObservableCollection<Patient> _children = new ObservableCollection<Patient>();
         private ObservableCollection<Record> _records = new ObservableCollection<Record>();
 
@@ -36,10 +37,10 @@ namespace P3_Midwife.ViewModel
             set { _records = value; }
         }
 
-        public Patient SelectedChild
+        public Record RecordSelected
         {
-            get { return (Patient)this.GetValue(SelectedChildProperty); }
-            set { this.SetValue(SelectedChildProperty, value); }
+            get { return (Record)this.GetValue(SelectedRecord); }
+            set { this.SetValue(SelectedRecord, value); }
         }
 
         public Patient PatientCurrent
@@ -54,7 +55,10 @@ namespace P3_Midwife.ViewModel
                         Children.Add(item);
                     }
                     { this.SetValue(PatientProperty, value); }
-                } 
+
+                    Records.AddRange(PatientCurrent.RecordList);
+
+                }
             }
         } 
 
@@ -68,6 +72,13 @@ namespace P3_Midwife.ViewModel
         {
             Messenger.Default.Register<Patient>(this, "Patient", (ActivePatient) => { PatientCurrent = ActivePatient; });
             Messenger.Default.Register<Employee>(this, "Employee", (ActiveUser) => { CurrentEmployee = ActiveUser; });
+            //Messenger.Default.Register<Record>(this, "FromPatientToRecordWithOldRecord", (OldRecord) =>
+            //{
+            //    Messenger.Default.Send(new NotificationMessage("ToRecord"));
+            //    Messenger.Default.Send(PatientCurrent, "PatientToRecordView");
+            //    Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");
+            //    Messenger.Default.Send((OldRecord), "NewRecordToRecordView");
+            //});
             this.LogOutCommand = new RelayCommand(parameter =>
             {
                 Process.Start(Application.ResourceAssembly.Location);
@@ -95,12 +106,20 @@ namespace P3_Midwife.ViewModel
             });
             this.CreateRecordCommand = new RelayCommand(parameter =>
             {
-                PatientCurrent.RecordList.Add(new Record(PatientCurrent));
-                Messenger.Default.Send(new NotificationMessage("ToRecord"));
                 Record tempRecord = new Record(PatientCurrent);
+                PatientCurrent.RecordList.Add(tempRecord);
+                new P3_Midwife.Views.RecordWindow();
                 Messenger.Default.Send(PatientCurrent, "PatientToRecordView");
                 Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");
                 Messenger.Default.Send(tempRecord, "NewRecordToRecordView");
+                Messenger.Default.Send(new NotificationMessage("ToRecord"));
+            });
+            this.OpenRecordCommand = new RelayCommand(parameter =>
+            {
+                Messenger.Default.Send(new NotificationMessage("ToRecord"));
+                Messenger.Default.Send(PatientCurrent, "PatientToRecordView");
+                Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");
+                Messenger.Default.Send(RecordSelected, "NewRecordToRecordView");
             });
         }
     }

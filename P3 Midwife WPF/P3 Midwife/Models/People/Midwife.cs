@@ -19,7 +19,7 @@ namespace P3_Midwife
         public void TransferPatient(Patient _patient)
         {
             Filemanagement.RemovePatientFromRoomFile(_patient);
-            Filemanagement.RemovePatientFromFile(_patient);
+           // Filemanagement.RemovePatientFromFile(_patient);
 
             if(_patient.Children.Count > 0)
             {
@@ -27,7 +27,7 @@ namespace P3_Midwife
                 {
                     if (Ward.Patients.Contains(item))
                     {
-                        Filemanagement.RemovePatientFromFile(item);
+                      //  Filemanagement.RemovePatientFromFile(item);
                         Filemanagement.RemovePatientFromRoomFile(item);
                     }
                 }
@@ -41,11 +41,8 @@ namespace P3_Midwife
             if (currentRoom != null)
             {
                 currentRoom.PatientsInRoom.Add(_patient);
-                _patient.InRoom = currentRoom;
             }
-
-            else
-                throw new Exception("There are no empty rooms to assign patients to");
+            else throw new Exception("There are no empty rooms to assign patients to");
         }
 
         //TODO: Do we need method RequestTestSample? a bit like RegisterTreatmentToBill 
@@ -77,12 +74,10 @@ namespace P3_Midwife
         }
         
         //Admits patient to the ward. Also places patient in a room using the AssignPatientToDRoom method
-        public void AdmitPatient(string _cpr, string _name)
+        public void AdmitPatient(Patient patient)
         {
-            Patient patientToAdd = new Patient(_cpr, _name);
-            Ward.Patients.Add(patientToAdd);
-            Filemanagement.AddPatientOrEmployeeToFile(patientToAdd);
-            AssignPatientToDRoom(patientToAdd);
+            AssignPatientToDRoom(patient);
+            this._currentPatients.Add(patient);
         }
 
         //Method to create a patient when a baby is born.
@@ -93,11 +88,26 @@ namespace P3_Midwife
             _mother.Children.Add(child);
         }
 
-        public void CreatePatient(Patient _mother, char _gender, string _date)
+        public void CreatePatient(Patient mother, char gender, string date)
         {
-            Patient child = new Patient(_gender, _date);
-            child.Mother = _mother;
-            _mother.Children.Add(child);
-        } 
+            Patient child = new Patient(gender, date, mother);
+            Ward.Patients.Add(child);
+            Ward.DeliveryRooms.Find(x => x.PatientsInRoom.Contains(mother)).PatientsInRoom.Add(child);
+            child.RecordList.Add(new Record(child));
+            Filemanagement.CreatePatientFolderAndFile(child);
+
+        }
+
+        public void CreatePatient(Patient mother, char gender, DateTime date)
+        {
+            Patient child = new Patient(gender, date, mother);
+            Ward.Patients.Add(child);
+            Ward.DeliveryRooms.Find(x => x.PatientsInRoom.Contains(mother)).PatientsInRoom.Add(child);
+            child.RecordList.Add(new Record(child));
+            Filemanagement.CreatePatientFolderAndFile(child);
+
+        }
+
+
     }
 }

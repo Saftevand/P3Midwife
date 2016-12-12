@@ -16,7 +16,9 @@ namespace P3_Midwife
 {
     public class HomeScreenViewModel : DependencyObject, INotifyPropertyChanged
     {
+
         private int AutoLogoutTimer = 30000;
+
         private List<Patient> _patientList;
         public RelayCommand LogOutCommand { get; }
         public RelayCommand ExitCommand { get; }
@@ -193,9 +195,17 @@ namespace P3_Midwife
             });
             this.FindPatientCommand = new RelayCommand(parameter => 
             {
+                SelectedPatient = FindPatient(CPR);
+                if (SelectedPatient != null)
+                {
                     Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
                     Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));
+                }
+                else
+                {
+                    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("NoCPRInput"));
+                }
             });
             this.OpenAddPatientCommand = new RelayCommand(parameter =>
             {

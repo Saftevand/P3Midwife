@@ -13,11 +13,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GalaSoft.MvvmLight.Messaging;
-
+using System.Windows.Controls.Primitives;
 
 namespace P3_Midwife.Views
 {
-    public partial class PatientWindow : Window
+    public partial class PatientWindow : BaseWindow
     {
         public PatientWindow()
         {
@@ -32,5 +32,15 @@ namespace P3_Midwife.Views
             else
                 Hide();
         }
+
+        //    private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        //    {
+        //        //var item = ((FrameworkElement)e.OriginalSource).DataContext as Track;
+        //        //if (item != null)
+        //        //{
+        //            Messenger.Default.Send(sender, "FromPatientToRecordWithOldRecord");
+        //        //}
+        //    }
+        //}
     }
 }

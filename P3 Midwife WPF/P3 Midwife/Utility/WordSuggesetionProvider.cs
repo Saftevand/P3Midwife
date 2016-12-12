@@ -11,7 +11,7 @@ namespace P3_Midwife
         private List<string> FrequentlyUsedWords = new List<string>();
         private List<string> list = new List<string>();
         private List<string> dic = Filemanagement.DanishWordList;
-        private List<Words> sentenceSuggestion = new List<Words>();
+        private List<Words> sentenceSuggestion = new List<Words>(5);
 
 
         public void AddWordToUsedWords(string _word)
@@ -19,56 +19,60 @@ namespace P3_Midwife
             FrequentlyUsedWords.Add(_word);
         }
 
+        //Method to filter the current text into storing frequently used words and sentences.
         public List<string> GetSuggestions(string filter)
         {
+            list.Clear();
+            string text = filter;
+
             if (filter.Length < 1)
             {
-                return null;
+                return list;
             }
             char last = filter[filter.Length - 1];
+
             if (last == '.' || last == ',')
             {
-                return null;
+                return list;
             }
-
-            createSentence(filter);
-
-            if (last == ' ' )
+            if (filter.Count(x => x == ' ') > 1)
             {
-                int lastIndex = filter.LastIndexOf(' ');
-                int secLastIndex = filter.LastIndexOf(' ', lastIndex - 1) + 1;
-
-                string word = filter.Substring(secLastIndex, lastIndex - secLastIndex);
-
-                for (int i = 0; i < sentenceSuggestion.FindAll(x => x.word == word).Count(); i++)
-                {
-                    list.Add(sentenceSuggestion.Find(x => x.word == word).secWord);
-                }
+                text = suggestWords(filter);
+                text = text.Remove(text.Length - 1);
+            }
+            if (text.Length < 3)
+            {
                 return list;
             }
 
-            string text = filter;
-            if (!text.EndsWith(" "))
+            //If last char is space, add the last word list and last sentence to a storing sentence list.
+            if (last == ' ')
             {
-                text = suggestWords(filter);
+                addWordToList(text);
+                if (filter.Count(x => x == ' ') > 2)
+                {
+                    createSentence(filter);
+                }
+                //Suggest word that suits previous word.
+                for (int i = 0; i < sentenceSuggestion.FindAll(x => x.word == text).Count(); i++)
+                {
+                    list.Add(sentenceSuggestion.Find(x => x.word == text).secWord);
+                }
+                return list;
             }
-
-            //list.AddRange(FrequentlyUsedWords.FindAll(s => s.StartsWith(text)));
-
             rankList(FrequentlyUsedWords.FindAll(s => s.StartsWith(text)));
-
             if (list.Count < 5)
             {
-                list.AddRange(dic.FindAll(s => s.StartsWith(text) && s.Length < text.Length + 3));
+                list.AddRange(dic.FindAll(s => s.StartsWith(text)));
             }
-
+            list.RemoveAll(x => x == text);
             return list;
         }
 
         private void rankList(List<string> usedWords)
         {
             List<Words> words = new List<Words>();
-
+            //Loop to recognise the use of words, and rank them after times occured.
             foreach (string item in usedWords)
             {
                 if (words.Exists(x => x.word == item))
@@ -81,7 +85,7 @@ namespace P3_Midwife
 
             for (int i = 0; i < 5; i++)
             {
-                if (words.Count-1 < i)
+                if (words.Count - 1 < i)
                 {
                     break;
                 }
@@ -92,29 +96,11 @@ namespace P3_Midwife
 
         private string suggestWords(string filter)
         {
-            int beginIndex = 0, endIndex = 0;
             int index = 0;
-            if (filter.Contains(' '))
-            {
-                index = filter.LastIndexOf(' ') + 1;
-
-                int i = 0;
-                while ((i = filter.IndexOf(' ', i)) != -1)
-                {
-                    if (FrequentlyUsedWords.Count == 0)
-                    {
-                        addWordToList(filter.Substring(0, i++));
-                        beginIndex = i;
-                    }
-                    else
-                    {
-                        endIndex = i++ - beginIndex;
-                        addWordToList(filter.Substring(beginIndex, endIndex));
-                        beginIndex = i;
-                    }
-                }
-            }
-            return filter.Substring(index);
+            string subString;
+            index = filter.LastIndexOf(' ', filter.Length - 2);
+            subString = filter.Substring(index + 1);
+            return subString;
         }
 
         private void addWordToList(string text)
@@ -139,35 +125,26 @@ namespace P3_Midwife
 
         private void createSentence(string text)
         {
-            int i = 0, beginIndex = 0, endIndex = 0;
+            int beginIndex = 0, endIndex = 0, lenght = text.Length;
             string first = null;
             string second = null;
 
-            i = beginIndex = text.IndexOf(',') + 2;
+            endIndex = text.LastIndexOf(' ', lenght - 2);
+            beginIndex = text.LastIndexOf(' ', endIndex - 2);
 
-            while ((i = text.IndexOf(' ', i)) != -1)
+            first = text.Substring(beginIndex + 1, endIndex - beginIndex - 1);
+
+            beginIndex = endIndex;
+            endIndex = text.LastIndexOf(' ');
+
+            second = text.Substring(beginIndex + 1, endIndex - beginIndex - 1);
+
+            if (sentenceSuggestion.Any(x => x.word == first && x.secWord == second))
             {
-                endIndex = i;
-
-                if (first == null)
-                {
-                    first = text.Substring(beginIndex, endIndex-beginIndex);
-                    beginIndex = i + 1;
-                }
-                else
-                {
-                    second = text.Substring(beginIndex, endIndex-beginIndex);
-                    if (sentenceSuggestion.Any(x => x.word == first && x.secWord == second))
-                    {
-                        sentenceSuggestion.Find(x => x.word == first && x.secWord == second).Rank++;
-                    }
-                    else
-                        sentenceSuggestion.Add(new Words(first, second, 1));
-                    beginIndex = endIndex + 1;
-                    first = null;
-                }
-                i++;
+                sentenceSuggestion.Find(x => x.word == first && x.secWord == second).Rank++;
             }
+            else
+                sentenceSuggestion.Add(new Words(first, second, 1));
         }
     }
 }

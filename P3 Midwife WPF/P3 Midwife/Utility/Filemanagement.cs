@@ -14,12 +14,11 @@ namespace P3_Midwife
         private static string _AdminPath = Path.Combine(_DatabasePath, "Administraties");
         private static string _PatientsPath = Path.Combine(_DatabasePath, "Patients");
 
-        //TODO: bliver ikke brugt endnu
         public static void CreateDirectory(string NameOfDirectory)
         {
             Directory.CreateDirectory(NameOfDirectory);
         }
-        //TODO: bliver ikke brugt endnu
+
         public static void CreateFile(string Directory, string NameOfFile)
         {
             File.Create(Path.Combine(Directory, NameOfFile + ".txt")).Close();
@@ -124,7 +123,6 @@ namespace P3_Midwife
             file.Close();
         }
 
-
         public static void ReadBirthRecords(Patient patient)
         {
             StreamReader sr;
@@ -190,7 +188,6 @@ namespace P3_Midwife
                         temp.Time = DateTime.ParseExact(CIVDripInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
                         temp.NumberOfContractionsPerMinute = Convert.ToInt32(CIVDripInfo[2]);
                         temp.SDripMlPerHour = Convert.ToInt32(CIVDripInfo[3]);
-                        temp.Note = CIVDripInfo[4];
                         recordToBeAdded.ContractionIVDripList.Add(temp);
                     }
                 }
@@ -200,7 +197,7 @@ namespace P3_Midwife
                     int loopCounter = vgExpCounter + i;
                     for (; i < loopCounter; i++)
                     {
-                        vagExpInfo = information[0][i].Split('|');
+                        vagExpInfo = information[fileCounter][i].Split('|');
                         Record._vaginalExploration temp = new Record._vaginalExploration();
                         temp.Time = DateTime.ParseExact(vagExpInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
                         temp.Collum = Convert.ToInt32(vagExpInfo[2]);
@@ -210,7 +207,6 @@ namespace P3_Midwife
                         temp.Consistency = vagExpInfo[6];
                         temp.Location = vagExpInfo[7];
                         temp.AmnioticFluid = vagExpInfo[8];
-                        temp.Note = vagExpInfo[9];
                         recordToBeAdded.VaginalExplorationList.Add(temp);
                     }
                 }
@@ -220,7 +216,7 @@ namespace P3_Midwife
                     int loopCounter = micturitionCounter + i;
                     for (; i < loopCounter; i++)
                     {
-                        MictuInfo = information[0][i].Split('|');
+                        MictuInfo = information[fileCounter][i].Split('|');
                         Record._micturition temp = new Record._micturition();
                         temp.Time = DateTime.ParseExact(MictuInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
                         temp.MicturitionNote = MictuInfo[2];
@@ -233,7 +229,7 @@ namespace P3_Midwife
                     int loopCounter = fetusObsCounter + i;
                     for (; i < loopCounter; i++)
                     {
-                        fetusObsInfo = information[0][i].Split('|');
+                        fetusObsInfo = information[fileCounter][i].Split('|');
                         Record._fetusObservation temp = new Record._fetusObservation();
                         temp.Time = DateTime.ParseExact(fetusObsInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
                         temp.HearthFrequency = fetusObsInfo[2];
@@ -242,7 +238,6 @@ namespace P3_Midwife
                         temp.STAN = fetusObsInfo[5];
                         temp.ScalppH = Convert.ToDouble(fetusObsInfo[6]);
                         temp.ScalpLactate = Convert.ToDouble(fetusObsInfo[7]);
-                        temp.Note = fetusObsInfo[8];
                         recordToBeAdded.FetusObservationList.Add(temp);
                     }
                 }
@@ -252,7 +247,7 @@ namespace P3_Midwife
                     int loopCounter = birthInfoCounter + i;
                     for (; i < loopCounter; i++)
                     {
-                        birthInfo = information[0][i].Split('|');
+                        birthInfo = information[fileCounter][i].Split('|');
                         Record._birthInformation temp = new Record._birthInformation();
                         temp.Time = DateTime.ParseExact(birthInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
                         temp.Result = birthInfo[2];
@@ -261,7 +256,6 @@ namespace P3_Midwife
                         temp.BloodAmount = Convert.ToDouble(birthInfo[5]);
                         temp.BleedingCause = birthInfo[6];
                         temp.BirthPosition = birthInfo[7];
-                        temp.Note = birthInfo[8];
                         recordToBeAdded.BirthInformationList.Add(temp);
                     }
                 }
@@ -271,7 +265,7 @@ namespace P3_Midwife
                     int loopCounter = variCounter + i;
                     for (; i < loopCounter; i++)
                     {
-                        VariInfo = information[0][i].Split('|');
+                        VariInfo = information[fileCounter][i].Split('|');
                         recordToBeAdded.ThisRecordID = Convert.ToInt32(VariInfo[1]);
                         recordToBeAdded.TimeOfBirth = DateTime.ParseExact(VariInfo[2], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
                         recordToBeAdded.CircumferenceHead = Convert.ToDouble(VariInfo[3]);
@@ -299,7 +293,8 @@ namespace P3_Midwife
                         recordToBeAdded.Pharynx = Convert.ToBoolean(VariInfo[25]);
                         recordToBeAdded.Ventricle = Convert.ToBoolean(VariInfo[26]);
                         recordToBeAdded.Diagnosis = VariInfo[27];
-                        for (int h = 28; h < VariInfo.Length; h++)
+                        recordToBeAdded.Note = VariInfo[28];
+                        for (int h = 29; h < VariInfo.Length; h++)
                         {
                             recordToBeAdded.Diseases.Add(VariInfo[h]);
                         }
@@ -338,25 +333,13 @@ namespace P3_Midwife
             file.Close();
         }
 
-        public static void SaveRecord(Record record)
+        private static void SaveRecord(Record record)
         {
             StreamWriter file = new StreamWriter(Path.Combine(_PatientsPath, record.RecordsPatient.CPR.ToString(), "_Record"+record.ThisRecordID.ToString()+".txt"));
             file.Write(record.ToFile());
             file.Close();
         }
 
-        #region Add to file
-        public static void AddPatientOrEmployeeToFile(object _person)
-        {
-            string _nameOfFile = GetPersonFilePath(_person);
-
-            string AccountFile = (Path.Combine(Environment.CurrentDirectory + "\\PersonInfo", _nameOfFile));
-            using (StreamWriter sw = File.AppendText(AccountFile))
-            {
-                sw.WriteLine(_person.ToString());
-            }
-        }
-        #endregion
         #region Remove from file
         public static void RemovePatientFromRoomFile(Patient _person)
         {
@@ -365,36 +348,8 @@ namespace P3_Midwife
             text = text.Replace(" " + _person.CPR, null);
             File.WriteAllText(AccountFile, text);
         }
-
-        public static void RemovePatientFromFile(Patient _person)
-        {
-            string _nameOfFile = GetPersonFilePath(_person);
-            string AccountFile = (Environment.CurrentDirectory + "\\PersonInfo\\Patient_Info.txt");
-
-            string [] originalLines = File.ReadAllLines(AccountFile);
-            List<string> updated = new List<string>();
-
-            foreach (string item in originalLines)
-            {
-                if(!item.Contains(_person.CPR))
-                {
-                    updated.Add(item);
-                }
-            }
-            File.WriteAllLines(AccountFile, updated);
-        }
         #endregion
-        #region File Path Operations
-        private static string GetPersonFilePath(object _person)
-        {
-            if (_person is Employee)
-                return "Employee_info.txt";
-            else if (_person is Patient)
-                return "Patient_Info.txt";
-            else
-                throw (new Exception("Object is not patient or employee"));
-        }
-        #endregion
+
         #region Read from file
         public static void ReadMedicalServiceFromFile(string FilePath)
         {
