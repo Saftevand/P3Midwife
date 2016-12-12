@@ -18,18 +18,30 @@ namespace P3_Midwife
         //Removes a patient from ward
         public void TransferPatient(Patient patient)
         {
+<<<<<<< HEAD
+            Filemanagement.RemovePatientFromRoomFile(_patient);
+            //Filemanagement.RemovePatientFromFile(_patient);
+
+            if(_patient.Children.Count > 0)
+=======
             DeliveryRoom tempRoom = Ward.DeliveryRooms.Find(x => x.PatientsInRoom.Contains(patient));
             if (tempRoom != null)
+>>>>>>> 7620003f4b5a7cfabce12bb62f597317effa4b6d
             {
                 if (patient.Children.Count > 0)
                 {
                     foreach (Patient child in patient.Children)
                     {
+<<<<<<< HEAD
+                        //Filemanagement.RemovePatientFromFile(item);
+                        Filemanagement.RemovePatientFromRoomFile(item);
+=======
                         if (tempRoom.PatientsInRoom.Contains(child))
                         {
                             tempRoom.PatientsInRoom.Remove(child);
                             CurrentPatients.Remove(child);
                         }
+>>>>>>> 7620003f4b5a7cfabce12bb62f597317effa4b6d
                     }
                 }
                 tempRoom.PatientsInRoom.Remove(patient);

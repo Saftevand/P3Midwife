@@ -116,13 +116,20 @@ namespace P3_Midwife.ViewModel
                 Messenger.Default.Send(tempRecord, "NewRecordToRecordView");
                 Messenger.Default.Send(new NotificationMessage("ToRecord"));
             });
-            this.OpenRecordCommand = new RelayCommand(parameter =>
-            {
-                Messenger.Default.Send(new NotificationMessage("ToRecord"));
-                Messenger.Default.Send(PatientCurrent, "PatientToRecordView");
-                Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");
-                Messenger.Default.Send(RecordSelected, "NewRecordToRecordView");
-            });
+            //this.OpenRecordCommand = new RelayCommand(parameter =>
+            //{
+            //    if (RecordSelected.IsActive == true)
+            //    {
+            //        Messenger.Default.Send(new NotificationMessage("ToRecord"));
+            //    }
+            //    else
+            //    {
+            //        Messenger.Default.Send(new NotificationMessage("ToFinalRecord"));
+            //    }
+            //    Messenger.Default.Send(PatientCurrent, "PatientToRecordView");
+            //    Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");
+            //    Messenger.Default.Send(RecordSelected, "NewRecordToRecordView");
+            //});
         }
     }
 }
