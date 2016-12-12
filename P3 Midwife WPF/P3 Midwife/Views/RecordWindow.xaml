@@ -421,8 +421,9 @@
             <ListViewItem Content="{Binding PatientCurrent.Gender}" Margin="0"/>
             <ListViewItem Content="{Binding PatientCurrent.CPR}" Margin="0"/>
 
-            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0, 30">
-                <Button Command="{Binding NewChildCommand}">
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                <Button Command="{Binding NewChildDialogCommand}">
+
                     Nyt barn
                 </Button>
                 <!--<Button Command="{Binding MedicinCommand}">

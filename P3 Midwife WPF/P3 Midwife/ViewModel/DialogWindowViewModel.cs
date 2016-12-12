@@ -29,8 +29,6 @@ namespace P3_Midwife.ViewModel
             set { this.SetValue(CPREnteredProperty, value); }
         }
 
-
-
         public DialogWindowViewModel()
         {
             this.AddPatientComand = new RelayCommand(parameter =>

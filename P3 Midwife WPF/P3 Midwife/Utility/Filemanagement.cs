@@ -22,16 +22,19 @@ namespace P3_Midwife
 
         public static void CreateFile(string Directory, string NameOfFile)
         {
-            File.Create(Path.Combine(Directory, NameOfFile + ".txt")).Close();
+            if (!File.Exists(Path.Combine(Directory, NameOfFile + ".txt")))
+            {
+                File.Create(Path.Combine(Directory, NameOfFile + ".txt")).Close();
+            }
         }
 
         public static void InitialiseFoldersAndFiles()
         {
             InitialiseMainFolders();
+            ReadPatients();
             InitialiseAdminFiles();
-            WriteInitialEmployeeFile();
-            WriteInitialMedicalServicesFile();
-            WriteInitialRoomFile();
+            
+
         }
 
         private static void InitialiseMainFolders()
@@ -59,7 +62,7 @@ namespace P3_Midwife
                 StreamWriter file = new StreamWriter(Path.Combine(_AdminPath, "Room_info.txt"));
                 for (int i = 0; i < NumberOfRooms; i++)
                 {
-                    file.WriteLine(i.ToString() + " f");
+                    file.WriteLine(i.ToString() + " False");
                 }
                 file.Close();
             }
@@ -71,7 +74,7 @@ namespace P3_Midwife
 
         private static void WriteInitialEmployeeFile()
         {
-            if(String.IsNullOrWhiteSpace(File.ReadAllText(Path.Combine(_AdminPath, "Employee_info.txt"))))
+            if(String.IsNullOrEmpty(File.ReadAllText(Path.Combine(_AdminPath, "Employee_info.txt"))))
             {
                 StreamWriter file = new StreamWriter(Path.Combine(_AdminPath, "Employee_info.txt"));
                 file.WriteLine("1 Gitte Bredahl 123 56189416 palminde@hotmail.com 1");
@@ -81,8 +84,7 @@ namespace P3_Midwife
                 file.WriteLine("5 x x x 1 x 1");
                 file.Close();
             }
-
-            ReadEmployees(Path.Combine(_AdminPath, "Employee_info.txt"));
+            else ReadEmployees(Path.Combine(_AdminPath, "Employee_info.txt"));
         }
 
         private static void WriteInitialMedicalServicesFile()
@@ -124,6 +126,130 @@ namespace P3_Midwife
             file.Close();
         }
 
+        public static void SaveToDatabase()
+        {
+            SaveRoomFile();
+            SaveEmployeeFile();
+        }
+
+        private static void SaveRoomFile()
+        {
+            StreamWriter file = new StreamWriter(Path.Combine(_AdminPath, "Room_info.txt"));
+            foreach (DeliveryRoom room in Ward.DeliveryRooms)
+            {
+                file.Write(room.RoomID.ToString() + " " + room.Occupied.ToString());
+                foreach (Patient patient in room.PatientsInRoom)
+                {
+                    file.Write(" " + patient.CPR.ToString());
+                }
+                file.WriteLine();
+            }
+            file.Close();
+        }
+
+        private static void SaveEmployeeFile()
+        {
+            StreamWriter file = new StreamWriter(Path.Combine(_AdminPath, "Employee_info.txt"));
+            foreach (Employee employee in Ward.Employees)
+            {
+                file.Write(employee.ID.ToString() + " " + employee.Name + " " + employee.Password.ToString() + " " + employee.TelephoneNumber.ToString() + " " + employee.Email + " ");
+                if (employee is Midwife)
+                {
+                    file.Write("1");
+                }
+                else file.Write("2");
+                foreach (Patient patient in employee.CurrentPatients)
+                {
+                    file.Write(" " + patient.CPR.ToString());
+                }
+                file.WriteLine();
+            }
+            file.Close();
+        }
+
+        private static void SaveRecord(Record record)
+        {
+            StreamWriter file = new StreamWriter(Path.Combine(_PatientsPath, record.RecordsPatient.CPR.ToString(), "_Record"+record.ThisRecordID.ToString()));
+            file.Write(record.ToFile());
+            file.Close();
+            //SaveBill(record.CurrentBill);
+        }
+
+
+        #region Read from file
+        public static void ReadMedicalServiceFromFile(string FilePath)
+        {
+            Stream ServicesFile = File.Open(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using (StreamReader sr = new StreamReader(ServicesFile))
+            {
+                string _tempString;
+                string[] _subStrings;
+
+                while ((_tempString = sr.ReadLine()) != null)
+                {
+                    _subStrings = _tempString.Split(' ');
+                    MedicalService currentService = new MedicalService(Convert.ToDecimal(_subStrings[2]), _subStrings[1], _subStrings[0]);
+                    Ward.MedicalServicesList.Add(currentService);
+                    TextEditor.values.Add(_subStrings[0], _subStrings[1]);
+                }
+            }
+        }
+        public static void ReadRooms(string FilePath)
+        {
+            Stream AccountFile = File.Open(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using (StreamReader sr = new StreamReader(AccountFile))
+            {
+                string _tempString;
+                string[] _subStrings;
+                DeliveryRoom currentRoom;
+
+                while ((_tempString = sr.ReadLine()) != null)
+                {
+                    _subStrings = _tempString.Split(' ');
+
+                    currentRoom = new DeliveryRoom(Convert.ToInt32(_subStrings[0]), Convert.ToBoolean(_subStrings[1]));
+                    Ward.DeliveryRooms.Add(currentRoom);
+                    if (_subStrings.Length > 2)
+                    {
+                        for (int i = 2; i < _subStrings.Length; i++)
+                        {
+                            currentRoom.PatientsInRoom.Add(Ward.Patients.Find(x => x.CPR == _subStrings[i]));
+                        }
+                    }
+                }
+            }
+        }
+        public static void ReadEmployees(string FilePath)
+        {
+            Stream AccountFile = File.Open(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using (StreamReader sr = new StreamReader(AccountFile))
+            {
+                string _tempString;
+                string[] _subStrings;
+
+                while ((_tempString = sr.ReadLine()) != null)
+                {
+                    _subStrings = _tempString.Split(' ');
+
+                    if (_subStrings[6] == "1")
+                    {
+                        Ward.Employees.Add(new Midwife(Convert.ToInt32(_subStrings[0]), _subStrings[1] +" "+ _subStrings[2], _subStrings[3], Convert.ToInt32(_subStrings[4]), _subStrings[5]));
+                    }
+                    else if (_subStrings[6] == "2")
+                    {
+                        Ward.Employees.Add(new SOSU(Convert.ToInt32(_subStrings[0]), _subStrings[1] + " " + _subStrings[2], _subStrings[3], Convert.ToInt32(_subStrings[4]), _subStrings[5]));
+                    }
+                    if(_subStrings.Length > 7)
+                    {
+                        for (int i = 7; i < _subStrings.Length; i++)
+                        {
+                            Ward.Employees.Last().CurrentPatients.Add(Ward.Patients.Find(x => x.CPR == _subStrings[i]));
+                        }
+                    }
+                    
+                }
+            }
+        }
         public static void ReadBirthRecords(Patient patient)
         {
             StreamReader sr;
@@ -138,7 +264,7 @@ namespace P3_Midwife
             Record recordToBeAdded;
             string lortstreng;
             string[] filer = Directory.GetFiles(Path.Combine(_PatientsPath, patient.CPR.ToString())).Where(x => !x.Contains("info")).ToArray();
-            
+
             foreach (string fil in filer)
             {
                 recordToBeAdded = new Record(patient);
@@ -306,7 +432,6 @@ namespace P3_Midwife
                 fileCounter++;
             }
         }
-
         public static void ReadPatients()
         {
             StreamReader sr;
@@ -315,31 +440,11 @@ namespace P3_Midwife
                 sr = new StreamReader(Path.Combine(FolderName, "_info.txt"));
                 string[] informationline = sr.ReadLine().Split(' ');
                 string test = informationline[0] + " " + informationline[1];
-                Ward.Patients.Add(new Patient(FolderName.Substring(_PatientsPath.Length+1,10), informationline[0] + " " + informationline[1]));
+                Ward.Patients.Add(new Patient(FolderName.Substring(_PatientsPath.Length + 1, 10), informationline[0] + " " + informationline[1]));
                 sr.Close();
             }
         }
 
-        public static void SaveToDatabase()
-        {
-            StreamWriter file = new StreamWriter(Path.Combine(_AdminPath, "Room_info.txt"));
-            foreach (DeliveryRoom room in Ward.DeliveryRooms)
-            {
-                file.WriteLine(room.ToString());
-                foreach (Patient patient in room.PatientsInRoom)
-                {
-                    file.Write(patient.CPR.ToString());
-                }
-            }
-            file.Close();
-        }
-
-        private static void SaveRecord(Record record)
-        {
-            StreamWriter file = new StreamWriter(Path.Combine(_PatientsPath, record.RecordsPatient.CPR.ToString(), "_Record"+record.ThisRecordID.ToString()+".txt"));
-            file.Write(record.ToFile());
-            file.Close();
-        }
 
         #region Remove from file
         public static void RemovePatientFromRoomFile(Patient _person)
@@ -351,87 +456,13 @@ namespace P3_Midwife
         }
         #endregion
 
-        #region Read from file
-        public static void ReadMedicalServiceFromFile(string FilePath)
+
+
+        public static void SaveBill(Bill bill)
         {
-            Stream ServicesFile = File.Open(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            using (StreamReader sr = new StreamReader(ServicesFile))
-            {
-                string _tempString;
-                string[] _subStrings;
-
-                while ((_tempString = sr.ReadLine()) != null)
-                {
-                    _subStrings = _tempString.Split(' ');
-                    MedicalService currentService = new MedicalService(Convert.ToDecimal(_subStrings[2]), _subStrings[1], _subStrings[0]);
-                    Ward.MedicalServicesList.Add(currentService);
-                    TextEditor.values.Add(_subStrings[0], _subStrings[1]);
-                }
-            }
-        }
-        public static void ReadRooms(string FilePath)
-        {
-            Stream AccountFile = File.Open(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            using (StreamReader sr = new StreamReader(AccountFile))
-            {
-                string _tempString;
-                string[] _subStrings;
-                int RoomID;
-                DeliveryRoom currentRoom;
-
-                while ((_tempString = sr.ReadLine()) != null)
-                {
-                    _subStrings = _tempString.Split(' ');
-                    RoomID = Convert.ToInt32(_subStrings[0]);
-                    bool occupied = false;
-
-                    if (_subStrings[1] == "t")
-                        occupied = true;
-
-                    currentRoom = new DeliveryRoom(RoomID, occupied);
-                    Ward.DeliveryRooms.Add(currentRoom);
-
-                    for (int i = 2; i < _subStrings.Length; i++)
-                    {
-                        if (Ward.Patients.Any(x => x.CPR == _subStrings[i]))
-                            currentRoom.PatientsInRoom.Add(Ward.Patients.Find(x => x.CPR == _subStrings[i]));
-                        else
-                            throw new Exception("Patient doesnt exist");
-                    }
-                }
-            }
-        }
-
-        public static void ReadEmployees(string FilePath)
-        {
-            Stream AccountFile = File.Open(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            using (StreamReader sr = new StreamReader(AccountFile))
-            {
-                string _tempString;
-                string[] _subStrings;
-
-                while ((_tempString = sr.ReadLine()) != null)
-                {
-                    _subStrings = _tempString.Split(' ');
-
-                    if (_subStrings[6] == "1")
-                    {
-                        Ward.Employees.Add(new Midwife(Convert.ToInt32(_subStrings[0]), _subStrings[1] +" "+ _subStrings[2], _subStrings[3], Convert.ToInt32(_subStrings[4]), _subStrings[5]));
-                    }
-                    else if (_subStrings[6] == "2")
-                    {
-                        Ward.Employees.Add(new SOSU(Convert.ToInt32(_subStrings[0]), _subStrings[1] + " " + _subStrings[2], _subStrings[3], Convert.ToInt32(_subStrings[4]), _subStrings[5]));
-                    }
-                }
-            }
-        }
-        #endregion
-        public static void WriteBill(Bill bill)
-        {
-            CreateFile(Environment.CurrentDirectory + "\\PersonInfo", bill.BillsRecord.RecordsPatient.CPR + "_" + bill.RecordID.ToString() + ".txt");
-            string AccountFile = (Path.Combine(Environment.CurrentDirectory + "\\PersonInfo", bill.BillsRecord.RecordsPatient.CPR + "_" + bill.RecordID.ToString() + ".txt"));
-
-            using (StreamWriter sw = new StreamWriter(AccountFile))
+            string billpath = Path.Combine(_PatientsPath, Ward.Patients.Find(x => x.RecordList.Any(y => y.ThisRecordID == bill.RecordID)).CPR.ToString(),"_Bill" + bill.RecordID.ToString() + ".txt");
+            CreateFile(Path.Combine(_PatientsPath, Ward.Patients.Find(x => x.RecordList.Any(y => y.ThisRecordID == bill.RecordID)).CPR.ToString()), "_Bill" + bill.RecordID.ToString());
+            using (StreamWriter sw = new StreamWriter(billpath))
             {
                 foreach (MedicalService item in bill.BillItemList)
                 {
@@ -439,6 +470,11 @@ namespace P3_Midwife
                 }
                 sw.WriteLine("Total price : " + bill.TotalPrice.ToString());
             }
+        }
+
+        public static void ReadBill()
+        {
+
         }
 
         public static List<string> DanishWordList = new List<string>();
@@ -460,3 +496,4 @@ namespace P3_Midwife
 
     }
 }
+#endregion

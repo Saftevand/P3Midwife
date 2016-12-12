@@ -13,10 +13,12 @@ namespace P3_Midwife.ViewModel
     public class RecordViewModel : DependencyObject
     {
         private Employee _currentEmployee;
+        private ObservableCollection<char> _genders = new ObservableCollection<char> { 'D', 'P' };
         public RelayCommand LogOutCommand { get; }
         public RelayCommand ExitCommand { get; }
         public RelayCommand BackCommand { get; }
-        public RelayCommand NewChildCommand { get; }
+        public RelayCommand NewChildDialogCommand { get; }
+        public RelayCommand MedicinCommand { get; }
         public RelayCommand SaveAndCompleteCommand { get; }
         public RelayCommand AddBirthInfo { get; }
         public RelayCommand AddContractionIVDripInfo { get; }
@@ -26,7 +28,11 @@ namespace P3_Midwife.ViewModel
         public RelayCommand RemoveMedicalService { get; }
         public RelayCommand AddMedicalService { get; }
         public RelayCommand OpenMedicalServicesToAdd { get; }
+        public RelayCommand CreateChildCommand { get; }
 
+        public static DependencyProperty ChildBirthDateProperty = DependencyProperty.Register(nameof(ChildBirthDate), typeof(DateTime), typeof(RecordViewModel));
+        public static DependencyProperty ChildGenderProperty = DependencyProperty.Register(nameof(ChildGender), typeof(char), typeof(RecordViewModel));
+        public static DependencyProperty ChildBirthTimeProperty = DependencyProperty.Register(nameof(ChildBirthTimeProperty), typeof(DateTime), typeof(RecordViewModel));
         public static DependencyProperty PatientProperty = DependencyProperty.Register(nameof(PatientCurrent), typeof(Patient), typeof(RecordViewModel));
         public static DependencyProperty RecordProperty = DependencyProperty.Register(nameof(RecordCurrent), typeof(Record), typeof(RecordViewModel));
         public static DependencyProperty BirthInfoProperty = DependencyProperty.Register(nameof(BirthInfo), typeof(BirthInformation), typeof(RecordViewModel));
@@ -45,6 +51,31 @@ namespace P3_Midwife.ViewModel
         private ObservableCollection<MedicalService> _medicalServicesList = new ObservableCollection<MedicalService>();
         private ObservableCollection<MedicalService> _availableMedicalServices = new ObservableCollection<MedicalService>();
 
+        public ObservableCollection<char> Genders
+        {
+            get { return _genders; }
+            set { _genders = value; }
+
+        }
+
+        public char ChildGender
+        {
+            get { return (char)this.GetValue(ChildGenderProperty); }
+            set { this.SetValue(ChildGenderProperty, value); }
+        }
+
+        public DateTime ChildBirthDate
+        {
+            get { return (DateTime)this.GetValue(ChildBirthDateProperty); }
+            set { this.SetValue(ChildBirthDateProperty, value); }
+        }
+
+        public DateTime ChildBirthTime
+        {
+            get { return (DateTime)this.GetValue(ChildBirthTimeProperty); }
+            set { this.SetValue(ChildBirthTimeProperty, value); }
+        }
+        
         public ObservableCollection<MedicalService> MedicalServices
         {
             get { return _availableMedicalServices; }
@@ -172,6 +203,20 @@ namespace P3_Midwife.ViewModel
                 MedicalServicesList.Add(SelectedAvailableMedicalServiceInfo);
             });
 
+            this.CreateChildCommand = new RelayCommand(parameter =>
+            {
+                Midwife tempMidwife = _currentEmployee as Midwife;
+                tempMidwife.CreatePatient(PatientCurrent, ChildGender, ChildBirthDate.Date+ChildBirthTime.TimeOfDay);
+                Messenger.Default.Send(PatientCurrent, "PatientToNewChildView");
+                Messenger.Default.Send(EmployeeCurrent, "EmployeetoNewChildView");
+                Patient tempChild = PatientCurrent.Children.Find(x => x.BirthDateTime == ChildBirthDate + ChildBirthTime.TimeOfDay);
+                Messenger.Default.Send(tempChild, "ChildToNewChildView");
+                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToNewChild"));
+                //Messenger.Default.Send<NotificationMessage>(new NotificationMessage("SaveChildBasic"));
+
+            });
+
+
             this.OpenMedicalServicesToAdd = new RelayCommand(parameter =>
             {
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("AddMedicalServices"));
@@ -197,16 +242,12 @@ namespace P3_Midwife.ViewModel
                 Messenger.Default.Send(PatientCurrent, "Patient");
                 Messenger.Default.Send(EmployeeCurrent, "Employee");
             });
-            this.NewChildCommand = new RelayCommand(parameter =>
-            {
-                if (EmployeeCurrent is Midwife)
-                {   
-                    new P3_Midwife.Views.NewChildWindow();
-                    Messenger.Default.Send(PatientCurrent, "PatientToNewChildView");
-                    Messenger.Default.Send(EmployeeCurrent, "EmployeetoNewChildView");
-                    Messenger.Default.Send(new NotificationMessage("NewChildDialog"));
-                }
-
+            this.NewChildDialogCommand = new RelayCommand(parameter =>
+            {  
+                ChildBirthDate = DateTime.Now;
+                Messenger.Default.Send(new NotificationMessage("NewChildDialog"));
+                new P3_Midwife.Views.NewChildWindow();
+                   
             });
             this.SaveAndCompleteCommand = new RelayCommand(parameter =>
             {

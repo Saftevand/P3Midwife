@@ -43,22 +43,26 @@ namespace P3_Midwife.ViewModel
         }
         public DeliveryRoom CurrentRoom
         {
-            get { return Ward.DeliveryRooms.Find(x => x.PatientsInRoom.Find(z => z.CPR == CurrentPatient.CPR) != null); }
+            get { return (DeliveryRoom)this.GetValue(PropertyRoom); }
+            set { this.SetValue(PropertyRoom, value); }
         }
 
         private void InitNewChild(Employee employee)
         {
             CurrentEmployee = employee;
             Midwife temp = CurrentEmployee as Midwife;
-            temp.CreatePatient(CurrentPatient, CurrentNewChild.Gender, CurrentNewChild.RecordList[0].TimeOfBirth.ToString());
+           // temp.CreatePatient(CurrentPatient, CurrentNewChild.Gender, CurrentNewChild.RecordList[0].TimeOfBirth.ToString());
         }
 
         public NewChildViewModel()
         {
-            Messenger.Default.Register<Patient>(this, "PatientToNewChildView", (ActivePatient) => { CurrentPatient = ActivePatient; });
-            Messenger.Default.Register<Employee>(this, "EmployeetoNewChildView",(ActiveEmployee) => InitNewChild(ActiveEmployee));
 
-            this.SaveAndComplete = new RelayCommand(parameter =>
+            Messenger.Default.Register<Patient>(this, "PatientToNewChildView", (ActivePatient) => { CurrentPatient = ActivePatient; CurrentRoom = Ward.DeliveryRooms.Find(x => x.PatientsInRoom.Contains(CurrentPatient)); });
+            Messenger.Default.Register<Employee>(this, "EmployeetoNewChildView",(ActiveEmployee) => CurrentEmployee =ActiveEmployee);
+            Messenger.Default.Register<Patient>(this, "ChildToNewChildView", (ActiveChild) => { CurrentNewChild = ActiveChild; });
+
+
+            this.SaveAndComplete = new RelayCommand(parameter => 
             {
                 Messenger.Default.Send(new NotificationMessage("ChildSave"));
                 Messenger.Default.Send(new NotificationMessage("ToRecord"));
@@ -76,6 +80,7 @@ namespace P3_Midwife.ViewModel
             });
             this.BackCommand = new RelayCommand(Parameter =>
             {
+       
                 Messenger.Default.Send(new NotificationMessage("ToRecord"));
                 Messenger.Default.Send(CurrentPatient, "PatientToRecordView");
                 Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");

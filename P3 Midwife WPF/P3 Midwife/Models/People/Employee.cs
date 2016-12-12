@@ -18,7 +18,7 @@ namespace P3_Midwife
         public int TelephoneNumber { get; set; }
         public string Email { get; set; }
         
-        public List<Patient> _currentPatients = new List<Patient>();
+        private List<Patient> _currentPatients = new List<Patient>();
 
         public Employee(int id, string name, string password, int telephonenumber, string email)
         {

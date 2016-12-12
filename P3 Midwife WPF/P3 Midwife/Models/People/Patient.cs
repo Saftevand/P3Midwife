@@ -13,14 +13,16 @@ namespace P3_Midwife
         private string _name;
         private Patient _mother;
         private string _CPR;
+        private DateTime _birthDateTime;
         private List<Patient> _children = new List<Patient>();
         private List<Record> _recordList = new List<Record>();
 
         public string CPR { get { return _CPR; } set { _CPR = value; } }
-        public string Name { get { return _name; } set { _name = value; }}
-        public char Gender { get { return _gender; } set {  _gender = value; }}
+        public string Name { get { return _name; } set { _name = value; } }
+        public char Gender { get { return _gender; } set { _gender = value; } }
+        public DateTime BirthDateTime { get { return _birthDateTime; } set { _birthDateTime = value; } }
         public int Age { get { return CalcAge(); } }
-        public Patient Mother { get {return _mother; } set { _mother = value; } }
+        public Patient Mother { get { return _mother; } set { _mother = value; } }
         public List<Patient> Children { get { return _children; } set { _children = value; } }
         public List<Record> RecordList { get { return _recordList; } set { _recordList = value; } }
 
@@ -31,7 +33,7 @@ namespace P3_Midwife
             this._CPR = PatientCPR;
             this._name = PatientName;
             this._gender = FindGenderFromCPR(PatientCPR);
-           // this.RecordList.Add(new Record(this));
+            // this.RecordList.Add(new Record(this));
         }
 
         public Patient(string PatientCPR)
@@ -52,6 +54,14 @@ namespace P3_Midwife
             this._mother = mother;
             mother.Children.Add(this);
         }
+        public Patient(char gender, DateTime birthDateTime, Patient mother)
+        {
+            this._birthDateTime = birthDateTime;
+            GenerateCpr(gender, birthDateTime.ToString("ddMMyy"));
+            this._gender = gender;
+            this._mother = mother;
+            mother.Children.Add(this);
+        }
 
         public Patient()
         {
@@ -66,7 +76,7 @@ namespace P3_Midwife
             if ((int)char.GetNumericValue(_cpr[9]) % 2 == 0)
                 return 'P';
             else
-                return 'D';  
+                return 'D';
         }
 
         //TODO: HUSK GENERATE CPR ER OVERLOADET den med "date" er til at teste. ikke sikkert den er nødvendig
@@ -80,7 +90,7 @@ namespace P3_Midwife
         public void GenerateCpr(char gender, string date)
         {
             int[] CPR = new int[10];
-            
+
             string result = null;
 
             //Puts date into int array for later calculations
@@ -199,7 +209,7 @@ namespace P3_Midwife
         {
             string result = this.CPR + " " + this.Name;
 
-            foreach (Patient  children in _children)
+            foreach (Patient children in _children)
             {
                 result += " " + children.CPR;
             }

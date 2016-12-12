@@ -31,6 +31,7 @@ namespace P3_Midwife
             new DialogWindow();
             new PatientWindow();
             new FinalRecordWindow();
+            new ChildInfoDialogWindow();
             Show();     
         }
 
