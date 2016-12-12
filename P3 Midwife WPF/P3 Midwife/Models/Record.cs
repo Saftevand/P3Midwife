@@ -165,7 +165,7 @@ namespace P3_Midwife
         public List<_contractionIVDrip> ContractionIVDripList { get { return this._contractionIVDRIPList; } set { _contractionIVDRIPList = value; } }
         public List<_birthInformation> BirthInformationList { get { return this._birthInformationList; } set { _birthInformationList = value; } }
         public double CircumferenceHead { get { return this._circumferenceHead; } set { this._circumferenceHead = value; } }
-        public double CircumferenceStomach { get; set; }
+        public double CircumferenceStomach { get { return this._circumferenceStomach; } set { this._circumferenceStomach = value; } }
         public double BloodSugar { get { return this._bloodSugar; } set { this._bloodSugar = value; } }
         public string GA { get { return this._GA; } set { this._GA = value; } }
         public double Weight { get { return this._weight; } set { this._weight = value; } }
@@ -220,7 +220,6 @@ namespace P3_Midwife
         //Creates Bill file and deactivates the bill.
         public void ArchiveBill()
         {
-            Filemanagement.WriteBill(this.CurrentBill);
             this.CurrentBill.Active = false;
         }
 

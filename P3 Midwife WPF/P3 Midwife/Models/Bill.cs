@@ -15,7 +15,6 @@ namespace P3_Midwife
         //private Record _record;
         private List<MedicalService> _billItemList = new List<MedicalService>();
         private decimal _totalPrice;
-        private Record _recordID;
         #endregion
 
 
