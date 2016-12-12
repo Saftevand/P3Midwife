@@ -168,9 +168,10 @@ namespace P3_Midwife
 
         private static void SaveRecord(Record record)
         {
-            StreamWriter file = new StreamWriter(Path.Combine(_PatientsPath, record.RecordsPatient.CPR.ToString(), "_Record"+record.ThisRecordID.ToString()+".txt"));
+            StreamWriter file = new StreamWriter(Path.Combine(_PatientsPath, record.RecordsPatient.CPR.ToString(), "_Record"+record.ThisRecordID.ToString()));
             file.Write(record.ToFile());
             file.Close();
+            SaveBill(record.CurrentBill);
         }
 
 
@@ -445,12 +446,11 @@ namespace P3_Midwife
         #endregion
 
 
-        public static void WriteBill(Bill bill)
+        public static void SaveBill(Bill bill)
         {
-            CreateFile(Environment.CurrentDirectory + "\\PersonInfo", bill.BillsRecord.RecordsPatient.CPR + "_" + bill.RecordID.ToString() + ".txt");
-            string AccountFile = (Path.Combine(Environment.CurrentDirectory + "\\PersonInfo", bill.BillsRecord.RecordsPatient.CPR + "_" + bill.RecordID.ToString() + ".txt"));
-
-            using (StreamWriter sw = new StreamWriter(AccountFile))
+            string billpath = Path.Combine(_PatientsPath, Ward.Patients.Find(x => x.RecordList.Any(y => y.ThisRecordID == bill.RecordID)).CPR.ToString(),"_Bill" + bill.RecordID.ToString() + ".txt");
+            CreateFile(Path.Combine(_PatientsPath, Ward.Patients.Find(x => x.RecordList.Any(y => y.ThisRecordID == bill.RecordID)).CPR.ToString()), "_Bill" + bill.RecordID.ToString());
+            using (StreamWriter sw = new StreamWriter(billpath))
             {
                 foreach (MedicalService item in bill.BillItemList)
                 {
@@ -458,6 +458,11 @@ namespace P3_Midwife
                 }
                 sw.WriteLine("Total price : " + bill.TotalPrice.ToString());
             }
+        }
+
+        public static void ReadBill()
+        {
+
         }
 
         public static List<string> DanishWordList = new List<string>();
