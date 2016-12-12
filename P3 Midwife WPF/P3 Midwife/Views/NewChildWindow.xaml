@@ -128,37 +128,54 @@
             </ItemsControl>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Margin="706,225,108.6,265.4">
+        <StackPanel Orientation="Horizontal" Margin="611,140,203.6,325.4">
             <ItemsControl>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Apgar 1 min: "/>
-                    </Label>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Apgar 5 min: "/>
-                    </Label>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Apgar 10 min: "/>
-                    </Label>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Bemærkninger "/>
-                    </Label>
-                </TextBlock>
+                <TextBlock><InlineUIContainer>
+            			<Label>
+            				<Run Text="Apgar 1 min: "/>
+            			</Label>
+            		</InlineUIContainer></TextBlock>
+                <TextBlock><InlineUIContainer>
+            			<Label>
+            				<Run Text="Apgar 5 min: "/>
+            			</Label>
+            		</InlineUIContainer></TextBlock>
+                <TextBlock><InlineUIContainer>
+            			<Label>
+            				<Run Text="Apgar 10 min: "/>
+            			</Label>
+            		</InlineUIContainer></TextBlock>
+                <TextBlock><InlineUIContainer>
+            			<Label>
+            				<Run Text="Bemærkninger "/>
+            			</Label>
+            		</InlineUIContainer></TextBlock>
             </ItemsControl>
-            <ItemsControl Width="278">
+            <ItemsControl Width="78">
                 <TextBox Text="{Binding CurrentRecord.ApgarOneMinute}"/>
                 <TextBox Text="{Binding CurrentRecord.ApgarFiveMinutes}"/>
                 <TextBox Text="{Binding CurrentRecord.ApgarTenMinutes}"/>
                 <StackPanel Width="115">
+                    <TextBox x:Name="txtAuto" Text="{Binding CurrentRecord.FurtherNotice}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="-73,0,-81.8,0"/>
                     <ListBox x:Name="lbSuggestions" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" 
             			Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
-                    <TextBox x:Name="txtAuto" Text="{Binding CurrentRecord.FurtherNotice}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="-73,0,-81.8,0"/>
+                </StackPanel>
+            </ItemsControl>
+            <ItemsControl>
+                <StackPanel Width="115">
+                    <TextBox x:Name="ApgarOneMinTextBox" Text="{Binding CurrentRecord.ApgarOneMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="0,0,-81.8,0"/>
+                    <ListBox x:Name="w2" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" 
+            			Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
+                </StackPanel>
+                <StackPanel Width="115">
+                    <TextBox x:Name="ApgarFiveMinTextBox" Text="{Binding CurrentRecord.ApgarFiveMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="0,0,-81.8,0"/>
+                    <ListBox x:Name="w4" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" 
+            			Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
+                </StackPanel>
+                <StackPanel Width="115">
+                    <TextBox x:Name="ApgarTenMinTextBox" Text="{Binding CurrentRecord.ApgarTenMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="0,0,-81.8,0"/>
+                    <ListBox x:Name="w6" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" 
+            			Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
                 </StackPanel>
             </ItemsControl>
         </StackPanel>
@@ -191,7 +208,7 @@
                     </Label>
                 </TextBlock>
             </ItemsControl>
-                          
+
             <ItemsControl>
                 <CheckBox IsChecked="{Binding CurrentRecord.Sucking}"/>
                 <CheckBox IsChecked="{Binding CurrentRecord.Nose}"/>

@@ -24,6 +24,11 @@ namespace P3_Midwife.Views
             InitializeComponent();
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
             txtAuto.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
+
+        //  ApgarOneMinTextBox.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
+        //  ApgarFiveMinTextBox.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
+        //  ApgarTenMinTextBox.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
+
             provider = new WordSuggesetionProvider();
             isNotClosed = false;
         }
@@ -66,13 +71,13 @@ namespace P3_Midwife.Views
 
         private void txtAuto_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == System.Windows.Input.Key.Tab)
+            if (e.Key == Key.Tab)
             {
                 e.Handled = true;
                 lbSuggestions.SelectedIndex = 0;
                 text_Append();
             }
-            if (e.Key == System.Windows.Input.Key.Down)
+            if (e.Key == Key.Down)
             {
                 lbSuggestions.Focus();
             }

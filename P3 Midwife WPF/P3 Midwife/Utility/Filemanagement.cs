@@ -442,28 +442,7 @@ namespace P3_Midwife
                 sr.Close();
             }
         }
-<<<<<<< HEAD
 
-        public static void SaveToDatabase()
-        {
-            StreamWriter file = new StreamWriter(Path.Combine(_AdminPath, "Room_info.txt"));
-            foreach (DeliveryRoom room in Ward.DeliveryRooms)
-            {
-                file.WriteLine(room.ToString());
-                foreach (Patient patient in room.PatientsInRoom)
-                {
-                    file.Write(patient.CPR.ToString());
-                }
-            }
-            file.Close();
-        }
-
-        private static void SaveRecord(Record record)
-        {
-            StreamWriter file = new StreamWriter(Path.Combine(_PatientsPath, record.RecordsPatient.CPR.ToString(), "_Record"+record.ThisRecordID.ToString()+".txt"));
-            file.Write(record.ToFile());
-            file.Close();
-        }
 
         #region Remove from file
         public static void RemovePatientFromRoomFile(Patient _person)
@@ -475,86 +454,8 @@ namespace P3_Midwife
         }
         #endregion
 
-        #region Read from file
-        public static void ReadMedicalServiceFromFile(string FilePath)
-        {
-            Stream ServicesFile = File.Open(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            using (StreamReader sr = new StreamReader(ServicesFile))
-            {
-                string _tempString;
-                string[] _subStrings;
 
-                while ((_tempString = sr.ReadLine()) != null)
-                {
-                    _subStrings = _tempString.Split(' ');
-                    MedicalService currentService = new MedicalService(Convert.ToDecimal(_subStrings[2]), _subStrings[1], _subStrings[0]);
-                    Ward.MedicalServicesList.Add(currentService);
-                    TextEditor.values.Add(_subStrings[0], _subStrings[1]);
-                }
-            }
-        }
-        public static void ReadRooms(string FilePath)
-        {
-            Stream AccountFile = File.Open(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            using (StreamReader sr = new StreamReader(AccountFile))
-            {
-                string _tempString;
-                string[] _subStrings;
-                int RoomID;
-                DeliveryRoom currentRoom;
-
-                while ((_tempString = sr.ReadLine()) != null)
-                {
-                    _subStrings = _tempString.Split(' ');
-                    RoomID = Convert.ToInt32(_subStrings[0]);
-                    bool occupied = false;
-
-                    if (_subStrings[1] == "t")
-                        occupied = true;
-
-                    currentRoom = new DeliveryRoom(RoomID, occupied);
-                    Ward.DeliveryRooms.Add(currentRoom);
-
-                    for (int i = 2; i < _subStrings.Length; i++)
-                    {
-                        if (Ward.Patients.Any(x => x.CPR == _subStrings[i]))
-                            currentRoom.PatientsInRoom.Add(Ward.Patients.Find(x => x.CPR == _subStrings[i]));
-                        else
-                            throw new Exception("Patient doesnt exist");
-                    }
-                }
-            }
-        }
-
-        public static void ReadEmployees(string FilePath)
-        {
-            Stream AccountFile = File.Open(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            using (StreamReader sr = new StreamReader(AccountFile))
-            {
-                string _tempString;
-                string[] _subStrings;
-
-                while ((_tempString = sr.ReadLine()) != null)
-                {
-                    _subStrings = _tempString.Split(' ');
-
-                    if (_subStrings[6] == "1")
-                    {
-                        Ward.Employees.Add(new Midwife(Convert.ToInt32(_subStrings[0]), _subStrings[1] +" "+ _subStrings[2], _subStrings[3], Convert.ToInt32(_subStrings[4]), _subStrings[5]));
-                    }
-                    else if (_subStrings[6] == "2")
-                    {
-                        Ward.Employees.Add(new SOSU(Convert.ToInt32(_subStrings[0]), _subStrings[1] + " " + _subStrings[2], _subStrings[3], Convert.ToInt32(_subStrings[4]), _subStrings[5]));
-                    }
-                }
-            }
-        }
         #endregion
-=======
-        #endregion
-
-
->>>>>>> c2a31a0d1796d72d7df69b0d6f296d482e484e34
         public static void WriteBill(Bill bill)
         {
             CreateFile(Environment.CurrentDirectory + "\\PersonInfo", bill.BillsRecord.RecordsPatient.CPR + "_" + bill.RecordID.ToString() + ".txt");

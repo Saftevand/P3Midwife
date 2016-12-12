@@ -37,6 +37,10 @@ namespace P3_Midwife
         private int _apgarOneMinute;
         private int _apgarFiveMinutes;
         private int _apgarTenMinutes;
+        private string _apgarOneMinuteNote;
+        private string _apgarFiveMinuteNote;
+        private string _apgarTenMinuteNote;
+        private string _breastFeedingNote;
         private DateTime _timeOfBirth;
         private Patient _mother;
         private string _diagnosis;
@@ -196,6 +200,10 @@ namespace P3_Midwife
         public Patient Mother { get { return _mother; } set { _mother = value; } }
         public string Note { get { return _note; } set { _note += value; } }
         public string NewNote { get { return _newNote; } set { _newNote = value; } }
+        public string BreastFeedingNote { get { return _breastFeedingNote; } set { _breastFeedingNote = value; } }
+        public string ApgarOneMinuteNote { get { return _apgarOneMinuteNote; } set { _apgarOneMinuteNote = value; } }
+        public string ApgarFiveMinuteNote { get { return _apgarFiveMinuteNote; } set { _apgarFiveMinuteNote = value; } }
+        public string ApgarTenMinuteNote { get { return _apgarTenMinuteNote; } set { _apgarTenMinuteNote = value; } }
         #endregion
 
         public Record(Patient Patient)
