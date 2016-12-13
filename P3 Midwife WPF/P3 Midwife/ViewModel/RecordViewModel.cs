@@ -43,7 +43,7 @@ namespace P3_Midwife.ViewModel
         public static DependencyProperty VaginalExplorationProperty = DependencyProperty.Register(nameof(VaginalExplorationInfo), typeof(VaginalExploration), typeof(RecordViewModel));
         public static DependencyProperty SelectedMedicalServiceProperty = DependencyProperty.Register(nameof(SelectedMedicalServiceInfo), typeof(MedicalService), typeof(RecordViewModel));
         public static DependencyProperty SelectedAvailableMedicalServiceProperty = DependencyProperty.Register(nameof(SelectedAvailableMedicalServiceInfo), typeof(MedicalService), typeof(RecordViewModel));
-        
+        public static DependencyProperty EmployeeProperty = DependencyProperty.Register(nameof(EmployeeCurrent), typeof(Employee), typeof(RecordViewModel));
 
         private ObservableCollection<BirthInformation> _birthInformationList = new ObservableCollection<BirthInformation>();
         private ObservableCollection<ContractionIVDrip> _contractrionIVDripList= new ObservableCollection<ContractionIVDrip>();
@@ -58,9 +58,7 @@ namespace P3_Midwife.ViewModel
         {
             get { return _genders; }
             set { _genders = value; }
-
-        }
-        
+        }       
 
         public char ChildGender
         {
@@ -164,18 +162,19 @@ namespace P3_Midwife.ViewModel
             set
             {
                 this.SetValue(RecordProperty, value);
+                BirthInformationListProperty.Clear();
+                ContractionListProperty.Clear();
+                FetusObservationListProperty.Clear();
+                MicturitionListProperty.Clear();
+                VaginalExplorationListProperty.Clear();
+                MedicalServicesList.Clear();
+                
+                BirthInformationListProperty.AddRange(RecordCurrent.BirthInformationList);
+                ContractionListProperty.AddRange(RecordCurrent.ContractionIVDripList);
+                FetusObservationListProperty.AddRange(RecordCurrent.FetusObservationList);
+                MicturitionListProperty.AddRange(RecordCurrent.MicturitionList);
+                VaginalExplorationListProperty.AddRange(RecordCurrent.VaginalExplorationList);
                 MedicalServicesList.AddRange(RecordCurrent.CurrentBill.BillItemList);
-                //BirthInformationListProperty = new ObservableCollection<BirthInformation>();
-                //VaginalExplorationListProperty = new ObservableCollection<VaginalExploration>();
-                //MicturitionListProperty = new ObservableCollection<Micturition>();
-                //ContractionListProperty = new ObservableCollection<ContractionIVDrip>();
-                //MicturitionListProperty = new ObservableCollection<Micturition>();
-                //BirthInformationListProperty.AddRange(RecordCurrent.BirthInformationList);
-                //VaginalExplorationListProperty.AddRange(RecordCurrent.VaginalExplorationList);
-                //MicturitionListProperty.AddRange(RecordCurrent.MicturitionList);
-                //ContractionListProperty.AddRange(RecordCurrent.ContractionIVDripList);
-                //MicturitionListProperty.AddRange(RecordCurrent.MicturitionList);
-                //InitiateCollections();
             }
         }
         public Patient PatientCurrent
@@ -185,8 +184,8 @@ namespace P3_Midwife.ViewModel
         }
         public Employee EmployeeCurrent
         {
-            get { return _currentEmployee; }
-            set { _currentEmployee = value; }
+            get { return (Employee)this.GetValue(EmployeeProperty); }
+            set { this.SetValue(EmployeeProperty, value); }
         }
 
         public RecordViewModel()
@@ -282,28 +281,31 @@ namespace P3_Midwife.ViewModel
             this.AddBirthInfo= new RelayCommand(parameter =>
             {
                 BirthInfo = new BirthInformation();
+                BirthInfo.CurrentEmployee = EmployeeCurrent;
                 BirthInformationListProperty.Add(BirthInfo);
-
             });
             this.AddContractionIVDripInfo = new RelayCommand(parameter =>
             {
                 ContractionIVDripInfo = new ContractionIVDrip();
+                ContractionIVDripInfo.CurrentEmployee = EmployeeCurrent;               
                 ContractionListProperty.Add(ContractionIVDripInfo);
-
             });
             this.AddFetusObservationInfo = new RelayCommand(parameter =>
             {
                 FetusObservationInfo = new FetusObservation();
+                FetusObservationInfo.CurrentEmployee = EmployeeCurrent;
                 FetusObservationListProperty.Add(FetusObservationInfo);
             });
             this.AddMicturitionInfo = new RelayCommand(parameter =>
             {
                 MicturitionInfo = new Micturition();
+                MicturitionInfo.CurrentEmployee = EmployeeCurrent;
                 MicturitionListProperty.Add(MicturitionInfo);
             });
             this.AddVaginalExplorationInfo = new RelayCommand(parameter =>
             {
                 VaginalExplorationInfo = new VaginalExploration();
+                VaginalExplorationInfo.CurrentEmployee = EmployeeCurrent;
                 VaginalExplorationListProperty.Add(VaginalExplorationInfo);
             });
 

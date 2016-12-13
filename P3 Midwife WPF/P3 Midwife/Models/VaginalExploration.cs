@@ -8,6 +8,10 @@ namespace P3_Midwife.Models
 {
     public class VaginalExploration
     {
+        private Employee _currentEmployee;
+        public Employee CurrentEmployee { get { return _currentEmployee; } set { _currentEmployee = value; } }
+
+
         private DateTime _time;
         private int _collum;
         private int _dilation;
