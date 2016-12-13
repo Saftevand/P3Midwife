@@ -10,6 +10,8 @@ namespace P3_Midwife.ViewModel
 {
     public class NewChildViewModel : DependencyObject
     {
+        private Employee _currentEmployee;
+
         public RelayCommand LogOutCommand { get; }
         public RelayCommand ExitCommand { get; }
         public RelayCommand BackCommand { get; }
@@ -20,7 +22,6 @@ namespace P3_Midwife.ViewModel
         public static DependencyProperty PropertyEmployee = DependencyProperty.Register(nameof(CurrentEmployee), typeof(Employee), typeof(NewChildViewModel));
         public static DependencyProperty PropertyRoom = DependencyProperty.Register(nameof(CurrentRoom), typeof(DeliveryRoom), typeof(NewChildViewModel));
         
-
         public Record CurrentRecord
         {
             get { return (Record)this.GetValue(PropertyRecord); }

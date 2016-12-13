@@ -24,9 +24,9 @@
 
         <StackPanel Margin="15,17,0,0" Height="500" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center">
             <ListView BorderThickness="2" Height="500">
-                <TextBox Name="lol" MaxLength="10" Width="184" Text="{Binding CPR, UpdateSourceTrigger=LostFocus}"/>
-                <Button Command="{Binding FindPatientCommand}">Find patient</Button>
-                <Button Command="{Binding OpenAddPatientCommand}">Tilføj patient</Button>
+                <TextBox Name="CPRTextbox" FocusManager.GotFocus="CPRTextbox_GotFocus" FocusManager.LostFocus="CPRTextbox_LostFocus" MaxLength="10" Width="184" Text="{Binding CPR, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Name="FindPatientBtn" Command="{Binding FindPatientCommand}">Find patient</Button>
+                <Button Name="AddPatientbtn" Command="{Binding OpenAddPatientCommand}">Tilføj patient</Button>
                 <ListBox Width="184" Name="chosenPatient" ItemsSource="{Binding CurrentPatients}" Margin="0,5,0,0" SelectionChanged="ActivePatientsListBox_SelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectedItem="{Binding SelectedPatient, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Tag="{Binding CurrentEmployee}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>

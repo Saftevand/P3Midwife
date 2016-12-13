@@ -19,16 +19,34 @@ namespace P3_Midwife.Views
 {
     public partial class PatientWindow : BaseWindow
     {
+        Employee CurrentEmployee;
+
         public PatientWindow()
         {
             InitializeComponent();
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
+            Messenger.Default.Register<Employee>(this, "Employee", validateUser);
+
+        }
+
+        private void show()
+        {
+            if (CurrentEmployee is SOSU)
+            {
+                NewRecordBtn.Visibility = Visibility.Hidden;
+            }
+            Show();
+        }
+
+        private void validateUser(Employee emp)
+        {
+            CurrentEmployee = emp;
         }
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
             if (msg.Notification == "ToPatient")
-                Show();
+                show();
             else
                 Hide();
         }
