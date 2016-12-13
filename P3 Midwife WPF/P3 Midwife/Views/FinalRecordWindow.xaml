@@ -417,11 +417,22 @@
         </StackPanel>
 
         <ListView x:Name="listView" HorizontalAlignment="Left" Height="669" Margin="0,20,0,0" VerticalAlignment="Top" Width="200" BorderThickness="3" BorderBrush="LightSkyBlue">
-            <ListViewItem Content="{Binding PatientCurrentf.Name}" Margin="0"/>
-            
-            <ListViewItem Content="{Binding PatientCurrentf.Age}" Margin="0"/>
-            <ListViewItem Content="{Binding PatientCurrentf.Gender}" Margin="0"/>
-            <ListViewItem Content="{Binding PatientCurrentf.CPR}" Margin="0"/>
+            <StackPanel Orientation="Horizontal">
+                <ListView>
+                    <ListViewItem Content="Navn: "/>
+                    <ListViewItem Content="Alder: "/>
+                    <ListViewItem Content="Køn: "/>
+                    <ListViewItem Content="CPR: "/>
+                    <ListViewItem Content="SGA: "/>
+                </ListView>
+                <ListView>
+                    <ListViewItem Content="{Binding PatientCurrentf.Name}"/>
+                    <ListViewItem Content="{Binding PatientCurrentf.Age}"/>
+                    <ListViewItem Content="{Binding PatientCurrentf.Gender}"/>
+                    <ListViewItem Content="{Binding PatientCurrentf.CPR}"/>
+                    <ListViewItem Content="{Binding PatientCurrentf.SGA}"/>
+                </ListView>
+            </StackPanel>
         </ListView>
     </Grid>
 </local:BaseWindow>

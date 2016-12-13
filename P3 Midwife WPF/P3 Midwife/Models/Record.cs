@@ -123,10 +123,6 @@ namespace P3_Midwife
             this.CurrentBill.Active = false;
         }
 
-        public int CalculateSGA(/*TODO - patrick gøred*/)
-        {
-            throw new NotImplementedException("Patrick laver den");
-        }
 
         public string ToFile()
         {

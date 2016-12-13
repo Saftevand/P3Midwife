@@ -416,11 +416,22 @@
         </StackPanel>
 
         <ListView x:Name="listView" HorizontalAlignment="Left" Height="669" Margin="0,20,0,0" VerticalAlignment="Top" Width="200" BorderThickness="3" BorderBrush="LightSkyBlue">
-            <ListViewItem Content="{Binding PatientCurrent.Name}" Margin="0"/>
-            <ListViewItem Content="{Binding PatientCurrent.Age}" Margin="0"/>
-            <ListViewItem Content="{Binding PatientCurrent.Gender}" Margin="0"/>
-            <ListViewItem Content="{Binding PatientCurrent.CPR}" Margin="0"/>
-
+            <StackPanel Orientation="Horizontal">
+                <ListView>
+                    <ListViewItem Content="Navn: "/>
+                    <ListViewItem Content="Alder: "/>
+                    <ListViewItem Content="Køn: "/>
+                    <ListViewItem Content="CPR: "/>
+                    <ListViewItem Content="SGA: "/>
+                </ListView>
+                <ListView>
+                    <ListViewItem Content="{Binding PatientCurrent.Name}"/>
+                    <ListViewItem Content="{Binding PatientCurrent.Age}"/>
+                    <ListViewItem Content="{Binding PatientCurrent.Gender}"/>
+                    <ListViewItem Content="{Binding PatientCurrent.CPR}"/>
+                    <ListViewItem Content="{Binding PatientCurrent.SGA}"/>
+                </ListView>
+            </StackPanel>
             <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="500">
                 
                 <ComboBox Text="Vælg medicin" MaxWidth="120" Margin="0,20,0,0" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding MedicalServices}" SelectedItem="{Binding SelectedAvailableMedicalServiceInfo, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Name="AddedMedicine" Tag="{Binding SelectedAvailableMedicalServiceInfo}">
