@@ -68,12 +68,12 @@ namespace P3_Midwife.Views
                 {
                     MessageBox.Show("Adgang nægtet!");
                 }
-                else
+                else if (msg.Notification != "NewChildDialog")
                 {
                     this.Hide();
                 }
             }
-            else
+            else if (msg.Notification != "NewChildDialog")
             {
                 this.Hide();
             }
