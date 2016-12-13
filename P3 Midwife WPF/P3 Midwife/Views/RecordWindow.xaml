@@ -42,7 +42,7 @@
                             <ListView ItemsSource="{Binding BirthInformationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding Time}"/>
+                                        <TextBox MaxLength="5" Text="{Binding Time}"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -53,7 +53,7 @@
                             <ListView ItemsSource="{Binding BirthInformationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding AmnioticFluid}" MinWidth="50"/>
+                                        <TextBox MaxLength="5" Text="{Binding AmnioticFluid}" MinWidth="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -64,7 +64,7 @@
                             <ListView ItemsSource="{Binding BirthInformationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding AmountOfFluid}" MinWidth="50"/>
+                                        <TextBox MaxLength="5" Text="{Binding AmountOfFluid}" MinWidth="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -75,7 +75,7 @@
                             <ListView ItemsSource="{Binding BirthInformationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding BirthPosition}" MinWidth="50"/>
+                                        <TextBox Text="{Binding BirthPosition}" MinWidth="150" MaxWidth="150"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -86,7 +86,7 @@
                             <ListView ItemsSource="{Binding BirthInformationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding BleedingCause}" MinWidth="50"/>
+                                        <TextBox Text="{Binding BleedingCause}" MinWidth="150" MaxWidth="150"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -97,7 +97,7 @@
                             <ListView ItemsSource="{Binding BirthInformationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding BloodAmount}" MinWidth="50"/>
+                                        <TextBox Text="{Binding BloodAmount}" MinWidth="50" MaxWidth="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -108,12 +108,12 @@
                             <ListView ItemsSource="{Binding BirthInformationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding Result}" MinWidth="50"/>
+                                        <TextBox Text="{Binding Result}" MinWidth="150" MaxWidth="150"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackPanel>
-                        <Button Command="{Binding AddBirthInfo}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="25" Width="60" Margin="350,0,0,0">
+                        <Button Command="{Binding AddBirthInfo}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="25" Width="60" Margin="100,0,0,0">
                             Gem
                         </Button>        
                     </StackPanel>                    
@@ -411,7 +411,7 @@
             <TextBlock Margin="199,0,0,0" Height="100">
                 <Run Text="{Binding RecordCurrent.Note}"/>
             </TextBlock>
-                <TextBox Margin="199,0,0,0" Height="100" Text="{Binding RecordCurrent.NewNote,UpdateSourceTrigger=PropertyChanged}">
+                <TextBox Margin="199,0,0,0" Height="100" Text="{Binding RecordCurrent.NewNote, UpdateSourceTrigger=PropertyChanged}">
             </TextBox>
         </StackPanel>
 
@@ -421,32 +421,9 @@
             <ListViewItem Content="{Binding PatientCurrent.Gender}" Margin="0"/>
             <ListViewItem Content="{Binding PatientCurrent.CPR}" Margin="0"/>
 
-            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                <Button Command="{Binding NewChildDialogCommand}">
-
-                    Nyt barn
-                </Button>
-                <!--<Button Command="{Binding MedicinCommand}">
-                    Medicin
-                </Button>-->
-                <Button Command="{Binding SaveAndCompleteCommand}">
-                    Gem og afslut
-                </Button>
-                <TextBlock Text="Modtaget medicin" Margin="0,50,0,0"/>
-                <ListView Height="150" ItemsSource="{Binding MedicalServicesList}" SelectedItem="{Binding SelectedMedicalServiceInfo, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Name="ReceivedMedicine" Tag="{Binding SelectedMedicalServiceInfo}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock>
-                                <Run Text="{Binding Name}"/>
-                                <Run Text="{Binding AbbrevationName}"/>
-                                <Run Text="{Binding Price}"/>
-                            </TextBlock>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListView>
-                <Button Command="{Binding RemoveMedicalService}" Content="Fjern Medicin" FontSize="12" Height="20" Width="100">
-                </Button>
-                <ComboBox Text="Vælg medicin" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding MedicalServices}" SelectedItem="{Binding SelectedAvailableMedicalServiceInfo, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Name="AddedMedicine" Tag="{Binding SelectedAvailableMedicalServiceInfo}">
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="600">
+                
+                <ComboBox Text="Vælg medicin" MaxWidth="120" Margin="0,20,0,0" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding MedicalServices}" SelectedItem="{Binding SelectedAvailableMedicalServiceInfo, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Name="AddedMedicine" Tag="{Binding SelectedAvailableMedicalServiceInfo}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock>
@@ -456,6 +433,25 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <Button Command="{Binding AddMedicalService}" Height="20" Width="100" FontSize="12" Content="Tilføj medicin">
+                </Button>
+                <TextBlock Text="Modtaget medicin" Margin="0,10,0,0"/>
+                <ListView Height="150" ItemsSource="{Binding MedicalServicesList}" SelectedItem="{Binding SelectedMedicalServiceInfo, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Name="ReceivedMedicine" Tag="{Binding SelectedMedicalServiceInfo}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding Name}"/>
+                                <Run Text="{Binding AbbrevationName}"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListView>
+                <Button Command="{Binding RemoveMedicalService}" Content="Fjern Medicin" FontSize="12" Height="20" Width="100">
+                </Button>
+                <Button Command="{Binding NewChildDialogCommand}" VerticalAlignment="Bottom" Margin="0,200,0,0">
+                    Nyt barn
+                </Button>
+                <Button Command="{Binding SaveAndCompleteCommand}" VerticalAlignment="Bottom">
+                    Gem og afslut
                 </Button>
             </StackPanel>
         </ListView>

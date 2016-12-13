@@ -109,6 +109,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\BirthInformation.cs" />
+    <Compile Include="Models\ContractionIVDrip.cs" />
+    <Compile Include="Models\FetusObservation.cs" />
+    <Compile Include="Models\Micturition.cs" />
+    <Compile Include="Models\VaginalExploration.cs" />
     <Compile Include="Utility\Words.cs" />
     <Compile Include="Utility\WordSuggesetionProvider.cs" />
     <Compile Include="ViewModel\DialogWindowViewModel.cs" />
@@ -117,6 +122,7 @@
     <Compile Include="ViewModel\PatientViewModel.cs" />
     <Compile Include="ViewModel\RecordViewModel.cs" />
     <Compile Include="Views\BaseWindow.cs" />
+    <Compile Include="Views\BoolToStringAdmittedConverter.cs" />
     <Compile Include="Views\ChildInfoDialogWindow.xaml.cs">
       <DependentUpon>ChildInfoDialogWindow.xaml</DependentUpon>
     </Compile>
@@ -148,6 +154,7 @@
     <Compile Include="Views\PatientWindow.xaml.cs">
       <DependentUpon>PatientWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\RecordCompletedBoolToString.cs" />
     <Compile Include="Views\RecordWindow.xaml.cs">
       <DependentUpon>RecordWindow.xaml</DependentUpon>
     </Compile>

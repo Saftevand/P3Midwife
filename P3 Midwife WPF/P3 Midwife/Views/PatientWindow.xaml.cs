@@ -44,12 +44,40 @@ namespace P3_Midwife.Views
                     Messenger.Default.Send<Employee>((Employee)chosenRecord.Tag, "EmployeetoRecordView");
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToRecord"));
                 }
+                else if(TempRecord.IsActive == false)
+                {
+                    Messenger.Default.Send<Record>((Record)chosenRecord.SelectedItem, "NewRecordToRecordView");
+                    Messenger.Default.Send<Employee>((Employee)chosenRecord.Tag, "EmployeetoRecordView");
+                    Patient tempPatient = Ward.Patients.Find(x => x.RecordList.Contains(chosenRecord.SelectedItem));
+                    Messenger.Default.Send<Patient>(tempPatient, "PatientToRecordView");
+                    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToFinalRecord"));
+
+                }
             }
         }
-
-        private void ChildrenListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        
+        private void listView_Click(object sender, RoutedEventArgs e)
         {
-
+            var item = (sender as ListView).SelectedItem;
+            if (item != null)
+            {
+                Patient child = item as Patient;
+                if (child.RecordList.First().IsCompleted == false)
+                {
+                    
+                    Messenger.Default.Send(child.RecordList.First(), "ChildRecordToNewChildView");
+                    Messenger.Default.Send(child.Mother, "PatientToNewChildView");
+                    Messenger.Default.Send<Employee>((Employee)ChildrenListBox.Tag, "EmployeetoNewChildView");
+                    Messenger.Default.Send(child, "ChildToNewChildView");
+                    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToNewChild"));
+                }
+           //   else if (child.RecordList.First().IsCompleted == true)
+           //   {
+           //       Messenger.Default.Send(child, "Patient");
+           //       Messenger.Default.Send<Employee>((Employee)ChildrenListBox.Tag, "Employee");
+           //       Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));
+           //     }
+            }
         }
     }
 }

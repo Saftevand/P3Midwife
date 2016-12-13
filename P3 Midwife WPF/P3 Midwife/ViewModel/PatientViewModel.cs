@@ -50,11 +50,15 @@ namespace P3_Midwife.ViewModel
             {
                 if (value!= null)
                 {
+                    this.SetValue(PatientProperty, value);
+
                     foreach (var item in value.Children)
                     {
-                        Children.Add(item);
+                        if (Children.Contains(item) == false)
+                        {
+                            Children.Add(item);
+                        }
                     }
-                    { this.SetValue(PatientProperty, value); }
                     Records.Clear();
                     //Records.AddRange(PatientCurrent.RecordList.Where(x => !Records.Contains(x)));
                     Records.AddRange(PatientCurrent.RecordList);
@@ -116,13 +120,20 @@ namespace P3_Midwife.ViewModel
                 Messenger.Default.Send(tempRecord, "NewRecordToRecordView");
                 Messenger.Default.Send(new NotificationMessage("ToRecord"));
             });
-            this.OpenRecordCommand = new RelayCommand(parameter =>
-            {
-                Messenger.Default.Send(new NotificationMessage("ToRecord"));
-                Messenger.Default.Send(PatientCurrent, "PatientToRecordView");
-                Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");
-                Messenger.Default.Send(RecordSelected, "NewRecordToRecordView");
-            });
+            //this.OpenRecordCommand = new RelayCommand(parameter =>
+            //{
+            //    if (RecordSelected.IsActive == true)
+            //    {
+            //        Messenger.Default.Send(new NotificationMessage("ToRecord"));
+            //    }
+            //    else
+            //    {
+            //        Messenger.Default.Send(new NotificationMessage("ToFinalRecord"));
+            //    }
+            //    Messenger.Default.Send(PatientCurrent, "PatientToRecordView");
+            //    Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");
+            //    Messenger.Default.Send(RecordSelected, "NewRecordToRecordView");
+            //});
         }
     }
 }
