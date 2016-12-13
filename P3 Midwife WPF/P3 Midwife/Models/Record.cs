@@ -1,4 +1,5 @@
-﻿using System;
+﻿using P3_Midwife.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,126 +45,25 @@ namespace P3_Midwife
         private DateTime _timeOfBirth;
         private Patient _mother;
         private string _diagnosis;
-        private List<_vaginalExploration> _vaginalExplorationList = new List<_vaginalExploration>();
-        private List<_contractionIVDrip> _contractionIVDRIPList = new List<_contractionIVDrip>();
-        private List<_micturition> _micturitionList = new List<_micturition>();
-        private List<_fetusObservation> _fetusObservationList = new List<_fetusObservation>();
-        private List<_birthInformation> _birthInformationList = new List<_birthInformation>();
+        private List<VaginalExploration> _vaginalExplorationList = new List<VaginalExploration>();
+        private List<ContractionIVDrip> _contractionIVDRIPList = new List<ContractionIVDrip>();
+        private List<Micturition> _micturitionList = new List<Micturition>();
+        private List<FetusObservation> _fetusObservationList = new List<FetusObservation>();
+        private List<BirthInformation> _birthInformationList = new List<BirthInformation>();
         private Bill _bill;
         public static int RecordID;
         public int _thisRecordID;
         private string _note;
         private string _newNote;
-     
-        public struct _vaginalExploration
-        {
-            private DateTime _time;
-            private int _collum;
-            private int _dilation;
-            private string _position;
-            private int _rotation;
-            private string _consistency;
-            private string _location;
-            private string _amnioticFluid;
 
-            public DateTime Time { get { return _time; } set { _time = value; } }
-            public int Collum { get { return _collum; } set { _collum = value; } }
-            public int Dialation { get { return _dilation; } set { _dilation = value; } }
-            public string Position { get { return _position; } set { _position = value; } }
-            public int Rotation { get { return _rotation; } set { _rotation = value; } }
-            public string Consistency { get { return _consistency; } set { _consistency = value; } }
-            public string Location { get { return _location; } set { _location = value; } }
-            public string AmnioticFluid { get { return _amnioticFluid; } set { _amnioticFluid = value; } }
-
-            public override string ToString()
-            {
-                return ("_vaginalExp|" + Time.ToString() + "|" + Collum.ToString() + "|" + Dialation.ToString() + "|" + Position + "|" + Rotation.ToString() + "|" + Consistency + "|" + Location + "|" + AmnioticFluid);
-            }
-        }
-
-            public struct _contractionIVDrip
-        {
-            private DateTime _time;
-            private int _numberOfContractionsPerMinute;
-            private int _contractionPain;
-            private int _SDripMLPerHour;
-            public DateTime Time { get { return _time; } set { _time = value; } }
-            public int NumberOfContractionsPerMinute { get { return _numberOfContractionsPerMinute; } set { _numberOfContractionsPerMinute = value; } }
-            public int ContractionPain { get { return _contractionPain; } set { _contractionPain = value; } }
-            public int SDripMlPerHour { get { return _SDripMLPerHour; } set { _SDripMLPerHour = value; } }
-
-            public override string ToString()
-            {
-                return ("_contractionIVDrip|" + Time.ToString() + "|" + NumberOfContractionsPerMinute.ToString() + "|" + ContractionPain.ToString() + "|" + SDripMlPerHour.ToString());
-            }
-        }
-
-        public struct _micturition
-        {
-            private DateTime _time;
-            private string _micturitionNote;
-            public DateTime Time { get { return _time; } set { _time = value; } }
-            public string MicturitionNote { get { return _micturitionNote; } set { _micturitionNote = value; } }
-
-            public override string ToString()
-            {
-                return ("_micturition|" + Time.ToString() + "|" + MicturitionNote);
-            }
-        }
-
-        public struct _fetusObservation
-        {
-            private DateTime _time;
-            private string _hearthfrequency;
-            private string _CTG;
-            private string _CTGClassification;
-            private string _STAN;
-            private double _scalppH;
-            private double _scalpLactate;
-            public DateTime Time { get { return _time; } set { _time = value; } }
-            public string HearthFrequency { get { return _hearthfrequency; } set { _hearthfrequency = value; } }
-            public string CTG { get { return _CTG; } set { _CTG = value; } }
-            public string CTGClassification { get { return _CTGClassification; } set { _CTGClassification = value; } }
-            public string STAN { get { return _STAN; } set { _STAN = value; } }
-            public double ScalppH { get { return _scalppH; } set { _scalppH = value; } }
-            public double ScalpLactate { get { return _scalpLactate; } set { _scalpLactate = value; } }
-
-            public override string ToString()
-            {
-                return ("_fetusObservation|" + Time.ToString() + "|" + HearthFrequency + "|" + CTG + "|" + CTGClassification + "|" + STAN + "|" + ScalppH.ToString() + "|" + ScalpLactate.ToString());
-            }
-        }
-
-        public struct _birthInformation
-        {
-            private DateTime _time;
-            private string _result;
-            private string _amnioticFluid;
-            private string _amountOfFluid;
-            private double _bloodAmount;
-            private string _bleedingCause;
-            private string _birthPosition;
-            public DateTime Time { get { return _time; } set { _time = value; } }
-            public string Result { get { return _result; } set { _result = value; } }
-            public string AmnioticFluid { get { return _amnioticFluid; } set { _amnioticFluid = value; } }
-            public string AmountOfFluid { get { return _amountOfFluid; } set { _amountOfFluid = value; } }
-            public double BloodAmount { get { return _bloodAmount; } set { _bloodAmount = value; } }
-            public string BleedingCause { get { return _bleedingCause; } set { _bleedingCause = value; } }
-            public string BirthPosition { get { return _birthPosition; } set { _birthPosition = value; } }
-
-            public override string ToString()
-            {
-                return ("_birthInformation|" + Time.ToString() + "|" + Result + "|" + AmnioticFluid + "|" + AmountOfFluid + "|" + BloodAmount.ToString() + "|" + BleedingCause + "|" + BirthPosition);
-            }
-        }
         #endregion
 
         #region Properties
-        public List<_vaginalExploration> VaginalExplorationList { get { return this._vaginalExplorationList; } set { _vaginalExplorationList = value; } }
-        public List<_micturition> MicturitionList { get { return this._micturitionList; } }
-        public List<_fetusObservation> FetusObservationList { get { return this._fetusObservationList; } set { _fetusObservationList = value; } }
-        public List<_contractionIVDrip> ContractionIVDripList { get { return this._contractionIVDRIPList; } set { _contractionIVDRIPList = value; } }
-        public List<_birthInformation> BirthInformationList { get { return this._birthInformationList; } set { _birthInformationList = value; } }
+        public List<VaginalExploration> VaginalExplorationList { get { return this._vaginalExplorationList; } set { _vaginalExplorationList = value; } }
+        public List<Micturition> MicturitionList { get { return this._micturitionList; } }
+        public List<FetusObservation> FetusObservationList { get { return this._fetusObservationList; } set { _fetusObservationList = value; } }
+        public List<ContractionIVDrip> ContractionIVDripList { get { return this._contractionIVDRIPList; } set { _contractionIVDRIPList = value; } }
+        public List<BirthInformation> BirthInformationList { get { return this._birthInformationList; } set { _birthInformationList = value; } }
         public double CircumferenceHead { get { return this._circumferenceHead; } set { this._circumferenceHead = value; } }
         public double CircumferenceStomach { get { return this._circumferenceStomach; } set { this._circumferenceStomach = value; } }
         public double BloodSugar { get { return this._bloodSugar; } set { this._bloodSugar = value; } }
@@ -221,31 +121,27 @@ namespace P3_Midwife
             this.CurrentBill.Active = false;
         }
 
-        public int CalculateSGA(/*TODO - patrick gøred*/)
-        {
-            throw new NotImplementedException("Patrick laver den");
-        }
 
         public string ToFile()
         {
             string ReturnString = "";
-            foreach (_contractionIVDrip item in _contractionIVDRIPList)
+            foreach (ContractionIVDrip item in _contractionIVDRIPList)
             {
                 ReturnString = ReturnString + item.ToString();
             }
-            foreach (_vaginalExploration item in _vaginalExplorationList)
+            foreach (VaginalExploration item in _vaginalExplorationList)
             {
                 ReturnString = ReturnString + item.ToString();
             }
-            foreach (_micturition item in _micturitionList)
+            foreach (Micturition item in _micturitionList)
             {
                 ReturnString = ReturnString + item.ToString();
             }
-            foreach (_fetusObservation item in FetusObservationList)
+            foreach (FetusObservation item in FetusObservationList)
             {
                 ReturnString = ReturnString + item.ToString();
             }
-            foreach (_birthInformation item in BirthInformationList)
+            foreach (BirthInformation item in BirthInformationList)
             {
                 ReturnString = ReturnString + item.ToString();
             }

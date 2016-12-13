@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using P3_Midwife.Models;
 
 namespace P3_Midwife
 {
@@ -325,8 +326,8 @@ namespace P3_Midwife
                     for (; i < CIVDripCounter; i++)
                     {
                         CIVDripInfo = information[fileCounter][i].Split('|');
-                        Record._contractionIVDrip temp = new Record._contractionIVDrip();
-                        if(!String.IsNullOrEmpty(CIVDripInfo[1])) temp.Time = DateTime.ParseExact(CIVDripInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+                        ContractionIVDrip temp = new ContractionIVDrip();
+                        if (!String.IsNullOrEmpty(CIVDripInfo[1])) temp.Time = DateTime.ParseExact(CIVDripInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
                         if(!String.IsNullOrEmpty(CIVDripInfo[2])) temp.NumberOfContractionsPerMinute = Convert.ToInt32(CIVDripInfo[2]);
                         if(!String.IsNullOrEmpty(CIVDripInfo[3])) temp.SDripMlPerHour = Convert.ToInt32(CIVDripInfo[3]);
                         recordToBeAdded.ContractionIVDripList.Add(temp);
@@ -339,7 +340,7 @@ namespace P3_Midwife
                     for (; i < loopCounter; i++)
                     {
                         vagExpInfo = information[fileCounter][i].Split('|');
-                        Record._vaginalExploration temp = new Record._vaginalExploration();
+                        VaginalExploration temp = new VaginalExploration();
                         if (!String.IsNullOrEmpty(vagExpInfo[1])) temp.Time = DateTime.ParseExact(vagExpInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
                         if (!String.IsNullOrEmpty(vagExpInfo[2])) temp.Collum = Convert.ToInt32(vagExpInfo[2]);
                         if (!String.IsNullOrEmpty(vagExpInfo[3])) temp.Dialation = Convert.ToInt32(vagExpInfo[3]);
@@ -358,7 +359,7 @@ namespace P3_Midwife
                     for (; i < loopCounter; i++)
                     {
                         MictuInfo = information[fileCounter][i].Split('|');
-                        Record._micturition temp = new Record._micturition();
+                        Micturition temp = new Micturition();
                         if (!String.IsNullOrEmpty(MictuInfo[1])) temp.Time = DateTime.ParseExact(MictuInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
                         if (!String.IsNullOrEmpty(MictuInfo[2])) temp.MicturitionNote = MictuInfo[2];
                         recordToBeAdded.MicturitionList.Add(temp);
@@ -371,7 +372,7 @@ namespace P3_Midwife
                     for (; i < loopCounter; i++)
                     {
                         fetusObsInfo = information[fileCounter][i].Split('|');
-                        Record._fetusObservation temp = new Record._fetusObservation();
+                        FetusObservation temp = new FetusObservation();
                         if (!String.IsNullOrEmpty(fetusObsInfo[1])) temp.Time = DateTime.ParseExact(fetusObsInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
                         if (!String.IsNullOrEmpty(fetusObsInfo[2])) temp.HearthFrequency = fetusObsInfo[2];
                         if (!String.IsNullOrEmpty(fetusObsInfo[3])) temp.CTG = fetusObsInfo[3];
@@ -389,7 +390,7 @@ namespace P3_Midwife
                     for (; i < loopCounter; i++)
                     {
                         birthInfo = information[fileCounter][i].Split('|');
-                        Record._birthInformation temp = new Record._birthInformation();
+                        BirthInformation temp = new BirthInformation();
                         if (!String.IsNullOrEmpty(birthInfo[1])) temp.Time = DateTime.ParseExact(birthInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
                         if (!String.IsNullOrEmpty(birthInfo[2])) temp.Result = birthInfo[2];
                         if (!String.IsNullOrEmpty(birthInfo[3])) temp.AmnioticFluid = birthInfo[3];

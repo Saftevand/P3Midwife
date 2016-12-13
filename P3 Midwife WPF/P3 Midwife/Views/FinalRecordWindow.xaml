@@ -30,9 +30,9 @@
 
 
         <StackPanel Grid.ColumnSpan="3">
-            <ListView x:Name="BirthInfo" Margin="199,20,0,0">
-                <TextBlock x:Name="BItextBlock" TextWrapping="Wrap" Text="Fødselsoplysninger"/>
-            </ListView>
+            <ListBox Margin="199,20,0,0">
+                <Run Text="Fødselsoplysninger"/>
+            </ListBox>
 
             <ListView Margin="199,0,0,0">
                 <StackPanel>
@@ -390,16 +390,49 @@
                     </StackPanel>
                 </StackPanel>
             </ListView>
-            <TextBlock Margin="199,0,0,0" Height="100">
-                <Run Text="{Binding RecordCurrent.Note}"/>
-            </TextBlock>
+            <ListBox Margin="199,0,0,0">
+                <Run Text="Medicin"/>
+            </ListBox>
+            <ListView Margin="199,0,0,0"  ItemsSource="{Binding MedicalServicesList}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock >                                
+                                <Run Text="{Binding AbbrevationName}"/>
+                                <Run Text="  |  "/>
+                                <Run Text="{Binding Name}"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListBox Margin="199,0,0,0">
+                <Run Text="Noter"/>
+            </ListBox>
+            <ListView Margin="199,0,0,0">
+                <TextBlock Height="100">
+                        <Run Text="{Binding NoteCurrent}"/>
+                </TextBlock>
+            </ListView>
         </StackPanel>
 
         <ListView x:Name="listView" HorizontalAlignment="Left" Height="669" Margin="0,20,0,0" VerticalAlignment="Top" Width="200" BorderThickness="3" BorderBrush="LightSkyBlue">
-            <ListViewItem Content="{Binding PatientCurrent.Name}" Margin="0"/>
-            <ListViewItem Content="{Binding PatientCurrent.Age}" Margin="0"/>
-            <ListViewItem Content="{Binding PatientCurrent.Gender}" Margin="0"/>
-            <ListViewItem Content="{Binding PatientCurrent.CPR}" Margin="0"/>
+            <StackPanel Orientation="Horizontal">
+                <ListView>
+                    <ListViewItem Content="Navn: "/>
+                    <ListViewItem Content="Alder: "/>
+                    <ListViewItem Content="Køn: "/>
+                    <ListViewItem Content="CPR: "/>
+                    <ListViewItem Content="SGA: "/>
+                </ListView>
+                <ListView>
+                    <ListViewItem Content="{Binding PatientCurrentf.Name}"/>
+                    <ListViewItem Content="{Binding PatientCurrentf.Age}"/>
+                    <ListViewItem Content="{Binding PatientCurrentf.Gender}"/>
+                    <ListViewItem Content="{Binding PatientCurrentf.CPR}"/>
+                    <ListViewItem Content="{Binding PatientCurrentf.SGA}"/>
+                </ListView>
+            </StackPanel>
         </ListView>
     </Grid>
 </local:BaseWindow>

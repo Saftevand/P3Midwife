@@ -7,7 +7,7 @@
         xmlns:ViewModel="clr-namespace:P3_Midwife"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="M.A.R.S-Login" Height="350" Width="525" BorderThickness="2" BorderBrush="LightSkyBlue">
+        Title="M.R.S-Login" Height="350" Width="525" BorderThickness="2" BorderBrush="LightSkyBlue">
     <Window.DataContext>
         <ViewModel:LoginViewModel/>
     </Window.DataContext>

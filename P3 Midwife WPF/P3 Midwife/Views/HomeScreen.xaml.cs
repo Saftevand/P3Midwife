@@ -23,22 +23,42 @@ namespace P3_Midwife
 { 
     public partial class HomeScreen : BaseWindow
     {
+        private Employee CurrentEmployee;
         public Button targetButton;
         public HomeScreen()
         {
             InitializeComponent();
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
+            Messenger.Default.Register<Employee>(this, "ActiveUser", validateUser);
             new DialogWindow();
             new PatientWindow();
+            new FinalRecordWindow();
             new ChildInfoDialogWindow();
-            Show();     
         }
+
+        private void show()
+        {
+            if (CurrentEmployee is SOSU)
+            {
+                AddPatientbtn.Visibility = Visibility.Hidden;
+            }
+            CPRTextbox.Clear();
+            CPRTextbox.Focus();
+            Show();
+        }
+
+
+
+        private void validateUser(Employee emp)
+        {
+            CurrentEmployee = emp; 
+        } 
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {                       
-            if (msg.Notification == "ToHome" || msg.Notification == "FromLogInToHome")
+            if (msg.Notification == "ToHome")
             {
-                Show();
+                show();
             }
             else if (msg.Notification == "NoCPRInput")
             {
@@ -55,6 +75,17 @@ namespace P3_Midwife
             Messenger.Default.Send<Patient>((Patient)chosenPatient.SelectedItem, "Patient");
             Messenger.Default.Send<Employee>((Employee)chosenPatient.Tag, "Employee");
             Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));
+
+        }
+
+        private void CPRTextbox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            FindPatientBtn.IsDefault = true;
+        }
+
+        private void CPRTextbox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            FindPatientBtn.IsDefault = false;
         }
     }
 }

@@ -29,7 +29,7 @@
         </Menu>
 
         <ListView x:Name="listView" HorizontalAlignment="Left" Height="700" Margin="0,20,0,0" VerticalAlignment="Top" Width="200">
-            <Button Command="{Binding SaveAndComplete}">
+            <Button Name="SaveAndCompleteBtn" Command="{Binding SaveAndComplete}">
                 Gem og afslut
             </Button>
             <Button Command="{Binding BackCommand}">

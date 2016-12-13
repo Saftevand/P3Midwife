@@ -30,6 +30,7 @@ namespace P3_Midwife
                             tempRoom.PatientsInRoom.Remove(child);
                             CurrentPatients.Remove(child);
                         }
+
                     }
                 }
                 tempRoom.PatientsInRoom.Remove(patient);

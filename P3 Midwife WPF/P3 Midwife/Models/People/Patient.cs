@@ -25,6 +25,7 @@ namespace P3_Midwife
         public Patient Mother { get { return _mother; } set { _mother = value; } }
         public List<Patient> Children { get { return _children; } set { _children = value; } }
         public List<Record> RecordList { get { return _recordList; } set { _recordList = value; } }
+        public int SGA { get { return CalculateSGA(); } }
 
 
         #region Constructors
@@ -85,6 +86,15 @@ namespace P3_Midwife
         {
             //Retrieves date for cpr number
             GenerateCpr(gender, DateTime.Today.ToString("ddMMyy"));
+        }
+
+
+        public int CalculateSGA(/*TODO - patrick gøred*/)
+        {
+
+
+            return 42;
+            //throw new NotImplementedException("Patrick laver den");
         }
 
         public void GenerateCpr(char gender, string date)

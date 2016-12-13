@@ -23,6 +23,7 @@ namespace P3_Midwife
             InitializeComponent();
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
             isNotClosed = false;
+            TextBoxEnteredCPR.Focus();
         }
 
         private void NotificationMessageRecieved(NotificationMessage msg)

@@ -12,6 +12,7 @@ namespace P3_Midwife.ViewModel
     class DialogWindowViewModel : DependencyObject
     {
         public RelayCommand AddPatientComand { get; }
+        public RelayCommand Cancel { get; }
         public static DependencyProperty CPREnteredProperty = DependencyProperty.Register(nameof(CPREntered), typeof(string), typeof(DialogWindowViewModel));
         public static DependencyProperty EmployeeProperty = DependencyProperty.Register(nameof(CurrentEmployee), typeof(Employee), typeof(DialogWindowViewModel));
 
@@ -48,6 +49,10 @@ namespace P3_Midwife.ViewModel
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("NoPersonWithCPR"));
                 }
 
+            });
+            this.Cancel = new RelayCommand(parameter =>
+            {
+                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToHome"));
             });
             Messenger.Default.Register<Employee>(this, "Employee", (ActiveUser) => { CurrentEmployee = ActiveUser; });
 

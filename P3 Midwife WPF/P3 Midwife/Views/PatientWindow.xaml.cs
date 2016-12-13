@@ -19,16 +19,34 @@ namespace P3_Midwife.Views
 {
     public partial class PatientWindow : BaseWindow
     {
+        Employee CurrentEmployee;
+
         public PatientWindow()
         {
             InitializeComponent();
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
+            Messenger.Default.Register<Employee>(this, "Employee", validateUser);
+
+        }
+
+        private void show()
+        {
+            if (CurrentEmployee is SOSU)
+            {
+                NewRecordBtn.Visibility = Visibility.Hidden;
+            }
+            Show();
+        }
+
+        private void validateUser(Employee emp)
+        {
+            CurrentEmployee = emp;
         }
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
             if (msg.Notification == "ToPatient")
-                Show();
+                show();
             else
                 Hide();
         }
@@ -43,6 +61,15 @@ namespace P3_Midwife.Views
                     Messenger.Default.Send<Record>((Record)chosenRecord.SelectedItem, "NewRecordToRecordView");
                     Messenger.Default.Send<Employee>((Employee)chosenRecord.Tag, "EmployeetoRecordView");
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToRecord"));
+                }
+                else if(TempRecord.IsActive == false)
+                {
+                    Messenger.Default.Send<Record>((Record)chosenRecord.SelectedItem, "NewRecordToRecordView");
+                    Messenger.Default.Send<Employee>((Employee)chosenRecord.Tag, "EmployeetoRecordView");
+                    Patient tempPatient = Ward.Patients.Find(x => x.RecordList.Contains(chosenRecord.SelectedItem));
+                    Messenger.Default.Send<Patient>(tempPatient, "PatientToRecordView");
+                    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToFinalRecord"));
+
                 }
             }
         }

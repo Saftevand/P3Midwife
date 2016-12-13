@@ -2,13 +2,13 @@
         x:Name="RView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2007"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ViewModel="clr-namespace:P3_Midwife.ViewModel"
         xmlns:local="clr-namespace:P3_Midwife.Views"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="RecordWindow" Height="720" Width="1280" Background="WhiteSmoke" BorderThickness="1" BorderBrush="LightSkyBlue">
+        Title="RecordWindow" Height="720" Width="1270" Background="WhiteSmoke" BorderThickness="1" BorderBrush="LightSkyBlue">
 
     <Window.DataContext>
         <ViewModel:RecordViewModel/>
@@ -42,7 +42,7 @@
                             <ListView ItemsSource="{Binding BirthInformationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding Time}"/>
+                                        <TextBox MaxLength="5" Text="{Binding Time}"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -53,7 +53,7 @@
                             <ListView ItemsSource="{Binding BirthInformationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding AmnioticFluid}" MinWidth="50"/>
+                                        <TextBox MaxLength="5" Text="{Binding AmnioticFluid}" Width="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -64,7 +64,7 @@
                             <ListView ItemsSource="{Binding BirthInformationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding AmountOfFluid}" MinWidth="50"/>
+                                        <TextBox MaxLength="5" Text="{Binding AmountOfFluid}" Width="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -75,7 +75,7 @@
                             <ListView ItemsSource="{Binding BirthInformationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding BirthPosition}" MinWidth="50"/>
+                                        <TextBox Text="{Binding BirthPosition}" Width="150"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -86,7 +86,7 @@
                             <ListView ItemsSource="{Binding BirthInformationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding BleedingCause}" MinWidth="50"/>
+                                        <TextBox Text="{Binding BleedingCause}" Width="150"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -97,7 +97,7 @@
                             <ListView ItemsSource="{Binding BirthInformationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding BloodAmount}" MinWidth="50"/>
+                                        <TextBox Text="{Binding BloodAmount}" MaxLength="7" Width="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -108,13 +108,13 @@
                             <ListView ItemsSource="{Binding BirthInformationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding Result}" MinWidth="50"/>
+                                        <TextBox Text="{Binding Result}" Width="150"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackPanel>
-                        <Button Command="{Binding AddBirthInfo}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="25" Width="60" Margin="350,0,0,0">
-                            Gem
+                        <Button Command="{Binding AddBirthInfo}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="25" Width="60" Margin="100,0,0,0">
+                            Tilføj
                         </Button>        
                     </StackPanel>                    
                 </StackPanel>
@@ -144,7 +144,7 @@
                             <ListView ItemsSource="{Binding ContractionListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding ContractionPain}" MinWidth="50"/>
+                                        <TextBox Text="{Binding ContractionPain}" FocusManager.GotFocus="TextBox_GotFocus" MaxLength="7" Width="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -155,7 +155,7 @@
                             <ListView ItemsSource="{Binding ContractionListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding NumberOfContractionsPerMinute}" MinWidth="50"/>
+                                        <TextBox Text="{Binding NumberOfContractionsPerMinute}" FocusManager.GotFocus="TextBox_GotFocus" MaxLength="7" Width="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -166,14 +166,14 @@
                             <ListView ItemsSource="{Binding ContractionListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding SDripMlPerHour}" MinWidth="50"/>
+                                        <TextBox Text="{Binding SDripMlPerHour}" FocusManager.GotFocus="TextBox_GotFocus" Width="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackPanel>
 
                         <Button Command="{Binding AddContractionIVDripInfo}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="25" Width="60" Margin="609,0,0,0">
-                            Gem
+                            Tilføj
                         </Button>
                     </StackPanel>
                 </StackPanel>
@@ -203,7 +203,7 @@
                             <ListView ItemsSource="{Binding FetusObservationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding CTG}" MinWidth="50"/>
+                                        <TextBox Text="{Binding CTG}" MaxLength="7" Width="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -214,7 +214,7 @@
                             <ListView ItemsSource="{Binding FetusObservationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding CTGClassification}" MinWidth="50"/>
+                                        <TextBox Text="{Binding CTGClassification}" MaxLength="7" Width="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -225,7 +225,7 @@
                             <ListView ItemsSource="{Binding FetusObservationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding HearthFrequency}" MinWidth="50"/>
+                                        <TextBox Text="{Binding HearthFrequency}" MaxLength="7" Width="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -236,18 +236,18 @@
                             <ListView ItemsSource="{Binding FetusObservationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding ScalpLactate}" MinWidth="50"/>
+                                        <TextBox Text="{Binding ScalpLactate}" FocusManager.GotFocus="TextBox_GotFocus" MaxLength="7" Width="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackPanel>
 
                         <StackPanel>
-                            <TextBlock Text=" Skalp-pH "/>
-                            <ListView ItemsSource="{Binding FetusObservationListProperty}">
+                            <TextBlock Text=" Skalp-pH " />
+                            <ListView ItemsSource="{Binding FetusObservationListProperty}" >
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding ScalppH}" MinWidth="50"/>
+                                        <TextBox Text="{Binding ScalppH}" MaxLength="7" Width="50" FocusManager.GotFocus="TextBox_GotFocus"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -258,14 +258,14 @@
                             <ListView ItemsSource="{Binding FetusObservationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding STAN}" MinWidth="50"/>
+                                        <TextBox Text="{Binding STAN}" MaxLength="7" Width="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackPanel>
 
                         <Button Command="{Binding AddFetusObservationInfo}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="25" Width="60" Margin="343,0,0,0">
-                            Gem
+                            Tilføj
                         </Button>
                     </StackPanel>
                 </StackPanel>
@@ -294,13 +294,13 @@
                             <ListView ItemsSource="{Binding MicturitionListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding MicturitionNote}" MinWidth="50"/>
+                                        <TextBox Text="{Binding MicturitionNote}" MaxLength="7" Width="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackPanel>
                         <Button Command="{Binding AddMicturitionInfo}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="25" Width="60" Margin="765,0,0,0">
-                            Gem
+                            Tilføj
                         </Button>
                     </StackPanel>
                 </StackPanel>
@@ -330,7 +330,7 @@
                             <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding AmnioticFluid}" MinWidth="50"/>
+                                        <TextBox Text="{Binding AmnioticFluid}" MaxLength="7" Width="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -341,7 +341,7 @@
                             <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding Collum}" MinWidth="50"/>
+                                        <TextBox Text="{Binding Collum}" FocusManager.GotFocus="TextBox_GotFocus" MaxLength="7" Width="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -352,7 +352,7 @@
                             <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding Consistency}" MinWidth="50"/>
+                                        <TextBox Text="{Binding Consistency}" MaxLength="7" Width="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -363,7 +363,7 @@
                             <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding Dialation}" MinWidth="50"/>
+                                        <TextBox Text="{Binding Dialation}" FocusManager.GotFocus="TextBox_GotFocus" MaxLength="7" Width="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -374,7 +374,7 @@
                             <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding Location}" MinWidth="50"/>
+                                        <TextBox Text="{Binding Location}" MaxLength="7" Width="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -385,7 +385,7 @@
                             <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding Position}" MinWidth="50"/>
+                                        <TextBox Text="{Binding Position}" MaxLength="7" Width="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -396,14 +396,16 @@
                             <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding Rotation}" MinWidth="50"/>
+                                        <TextBox Text="{Binding Rotation}" FocusManager.GotFocus="TextBox_GotFocus" MaxLength="7" Width="50"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackPanel>
 
+                        
+                        
                         <Button Command="{Binding AddVaginalExplorationInfo}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="25" Width="60" Margin="373,0,0,0">
-                            Gem
+                            Tilføj
                         </Button>
                     </StackPanel>
                 </StackPanel>
@@ -411,42 +413,30 @@
             <TextBlock Margin="199,0,0,0" Height="100">
                 <Run Text="{Binding RecordCurrent.Note}"/>
             </TextBlock>
-                <TextBox Margin="199,0,0,0" Height="100" Text="{Binding RecordCurrent.NewNote,UpdateSourceTrigger=PropertyChanged}">
+                <TextBox Margin="199,0,0,0" Height="100" Text="{Binding RecordCurrent.NewNote, UpdateSourceTrigger=PropertyChanged}">
             </TextBox>
         </StackPanel>
 
         <ListView x:Name="listView" HorizontalAlignment="Left" Height="669" Margin="0,20,0,0" VerticalAlignment="Top" Width="200" BorderThickness="3" BorderBrush="LightSkyBlue">
-            <ListViewItem Content="{Binding PatientCurrent.Name}" Margin="0"/>
-            <ListViewItem Content="{Binding PatientCurrent.Age}" Margin="0"/>
-            <ListViewItem Content="{Binding PatientCurrent.Gender}" Margin="0"/>
-            <ListViewItem Content="{Binding PatientCurrent.CPR}" Margin="0"/>
-
-            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                <Button Command="{Binding NewChildDialogCommand}">
-
-                    Nyt barn
-                </Button>
-                <!--<Button Command="{Binding MedicinCommand}">
-                    Medicin
-                </Button>-->
-                <Button Command="{Binding SaveAndCompleteCommand}">
-                    Gem og afslut
-                </Button>
-                <TextBlock Text="Modtaget medicin" Margin="0,50,0,0"/>
-                <ListView Height="150" ItemsSource="{Binding MedicalServicesList}" SelectedItem="{Binding SelectedMedicalServiceInfo, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Name="ReceivedMedicine" Tag="{Binding SelectedMedicalServiceInfo}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock>
-                                <Run Text="{Binding Name}"/>
-                                <Run Text="{Binding AbbrevationName}"/>
-                                <Run Text="{Binding Price}"/>
-                            </TextBlock>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
+            <StackPanel Orientation="Horizontal">
+                <ListView>
+                    <ListViewItem Content="Navn: "/>
+                    <ListViewItem Content="Alder: "/>
+                    <ListViewItem Content="Køn: "/>
+                    <ListViewItem Content="CPR: "/>
+                    <ListViewItem Content="SGA: "/>
                 </ListView>
-                <Button Command="{Binding RemoveMedicalService}" Content="Fjern Medicin" FontSize="12" Height="20" Width="100">
-                </Button>
-                <ComboBox Text="Vælg medicin" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding MedicalServices}" SelectedItem="{Binding SelectedAvailableMedicalServiceInfo, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Name="AddedMedicine" Tag="{Binding SelectedAvailableMedicalServiceInfo}">
+                <ListView>
+                    <ListViewItem Content="{Binding PatientCurrent.Name}"/>
+                    <ListViewItem Content="{Binding PatientCurrent.Age}"/>
+                    <ListViewItem Content="{Binding PatientCurrent.Gender}"/>
+                    <ListViewItem Content="{Binding PatientCurrent.CPR}"/>
+                    <ListViewItem Content="{Binding PatientCurrent.SGA}"/>
+                </ListView>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="500">
+                
+                <ComboBox Text="Vælg medicin" MaxWidth="120" Margin="0,20,0,0" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding MedicalServices}" SelectedItem="{Binding SelectedAvailableMedicalServiceInfo, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Name="AddedMedicine" Tag="{Binding SelectedAvailableMedicalServiceInfo}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock>
@@ -456,6 +446,26 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <Button Command="{Binding AddMedicalService}" Height="20" Width="100" FontSize="12" Content="Tilføj medicin">
+                </Button>
+                <TextBlock Text="Modtaget medicin" Margin="0,10,0,0"/>
+                <ListView Height="150" ItemsSource="{Binding MedicalServicesList}" SelectedItem="{Binding SelectedMedicalServiceInfo, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Name="ReceivedMedicine" Tag="{Binding SelectedMedicalServiceInfo}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding Name}"/>
+                                <Run Text="{Binding AbbrevationName}"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListView>
+                <Button Command="{Binding RemoveMedicalService}" Content="Fjern Medicin" FontSize="12" Height="20" Width="100">
+                </Button>
+                
+                <Button Name="NewChildBtn" Command="{Binding NewChildDialogCommand}" VerticalAlignment="Bottom" Margin="0,100,0,0">
+                    Nyt barn
+                </Button>
+                <Button Command="{Binding SaveAndCompleteCommand}" VerticalAlignment="Bottom">
+                    Gem og afslut
                 </Button>
             </StackPanel>
         </ListView>
