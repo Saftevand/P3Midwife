@@ -73,5 +73,10 @@ namespace P3_Midwife.Views
                 }
             }
         }
+
+        private void chosenRecord_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

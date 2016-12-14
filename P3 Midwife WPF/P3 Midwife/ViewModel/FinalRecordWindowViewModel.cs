@@ -42,13 +42,13 @@ namespace P3_Midwife.ViewModel
             {
                 this.SetValue(RecordProperty, value);
 
-                BirthInformationListProperty.Clear();
+                /*BirthInformationListProperty.Clear();
                 ContractionListProperty.Clear();
                 FetusObservationListProperty.Clear();
                 MicturitionListProperty.Clear();
                 VaginalExplorationListProperty.Clear();
                 MedicalServicesList.Clear();
-
+                */
                 BirthInformationListProperty.AddRange(RecordCurrentf.BirthInformationList);
                 ContractionListProperty.AddRange(RecordCurrentf.ContractionIVDripList);
                 FetusObservationListProperty.AddRange(RecordCurrentf.FetusObservationList);

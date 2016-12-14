@@ -162,13 +162,10 @@ namespace P3_Midwife.ViewModel
             set
             {
                 this.SetValue(RecordProperty, value);
-                BirthInformationListProperty.Clear();
-                ContractionListProperty.Clear();
-                FetusObservationListProperty.Clear();
-                MicturitionListProperty.Clear();
-                VaginalExplorationListProperty.Clear();
-                MedicalServicesList.Clear();
-                
+
+
+
+
                 BirthInformationListProperty.AddRange(RecordCurrent.BirthInformationList);
                 ContractionListProperty.AddRange(RecordCurrent.ContractionIVDripList);
                 FetusObservationListProperty.AddRange(RecordCurrent.FetusObservationList);
@@ -190,6 +187,7 @@ namespace P3_Midwife.ViewModel
 
         public RecordViewModel()
         {
+
             this.Cancel = new RelayCommand(parameter =>
             {
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToRecord"));
@@ -271,8 +269,7 @@ namespace P3_Midwife.ViewModel
                 this.RecordCurrent.FetusObservationList.AddRange(FetusObservationListProperty);
                 FetusObservationListProperty.Clear();
                 this.RecordCurrent.CurrentBill.BillItemList.AddRange(MedicalServicesList);
-                MedicalServicesList.Clear();
-                InitiateCollections();
+                MedicalServicesList.Clear();                
                 RecordCurrent.IsActive = false;
                 Messenger.Default.Send(new NotificationMessage("ToPatient"));
                 Messenger.Default.Send(PatientCurrent, "Patient");
@@ -308,33 +305,9 @@ namespace P3_Midwife.ViewModel
                 VaginalExplorationInfo.CurrentEmployee = EmployeeCurrent;
                 VaginalExplorationListProperty.Add(VaginalExplorationInfo);
             });
-
-            InitiateCollections();
-
         }
 
-        private void InitiateCollections()
-        {
-            if (BirthInformationListProperty.Count == 0)
-            {
-                BirthInformationListProperty.Add(new BirthInformation());
-            }
-            if (ContractionListProperty.Count == 0)
-            {
-                ContractionListProperty.Add(new ContractionIVDrip());
-            }
-            if (MicturitionListProperty.Count == 0)
-            {
-                MicturitionListProperty.Add(new Micturition());
-            }
-            if (VaginalExplorationListProperty.Count == 0)
-            {
-                VaginalExplorationListProperty.Add(new VaginalExploration());
-            }
-            if (FetusObservationListProperty.Count == 0)
-            {
-                FetusObservationListProperty.Add(new FetusObservation());
-            }
-        }
+
+        
     }
 }
