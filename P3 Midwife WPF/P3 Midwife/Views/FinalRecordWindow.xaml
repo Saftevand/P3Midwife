@@ -113,6 +113,18 @@
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackPanel>
+
+                        <StackPanel>
+                            <TextBlock Text=" Navn "/>
+                            <ListView ItemsSource="{Binding BirthInformationListProperty}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding CurrentEmployee.Name}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+
                     </StackPanel>
                 </StackPanel>
             </ListView>
@@ -168,6 +180,18 @@
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackPanel>
+
+                        <StackPanel>
+                            <TextBlock Text=" Navn "/>
+                            <ListView ItemsSource="{Binding ContractionListProperty}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding CurrentEmployee.Name}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+
                     </StackPanel>
                 </StackPanel>
             </ListView>
@@ -256,6 +280,18 @@
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackPanel>
+
+                        <StackPanel>
+                            <TextBlock Text=" Navn "/>
+                            <ListView ItemsSource="{Binding FetusObservationListProperty}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding CurrentEmployee.Name}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+
                     </StackPanel>
                 </StackPanel>
             </ListView>
@@ -288,6 +324,18 @@
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackPanel>
+
+                        <StackPanel>
+                            <TextBlock Text=" Navn "/>
+                            <ListView ItemsSource="{Binding MicturitionListProperty}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding CurrentEmployee.Name}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+
                     </StackPanel>
                 </StackPanel>
             </ListView>
@@ -387,6 +435,18 @@
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackPanel>
+
+                        <StackPanel>
+                            <TextBlock Text=" Navn "/>
+                            <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding CurrentEmployee.Name}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+
                     </StackPanel>
                 </StackPanel>
             </ListView>

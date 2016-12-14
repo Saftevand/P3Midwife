@@ -54,7 +54,7 @@ namespace P3_Midwife
         private List<BirthInformation> _birthInformationList = new List<BirthInformation>();
         private Bill _bill;
         public static int RecordID;
-        public int thisRecordID;
+        public int _thisRecordID;
         private string _note;
         private string _newNote;
 
@@ -96,8 +96,12 @@ namespace P3_Midwife
         public Bill CurrentBill { get { return _bill; } set { _bill = value; } }
         public bool IsActive { get; set; }
         public Patient RecordsPatient { get { return _patient; } }
+<<<<<<< HEAD
         public int ThisRecordID { get; set; }
         public string ChildCPR { get { return _childCPR; } set { _childCPR = value; } }
+=======
+        public int ThisRecordID { get { return _thisRecordID; } set {_thisRecordID = value; } }
+>>>>>>> cc0cf9b81f90b40ed5d9aa9f3d135b5e082ce3ce
         public bool Nose { get { return this._nose; } set { this._nose = value; } }
         public bool Pharynx { get { return this._pharynx; } set { this._pharynx = value; } }
         public bool Ventricle { get { return this._ventricle; } set { this._ventricle = value; } }
@@ -114,10 +118,8 @@ namespace P3_Midwife
         {
             this._patient = Patient;
             this.IsActive = true;
-            ThisRecordID = RecordID;
             this._date = DateTime.Now;
-            RecordID++;
-            thisRecordID = RecordID++;
+            _thisRecordID = RecordID++;
             this.CurrentBill = new Bill(this);
         }
 

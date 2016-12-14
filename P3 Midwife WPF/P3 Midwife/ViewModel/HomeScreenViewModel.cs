@@ -216,6 +216,7 @@ namespace P3_Midwife
             });
             this.OpenPatientCommand = new RelayCommand(parameter =>
             {
+
                 Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
                 Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));

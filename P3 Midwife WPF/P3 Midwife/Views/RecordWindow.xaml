@@ -32,12 +32,18 @@
             </MenuItem>
         </Menu>
 
-
+        
         <StackPanel Grid.ColumnSpan="3">
             <ListView x:Name="BirthInfo" Margin="199,20,0,0">
-                <TextBlock x:Name="BItextBlock" TextWrapping="Wrap" Text="Fødselsoplysninger"/>
+                <StackPanel Orientation="Horizontal" Width="600">
+                    <TextBlock x:Name="BItextBlock" TextWrapping="Wrap" VerticalAlignment="Center" Text="Fødselsoplysninger"/>
+                    <Button Command="{Binding AddBirthInfo}" HorizontalAlignment="Right" Height="25" Width="60">
+                        Tilføj
+                    </Button>
+                </StackPanel>                
             </ListView>
 
+            
             <ListView Margin="199,0,0,0">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
@@ -117,16 +123,29 @@
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackPanel>
-                        <Button Command="{Binding AddBirthInfo}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="25" Width="60" Margin="100,0,0,0">
-                            Tilføj
-                        </Button>        
+
+                        <StackPanel>
+                            <TextBlock Text=" Navn "/>
+                            <ListView ItemsSource="{Binding BirthInformationListProperty}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock MinHeight="18" MaxHeight="18" Text="{Binding CurrentEmployee.Name}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
                     </StackPanel>                    
                 </StackPanel>
             </ListView>
 
 
             <ListBox x:Name="ContractionInfo" Margin="199,0,0,0">
-                <TextBlock x:Name="CItextBlock" TextWrapping="Wrap" Text="Veer og S-drop" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="CItextBlock" TextWrapping="Wrap" VerticalAlignment="Center" Text="Veer og S-drop" />
+                    <Button Command="{Binding AddContractionIVDripInfo}" Height="25" Width="60">
+                        Tilføj
+                    </Button>
+                </StackPanel>
             </ListBox>
 
             <ListView Margin="199,0,0,0">
@@ -176,16 +195,28 @@
                             </ListView>
                         </StackPanel>
 
-                        <Button Command="{Binding AddContractionIVDripInfo}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="25" Width="60" Margin="609,0,0,0">
-                            Tilføj
-                        </Button>
+                        <StackPanel>
+                            <TextBlock Text=" Navn "/>
+                            <ListView ItemsSource="{Binding ContractionListProperty}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock MinHeight="18" MaxHeight="18" Text="{Binding CurrentEmployee.Name}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </ListView>
 
 
             <ListBox x:Name="FetusObsInfo" Margin="199,0,0,0">
-                <TextBlock x:Name="FOtextBlock" TextWrapping="Wrap" Text="Fosterobservationer" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="FOtextBlock" TextWrapping="Wrap" VerticalAlignment="Center" Text="Fosterobservationer" />
+                    <Button Command="{Binding AddFetusObservationInfo}" Height="25" Width="60">
+                        Tilføj
+                    </Button>
+                </StackPanel>
             </ListBox>
 
             <ListView Margin="199,0,0,0">
@@ -285,15 +316,27 @@
                             </ListView>
                         </StackPanel>
 
-                        <Button Command="{Binding AddFetusObservationInfo}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="25" Width="60" Margin="343,0,0,0">
-                            Tilføj
-                        </Button>
+                        <StackPanel>
+                            <TextBlock Text=" Navn "/>
+                            <ListView ItemsSource="{Binding FetusObservationListProperty}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock MinHeight="18" MaxHeight="18" Text="{Binding CurrentEmployee.Name}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </ListView>
 
             <ListBox x:Name="MicturitionInfo" Margin="199,0,0,0">
-                <TextBlock x:Name="MtextBlock" TextWrapping="Wrap" Text="Vandladning"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="MtextBlock" TextWrapping="Wrap" Text="Vandladning" VerticalAlignment="Center"/>
+                    <Button Command="{Binding AddMicturitionInfo}" Height="25" Width="60">
+                        Tilføj
+                    </Button>
+                </StackPanel>
             </ListBox>
 
             <ListView Margin="199,0,0,0">
@@ -320,16 +363,29 @@
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackPanel>
-                        <Button Command="{Binding AddMicturitionInfo}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="25" Width="60" Margin="765,0,0,0">
-                            Tilføj
-                        </Button>
+
+                        <StackPanel>
+                            <TextBlock Text=" Navn "/>
+                            <ListView ItemsSource="{Binding MicturitionListProperty}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock MinHeight="18" MaxHeight="18" Text="{Binding CurrentEmployee.Name}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </ListView>
 
 
             <ListBox x:Name="VaginalExplorationInfo" Margin="199,0,0,0">
-                <TextBlock x:Name="VEtextBlock" TextWrapping="Wrap" Text="Vaginal Exploration"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="VEtextBlock" TextWrapping="Wrap" Text="Vaginal Exploration" VerticalAlignment="Center"/>
+                    <Button Command="{Binding AddVaginalExplorationInfo}" Height="25" Width="60">
+                        Tilføj
+                    </Button>
+                </StackPanel>
             </ListBox>
 
             <ListView Margin="199,0,0,0">
@@ -423,14 +479,20 @@
                             </ListView>
                         </StackPanel>
 
-                        
-                        
-                        <Button Command="{Binding AddVaginalExplorationInfo}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="25" Width="60" Margin="373,0,0,0">
-                            Tilføj
-                        </Button>
+                        <StackPanel>
+                            <TextBlock Text=" Navn "/>
+                            <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock MinHeight="18" MaxHeight="18" Text="{Binding CurrentEmployee.Name}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </ListView>
+            
             <TextBlock Margin="199,0,0,0" Height="100">
                 <Run Text="{Binding RecordCurrent.Note}"/>
             </TextBlock>

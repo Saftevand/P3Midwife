@@ -63,6 +63,11 @@ namespace P3_Midwife.Views
             autoList.Clear();
             autoList = provider.GetSuggestions(senderBox.Text.ToLower());
 
+            if (txtAuto.Text.ToString().EndsWith(" "))
+            {
+                txtAuto.Text = TextEditor.WordReplacement(txtAuto.Text.ToString());
+            }
+
             if (autoList.Count > 0)
             {
                 lbSuggestions.ItemsSource = null;

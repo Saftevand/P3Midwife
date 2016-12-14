@@ -28,7 +28,7 @@ namespace P3_Midwife
 
         public Bill(Record record)
         {
-            this.RecordID = record.thisRecordID;
+            this.RecordID = record._thisRecordID;
             this.Active = true;
             this.BillsRecord = record;
         }
