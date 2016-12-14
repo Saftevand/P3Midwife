@@ -31,6 +31,7 @@ namespace P3_Midwife.ViewModel
         public RelayCommand OpenMedicalServicesToAdd { get; }
         public RelayCommand CreateChildCommand { get; }
         public RelayCommand Cancel { get; }
+        public RelayCommand AppendNewNoteToNote { get; }
 
         public static DependencyProperty CTGClassificationProperty = DependencyProperty.Register(nameof(CTGClassification), typeof(string), typeof(RecordViewModel));
         public static DependencyProperty ChildBirthDateProperty = DependencyProperty.Register(nameof(ChildBirthDate), typeof(DateTime), typeof(RecordViewModel));
@@ -46,6 +47,7 @@ namespace P3_Midwife.ViewModel
         public static DependencyProperty SelectedMedicalServiceProperty = DependencyProperty.Register(nameof(SelectedMedicalServiceInfo), typeof(MedicalService), typeof(RecordViewModel));
         public static DependencyProperty SelectedAvailableMedicalServiceProperty = DependencyProperty.Register(nameof(SelectedAvailableMedicalServiceInfo), typeof(MedicalService), typeof(RecordViewModel));
         public static DependencyProperty EmployeeProperty = DependencyProperty.Register(nameof(EmployeeCurrent), typeof(Employee), typeof(RecordViewModel));
+        public static DependencyProperty NoteProperty = DependencyProperty.Register(nameof(Note), typeof(string), typeof(RecordViewModel));
 
         private ObservableCollection<BirthInformation> _birthInformationList = new ObservableCollection<BirthInformation>();
         private ObservableCollection<ContractionIVDrip> _contractrionIVDripList= new ObservableCollection<ContractionIVDrip>();
@@ -56,6 +58,11 @@ namespace P3_Midwife.ViewModel
         private ObservableCollection<MedicalService> _availableMedicalServices = new ObservableCollection<MedicalService>();
         private ObservableCollection<Patient> _children = new ObservableCollection<Patient>();
 
+        public string Note
+        {
+            get { return this.GetValue(NoteProperty).ToString(); }
+            set { this.SetValue(NoteProperty, value);            }
+        }
 
         public ObservableCollection<Patient> Children
         {
@@ -218,7 +225,7 @@ namespace P3_Midwife.ViewModel
                 RecordCurrent.Note = RecordCurrent.NewNote;
                 RecordCurrent.NewNote = null;
             });
-            Messenger.Default.Register<Record>(this, "NewRecordToRecordView", (ActiveRecord) => { RecordCurrent = ActiveRecord; });
+            Messenger.Default.Register<Record>(this, "NewRecordToRecordView", (ActiveRecord) => { RecordCurrent = ActiveRecord; Note = ActiveRecord.Note; });
             Messenger.Default.Register<Patient>(this, "PatientToRecordView", (ActivePatient) => { PatientCurrent = ActivePatient; });
             Messenger.Default.Register<Employee>(this, "EmployeetoRecordView", (ActiveEmployee) => { EmployeeCurrent = ActiveEmployee; });            
 
@@ -282,7 +289,7 @@ namespace P3_Midwife.ViewModel
             this.SaveAndCompleteCommand = new RelayCommand(parameter =>
             {
                 Messenger.Default.Send(new NotificationMessage("RecordSave"));
-                this.RecordCurrent.Note += RecordCurrent.NewNote;
+                //this.RecordCurrent.Note += RecordCurrent.NewNote;
                 this.RecordCurrent.BirthInformationList.AddRange(BirthInformationListProperty);
                 BirthInformationListProperty.Clear();
                 this.RecordCurrent.ContractionIVDripList.AddRange(ContractionListProperty);
@@ -332,6 +339,11 @@ namespace P3_Midwife.ViewModel
                 VaginalExplorationInfo.CurrentEmployee = EmployeeCurrent;
                 VaginalExplorationListProperty.Add(VaginalExplorationInfo);
             });
+            //this.AppendNewNoteToNote = new RelayCommand(parameter =>
+            //{
+            //    this.RecordCurrent.Note +=  this.RecordCurrent.NewNote + "\n";
+            //    this.RecordCurrent.NewNote = null;
+            //});
 
         }
 
