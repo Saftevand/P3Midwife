@@ -34,5 +34,9 @@ namespace P3_Midwife.Views
 
         }
 
+        private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            ConfirmBtn.IsEnabled = true;
+        }
     }
 }

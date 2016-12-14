@@ -90,7 +90,7 @@ namespace P3_Midwife.ViewModel
 
         public DateTime ChildBirthDate
         {
-            get { return (DateTime)this.GetValue(ChildBirthDateProperty); }
+            get {return (DateTime)this.GetValue(ChildBirthDateProperty); }
             set { this.SetValue(ChildBirthDateProperty, value); }
         }
 
@@ -215,7 +215,7 @@ namespace P3_Midwife.ViewModel
 
         public RecordViewModel()
         {
-
+            SetValue(ChildBirthDateProperty, DateTime.Today);
             this.Cancel = new RelayCommand(parameter =>
             {
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToRecord"));
