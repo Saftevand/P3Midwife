@@ -104,5 +104,28 @@ namespace P3_Midwife.Views
                 send.Clear();
             }
         }
+
+        private void listView_Click(object sender, RoutedEventArgs e)
+        {
+            var item = (sender as ListView).SelectedItem;
+            if (item != null)
+            {
+                Patient child = item as Patient;
+                if (child.Mother.RecordList.Find(x => x.IsActive == true) != null)
+                {
+                    Messenger.Default.Send(child.Mother.RecordList.Find(x => x.IsActive == true), "ChildRecordToNewChildView");
+                    Messenger.Default.Send(child.Mother, "PatientToNewChildView");
+                    Messenger.Default.Send<Employee>((Employee)ChildrenListBox.Tag, "EmployeetoNewChildView");
+                    Messenger.Default.Send(child, "ChildToNewChildView");
+                    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToNewChild"));
+                }
+              
+            }
+        }
+
+        private void NewChildBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NewChildBtn.Visibility = Visibility.Hidden;
+        }
     }
 }

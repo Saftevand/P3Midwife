@@ -65,8 +65,11 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Name="NewRecordBtn" Command="{Binding CreateRecordCommand}" Margin="40,480,0,0">
+                <Button Name="NewRecordBtn" Command="{Binding CreateRecordCommand}" Margin="0,380,0,0">
                     Ny Journal
+                </Button>
+                <Button Command="{Binding BackCommand}">
+                    Tilbage
                 </Button>
             </StackPanel> 
         </ListView>

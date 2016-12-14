@@ -493,6 +493,10 @@
                     <ListViewItem Content="{Binding PatientCurrentf.SGA}"/>
                 </ListView>
             </StackPanel>
+
+            <Button Command="{Binding BackCommand}" Margin="0,0,0,10">
+                Tilbage
+            </Button>
         </ListView>
     </Grid>
 </local:BaseWindow>

@@ -54,8 +54,15 @@ namespace P3_Midwife.ViewModel
         private ObservableCollection<VaginalExploration> _vaginalExplorationList = new ObservableCollection<VaginalExploration>();
         private ObservableCollection<MedicalService> _medicalServicesList = new ObservableCollection<MedicalService>();
         private ObservableCollection<MedicalService> _availableMedicalServices = new ObservableCollection<MedicalService>();
+        private ObservableCollection<Patient> _children = new ObservableCollection<Patient>();
 
-        
+
+        public ObservableCollection<Patient> Children
+        {
+            get { return _children; }
+            set { _children = value; }
+        }
+
         public ObservableCollection<char> Genders
         {
             get { return _genders; }
@@ -191,7 +198,7 @@ namespace P3_Midwife.ViewModel
         public Patient PatientCurrent
         {
             get { return (Patient)this.GetValue(PatientProperty); }
-            set { this.SetValue(PatientProperty, value); }
+            set { this.SetValue(PatientProperty, value); Children.AddRange(value.Children.Where(x => !Children.Contains(x))); }
         }
         public Employee EmployeeCurrent
         {
