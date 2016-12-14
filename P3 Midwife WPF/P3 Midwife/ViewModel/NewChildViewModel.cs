@@ -66,7 +66,6 @@ namespace P3_Midwife.ViewModel
 
             this.SaveAndComplete = new RelayCommand(parameter => 
             {
-                CurrentRecord.IsCompleted = true;
                 Messenger.Default.Send(new NotificationMessage("ChildSave"));
                 Messenger.Default.Send(new NotificationMessage("ToRecord"));
                 Messenger.Default.Send(CurrentPatient, "PatientToRecordView");

@@ -12,7 +12,7 @@ namespace P3_Midwife.ViewModel
 {
     public class RecordViewModel : DependencyObject
     {
-        private Employee _currentEmployee;
+        //private Employee _currentEmployee;
         private ObservableCollection<char> _genders = new ObservableCollection<char> { 'D', 'P' };
         private ObservableCollection<string> _ctgClassification= new ObservableCollection<string> { "Normal","Afvigende","Patologisk"};
         public RelayCommand LogOutCommand { get; }
@@ -224,7 +224,7 @@ namespace P3_Midwife.ViewModel
 
             this.CreateChildCommand = new RelayCommand(parameter =>
             {
-                Midwife tempMidwife = _currentEmployee as Midwife;
+                Midwife tempMidwife = EmployeeCurrent as Midwife;
                 tempMidwife.CreatePatient(PatientCurrent, ChildGender, ChildBirthDate.Date+ChildBirthTime.TimeOfDay);
                 Patient tempChild = PatientCurrent.Children.Find(x => x.BirthDateTime == ChildBirthDate + ChildBirthTime.TimeOfDay);
                 RecordCurrent.ChildCPR = tempChild.CPR;

@@ -44,11 +44,11 @@ namespace P3_Midwife.Views
         }
         private void show()
         {
-            if (_currentEmployee is SOSU)
-            {
-                SaveAndCompleteBtn.Visibility = Visibility.Hidden;
-            }
-            Show();
+         // if (_currentEmployee is SOSU)
+         // {
+         //     SaveAndCompleteBtn.Visibility = Visibility.Hidden;
+         // }
+          Show();
         }
 
         private void validateUser(Employee emp)
@@ -62,11 +62,6 @@ namespace P3_Midwife.Views
             List<string> autoList = new List<string>();
             autoList.Clear();
             autoList = provider.GetSuggestions(senderBox.Text.ToLower());
-
-            if (txtAuto.Text.ToString().EndsWith(" "))
-            {
-                txtAuto.Text = TextEditor.WordReplacement(txtAuto.Text.ToString());
-            }
 
             if (autoList.Count > 0)
             {

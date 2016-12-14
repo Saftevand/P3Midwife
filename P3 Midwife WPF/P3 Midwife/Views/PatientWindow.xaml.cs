@@ -89,12 +89,7 @@ namespace P3_Midwife.Views
                     Messenger.Default.Send(child, "ChildToNewChildView");
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToNewChild"));
                 }
-                //   else if (child.RecordList.First().IsCompleted == true)
-                //   {
-                //       Messenger.Default.Send(child, "Patient");
-                //       Messenger.Default.Send<Employee>((Employee)ChildrenListBox.Tag, "Employee");
-                //       Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));
-                //     }
+              
             }
         }
     }

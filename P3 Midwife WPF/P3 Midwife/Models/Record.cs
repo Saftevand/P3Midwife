@@ -13,7 +13,6 @@ namespace P3_Midwife
         private Patient _patient;
         private DateTime _date = new DateTime();
         private double _circumferenceHead;
-        private bool _isCompleted = false;
         private double _circumferenceStomach;
         private bool _birthComplications;
         private double _weight;
@@ -70,7 +69,6 @@ namespace P3_Midwife
         public double CircumferenceStomach { get { return this._circumferenceStomach; } set { this._circumferenceStomach = value; } }
         public double BloodSugar { get { return this._bloodSugar; } set { this._bloodSugar = value; } }
         public string GA { get { return this._GA; } set { this._GA = value; } }
-        public bool IsCompleted { get { return _isCompleted; } set { _isCompleted = value; } }
         public bool BirthComplications { get { return _birthComplications; } set { _birthComplications = value; } }
         public double Weight { get { return this._weight; } set { this._weight = value; } }
         public double Length { get { return this._length; } set { this._length = value; } }
@@ -96,12 +94,8 @@ namespace P3_Midwife
         public Bill CurrentBill { get { return _bill; } set { _bill = value; } }
         public bool IsActive { get; set; }
         public Patient RecordsPatient { get { return _patient; } }
-<<<<<<< HEAD
-        public int ThisRecordID { get; set; }
         public string ChildCPR { get { return _childCPR; } set { _childCPR = value; } }
-=======
         public int ThisRecordID { get { return _thisRecordID; } set {_thisRecordID = value; } }
->>>>>>> cc0cf9b81f90b40ed5d9aa9f3d135b5e082ce3ce
         public bool Nose { get { return this._nose; } set { this._nose = value; } }
         public bool Pharynx { get { return this._pharynx; } set { this._pharynx = value; } }
         public bool Ventricle { get { return this._ventricle; } set { this._ventricle = value; } }
