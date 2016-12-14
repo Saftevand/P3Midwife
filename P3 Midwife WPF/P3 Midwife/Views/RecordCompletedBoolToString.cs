@@ -16,15 +16,15 @@ namespace P3_Midwife.Views
             {
                 List<Record> temp = value as List<Record>;
                 Record tempRecord = temp.First();
-                bool input = tempRecord.IsCompleted;
+                bool input = tempRecord.IsActive;
   
                     if (input == true)
                     {
-                        return "Fuldført";
+                        return "Indlagt";
                     }
                     else
                     {
-                        return "Ikke fuldført";
+                        return "";
                     }  
                 
             }

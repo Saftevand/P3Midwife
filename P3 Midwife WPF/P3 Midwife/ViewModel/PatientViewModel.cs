@@ -111,6 +111,10 @@ namespace P3_Midwife.ViewModel
             });
             this.CreateRecordCommand = new RelayCommand(parameter =>
             {
+                if (!CurrentEmployee.CurrentPatients.Contains(PatientCurrent))
+                {
+                    CurrentEmployee.CurrentPatients.Add(PatientCurrent);
+                }
                 Record tempRecord = new Record(PatientCurrent);
                 PatientCurrent.RecordList.Add(tempRecord);
                 new P3_Midwife.Views.RecordWindow(tempRecord);

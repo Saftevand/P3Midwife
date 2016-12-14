@@ -15,6 +15,7 @@ namespace P3_Midwife
         private double _circumferenceHead;
         private bool _isCompleted = false;
         private double _circumferenceStomach;
+        private bool _birthComplications;
         private double _weight;
         private double _length;
         private double _bloodSugar;
@@ -44,7 +45,7 @@ namespace P3_Midwife
         private string _apgarTenMinuteNote;
         private string _breastFeedingNote;
         private DateTime _timeOfBirth;
-        private Patient _mother;
+        private string _childCPR;
         private string _diagnosis;
         private List<VaginalExploration> _vaginalExplorationList = new List<VaginalExploration>();
         private List<ContractionIVDrip> _contractionIVDRIPList = new List<ContractionIVDrip>();
@@ -70,6 +71,7 @@ namespace P3_Midwife
         public double BloodSugar { get { return this._bloodSugar; } set { this._bloodSugar = value; } }
         public string GA { get { return this._GA; } set { this._GA = value; } }
         public bool IsCompleted { get { return _isCompleted; } set { _isCompleted = value; } }
+        public bool BirthComplications { get { return _birthComplications; } set { _birthComplications = value; } }
         public double Weight { get { return this._weight; } set { this._weight = value; } }
         public double Length { get { return this._length; } set { this._length = value; } }
         public int HO { get { return this._ho; } set { this._ho = value; } }
@@ -95,11 +97,11 @@ namespace P3_Midwife
         public bool IsActive { get; set; }
         public Patient RecordsPatient { get { return _patient; } }
         public int ThisRecordID { get; set; }
+        public string ChildCPR { get { return _childCPR; } set { _childCPR = value; } }
         public bool Nose { get { return this._nose; } set { this._nose = value; } }
         public bool Pharynx { get { return this._pharynx; } set { this._pharynx = value; } }
         public bool Ventricle { get { return this._ventricle; } set { this._ventricle = value; } }
         public DateTime Date { get { return this._date; } set { this._date = value; } }
-        public Patient Mother { get { return _mother; } set { _mother = value; } }
         public string Note { get { return _note; } set { _note += value; } }
         public string NewNote { get { return _newNote; } set { _newNote = value; } }
         public string BreastFeedingNote { get { return _breastFeedingNote; } set { _breastFeedingNote = value; } }
@@ -125,10 +127,6 @@ namespace P3_Midwife
             this.CurrentBill.Active = false;
         }
 
-        public int CalculateSGA(/*TODO - patrick gøred*/)
-        {
-            throw new NotImplementedException("Patrick laver den");
-        }
 
         public string ToFile()
         {

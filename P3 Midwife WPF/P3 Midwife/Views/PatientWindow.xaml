@@ -33,30 +33,44 @@
 
         <ListView HorizontalAlignment="Left" Height="700" Width="200" Margin="0,20,0,0">
             <StackPanel>
-                <ListViewItem Content="{Binding PatientCurrent.Name}"/>
-                <ListViewItem Content="{Binding PatientCurrent.Age}"/>
-                <ListViewItem Content="{Binding PatientCurrent.Gender,Converter={StaticResource GenderCharToString}, Mode=OneWay}" />
-                <ListViewItem Content="{Binding PatientCurrent.CPR}"/>
-                <ListViewItem Content="Børn: "/>
+                <StackPanel Orientation="Horizontal">
+                <ListView>
+                    <ListViewItem Content="Navn: "/>
+                    <ListViewItem Content="Alder: "/>
+                    <ListViewItem Content="Køn: "/>
+                    <ListViewItem Content="CPR: "/>
+                    <ListViewItem Content="SGA: "/>
+                </ListView>
+                <ListView>
+                    <ListViewItem Content="{Binding PatientCurrent.Name}"/>
+                    <ListViewItem Content="{Binding PatientCurrent.Age}"/>
+                    <ListViewItem Content="{Binding PatientCurrent.Gender,Converter={StaticResource GenderCharToString}, Mode=OneWay}"/>
+                    <ListViewItem Content="{Binding PatientCurrent.CPR}"/>
+                    <ListViewItem Content="{Binding PatientCurrent.SGA}"/>
+                </ListView>
+            </StackPanel>
+            <ListViewItem Content="Børn: "/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="CPR       "/>
+                    <TextBlock Text="Fødselsjournal"/>
+                </StackPanel>
                 <ListView ItemsSource="{Binding Children}" Name="ChildrenListBox" PreviewMouseLeftButtonUp="listView_Click" Tag="{Binding CurrentEmployee}">
                     <ListView.ItemTemplate>
-                        
                         <DataTemplate>
                             <TextBlock>
-                                <Run Text="{Binding Name}"/>
-                                <Run Text=" - "/>
                                 <Run Text="{Binding CPR}"/>
                                 <Run Text="  "/>
-                                <Run Text="{Binding RecordList,Converter={StaticResource RecordBoolToString}, Mode=OneWay}"/>
+                                <Run Text="{Binding Mother.RecordList,Converter={StaticResource RecordBoolToString}, Mode=OneWay}"/>
                             </TextBlock>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Command="{Binding CreateRecordCommand}" Margin="40,500,0,0">
+                <Button Name="NewRecordBtn" Command="{Binding CreateRecordCommand}" Margin="40,500,0,0">
                     Ny Journal
                 </Button>
             </StackPanel> 
         </ListView>
+  
 
         <ListView Margin="199, 20, 0, 0"> 
             <StackPanel>

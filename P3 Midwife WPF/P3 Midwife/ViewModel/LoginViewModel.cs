@@ -36,7 +36,8 @@ namespace P3_Midwife
                     Employee SendEmp = Ward.Employees.Find(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password));
                     Messenger.Default.Send(new NotificationMessage("StartWorker"));
                     Messenger.Default.Send(new NotificationMessage(last));
-                    Messenger.Default.Send(SendEmp,"ActiveUser");               
+                    Messenger.Default.Send(SendEmp,"ActiveUser");
+                    Messenger.Default.Send(new NotificationMessage("ToHome"));
                 }
                 else
                 {

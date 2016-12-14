@@ -17,20 +17,43 @@ namespace P3_Midwife.Views
 {
     public partial class NewChildWindow : BaseWindow
     {
+        private Employee _currentEmployee;
+        private Record _currentRecord;
+        private int thisID;
         bool isNotClosed = true;
         WordSuggesetionProvider provider;
-        public NewChildWindow()
+        public NewChildWindow(Record ActiveRecord)
         {
             InitializeComponent();
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
+            Messenger.Default.Register<Employee>(this, "EmployeetoNewChildView", validateUser);
+            Messenger.Default.Register<Record>(this, "ChildRecordToNewChildView", recordValidation);
             txtAuto.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
-
+            thisID = ActiveRecord.ThisRecordID;
             ApgarOneMinTextBox.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
             ApgarFiveMinTextBox.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
             ApgarTenMinTextBox.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
 
             provider = new WordSuggesetionProvider();
             isNotClosed = false;
+        }
+
+        private void recordValidation(Record CurrentRecord)
+        {
+            _currentRecord = CurrentRecord;
+        }
+        private void show()
+        {
+            if (_currentEmployee is SOSU)
+            {
+                SaveAndCompleteBtn.Visibility = Visibility.Hidden;
+            }
+            Show();
+        }
+
+        private void validateUser(Employee emp)
+        {
+            _currentEmployee = emp;
         }
 
         private void txtAuto_TextChanged(object sender, TextChangedEventArgs e)
@@ -55,19 +78,25 @@ namespace P3_Midwife.Views
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-
-            if (msg.Notification == "ToNewChild" && !isNotClosed)
+            if (thisID == _currentRecord.ThisRecordID)
             {
-                Show();
-            }
-            else if (msg.Notification == "ChildSave")
-            {
-                BaseWindow.cancel = true;
-                isNotClosed = true;
-                Close();
+                if (msg.Notification == "ToNewChild" && !isNotClosed)
+                {
+                    show();
+                }
+                else if (msg.Notification == "ChildSave")
+                {
+                    BaseWindow.cancel = true;
+                    isNotClosed = true;
+                    Close();
+                }
+                else
+                    Hide();
             }
             else
+            {
                 Hide();
+            }
         }
 
         private void txtAuto_KeyDown(object sender, KeyEventArgs e)

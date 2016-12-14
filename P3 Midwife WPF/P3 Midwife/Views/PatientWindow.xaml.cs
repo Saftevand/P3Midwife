@@ -19,16 +19,34 @@ namespace P3_Midwife.Views
 {
     public partial class PatientWindow : BaseWindow
     {
+        Employee CurrentEmployee;
+
         public PatientWindow()
         {
             InitializeComponent();
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
+            Messenger.Default.Register<Employee>(this, "Employee", validateUser);
+
+        }
+
+        private void show()
+        {
+            if (CurrentEmployee is SOSU)
+            {
+                NewRecordBtn.Visibility = Visibility.Hidden;
+            }
+            Show();
+        }
+
+        private void validateUser(Employee emp)
+        {
+            CurrentEmployee = emp;
         }
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
             if (msg.Notification == "ToPatient")
-                Show();
+                show();
             else
                 Hide();
         }
@@ -62,10 +80,9 @@ namespace P3_Midwife.Views
             if (item != null)
             {
                 Patient child = item as Patient;
-                if (child.RecordList.First().IsCompleted == false)
+                if (child.Mother.RecordList.Find(x=> x.IsActive == true) != null)
                 {
-                    
-                    Messenger.Default.Send(child.RecordList.First(), "ChildRecordToNewChildView");
+                    Messenger.Default.Send(child.Mother.RecordList.Find(x => x.IsActive == true), "ChildRecordToNewChildView");
                     Messenger.Default.Send(child.Mother, "PatientToNewChildView");
                     Messenger.Default.Send<Employee>((Employee)ChildrenListBox.Tag, "EmployeetoNewChildView");
                     Messenger.Default.Send(child, "ChildToNewChildView");

@@ -25,7 +25,13 @@ namespace P3_Midwife
         public MainWindow()
         {
             InitializeComponent();
-            Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
+            Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);          
+            show();
+        }
+
+        private void show()
+        {
+            Username.Focus();
             Show();
         }
 

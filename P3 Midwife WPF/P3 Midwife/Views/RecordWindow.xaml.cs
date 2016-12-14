@@ -23,6 +23,7 @@ namespace P3_Midwife.Views
         int thisID;
         Patient CurrentPatient;
         Record CurrentRecord;
+        Employee CurrentEmployee;
         public RecordWindow(Record RecordShow)
         {
             try
@@ -36,8 +37,24 @@ namespace P3_Midwife.Views
             Messenger.Default.Register<Patient>(this, "PatientToRecordView", patientValidation);
             Messenger.Default.Register<Record>(this, "NewRecordToRecordView", recordValidation);
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
+            Messenger.Default.Register<Employee>(this, "Employee", validateUser);
+
             isNotClosed = false;
             this.thisID = RecordShow.ThisRecordID;
+        }
+
+        private void show()
+        {
+            if (CurrentEmployee is SOSU)
+            {
+                NewChildBtn.Visibility = Visibility.Hidden;
+            }
+            Show();
+        }
+
+        private void validateUser(Employee emp)
+        {
+            CurrentEmployee = emp;
         }
 
         private void recordValidation(Record _currentRecord)
@@ -56,7 +73,7 @@ namespace P3_Midwife.Views
             {
                 if (msg.Notification == "ToRecord" && !isNotClosed && CurrentRecord.IsActive)
                 {
-                    Show();
+                    show();
                 }
                 else if (msg.Notification == "RecordSave")
                 {
@@ -68,14 +85,23 @@ namespace P3_Midwife.Views
                 {
                     MessageBox.Show("Adgang nægtet!");
                 }
-                else
+                else if (msg.Notification != "NewChildDialog")
                 {
                     this.Hide();
                 }
             }
-            else
+            else if (msg.Notification != "NewChildDialog")
             {
                 this.Hide();
+            }
+        }
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox send = sender as TextBox;
+            if (send.Text == "0")
+            {
+                send.Clear();
             }
         }
     }
