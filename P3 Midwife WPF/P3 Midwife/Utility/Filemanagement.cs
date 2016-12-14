@@ -136,6 +136,10 @@ namespace P3_Midwife
         {
             StreamWriter file = new StreamWriter(Path.Combine(_PatientsPath, patient.CPR.ToString(), "_info.txt"));
             file.Write(patient.Name + " " + patient.CPR.ToString());
+            if (!String.IsNullOrEmpty(patient.BloodType))
+            {
+                file.Write(" " + patient.BloodType);
+            }
             foreach (Patient child in patient.Children)
             {
                 file.Write(" " + child.CPR.ToString());
@@ -476,20 +480,42 @@ namespace P3_Midwife
             {
                 sr = new StreamReader(Path.Combine(FolderName, "_info.txt"));
                 string[] informationline = sr.ReadLine().Split(' ');
-                if (informationline.Length < 3)
+                switch (informationline.Length)
                 {
-                    Ward.Patients.Add(new Patient(informationline[1]));
-                }
-                else Ward.Patients.Add(new Patient(informationline[2], informationline[0] + " " + informationline[1]));
-                if (informationline.Length > 3)
-                {
-                    for (int i = 3; i < informationline.Length; i++)
-                    {
-                        Ward.Patients.Last().Children.Add(new Patient(informationline[i]));
-                    }
+                    case 0: throw new FormatException("File is empty");
+                    case 1: throw new FormatException("File is empty");
+                    case 2: Ward.Patients.Add(new Patient(informationline[1]));
+                        break;
+                    case 3: Ward.Patients.Add(new Patient(informationline[2], informationline[0] + " " + informationline[1]));
+                        break;
+                    case 4: Ward.Patients.Add(new Patient(informationline[2], informationline[0] + " " + informationline[1], informationline[3]));
+                        break;
+
+                    default:AddPatient(informationline);
+                        break;
                 }
                 sr.Close();
             }
+        }
+
+        private static void AddPatient(string[] array)
+        {
+            if (array[3].Any(char.IsDigit))
+            {
+                for (int i = 3; i < array.Length; i++)
+                {
+                    Ward.Patients.Last().Children.Add(new Patient(array[i]));
+                }
+            }
+            else
+            {
+                Ward.Patients.Add(new Patient(array[2], array[0] + " " + array[1], array[3]));
+                for (int i = 4; i < array.Length; i++)
+                {
+                    Ward.Patients.Last().Children.Add(new Patient(array[i]));
+                }
+            }
+            
         }
         public static void ReadBills(Patient patient)
         {

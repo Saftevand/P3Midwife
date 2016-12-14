@@ -14,6 +14,7 @@ namespace P3_Midwife
         private Patient _mother;
         private string _CPR;
         private DateTime _birthDateTime;
+        private string _bloodType;
         private List<Patient> _children = new List<Patient>();
         private List<Record> _recordList = new List<Record>();
 
@@ -26,6 +27,7 @@ namespace P3_Midwife
         public List<Patient> Children { get { return _children; } set { _children = value; } }
         public List<Record> RecordList { get { return _recordList; } set { _recordList = value; } }
         public int SGA { get { return CalculateSGA(); } set { SGA = value; } }
+        public string BloodType { get { return _bloodType; } set { _bloodType = value; } }
 
 
         #region Constructors
@@ -62,6 +64,14 @@ namespace P3_Midwife
             this._gender = gender;
             this._mother = mother;
             mother.Children.Add(this);
+        }
+
+        public Patient(string Cpr, string Name, string BloodType)
+        {
+            this._CPR = Cpr;
+            this._name = Name;
+            this._bloodType = BloodType;
+            this._gender = FindGenderFromCPR(Cpr);
         }
 
         public Patient()
