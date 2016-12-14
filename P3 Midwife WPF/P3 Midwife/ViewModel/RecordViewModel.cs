@@ -58,10 +58,8 @@ namespace P3_Midwife.ViewModel
         {
             get { return _genders; }
             set { _genders = value; }
-
         }
         
-
         public char ChildGender
         {
             get { return (char)this.GetValue(ChildGenderProperty); }
@@ -164,20 +162,23 @@ namespace P3_Midwife.ViewModel
             set
             {
                 this.SetValue(RecordProperty, value);
+
+                BirthInformationListProperty.Clear();
+                ContractionListProperty.Clear();
+                FetusObservationListProperty.Clear();
+                MicturitionListProperty.Clear();
+                VaginalExplorationListProperty.Clear();
+                MedicalServicesList.Clear();
+
+                BirthInformationListProperty.AddRange(RecordCurrent.BirthInformationList);
+                ContractionListProperty.AddRange(RecordCurrent.ContractionIVDripList);
+                FetusObservationListProperty.AddRange(RecordCurrent.FetusObservationList);
+                MicturitionListProperty.AddRange(RecordCurrent.MicturitionList);
+                VaginalExplorationListProperty.AddRange(RecordCurrent.VaginalExplorationList);
                 MedicalServicesList.AddRange(RecordCurrent.CurrentBill.BillItemList);
-                //BirthInformationListProperty = new ObservableCollection<BirthInformation>();
-                //VaginalExplorationListProperty = new ObservableCollection<VaginalExploration>();
-                //MicturitionListProperty = new ObservableCollection<Micturition>();
-                //ContractionListProperty = new ObservableCollection<ContractionIVDrip>();
-                //MicturitionListProperty = new ObservableCollection<Micturition>();
-                //BirthInformationListProperty.AddRange(RecordCurrent.BirthInformationList);
-                //VaginalExplorationListProperty.AddRange(RecordCurrent.VaginalExplorationList);
-                //MicturitionListProperty.AddRange(RecordCurrent.MicturitionList);
-                //ContractionListProperty.AddRange(RecordCurrent.ContractionIVDripList);
-                //MicturitionListProperty.AddRange(RecordCurrent.MicturitionList);
-                //InitiateCollections();
             }
         }
+     
         public Patient PatientCurrent
         {
             get { return (Patient)this.GetValue(PatientProperty); }
@@ -221,7 +222,6 @@ namespace P3_Midwife.ViewModel
                 Messenger.Default.Send(tempChild, "ChildToNewChildView");
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToNewChild"));
                 //Messenger.Default.Send<NotificationMessage>(new NotificationMessage("SaveChildBasic"));
-
             });
 
 
@@ -246,6 +246,20 @@ namespace P3_Midwife.ViewModel
             });
             this.BackCommand = new RelayCommand(Parameter =>
             {
+                Filemanagement.SaveToDatabase(PatientCurrent);
+                this.RecordCurrent.BirthInformationList.AddRange(BirthInformationListProperty.Where(x => !RecordCurrent.BirthInformationList.Contains(x)));
+                BirthInformationListProperty.Clear();
+                this.RecordCurrent.ContractionIVDripList.AddRange(ContractionListProperty.Where(x => !RecordCurrent.ContractionIVDripList.Contains(x)));
+                ContractionListProperty.Clear();
+                this.RecordCurrent.MicturitionList.AddRange(MicturitionListProperty.Where(x => !RecordCurrent.MicturitionList.Contains(x)));
+                MicturitionListProperty.Clear();
+                this.RecordCurrent.VaginalExplorationList.AddRange(VaginalExplorationListProperty.Where(x => !RecordCurrent.VaginalExplorationList.Contains(x)));
+                VaginalExplorationListProperty.Clear();
+                this.RecordCurrent.FetusObservationList.AddRange(FetusObservationListProperty.Where(x => !RecordCurrent.FetusObservationList.Contains(x)));
+                FetusObservationListProperty.Clear();
+                this.RecordCurrent.CurrentBill.BillItemList.AddRange(MedicalServicesList.Where(x => !RecordCurrent.CurrentBill.BillItemList.Contains(x)));
+                MedicalServicesList.Clear();
+                Filemanagement.SaveRecord(RecordCurrent);
                 Messenger.Default.Send(new NotificationMessage("ToPatient"));
                 Messenger.Default.Send(PatientCurrent, "Patient");
                 Messenger.Default.Send(EmployeeCurrent, "Employee");
@@ -254,27 +268,28 @@ namespace P3_Midwife.ViewModel
             {  
                 ChildBirthDate = DateTime.Now;
                 Messenger.Default.Send(new NotificationMessage("NewChildDialog"));
-                new P3_Midwife.Views.NewChildWindow();
-                   
+                new P3_Midwife.Views.NewChildWindow();    
             });
             this.SaveAndCompleteCommand = new RelayCommand(parameter =>
             {
                 Messenger.Default.Send(new NotificationMessage("RecordSave"));
-                this.RecordCurrent.Note += RecordCurrent.NewNote;
-                this.RecordCurrent.BirthInformationList.AddRange(BirthInformationListProperty);
+                this.RecordCurrent.Note += "\n"+RecordCurrent.NewNote;
+                this.RecordCurrent.BirthInformationList.AddRange(BirthInformationListProperty.Where(x => !RecordCurrent.BirthInformationList.Contains(x)));
                 BirthInformationListProperty.Clear();
-                this.RecordCurrent.ContractionIVDripList.AddRange(ContractionListProperty);
+                this.RecordCurrent.ContractionIVDripList.AddRange(ContractionListProperty.Where(x => !RecordCurrent.ContractionIVDripList.Contains(x)));
                 ContractionListProperty.Clear();
-                this.RecordCurrent.MicturitionList.AddRange(MicturitionListProperty);
+                this.RecordCurrent.MicturitionList.AddRange(MicturitionListProperty.Where(x => !RecordCurrent.MicturitionList.Contains(x)));
                 MicturitionListProperty.Clear();
-                this.RecordCurrent.VaginalExplorationList.AddRange(VaginalExplorationListProperty);
+                this.RecordCurrent.VaginalExplorationList.AddRange(VaginalExplorationListProperty.Where(x => !RecordCurrent.VaginalExplorationList.Contains(x)));
                 VaginalExplorationListProperty.Clear();
-                this.RecordCurrent.FetusObservationList.AddRange(FetusObservationListProperty);
+                this.RecordCurrent.FetusObservationList.AddRange(FetusObservationListProperty.Where(x => !RecordCurrent.FetusObservationList.Contains(x)));
                 FetusObservationListProperty.Clear();
-                this.RecordCurrent.CurrentBill.BillItemList.AddRange(MedicalServicesList);
+                this.RecordCurrent.CurrentBill.BillItemList.AddRange(MedicalServicesList.Where(x => !RecordCurrent.CurrentBill.BillItemList.Contains(x)));
                 MedicalServicesList.Clear();
-                InitiateCollections();
                 RecordCurrent.IsActive = false;
+                (EmployeeCurrent as Midwife).TransferPatient(PatientCurrent);
+                Filemanagement.SaveToDatabase(PatientCurrent);
+                Filemanagement.SaveRecord(RecordCurrent);
                 Messenger.Default.Send(new NotificationMessage("ToPatient"));
                 Messenger.Default.Send(PatientCurrent, "Patient");
                 Messenger.Default.Send(EmployeeCurrent, "Employee");
@@ -307,7 +322,7 @@ namespace P3_Midwife.ViewModel
                 VaginalExplorationListProperty.Add(VaginalExplorationInfo);
             });
 
-            InitiateCollections();
+            //InitiateCollections();
 
         }
 

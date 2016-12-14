@@ -25,7 +25,7 @@ namespace P3_Midwife
         public Patient Mother { get { return _mother; } set { _mother = value; } }
         public List<Patient> Children { get { return _children; } set { _children = value; } }
         public List<Record> RecordList { get { return _recordList; } set { _recordList = value; } }
-        public int SGA { get { return CalculateSGA(); } }
+        public int SGA { get { return CalculateSGA(); } set { SGA = value; } }
 
 
         #region Constructors

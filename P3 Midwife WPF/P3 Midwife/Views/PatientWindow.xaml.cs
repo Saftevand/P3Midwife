@@ -60,13 +60,15 @@ namespace P3_Midwife.Views
                 {
                     Messenger.Default.Send<Record>((Record)chosenRecord.SelectedItem, "NewRecordToRecordView");
                     Messenger.Default.Send<Employee>((Employee)chosenRecord.Tag, "EmployeetoRecordView");
+                    Patient tempPatient = Ward.Patients.Find(x => x.RecordList.Contains((Record)chosenRecord.SelectedItem));
+                    Messenger.Default.Send<Patient>(tempPatient, "PatientToRecordView");
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToRecord"));
                 }
                 else if(TempRecord.IsActive == false)
                 {
                     Messenger.Default.Send<Record>((Record)chosenRecord.SelectedItem, "NewRecordToRecordView");
                     Messenger.Default.Send<Employee>((Employee)chosenRecord.Tag, "EmployeetoRecordView");
-                    Patient tempPatient = Ward.Patients.Find(x => x.RecordList.Contains(chosenRecord.SelectedItem));
+                    Patient tempPatient = Ward.Patients.Find(x => x.RecordList.Contains((Record)chosenRecord.SelectedItem));
                     Messenger.Default.Send<Patient>(tempPatient, "PatientToRecordView");
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToFinalRecord"));
 

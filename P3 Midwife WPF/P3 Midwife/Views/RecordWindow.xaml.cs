@@ -49,7 +49,7 @@ namespace P3_Midwife.Views
             {
                 NewChildBtn.Visibility = Visibility.Hidden;
             }
-            Show();
+            this.Show();
         }
 
         private void validateUser(Employee emp)
@@ -69,11 +69,10 @@ namespace P3_Midwife.Views
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (thisID == CurrentRecord.ThisRecordID)
-            {
+
                 if (msg.Notification == "ToRecord" && !isNotClosed && CurrentRecord.IsActive)
                 {
-                    show();
+                    if(this.thisID == CurrentRecord.ThisRecordID) show();
                 }
                 else if (msg.Notification == "RecordSave")
                 {
@@ -89,7 +88,7 @@ namespace P3_Midwife.Views
                 {
                     this.Hide();
                 }
-            }
+
             else if (msg.Notification != "NewChildDialog")
             {
                 this.Hide();

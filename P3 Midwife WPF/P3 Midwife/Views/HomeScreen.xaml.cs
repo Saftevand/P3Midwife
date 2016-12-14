@@ -72,6 +72,7 @@ namespace P3_Midwife
 
         private void ActivePatientsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Filemanagement.ReadBirthRecords((Patient)chosenPatient.SelectedItem);
             Messenger.Default.Send<Patient>((Patient)chosenPatient.SelectedItem, "Patient");
             Messenger.Default.Send<Employee>((Employee)chosenPatient.Tag, "Employee");
             Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));

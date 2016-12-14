@@ -135,7 +135,7 @@
     </Compile>
     <Compile Include="Views\HomeScreen.xaml.cs" />
     <Compile Include="ViewModel\HomeScreenViewModel.cs" />
-    <Compile Include="RelayCommand.cs" />
+    <Compile Include="Utility\RelayCommand.cs" />
     <Compile Include="SkraldKodeSomLigeGemmesTilSenere.cs" />
     <Compile Include="Utility\Dictionary.cs" />
     <Compile Include="Utility\Filemanagement.cs" />

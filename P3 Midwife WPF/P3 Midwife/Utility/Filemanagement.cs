@@ -125,10 +125,22 @@ namespace P3_Midwife
         }
 
         #region save files
-        public static void SaveToDatabase()
+        public static void SaveToDatabase(Patient patient)
         {
             SaveRoomFile();
             SaveEmployeeFile();
+            SavePatientInfo(patient);
+        }
+
+        private static void SavePatientInfo(Patient patient)
+        {
+            StreamWriter file = new StreamWriter(Path.Combine(_PatientsPath, patient.CPR.ToString(), "_info.txt"));
+            file.Write(patient.Name + " " + patient.CPR.ToString());
+            foreach (Patient child in patient.Children)
+            {
+                file.Write(" " + child.CPR.ToString());
+            }
+            file.Close();
         }
 
         private static void SaveRoomFile()
@@ -168,7 +180,8 @@ namespace P3_Midwife
 
         public static void SaveRecord(Record record)
         {
-            StreamWriter file = new StreamWriter(Path.Combine(_PatientsPath, record.RecordsPatient.CPR.ToString(), "_Record" + record.ThisRecordID.ToString()));
+            CreateFile(Path.Combine(_PatientsPath, record.RecordsPatient.CPR.ToString()), "_Record" + record.ThisRecordID.ToString());
+            StreamWriter file = new StreamWriter(Path.Combine(_PatientsPath, record.RecordsPatient.CPR.ToString(), "_Record" + record.ThisRecordID.ToString() + ".txt"));
             file.Write(record.ToFile());
             file.Close();
             SaveBill(record.CurrentBill);
@@ -265,186 +278,195 @@ namespace P3_Midwife
         }
         public static void ReadBirthRecords(Patient patient)
         {
-            StreamReader sr;
-            List<List<string>> information = new List<List<string>>();
-            int CIVDripCounter;
-            int vgExpCounter;
-            int micturitionCounter;
-            int fetusObsCounter;
-            int birthInfoCounter;
-            int variCounter;
-            int fileCounter = 0;
-            Record recordToBeAdded;
-            string tempString;
-            string[] filer = Directory.GetFiles(Path.Combine(_PatientsPath, patient.CPR.ToString())).Where(x => !x.Contains("info")).ToArray();
-
-            foreach (string fil in filer)
+            if (patient.RecordList.Count == 0)
             {
-                recordToBeAdded = new Record(patient);
-                CIVDripCounter = 0;
-                vgExpCounter = 0;
-                micturitionCounter = 0;
-                fetusObsCounter = 0;
-                birthInfoCounter = 0;
-                variCounter = 0;
-                sr = new StreamReader(fil);
-                information.Add(sr.ReadToEnd().Split('_').ToList());
-                information[fileCounter].RemoveAt(0);
-                foreach (string paragraph in information[fileCounter])
+                StreamReader sr;
+                List<List<string>> information = new List<List<string>>();
+                int CIVDripCounter;
+                int vgExpCounter;
+                int micturitionCounter;
+                int fetusObsCounter;
+                int birthInfoCounter;
+                int variCounter;
+                int fileCounter = 0;
+                Record recordToBeAdded;
+                string tempString;
+                string[] filer = Directory.GetFiles(Path.Combine(_PatientsPath, patient.CPR.ToString())).Where(x => !x.Contains("info") && !x.Contains("Bill")).ToArray();
+
+                foreach (string fil in filer)
                 {
-                    tempString = paragraph.Split('|')[0];
-                    switch (tempString)
+                    recordToBeAdded = new Record(patient);
+                    CIVDripCounter = 0;
+                    vgExpCounter = 0;
+                    micturitionCounter = 0;
+                    fetusObsCounter = 0;
+                    birthInfoCounter = 0;
+                    variCounter = 0;
+                    sr = new StreamReader(fil);
+                    information.Add(sr.ReadToEnd().Split('_').ToList());
+                    information[fileCounter].RemoveAt(0);
+                    foreach (string paragraph in information[fileCounter])
                     {
-                        case "contractionIVDrip":
-                            CIVDripCounter++;
-                            break;
-                        case "vaginalExp":
-                            vgExpCounter++;
-                            break;
-                        case "micturition":
-                            micturitionCounter++;
-                            break;
-                        case "fetusObservation":
-                            fetusObsCounter++;
-                            break;
-                        case "birthInformation":
-                            birthInfoCounter++;
-                            break;
-                        case "variables":
-                            variCounter++;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                int i = 0;
-                char[] seperators = new char[1];
-                seperators[0] = '|';
-                if (CIVDripCounter != 0)
-                {
-                    string[] CIVDripInfo;
-                    for (; i < CIVDripCounter; i++)
-                    {
-                        CIVDripInfo = information[fileCounter][i].Split('|');
-                        ContractionIVDrip temp = new ContractionIVDrip();
-                        if (!String.IsNullOrEmpty(CIVDripInfo[1])) temp.Time = DateTime.ParseExact(CIVDripInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
-                        if(!String.IsNullOrEmpty(CIVDripInfo[2])) temp.NumberOfContractionsPerMinute = Convert.ToInt32(CIVDripInfo[2]);
-                        if(!String.IsNullOrEmpty(CIVDripInfo[3])) temp.SDripMlPerHour = Convert.ToInt32(CIVDripInfo[3]);
-                        recordToBeAdded.ContractionIVDripList.Add(temp);
-                    }
-                }
-                if (vgExpCounter != 0)
-                {
-                    string[] vagExpInfo;
-                    int loopCounter = vgExpCounter + i;
-                    for (; i < loopCounter; i++)
-                    {
-                        vagExpInfo = information[fileCounter][i].Split('|');
-                        VaginalExploration temp = new VaginalExploration();
-                        if (!String.IsNullOrEmpty(vagExpInfo[1])) temp.Time = DateTime.ParseExact(vagExpInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
-                        if (!String.IsNullOrEmpty(vagExpInfo[2])) temp.Collum = Convert.ToInt32(vagExpInfo[2]);
-                        if (!String.IsNullOrEmpty(vagExpInfo[3])) temp.Dialation = Convert.ToInt32(vagExpInfo[3]);
-                        if (!String.IsNullOrEmpty(vagExpInfo[4])) temp.Position = vagExpInfo[4];
-                        if (!String.IsNullOrEmpty(vagExpInfo[5])) temp.Rotation = Convert.ToInt32(vagExpInfo[5]);
-                        if (!String.IsNullOrEmpty(vagExpInfo[6])) temp.Consistency = vagExpInfo[6];
-                        if (!String.IsNullOrEmpty(vagExpInfo[7])) temp.Location = vagExpInfo[7];
-                        if (!String.IsNullOrEmpty(vagExpInfo[8])) temp.AmnioticFluid = vagExpInfo[8];
-                        recordToBeAdded.VaginalExplorationList.Add(temp);
-                    }
-                }
-                if (micturitionCounter != 0)
-                {
-                    string[] MictuInfo;
-                    int loopCounter = micturitionCounter + i;
-                    for (; i < loopCounter; i++)
-                    {
-                        MictuInfo = information[fileCounter][i].Split('|');
-                        Micturition temp = new Micturition();
-                        if (!String.IsNullOrEmpty(MictuInfo[1])) temp.Time = DateTime.ParseExact(MictuInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
-                        if (!String.IsNullOrEmpty(MictuInfo[2])) temp.MicturitionNote = MictuInfo[2];
-                        recordToBeAdded.MicturitionList.Add(temp);
-                    }
-                }
-                if (fetusObsCounter != 0)
-                {
-                    string[] fetusObsInfo;
-                    int loopCounter = fetusObsCounter + i;
-                    for (; i < loopCounter; i++)
-                    {
-                        fetusObsInfo = information[fileCounter][i].Split('|');
-                        FetusObservation temp = new FetusObservation();
-                        if (!String.IsNullOrEmpty(fetusObsInfo[1])) temp.Time = DateTime.ParseExact(fetusObsInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
-                        if (!String.IsNullOrEmpty(fetusObsInfo[2])) temp.HearthFrequency = fetusObsInfo[2];
-                        if (!String.IsNullOrEmpty(fetusObsInfo[3])) temp.CTG = fetusObsInfo[3];
-                        if (!String.IsNullOrEmpty(fetusObsInfo[4])) temp.CTGClassification = fetusObsInfo[4];
-                        if (!String.IsNullOrEmpty(fetusObsInfo[5])) temp.STAN = fetusObsInfo[5];
-                        if (!String.IsNullOrEmpty(fetusObsInfo[6])) temp.ScalppH = Convert.ToDouble(fetusObsInfo[6]);
-                        if (!String.IsNullOrEmpty(fetusObsInfo[7])) temp.ScalpLactate = Convert.ToDouble(fetusObsInfo[7]);
-                        recordToBeAdded.FetusObservationList.Add(temp);
-                    }
-                }
-                if (birthInfoCounter != 0)
-                {
-                    string[] birthInfo;
-                    int loopCounter = birthInfoCounter + i;
-                    for (; i < loopCounter; i++)
-                    {
-                        birthInfo = information[fileCounter][i].Split('|');
-                        BirthInformation temp = new BirthInformation();
-                        if (!String.IsNullOrEmpty(birthInfo[1])) temp.Time = DateTime.ParseExact(birthInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
-                        if (!String.IsNullOrEmpty(birthInfo[2])) temp.Result = birthInfo[2];
-                        if (!String.IsNullOrEmpty(birthInfo[3])) temp.AmnioticFluid = birthInfo[3];
-                        if (!String.IsNullOrEmpty(birthInfo[4])) temp.AmountOfFluid = birthInfo[4];
-                        if (!String.IsNullOrEmpty(birthInfo[5])) temp.BloodAmount = Convert.ToDouble(birthInfo[5]);
-                        if (!String.IsNullOrEmpty(birthInfo[6])) temp.BleedingCause = birthInfo[6];
-                        if (!String.IsNullOrEmpty(birthInfo[7])) temp.BirthPosition = birthInfo[7];
-                        recordToBeAdded.BirthInformationList.Add(temp);
-                    }
-                }
-                if (variCounter != 0)
-                {
-                    string[] VariInfo;
-                    int loopCounter = variCounter + i;
-                    for (; i < loopCounter; i++)
-                    {
-                        VariInfo = information[fileCounter][i].Split('|');
-                        if (!String.IsNullOrEmpty(VariInfo[1])) recordToBeAdded.ThisRecordID = Convert.ToInt32(VariInfo[1]);
-                        if (!String.IsNullOrEmpty(VariInfo[2])) recordToBeAdded.TimeOfBirth = DateTime.ParseExact(VariInfo[2], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
-                        if (!String.IsNullOrEmpty(VariInfo[3])) recordToBeAdded.CircumferenceHead = Convert.ToDouble(VariInfo[3]);
-                        if (!String.IsNullOrEmpty(VariInfo[4])) recordToBeAdded.CircumferenceStomach = Convert.ToDouble(VariInfo[4]);
-                        if (!String.IsNullOrEmpty(VariInfo[5])) recordToBeAdded.BloodSugar = Convert.ToDouble(VariInfo[5]);
-                        if (!String.IsNullOrEmpty(VariInfo[6])) recordToBeAdded.GA = VariInfo[6];
-                        if (!String.IsNullOrEmpty(VariInfo[7])) recordToBeAdded.NavelpHVenous = Convert.ToDouble(VariInfo[7]);
-                        if (!String.IsNullOrEmpty(VariInfo[8])) recordToBeAdded.NavelpHArterial = Convert.ToDouble(VariInfo[8]);
-                        if (!String.IsNullOrEmpty(VariInfo[9])) recordToBeAdded.NavelBaseExcessArterial = Convert.ToDouble(VariInfo[9]);
-                        if (!String.IsNullOrEmpty(VariInfo[10])) recordToBeAdded.NavelBaseExcessVenous = Convert.ToDouble(VariInfo[10]);
-                        if (!String.IsNullOrEmpty(VariInfo[11])) recordToBeAdded.FetusPosition = Convert.ToInt32(VariInfo[11]);
-                        if (!String.IsNullOrEmpty(VariInfo[12])) recordToBeAdded.PlacentaWeight = Convert.ToDouble(VariInfo[12]);
-                        if (!String.IsNullOrEmpty(VariInfo[13])) recordToBeAdded.KVitamin = Convert.ToBoolean(VariInfo[13]);
-                        if (!String.IsNullOrEmpty(VariInfo[14])) recordToBeAdded.ApgarOneMinute = Convert.ToInt32(VariInfo[14]);
-                        if (!String.IsNullOrEmpty(VariInfo[15])) recordToBeAdded.ApgarFiveMinutes = Convert.ToInt32(VariInfo[15]);
-                        if (!String.IsNullOrEmpty(VariInfo[16])) recordToBeAdded.ApgarTenMinutes = Convert.ToInt32(VariInfo[16]);
-                        if (!String.IsNullOrEmpty(VariInfo[17])) recordToBeAdded.AO = Convert.ToInt32(VariInfo[17]);
-                        if (!String.IsNullOrEmpty(VariInfo[18])) recordToBeAdded.HO = Convert.ToInt32(VariInfo[18]);
-                        if (!String.IsNullOrEmpty(VariInfo[19])) recordToBeAdded.Weight = Convert.ToDouble(VariInfo[19]);
-                        if (!String.IsNullOrEmpty(VariInfo[20])) recordToBeAdded.Length = Convert.ToDouble(VariInfo[20]);
-                        if (!String.IsNullOrEmpty(VariInfo[21])) recordToBeAdded.NumberOfChildren = VariInfo[21];
-                        if (!String.IsNullOrEmpty(VariInfo[22])) recordToBeAdded.FurtherNotice = VariInfo[22];
-                        if (!String.IsNullOrEmpty(VariInfo[23])) recordToBeAdded.Sucking = Convert.ToBoolean(VariInfo[23]);
-                        if (!String.IsNullOrEmpty(VariInfo[24])) recordToBeAdded.Nose = Convert.ToBoolean(VariInfo[24]);
-                        if (!String.IsNullOrEmpty(VariInfo[25])) recordToBeAdded.Pharynx = Convert.ToBoolean(VariInfo[25]);
-                        if (!String.IsNullOrEmpty(VariInfo[26])) recordToBeAdded.Ventricle = Convert.ToBoolean(VariInfo[26]);
-                        if (!String.IsNullOrEmpty(VariInfo[27])) recordToBeAdded.Diagnosis = VariInfo[27];
-                        if (!String.IsNullOrEmpty(VariInfo[28])) recordToBeAdded.Note = VariInfo[28];
-                        for (int h = 29; h < VariInfo.Length; h++)
+                        tempString = paragraph.Split('|')[0];
+                        switch (tempString)
                         {
-                            recordToBeAdded.Diseases.Add(VariInfo[h]);
+                            case "contractionIVDrip":
+                                CIVDripCounter++;
+                                break;
+                            case "vaginalExp":
+                                vgExpCounter++;
+                                break;
+                            case "micturition":
+                                micturitionCounter++;
+                                break;
+                            case "fetusObservation":
+                                fetusObsCounter++;
+                                break;
+                            case "birthInformation":
+                                birthInfoCounter++;
+                                break;
+                            case "variables":
+                                variCounter++;
+                                break;
+                            default:
+                                break;
                         }
                     }
-                    sr.Close();
+                    int i = 0;
+                    if (CIVDripCounter != 0)
+                    {
+                        string[] CIVDripInfo;
+                        for (; i < CIVDripCounter; i++)
+                        {
+                            CIVDripInfo = information[fileCounter][i].Split('|');
+                            ContractionIVDrip temp = new ContractionIVDrip();
+                            if (!String.IsNullOrEmpty(CIVDripInfo[1])) temp.Time = DateTime.ParseExact(CIVDripInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+                            if (!String.IsNullOrEmpty(CIVDripInfo[2])) temp.NumberOfContractionsPerMinute = Convert.ToInt32(CIVDripInfo[2]);
+                            if (!String.IsNullOrEmpty(CIVDripInfo[3])) temp.SDripMlPerHour = Convert.ToInt32(CIVDripInfo[3]);
+                            recordToBeAdded.ContractionIVDripList.Add(temp);
+                        }
+                    }
+                    if (vgExpCounter != 0)
+                    {
+                        string[] vagExpInfo;
+                        int loopCounter = vgExpCounter + i;
+                        for (; i < loopCounter; i++)
+                        {
+                            vagExpInfo = information[fileCounter][i].Split('|');
+                            VaginalExploration temp = new VaginalExploration();
+                            if (!String.IsNullOrEmpty(vagExpInfo[1])) temp.Time = DateTime.ParseExact(vagExpInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+                            if (!String.IsNullOrEmpty(vagExpInfo[2])) temp.Collum = Convert.ToInt32(vagExpInfo[2]);
+                            if (!String.IsNullOrEmpty(vagExpInfo[3])) temp.Dialation = Convert.ToInt32(vagExpInfo[3]);
+                            if (!String.IsNullOrEmpty(vagExpInfo[4])) temp.Position = vagExpInfo[4];
+                            if (!String.IsNullOrEmpty(vagExpInfo[5])) temp.Rotation = Convert.ToInt32(vagExpInfo[5]);
+                            if (!String.IsNullOrEmpty(vagExpInfo[6])) temp.Consistency = vagExpInfo[6];
+                            if (!String.IsNullOrEmpty(vagExpInfo[7])) temp.Location = vagExpInfo[7];
+                            if (!String.IsNullOrEmpty(vagExpInfo[8])) temp.AmnioticFluid = vagExpInfo[8];
+                            recordToBeAdded.VaginalExplorationList.Add(temp);
+                        }
+                    }
+                    if (micturitionCounter != 0)
+                    {
+                        string[] MictuInfo;
+                        int loopCounter = micturitionCounter + i;
+                        for (; i < loopCounter; i++)
+                        {
+                            MictuInfo = information[fileCounter][i].Split('|');
+                            Micturition temp = new Micturition();
+                            if (!String.IsNullOrEmpty(MictuInfo[1])) temp.Time = DateTime.ParseExact(MictuInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+                            if (!String.IsNullOrEmpty(MictuInfo[2])) temp.MicturitionNote = MictuInfo[2];
+                            recordToBeAdded.MicturitionList.Add(temp);
+                        }
+                    }
+                    if (fetusObsCounter != 0)
+                    {
+                        string[] fetusObsInfo;
+                        int loopCounter = fetusObsCounter + i;
+                        for (; i < loopCounter; i++)
+                        {
+                            fetusObsInfo = information[fileCounter][i].Split('|');
+                            FetusObservation temp = new FetusObservation();
+                            if (!String.IsNullOrEmpty(fetusObsInfo[1])) temp.Time = DateTime.ParseExact(fetusObsInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+                            if (!String.IsNullOrEmpty(fetusObsInfo[2])) temp.HearthFrequency = fetusObsInfo[2];
+                            if (!String.IsNullOrEmpty(fetusObsInfo[3])) temp.CTG = fetusObsInfo[3];
+                            if (!String.IsNullOrEmpty(fetusObsInfo[4])) temp.CTGClassification = fetusObsInfo[4];
+                            if (!String.IsNullOrEmpty(fetusObsInfo[5])) temp.STAN = fetusObsInfo[5];
+                            if (!String.IsNullOrEmpty(fetusObsInfo[6])) temp.ScalppH = Convert.ToDouble(fetusObsInfo[6]);
+                            if (!String.IsNullOrEmpty(fetusObsInfo[7])) temp.ScalpLactate = Convert.ToDouble(fetusObsInfo[7]);
+                            recordToBeAdded.FetusObservationList.Add(temp);
+                        }
+                    }
+                    if (birthInfoCounter != 0)
+                    {
+                        string[] birthInfo;
+                        int loopCounter = birthInfoCounter + i;
+                        for (; i < loopCounter; i++)
+                        {
+                            birthInfo = information[fileCounter][i].Split('|');
+                            BirthInformation temp = new BirthInformation();
+                            if (!String.IsNullOrEmpty(birthInfo[1])) temp.Time = DateTime.ParseExact(birthInfo[1], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+                            if (!String.IsNullOrEmpty(birthInfo[2])) temp.Result = birthInfo[2];
+                            if (!String.IsNullOrEmpty(birthInfo[3])) temp.AmnioticFluid = birthInfo[3];
+                            if (!String.IsNullOrEmpty(birthInfo[4])) temp.AmountOfFluid = birthInfo[4];
+                            if (!String.IsNullOrEmpty(birthInfo[5])) temp.BloodAmount = Convert.ToDouble(birthInfo[5]);
+                            if (!String.IsNullOrEmpty(birthInfo[6])) temp.BleedingCause = birthInfo[6];
+                            if (!String.IsNullOrEmpty(birthInfo[7])) temp.BirthPosition = birthInfo[7];
+                            recordToBeAdded.BirthInformationList.Add(temp);
+                        }
+                    }
+                    if (variCounter != 0)
+                    {
+                        string[] VariInfo;
+                        int loopCounter = variCounter + i;
+                        for (; i < loopCounter; i++)
+                        {
+                            VariInfo = information[fileCounter][i].Split('|');
+                            //if (!String.IsNullOrEmpty(VariInfo[1])) recordToBeAdded.ThisRecordID = Convert.ToInt32(VariInfo[1]);
+                            if (!String.IsNullOrEmpty(VariInfo[2])) recordToBeAdded.TimeOfBirth = DateTime.ParseExact(VariInfo[2], "dd-MM-yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+                            if (!String.IsNullOrEmpty(VariInfo[3])) recordToBeAdded.CircumferenceHead = Convert.ToDouble(VariInfo[3]);
+                            if (!String.IsNullOrEmpty(VariInfo[4])) recordToBeAdded.CircumferenceStomach = Convert.ToDouble(VariInfo[4]);
+                            if (!String.IsNullOrEmpty(VariInfo[5])) recordToBeAdded.BloodSugar = Convert.ToDouble(VariInfo[5]);
+                            if (!String.IsNullOrEmpty(VariInfo[6])) recordToBeAdded.GA = VariInfo[6];
+                            if (!String.IsNullOrEmpty(VariInfo[7])) recordToBeAdded.NavelpHVenous = Convert.ToDouble(VariInfo[7]);
+                            if (!String.IsNullOrEmpty(VariInfo[8])) recordToBeAdded.NavelpHArterial = Convert.ToDouble(VariInfo[8]);
+                            if (!String.IsNullOrEmpty(VariInfo[9])) recordToBeAdded.NavelBaseExcessArterial = Convert.ToDouble(VariInfo[9]);
+                            if (!String.IsNullOrEmpty(VariInfo[10])) recordToBeAdded.NavelBaseExcessVenous = Convert.ToDouble(VariInfo[10]);
+                            if (!String.IsNullOrEmpty(VariInfo[11])) recordToBeAdded.FetusPosition = Convert.ToInt32(VariInfo[11]);
+                            if (!String.IsNullOrEmpty(VariInfo[12])) recordToBeAdded.PlacentaWeight = Convert.ToDouble(VariInfo[12]);
+                            if (!String.IsNullOrEmpty(VariInfo[13])) recordToBeAdded.KVitamin = Convert.ToBoolean(VariInfo[13]);
+                            if (!String.IsNullOrEmpty(VariInfo[14])) recordToBeAdded.ApgarOneMinute = Convert.ToInt32(VariInfo[14]);
+                            if (!String.IsNullOrEmpty(VariInfo[15])) recordToBeAdded.ApgarFiveMinutes = Convert.ToInt32(VariInfo[15]);
+                            if (!String.IsNullOrEmpty(VariInfo[16])) recordToBeAdded.ApgarTenMinutes = Convert.ToInt32(VariInfo[16]);
+                            if (!String.IsNullOrEmpty(VariInfo[17])) recordToBeAdded.AO = Convert.ToInt32(VariInfo[17]);
+                            if (!String.IsNullOrEmpty(VariInfo[18])) recordToBeAdded.HO = Convert.ToInt32(VariInfo[18]);
+                            if (!String.IsNullOrEmpty(VariInfo[19])) recordToBeAdded.Weight = Convert.ToDouble(VariInfo[19]);
+                            if (!String.IsNullOrEmpty(VariInfo[20])) recordToBeAdded.Length = Convert.ToDouble(VariInfo[20]);
+                            if (!String.IsNullOrEmpty(VariInfo[21])) recordToBeAdded.NumberOfChildren = VariInfo[21];
+                            if (!String.IsNullOrEmpty(VariInfo[22])) recordToBeAdded.FurtherNotice = VariInfo[22];
+                            if (!String.IsNullOrEmpty(VariInfo[23])) recordToBeAdded.Sucking = Convert.ToBoolean(VariInfo[23]);
+                            if (!String.IsNullOrEmpty(VariInfo[24])) recordToBeAdded.Nose = Convert.ToBoolean(VariInfo[24]);
+                            if (!String.IsNullOrEmpty(VariInfo[25])) recordToBeAdded.Pharynx = Convert.ToBoolean(VariInfo[25]);
+                            if (!String.IsNullOrEmpty(VariInfo[26])) recordToBeAdded.Ventricle = Convert.ToBoolean(VariInfo[26]);
+                            if (!String.IsNullOrEmpty(VariInfo[27])) recordToBeAdded.Diagnosis = VariInfo[27];
+                            if (!String.IsNullOrEmpty(VariInfo[28])) recordToBeAdded.Note = VariInfo[28];
+                            if (!String.IsNullOrEmpty(VariInfo[29])) recordToBeAdded.NewNote = VariInfo[29];
+                            if (!String.IsNullOrEmpty(VariInfo[30])) recordToBeAdded.ApgarOneMinuteNote = VariInfo[30];
+                            if (!String.IsNullOrEmpty(VariInfo[31])) recordToBeAdded.ApgarFiveMinuteNote = VariInfo[31];
+                            if (!String.IsNullOrEmpty(VariInfo[32])) recordToBeAdded.ApgarTenMinuteNote = VariInfo[32];
+                            if (!String.IsNullOrEmpty(VariInfo[33])) recordToBeAdded.BreastFeedingNote = VariInfo[33];
+                            if (!String.IsNullOrEmpty(VariInfo[34])) recordToBeAdded.BirthComplications = Convert.ToBoolean(VariInfo[34]);
+                            if (!String.IsNullOrEmpty(VariInfo[35])) recordToBeAdded.IsActive = Convert.ToBoolean(VariInfo[35]);
+                            for (int h = 36; h < VariInfo.Length; h++)
+                            {
+                                recordToBeAdded.Diseases.Add(VariInfo[h]);
+                            }
+                        }
+                        sr.Close();
+                    }
+                    patient.RecordList.Add(recordToBeAdded);
+                    new P3_Midwife.Views.RecordWindow(recordToBeAdded);
+                    fileCounter++;
                 }
-                patient.RecordList.Add(recordToBeAdded);
-                fileCounter++;
             }
         }
         public static void ReadPatients()
@@ -454,8 +476,18 @@ namespace P3_Midwife
             {
                 sr = new StreamReader(Path.Combine(FolderName, "_info.txt"));
                 string[] informationline = sr.ReadLine().Split(' ');
-                string test = informationline[0] + " " + informationline[1];
-                Ward.Patients.Add(new Patient(FolderName.Substring(_PatientsPath.Length + 1, 10), informationline[0] + " " + informationline[1]));
+                if (informationline.Length < 3)
+                {
+                    Ward.Patients.Add(new Patient(informationline[1]));
+                }
+                else Ward.Patients.Add(new Patient(informationline[2], informationline[0] + " " + informationline[1]));
+                if (informationline.Length > 3)
+                {
+                    for (int i = 3; i < informationline.Length; i++)
+                    {
+                        Ward.Patients.Last().Children.Add(new Patient(informationline[i]));
+                    }
+                }
                 sr.Close();
             }
         }

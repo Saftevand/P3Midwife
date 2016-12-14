@@ -55,6 +55,7 @@ namespace P3_Midwife
         public int _thisRecordID;
         private string _note;
         private string _newNote;
+        private bool _birthComplications;
 
         #endregion
 
@@ -98,12 +99,13 @@ namespace P3_Midwife
         public bool Ventricle { get { return this._ventricle; } set { this._ventricle = value; } }
         public DateTime Date { get { return this._date; } set { this._date = value; } }
         public Patient Mother { get { return _mother; } set { _mother = value; } }
-        public string Note { get { return _note; } set { _note += value; } }
+        public string Note { get { return _note; } set { _note = value; } }
         public string NewNote { get { return _newNote; } set { _newNote = value; } }
         public string BreastFeedingNote { get { return _breastFeedingNote; } set { _breastFeedingNote = value; } }
         public string ApgarOneMinuteNote { get { return _apgarOneMinuteNote; } set { _apgarOneMinuteNote = value; } }
         public string ApgarFiveMinuteNote { get { return _apgarFiveMinuteNote; } set { _apgarFiveMinuteNote = value; } }
         public string ApgarTenMinuteNote { get { return _apgarTenMinuteNote; } set { _apgarTenMinuteNote = value; } }
+        public bool BirthComplications { get { return _birthComplications; } set { _birthComplications = value; } }
         #endregion
 
         public Record(Patient Patient)
@@ -145,7 +147,7 @@ namespace P3_Midwife
             {
                 ReturnString = ReturnString + item.ToString();
             }
-            ReturnString = (ReturnString + "_variables|" + ThisRecordID.ToString() + "|" + TimeOfBirth.ToString() + "|" + CircumferenceHead.ToString() + "|" + CircumferenceStomach.ToString() + "|" + BloodSugar.ToString() + "|" + GA + "|" + NavelpHVenous.ToString() + "|" + NavelpHArterial.ToString() + "|" + NavelBaseExcessArterial.ToString() + "|" + NavelBaseExcessVenous.ToString() + "|" + FetusPosition.ToString() + "|" + PlacentaWeight.ToString() + "|" + KVitamin.ToString() + "|" + ApgarOneMinute.ToString() + "|" + ApgarFiveMinutes.ToString() + "|" + ApgarTenMinutes.ToString() + "|" + AO.ToString() + "|" + HO.ToString() + "|" + Weight.ToString() + "|" + Length.ToString() + "|" + NumberOfChildren + "|" + FurtherNotice + "|" + Sucking.ToString() + "|" + Nose.ToString() + "|" + Pharynx.ToString() + "|" + Ventricle.ToString() + "|" + Diagnosis + "|" + Note);
+            ReturnString = (ReturnString + "_variables|" + ThisRecordID.ToString() + "|" + TimeOfBirth.ToString() + "|" + CircumferenceHead.ToString() + "|" + CircumferenceStomach.ToString() + "|" + BloodSugar.ToString() + "|" + GA + "|" + NavelpHVenous.ToString() + "|" + NavelpHArterial.ToString() + "|" + NavelBaseExcessArterial.ToString() + "|" + NavelBaseExcessVenous.ToString() + "|" + FetusPosition.ToString() + "|" + PlacentaWeight.ToString() + "|" + KVitamin.ToString() + "|" + ApgarOneMinute.ToString() + "|" + ApgarFiveMinutes.ToString() + "|" + ApgarTenMinutes.ToString() + "|" + AO.ToString() + "|" + HO.ToString() + "|" + Weight.ToString() + "|" + Length.ToString() + "|" + NumberOfChildren + "|" + FurtherNotice + "|" + Sucking.ToString() + "|" + Nose.ToString() + "|" + Pharynx.ToString() + "|" + Ventricle.ToString() + "|" + Diagnosis + "|" + Note + "|" + NewNote + "|" + ApgarOneMinuteNote + "|" + ApgarFiveMinuteNote + "|" + ApgarTenMinuteNote + "|" + BreastFeedingNote + "|" + BirthComplications.ToString() + "|" + IsActive.ToString());
             foreach (string item in Diseases)
             {
                 ReturnString = ReturnString + "|" + item;
