@@ -61,6 +61,12 @@ namespace P3_Midwife.Views
             TextBox senderBox = sender as TextBox; 
             List<string> autoList = new List<string>();
             autoList.Clear();
+
+            if (senderBox.Text.EndsWith(" "))
+            {
+                txtAuto.Text = TextEditor.WordReplacement(senderBox.Text.ToString());
+            }
+
             autoList = provider.GetSuggestions(senderBox.Text.ToLower());
 
             if (autoList.Count > 0)

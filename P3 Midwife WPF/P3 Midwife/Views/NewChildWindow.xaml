@@ -58,210 +58,94 @@
                 <TextBlock><Run Text="{Binding CurrentEmployee.Name}"/></TextBlock>
                 <TextBlock><Run Text="{Binding CurrentRoom.RoomID, Mode=OneWay}"/></TextBlock>
             </ItemsControl>
-
-
-
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Margin="220,140,528.6,200.4">
-            <ItemsControl Width="150">
-                <TextBlock>
-                    <Label>
-                        <Run Text="GA: "/>
-                    </Label>
-                </TextBlock>
+        <StackPanel>
 
-                <TextBlock>
-                    <Label>
-                        <Run Text="Vægt: "/>
-                    </Label>
-                </TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="220,140,528.6,200.4">
+                <ItemsControl Width="100">
+                    <TextBlock Text="GA: "/>
+                    <TextBlock Text="Vægt: " Margin="0,3,0,0"/>
+                    <TextBlock Text="Længde: " Margin="0,2,0,0"/>
+                    <TextBlock Text="HO: " Margin="0,2,0,0"/>
+                    <TextBlock Text="AO: " Margin="0,2,0,0"/>
+                    <TextBlock Text="Placentavægt: " Margin="0,2,0,0"/>
+                    <TextBlock Text="K. vit (I/D/N): " Margin="0,2,0,0"/>
+                    <TextBlock Text="Diag: " Margin="0,2,0,0"/>
+                    <TextBlock Text="Sugning: "/>
+                    <TextBlock Text="Næse: "/>
+                    <TextBlock Text="Svælg: "/>
+                    <TextBlock Text="Ventrikel: "/>
+                    <TextBlock Text="Blodsukker: " Margin="0,1,0,0"/>
+                    <TextBlock Text="NS-Arterie" Margin="0,2,0,0"/>
+                    <TextBlock Text="pH: " Margin="0,1,0,0"/>
+                    <TextBlock Text="SBE: " Margin="0,2,0,0"/>
+                    <TextBlock Text="NS-Vene"/>
+                    <TextBlock Text="pH: " Margin="0,1,0,0"/>
+                    <TextBlock Text="SBE: " Margin="0,2,0,0"/>
+                </ItemsControl>
 
-                <TextBlock>
-                    <Label>
-                        <Run Text="Længde: "/>
-                    </Label>
-                </TextBlock>
-
-                <TextBlock>
-                    <Label>
-                        <Run Text="HO: "/>
-                    </Label>
-                </TextBlock>
-
-                <TextBlock>
-                    <Label>
-                        <Run Text="AO: "/>
-                    </Label>
-                </TextBlock>
-
-                <TextBlock>
-                    <Label>
-                        <Run Text="Placentavægt: "/>
-                    </Label>
-                </TextBlock>
-
-                <TextBlock>
-                    <Label>
-                        <Run Text="K. vit (I/D/N): "/>
-                    </Label>
-                </TextBlock>
-
-                <TextBlock>
-                    <Label>
-                        <Run Text="Diag: "/>
-                    </Label>
-                </TextBlock>
-            </ItemsControl>
-
-            <ItemsControl Width="150">
-                <TextBox Text="{Binding CurrentRecord.GA}"/>
-                <TextBox Text="{Binding CurrentRecord.Weight}"/>
-                <TextBox Text="{Binding CurrentRecord.Length}"/>
-                <TextBox Text="{Binding CurrentRecord.HO}"/>
-                <TextBox Text="{Binding CurrentRecord.AO}"/>
-                <TextBox Text="{Binding CurrentRecord.PlacentaWeight}"/>
-                <TextBox Text="{Binding CurrentRecord.KVitamin}"/>
-                <TextBox Text="{Binding CurrentRecord.Diagnosis}"/>
-            </ItemsControl>
+                <ItemsControl BorderThickness="0" Width="75">
+                    <TextBox Text="{Binding CurrentRecord.GA}"/>
+                    <TextBox Text="{Binding CurrentRecord.Weight}"/>
+                    <TextBox Text="{Binding CurrentRecord.Length}"/>
+                    <TextBox Text="{Binding CurrentRecord.HO}"/>
+                    <TextBox Text="{Binding CurrentRecord.AO}"/>
+                    <TextBox Text="{Binding CurrentRecord.PlacentaWeight}"/>
+                    <TextBox Text="{Binding CurrentRecord.KVitamin}"/>
+                    <TextBox Text="{Binding CurrentRecord.Diagnosis}"/>
+                    <CheckBox IsChecked="{Binding CurrentRecord.Sucking}"/>
+                    <CheckBox IsChecked="{Binding CurrentRecord.Nose}" Margin="0,1,0,0"/>
+                    <CheckBox IsChecked="{Binding CurrentRecord.Pharynx}" Margin="0,1,0,0"/>
+                    <CheckBox IsChecked="{Binding CurrentRecord.Ventricle}" Margin="0,1,0,0"/>
+                    <TextBox Text="{Binding CurrentRecord.BloodSugar}" Margin="0,1,0,0"/>
+                    <TextBlock Text=" "/>
+                    <TextBox Text="{Binding CurrentRecord.NavelpHArterial}"/>
+                    <TextBox Text="{Binding CurrentRecord.NavelBaseExcessArterial}"/>
+                    <TextBlock Text=" "/>
+                    <TextBox Text="{Binding CurrentRecord.NavelpHVenous}"/>
+                    <TextBox Text="{Binding CurrentRecord.NavelBaseExcessVenous}"/>
+                </ItemsControl>
+            </StackPanel>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Margin="611,140,203.6,325.4">
+        <StackPanel Orientation="Horizontal" Margin="611,140,0,0">
             <ItemsControl>
-                <TextBlock><InlineUIContainer>
-            			<Label>
-            				<Run Text="Apgar 1 min: "/>
-            			</Label>
-            		</InlineUIContainer></TextBlock>
-                <TextBlock><InlineUIContainer>
-            			<Label>
-            				<Run Text="Apgar 5 min: "/>
-            			</Label>
-            		</InlineUIContainer></TextBlock>
-                <TextBlock><InlineUIContainer>
-            			<Label>
-            				<Run Text="Apgar 10 min: "/>
-            			</Label>
-            		</InlineUIContainer></TextBlock>
-                <TextBlock><InlineUIContainer>
-            			<Label>
-            				<Run Text="Bemærkninger "/>
-            			</Label>
-            		</InlineUIContainer></TextBlock>
+                <TextBlock Text="Apgar 1 min: "/>
+                <TextBlock Text="Apgar 5 min: " Margin="0,49,0,0"/>
+                <TextBlock Text="Apgar 10 min: " Margin="0,49,0,0"/>
+                <TextBlock Text="Bemærkninger " Margin="0,49,0,0"/>
             </ItemsControl>
+            
+            
+            
             <ItemsControl Width="78">
                 <TextBox Text="{Binding CurrentRecord.ApgarOneMinute}"/>
-                <TextBox Text="{Binding CurrentRecord.ApgarFiveMinutes}"/>
-                <TextBox Text="{Binding CurrentRecord.ApgarTenMinutes}"/>
-                <StackPanel Width="115">
-                    <TextBox x:Name="txtAuto" Text="{Binding CurrentRecord.FurtherNotice}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="-73,0,-81.8,0"/>
-                    <ListBox x:Name="lbSuggestions" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" 
-            			Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
-                </StackPanel>
+                <TextBox Text="{Binding CurrentRecord.ApgarFiveMinutes}" Margin="0,47,0,0"/>
+                <TextBox Text="{Binding CurrentRecord.ApgarTenMinutes}" Margin="0,47,0,0"/>
+
             </ItemsControl>
             <ItemsControl>
-                <StackPanel Width="115">
-                    <TextBox x:Name="ApgarOneMinTextBox" Text="{Binding CurrentRecord.ApgarOneMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="0,0,-81.8,0"/>
-                    <ListBox x:Name="lbsuggestions2" MouseDoubleClick="lbSuggestions_MouseDoubleClick"  Background="LightYellow" 
-            			Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
+                <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
+                    <TextBox x:Name="ApgarOneMinTextBox" Text="{Binding CurrentRecord.ApgarOneMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="0,0,-81.8,0" Width="150"/>
+                    <ListBox x:Name="lbsuggestions2" MouseDoubleClick="lbSuggestions_MouseDoubleClick"  Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
                 </StackPanel>
-                <StackPanel Width="115">
-                    <TextBox x:Name="ApgarFiveMinTextBox" Text="{Binding CurrentRecord.ApgarFiveMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="0,0,-81.8,0"/>
-                    <ListBox x:Name="w4" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" 
-            			Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
+                <StackPanel Margin="5,5,0,0" Orientation="Horizontal">
+                    <TextBox x:Name="ApgarFiveMinTextBox" Text="{Binding CurrentRecord.ApgarFiveMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="0,0,-81.8,0" Width="150"/>
+                    <ListBox x:Name="w4" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
                 </StackPanel>
-                <StackPanel Width="115">
-                    <TextBox x:Name="ApgarTenMinTextBox" Text="{Binding CurrentRecord.ApgarTenMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="0,0,-81.8,0"/>
-                    <ListBox x:Name="w6" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" 
-            			Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
+                <StackPanel Margin="5,5,0,0" Orientation="Horizontal">
+                    <TextBox x:Name="ApgarTenMinTextBox" Text="{Binding CurrentRecord.ApgarTenMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="0,0,-81.8,0" Width="150"/>
+                    <ListBox x:Name="w6" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
+                </StackPanel>
+                <StackPanel Margin="5,5,0,0" Orientation="Horizontal">
+                    <TextBox x:Name="txtAuto" Text="{Binding CurrentRecord.FurtherNotice}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Width="150"/>
+                    <ListBox x:Name="lbSuggestions" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
                 </StackPanel>
             </ItemsControl>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Margin="760,370,203.6,145.4">
-            <ItemsControl>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Sugning: "/>
-                    </Label>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Næse: "/>
-                    </Label>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Svælg: "/>
-                    </Label>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Ventrikel: "/>
-                    </Label>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Blodsukker:  "/>
-                    </Label>
-                </TextBlock>
-            </ItemsControl>
-
-            <ItemsControl>
-                <CheckBox IsChecked="{Binding CurrentRecord.Sucking}"/>
-                <CheckBox IsChecked="{Binding CurrentRecord.Nose}"/>
-                <CheckBox IsChecked="{Binding CurrentRecord.Pharynx}"/>
-                <CheckBox IsChecked="{Binding CurrentRecord.Ventricle}"/>
-                <TextBox Text="{Binding CurrentRecord.BloodSugar}"/>
-            </ItemsControl>
-
-            <ItemsControl>
-                <TextBlock>
-                    <Label>
-                        <Run Text="NS-Arterie"/>
-                    </Label>
-                </TextBlock>
-                <StackPanel Orientation="Horizontal">
-                    <ItemsControl>
-                        <TextBlock>
-                            <Label>
-                                <Run Text="pH: "/>
-                            </Label>
-                        </TextBlock>
-                        <TextBlock>
-                            <Label>
-                                <Run Text="SBE: "/>
-                            </Label>
-                        </TextBlock>
-                    </ItemsControl>
-                    <ItemsControl>
-                        <TextBox Text="{Binding CurrentRecord.NavelpHArterial}"/>
-                        <TextBox Text="{Binding CurrentRecord.NavelBaseExcessArterial}"/>
-                    </ItemsControl>
-                </StackPanel>
-                <Label>
-                    <Run Text="NS - Vene"/>
-                </Label>
-                <StackPanel Orientation="Horizontal">
-                    <ItemsControl>
-                        <TextBlock>
-                            <Label>
-                                <Run Text="pH: "/>
-                            </Label>
-                        </TextBlock>
-                        <TextBlock>
-                            <Label>
-                                <Run Text="SBE: "/>
-                            </Label>
-                        </TextBlock>
-                    </ItemsControl>
-                    <ItemsControl>
-                        <TextBox Text="{Binding CurrentRecord.NavelpHVenous}"/>
-                        <TextBox Text="{Binding CurrentRecord.NavelBaseExcessVenous}"/>
-                    </ItemsControl>
-                </StackPanel>
-            </ItemsControl>
-        </StackPanel>
+        
     </Grid>
 </local:BaseWindow>
 

@@ -14,7 +14,7 @@ namespace P3_Midwife.ViewModel
     {
         //private Employee _currentEmployee;
         private ObservableCollection<char> _genders = new ObservableCollection<char> { 'D', 'P' };
-        private ObservableCollection<string> _ctgClassification= new ObservableCollection<string> { "Normal","Afvigende","Patologisk"};
+        private ObservableCollection<string> _ctgClassification = new ObservableCollection<string> { "Normal", "Afvigende", "Patologisk" };
         public RelayCommand LogOutCommand { get; }
         public RelayCommand ExitCommand { get; }
         public RelayCommand BackCommand { get; }
@@ -31,6 +31,7 @@ namespace P3_Midwife.ViewModel
         public RelayCommand OpenMedicalServicesToAdd { get; }
         public RelayCommand CreateChildCommand { get; }
         public RelayCommand Cancel { get; }
+        public RelayCommand AppendNewNoteToNote { get; }
 
         public static DependencyProperty CTGClassificationProperty = DependencyProperty.Register(nameof(CTGClassification), typeof(string), typeof(RecordViewModel));
         public static DependencyProperty ChildBirthDateProperty = DependencyProperty.Register(nameof(ChildBirthDate), typeof(DateTime), typeof(RecordViewModel));
@@ -46,9 +47,10 @@ namespace P3_Midwife.ViewModel
         public static DependencyProperty SelectedMedicalServiceProperty = DependencyProperty.Register(nameof(SelectedMedicalServiceInfo), typeof(MedicalService), typeof(RecordViewModel));
         public static DependencyProperty SelectedAvailableMedicalServiceProperty = DependencyProperty.Register(nameof(SelectedAvailableMedicalServiceInfo), typeof(MedicalService), typeof(RecordViewModel));
         public static DependencyProperty EmployeeProperty = DependencyProperty.Register(nameof(EmployeeCurrent), typeof(Employee), typeof(RecordViewModel));
+        public static DependencyProperty NoteProperty = DependencyProperty.Register(nameof(Note), typeof(string), typeof(RecordViewModel));
 
         private ObservableCollection<BirthInformation> _birthInformationList = new ObservableCollection<BirthInformation>();
-        private ObservableCollection<ContractionIVDrip> _contractrionIVDripList= new ObservableCollection<ContractionIVDrip>();
+        private ObservableCollection<ContractionIVDrip> _contractrionIVDripList = new ObservableCollection<ContractionIVDrip>();
         private ObservableCollection<FetusObservation> _fetusObservationList = new ObservableCollection<FetusObservation>();
         private ObservableCollection<Micturition> _micturitionList = new ObservableCollection<Micturition>();
         private ObservableCollection<VaginalExploration> _vaginalExplorationList = new ObservableCollection<VaginalExploration>();
@@ -56,6 +58,11 @@ namespace P3_Midwife.ViewModel
         private ObservableCollection<MedicalService> _availableMedicalServices = new ObservableCollection<MedicalService>();
         private ObservableCollection<Patient> _children = new ObservableCollection<Patient>();
 
+        public string Note
+        {
+            get { return this.GetValue(NoteProperty).ToString(); }
+            set { this.SetValue(NoteProperty, value); }
+        }
 
         public ObservableCollection<Patient> Children
         {
@@ -92,7 +99,7 @@ namespace P3_Midwife.ViewModel
             get { return (DateTime)this.GetValue(ChildBirthTimeProperty); }
             set { this.SetValue(ChildBirthTimeProperty, value); }
         }
-        
+
         public ObservableCollection<MedicalService> MedicalServices
         {
             get { return _availableMedicalServices; }
@@ -198,7 +205,7 @@ namespace P3_Midwife.ViewModel
                 MedicalServicesList.AddRange(RecordCurrent.CurrentBill.BillItemList);
             }
         }
-     
+
         public Patient PatientCurrent
         {
             get { return (Patient)this.GetValue(PatientProperty); }
@@ -212,7 +219,7 @@ namespace P3_Midwife.ViewModel
 
         public RecordViewModel()
         {
-
+            SetValue(ChildBirthDateProperty, DateTime.Today);
             this.Cancel = new RelayCommand(parameter =>
             {
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToRecord"));
@@ -222,9 +229,9 @@ namespace P3_Midwife.ViewModel
                 RecordCurrent.Note = RecordCurrent.NewNote;
                 RecordCurrent.NewNote = null;
             });
-            Messenger.Default.Register<Record>(this, "NewRecordToRecordView", (ActiveRecord) => { RecordCurrent = ActiveRecord; });
+            Messenger.Default.Register<Record>(this, "NewRecordToRecordView", (ActiveRecord) => { RecordCurrent = ActiveRecord; Note = ActiveRecord.Note; });
             Messenger.Default.Register<Patient>(this, "PatientToRecordView", (ActivePatient) => { PatientCurrent = ActivePatient; });
-            Messenger.Default.Register<Employee>(this, "EmployeetoRecordView", (ActiveEmployee) => { EmployeeCurrent = ActiveEmployee; });            
+            Messenger.Default.Register<Employee>(this, "EmployeetoRecordView", (ActiveEmployee) => { EmployeeCurrent = ActiveEmployee; });
 
             _availableMedicalServices.AddRange(Ward.MedicalServicesList);
 
@@ -236,7 +243,7 @@ namespace P3_Midwife.ViewModel
             this.CreateChildCommand = new RelayCommand(parameter =>
             {
                 Midwife tempMidwife = EmployeeCurrent as Midwife;
-                tempMidwife.CreatePatient(PatientCurrent, ChildGender, ChildBirthDate.Date+ChildBirthTime.TimeOfDay);
+                tempMidwife.CreatePatient(PatientCurrent, ChildGender, ChildBirthDate.Date + ChildBirthTime.TimeOfDay);
                 Patient tempChild = PatientCurrent.Children.Find(x => x.BirthDateTime == ChildBirthDate + ChildBirthTime.TimeOfDay);
                 RecordCurrent.ChildCPR = tempChild.CPR;
                 // Record tempRecord = new Record(tempChild);
@@ -246,7 +253,7 @@ namespace P3_Midwife.ViewModel
                 Messenger.Default.Send(RecordCurrent, "ChildRecordToNewChildView");
                 Messenger.Default.Send(PatientCurrent, "PatientToNewChildView");
                 Messenger.Default.Send(EmployeeCurrent, "EmployeetoNewChildView");
-                
+
                 Messenger.Default.Send(tempChild, "ChildToNewChildView");
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToNewChild"));
             });
@@ -292,15 +299,16 @@ namespace P3_Midwife.ViewModel
                 Messenger.Default.Send(EmployeeCurrent, "Employee");
             });
             this.NewChildDialogCommand = new RelayCommand(parameter =>
-            {  
+            {
                 ChildBirthDate = DateTime.Now;
                 Messenger.Default.Send(new NotificationMessage("NewChildDialog"));
             });
             this.SaveAndCompleteCommand = new RelayCommand(parameter =>
             {
                 Messenger.Default.Send(new NotificationMessage("RecordSave"));
-                this.RecordCurrent.Note += "\n"+RecordCurrent.NewNote;
+                this.RecordCurrent.Note += "\n" + RecordCurrent.NewNote;
                 this.RecordCurrent.BirthInformationList.AddRange(BirthInformationListProperty.Where(x => !RecordCurrent.BirthInformationList.Contains(x)));
+                this.RecordCurrent.BirthInformationList.AddRange(BirthInformationListProperty);
                 BirthInformationListProperty.Clear();
                 this.RecordCurrent.ContractionIVDripList.AddRange(ContractionListProperty.Where(x => !RecordCurrent.ContractionIVDripList.Contains(x)));
                 ContractionListProperty.Clear();
@@ -321,16 +329,16 @@ namespace P3_Midwife.ViewModel
                 Messenger.Default.Send(PatientCurrent, "Patient");
                 Messenger.Default.Send(EmployeeCurrent, "Employee");
             });
-            this.AddBirthInfo= new RelayCommand(parameter =>
-            {
-                BirthInfo = new BirthInformation();
-                BirthInfo.CurrentEmployee = EmployeeCurrent;
-                BirthInformationListProperty.Add(BirthInfo);
-            });
+            this.AddBirthInfo = new RelayCommand(parameter =>
+             {
+                 BirthInfo = new BirthInformation();
+                 BirthInfo.CurrentEmployee = EmployeeCurrent;
+                 BirthInformationListProperty.Add(BirthInfo);
+             });
             this.AddContractionIVDripInfo = new RelayCommand(parameter =>
             {
                 ContractionIVDripInfo = new ContractionIVDrip();
-                ContractionIVDripInfo.CurrentEmployee = EmployeeCurrent;               
+                ContractionIVDripInfo.CurrentEmployee = EmployeeCurrent;
                 ContractionListProperty.Add(ContractionIVDripInfo);
             });
             this.AddFetusObservationInfo = new RelayCommand(parameter =>
@@ -353,9 +361,9 @@ namespace P3_Midwife.ViewModel
                 VaginalExplorationInfo.CurrentEmployee = EmployeeCurrent;
                 VaginalExplorationListProperty.Add(VaginalExplorationInfo);
             });
+
+
+
         }
-
-
-        
     }
 }
