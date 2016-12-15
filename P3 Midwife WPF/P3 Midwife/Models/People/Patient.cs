@@ -13,6 +13,7 @@ namespace P3_Midwife
         private string _name;
         private Patient _mother;
         private string _CPR;
+        private string _bloodType = "Ukendt";
         private DateTime _birthDateTime;
         private List<Patient> _children = new List<Patient>();
         private List<Record> _recordList = new List<Record>();
@@ -26,6 +27,7 @@ namespace P3_Midwife
         public List<Patient> Children { get { return _children; } set { _children = value; } }
         public List<Record> RecordList { get { return _recordList; } set { _recordList = value; } }
         public int SGA { get { return CalculateSGA(); } set { SGA = value; } }
+        public string BloodType { get { return _bloodType; } set { _bloodType = value; } }
 
 
         #region Constructors

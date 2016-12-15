@@ -30,6 +30,7 @@ namespace P3_Midwife.ViewModel
         public RelayCommand AddMedicalService { get; }
         public RelayCommand OpenMedicalServicesToAdd { get; }
         public RelayCommand CreateChildCommand { get; }
+        public RelayCommand PriorBirthComplicationsCommand { get; }
         public RelayCommand Cancel { get; }
 
         public static DependencyProperty CTGClassificationProperty = DependencyProperty.Register(nameof(CTGClassification), typeof(string), typeof(RecordViewModel));
@@ -46,6 +47,7 @@ namespace P3_Midwife.ViewModel
         public static DependencyProperty SelectedMedicalServiceProperty = DependencyProperty.Register(nameof(SelectedMedicalServiceInfo), typeof(MedicalService), typeof(RecordViewModel));
         public static DependencyProperty SelectedAvailableMedicalServiceProperty = DependencyProperty.Register(nameof(SelectedAvailableMedicalServiceInfo), typeof(MedicalService), typeof(RecordViewModel));
         public static DependencyProperty EmployeeProperty = DependencyProperty.Register(nameof(EmployeeCurrent), typeof(Employee), typeof(RecordViewModel));
+        public static DependencyProperty PriorBirthComplicationsProperty = DependencyProperty.Register(nameof(PriorBirthComplications), typeof(bool), typeof(RecordViewModel));
 
         private ObservableCollection<BirthInformation> _birthInformationList = new ObservableCollection<BirthInformation>();
         private ObservableCollection<ContractionIVDrip> _contractrionIVDripList= new ObservableCollection<ContractionIVDrip>();
@@ -55,7 +57,14 @@ namespace P3_Midwife.ViewModel
         private ObservableCollection<MedicalService> _medicalServicesList = new ObservableCollection<MedicalService>();
         private ObservableCollection<MedicalService> _availableMedicalServices = new ObservableCollection<MedicalService>();
 
-        
+
+        public bool PriorBirthComplications
+        {
+            get { return (bool)this.GetValue(PriorBirthComplicationsProperty);}
+            set { this.SetValue(PriorBirthComplicationsProperty,value); }
+        }
+
+
         public ObservableCollection<char> Genders
         {
             get { return _genders; }
@@ -116,7 +125,7 @@ namespace P3_Midwife.ViewModel
             set { _birthInformationList = value; }
         }
 
-        public ObservableCollection<string> CTGClassificationList
+        public ObservableCollection<string> CTGClassificationValuesList
         {
             get { return _ctgClassification; }
             set { _ctgClassification = value; }
@@ -179,7 +188,7 @@ namespace P3_Midwife.ViewModel
 
 
 
-
+                PriorBirthComplications = EmployeeCurrent.PriorBirthComplications(PatientCurrent);
                 BirthInformationListProperty.AddRange(RecordCurrent.BirthInformationList);
                 ContractionListProperty.AddRange(RecordCurrent.ContractionIVDripList);
                 FetusObservationListProperty.AddRange(RecordCurrent.FetusObservationList);
@@ -198,6 +207,7 @@ namespace P3_Midwife.ViewModel
             get { return (Employee)this.GetValue(EmployeeProperty); }
             set { this.SetValue(EmployeeProperty, value); }
         }
+
 
         public RecordViewModel()
         {
@@ -249,6 +259,10 @@ namespace P3_Midwife.ViewModel
             this.RemoveMedicalService = new RelayCommand(parameter =>
             {
                 MedicalServicesList.Remove(SelectedMedicalServiceInfo);
+            });
+            this.PriorBirthComplicationsCommand = new RelayCommand(parameter =>
+            {
+                EmployeeCurrent.PriorBirthComplications(PatientCurrent);
             });
 
             this.LogOutCommand = new RelayCommand(parameter =>
@@ -309,7 +323,7 @@ namespace P3_Midwife.ViewModel
             {
 
                 FetusObservationInfo = new FetusObservation();
-                FetusObservationInfo.CTGClassification = CTGClassification;
+               // FetusObservationInfo.CTGClassification = CTGClassification;
                 FetusObservationInfo.CurrentEmployee = EmployeeCurrent;
                 FetusObservationListProperty.Add(FetusObservationInfo);
             });

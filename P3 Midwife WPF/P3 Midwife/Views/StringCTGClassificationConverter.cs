@@ -35,8 +35,29 @@ namespace P3_Midwife.Views
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new ArgumentNullException();
-        }
+            if (value != null )
+            {
 
+                //input = input.ToLower();
+                //  char input = (char)value;
+                string input = value.ToString();
+                if (input == "Normal")
+                {
+                    return "Normal";
+                }
+                else if (input == "Afvigende")
+                {
+                    return "Afvigende";
+                }
+                else if (input == "Patologisk")
+                {
+                    return "Patologisk";
+                }
+                else
+                    return "";
+            }
+            return null;
+        }
+        
     }
 }

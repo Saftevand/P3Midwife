@@ -104,5 +104,21 @@ namespace P3_Midwife.Views
                 send.Clear();
             }
         }
+
+
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender!=null)
+            {
+                ComboBox tempComboBox = sender as ComboBox;
+                string input = tempComboBox.SelectedItem.ToString();
+              //  string input = temp.ToString();
+                if (input == "Afvigende" || input == "Patologisk")
+                {
+                    BirthComplicationsCheckBox.IsChecked = true;
+                }
+            }
+        }
     }
 }

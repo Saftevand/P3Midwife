@@ -41,6 +41,10 @@ namespace P3_Midwife
         {
             return Ward.Patients.Find(x => x.CPR == cpr);
         }
+        public bool PriorBirthComplications(Patient mother)
+        {
+            return mother.RecordList.Exists(x => x.BirthComplications == true);
+        }
 
 
     }

@@ -14,7 +14,7 @@ namespace P3_Midwife
         private DateTime _date = new DateTime();
         private double _circumferenceHead;
         private double _circumferenceStomach;
-        private bool _birthComplications;
+        private bool _birthComplications = false;
         private double _weight;
         private double _length;
         private double _bloodSugar;

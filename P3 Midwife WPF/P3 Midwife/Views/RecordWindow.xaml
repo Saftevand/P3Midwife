@@ -16,6 +16,45 @@
     <Window.Resources>
         <local:GenderStringToCharConverter x:Key="GenderStringToCharConverter"/>
         <local:StringCTGClassificationConverter x:Key="CTGClassificationConverter"/>
+        <local:BoolToStringAdmittedConverter x:Key="BoolToStringYesNoConverter"/>
+        <local:WarningIndicatorsToBoolConverter x:Key="WarningIndicatorsBoolConverter"/>
+
+
+        <Style x:Key="WarningComplications" TargetType="ListViewItem">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=PriorBirthComplications}" Value="True">
+                    <Setter Property="Foreground" Value="Red"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="WarningBloodType" TargetType="ListViewItem">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding PatientCurrent.BloodType,Converter={StaticResource WarningIndicatorsBoolConverter}}" Value="True">
+                    <Setter Property="Foreground" Value="Red"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+
+        <!--<Style TargetType="{x:Type ListViewItem}" x:Key="Warning">
+                    <Style.Triggers>
+                        <DataTrigger  Value="true">
+                    --><!--<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}}, Path=DataContext.DisplayText}"--><!--
+                            <Setter Property="Foreground" Value="Red" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+
+
+        
+        <Style x:Key="WarningBox" TargetType="{x:Type ListViewItem}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ,Converter={StaticResource WarningIndicatorsBoolConverter}}" Value="True">
+                    <Setter Property="Foreground"  Value="Red" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>-->
     </Window.Resources>
 
     <Grid>
@@ -32,7 +71,7 @@
             </MenuItem>
         </Menu>
 
-        
+
         <StackPanel Grid.ColumnSpan="3">
             <ListView x:Name="BirthInfo" Margin="199,20,0,0">
                 <StackPanel Orientation="Horizontal" Width="600">
@@ -40,14 +79,14 @@
                     <Button Command="{Binding AddBirthInfo}" HorizontalAlignment="Right" Height="25" Width="60">
                         Tilføj
                     </Button>
-                </StackPanel>                
+                </StackPanel>
             </ListView>
 
-            
+
             <ListView Margin="199,0,0,0">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <StackPanel>                           
+                        <StackPanel>
                             <TextBlock Text="Udførelse startet "/>
                             <ListView ItemsSource="{Binding BirthInformationListProperty}">
                                 <ListView.ItemTemplate>
@@ -134,7 +173,7 @@
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackPanel>
-                    </StackPanel>                    
+                    </StackPanel>
                 </StackPanel>
             </ListView>
 
@@ -246,30 +285,18 @@
 
                         <StackPanel>
                             <TextBlock Text=" CTG Klassificering "/>
-                            <ListView ItemsSource="{Binding FetusObservationListProperty}">
+                            <ListView ItemsSource="{Binding FetusObservationListProperty}" Name="FetusList">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <ComboBox ItemsSource="{Binding CTGClassificationList}" SelectedItem="{Binding FetusObservationListProperty\CTGClassification}"  Width="99" Name="CTGClassificationBox">
-                                            <ComboBox.DataContext>
-                                                <ViewModel:RecordViewModel/>
-                                            </ComboBox.DataContext>
-                                            <ComboBox.ItemTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock Text="{Binding}"/>
-                                                </DataTemplate>
-                                            </ComboBox.ItemTemplate>
-                                        </ComboBox>
+                                        <ComboBox  ItemsSource="{Binding ElementName=RView, Path=DataContext.CTGClassificationValuesList}" SelectedItem="{Binding CTGClassification}" SelectionChanged="ComboBox_SelectionChanged" x:Name="CTGComboBox">
+
+                                        </ComboBox> 
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
 
-                            <!--<ComboBox ItemsSource="{Binding CTGClassificationList/, Converter={StaticResource CTGClassificationConverter}}" SelectedItem="{Binding CTGClassification, Mode=OneWayToSource}" Width="99">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Converter={StaticResource CTGClassificationConverter},Mode=OneWay}"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>-->
+                            <!--<TextBlock Text="{Binding Converter={StaticResource GenderStringCharConverter}, Mode=OneWay}"/>-->
+                           
                         </StackPanel>
 
                         <StackPanel>
@@ -492,33 +519,34 @@
                     </StackPanel>
                 </StackPanel>
             </ListView>
-            
-            <TextBlock Margin="199,0,0,0" Height="100">
-                <Run Text="{Binding RecordCurrent.Note}"/>
-            </TextBlock>
-                <TextBox Margin="199,0,0,0" Height="100" Text="{Binding RecordCurrent.NewNote, UpdateSourceTrigger=PropertyChanged}">
+            <CheckBox x:Name="BirthComplicationsCheckBox" IsChecked="{Binding RecordCurrent.BirthComplications,NotifyOnSourceUpdated=True}"  Content="Fødselskomplikationer" Height="20" Margin="204,0,908.4,0" BorderThickness="1"/>
+            <TextBlock Margin="199,0,-0.6,0" Height="96"><Run Text="{Binding RecordCurrent.Note}"/></TextBlock>
+            <TextBox Margin="199,0,0,0" Height="100" Text="{Binding RecordCurrent.NewNote, UpdateSourceTrigger=PropertyChanged}">
             </TextBox>
         </StackPanel>
 
         <ListView x:Name="listView" HorizontalAlignment="Left" Height="669" Margin="0,20,0,0" VerticalAlignment="Top" Width="200" BorderThickness="3" BorderBrush="LightSkyBlue">
             <StackPanel Orientation="Horizontal">
-                <ListView>
+                <ListView Height="149">
                     <ListViewItem Content="Navn: "/>
                     <ListViewItem Content="Alder: "/>
-                    <ListViewItem Content="Køn: "/>
                     <ListViewItem Content="CPR: "/>
                     <ListViewItem Content="SGA: "/>
+                    <ListViewItem Content="BloodType: "/>
+                    <ListViewItem Content="Tidligere&#xD;&#xA;Fødselskomplikationer:" Height="44" FontSize="10.667"/>
                 </ListView>
                 <ListView>
                     <ListViewItem Content="{Binding PatientCurrent.Name}"/>
                     <ListViewItem Content="{Binding PatientCurrent.Age}"/>
-                    <ListViewItem Content="{Binding PatientCurrent.Gender, Converter={StaticResource GenderStringToCharConverter}, Mode=OneWay}"/>
                     <ListViewItem Content="{Binding PatientCurrent.CPR}"/>
                     <ListViewItem Content="{Binding PatientCurrent.SGA}"/>
+                    <ListViewItem Content="{Binding PatientCurrent.BloodType}" Name="Bloodtype" Style="{StaticResource WarningBloodType}"/>
+                    <ListViewItem Content="{Binding PriorBirthComplications, Converter={StaticResource  BoolToStringYesNoConverter}, Mode=OneWay}" Style="{StaticResource WarningComplications}" Name="BirthComplication"/>
+                    
                 </ListView>
             </StackPanel>
             <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="500">
-                
+
                 <ComboBox Text="Vælg medicin" MaxWidth="120" Margin="0,20,0,0" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding MedicalServices}" SelectedItem="{Binding SelectedAvailableMedicalServiceInfo, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Name="AddedMedicine" Tag="{Binding SelectedAvailableMedicalServiceInfo}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -543,7 +571,7 @@
                 </ListView>
                 <Button Command="{Binding RemoveMedicalService}" Content="Fjern Medicin" FontSize="12" Height="20" Width="100">
                 </Button>
-                
+
                 <Button Name="NewChildBtn" Command="{Binding NewChildDialogCommand}" VerticalAlignment="Bottom" Margin="0,100,0,0">
                     Nyt barn
                 </Button>

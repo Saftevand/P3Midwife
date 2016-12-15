@@ -75,7 +75,7 @@ namespace P3_Midwife.ViewModel
 
         public PatientViewModel()
         {
-            Messenger.Default.Register<Patient>(this, "Patient", (ActivePatient) => { PatientCurrent = ActivePatient; });
+            Messenger.Default.Register<Patient>(this, "Patient", (ActivePatient) => { PatientCurrent = ActivePatient;});
             Messenger.Default.Register<Employee>(this, "Employee", (ActiveUser) => { CurrentEmployee = ActiveUser; });
             //Messenger.Default.Register<Record>(this, "FromPatientToRecordWithOldRecord", (OldRecord) =>
             //{
