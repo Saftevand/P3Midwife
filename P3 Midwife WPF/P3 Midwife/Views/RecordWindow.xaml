@@ -51,10 +51,16 @@
             </MenuItem>
         </Menu>
 
+<<<<<<< HEAD
 
         <ScrollViewer Grid.ColumnSpan="2" Grid.Column="1">
             <StackPanel Grid.ColumnSpan="3">
             <ListBox x:Name="BirthInfo">
+=======
+        <ScrollViewer Margin="0, 20,0 ,0" Grid.ColumnSpan="2" Grid.Column="1">
+        <StackPanel Grid.ColumnSpan="3">
+            <ListView x:Name="BirthInfo">
+>>>>>>> 9803004c363b43c1f6777bdc3776255d46942f7e
                 <StackPanel Orientation="Horizontal" Width="600">
                     <TextBlock x:Name="BItextBlock" TextWrapping="Wrap" VerticalAlignment="Center" Text="Fødselsoplysninger"/>
                     <Button Command="{Binding AddBirthInfo}" HorizontalAlignment="Right" Height="25" Width="60">

@@ -58,27 +58,29 @@ namespace P3_Midwife.Views
 
         private void txtAuto_TextChanged(object sender, TextChangedEventArgs e)
         {
-            TextBox senderBox = sender as TextBox; 
+            TextBox senderBox = sender as TextBox;
+            ListBox currentList = senderBox.Tag as ListBox;
+
             List<string> autoList = new List<string>();
             autoList.Clear();
 
             if (senderBox.Text.EndsWith(" "))
             {
-                txtAuto.Text = TextEditor.WordReplacement(senderBox.Text.ToString());
+                senderBox.Text = TextEditor.WordReplacement(senderBox.Text.ToString());
+                senderBox.SelectionStart = senderBox.Text.Length;
             }
-
             autoList = provider.GetSuggestions(senderBox.Text.ToLower());
 
             if (autoList.Count > 0)
             {
-                lbSuggestions.ItemsSource = null;
-                lbSuggestions.ItemsSource = autoList;
-                lbSuggestions.Visibility = Visibility.Visible;
+                currentList.ItemsSource = null;
+                currentList.ItemsSource = autoList;
+                currentList.Visibility = Visibility.Visible;
             }
             else
             {
-                lbSuggestions.ItemsSource = null;
-                lbSuggestions.Visibility = Visibility.Collapsed;
+                currentList.ItemsSource = null;
+                currentList.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -107,22 +109,25 @@ namespace P3_Midwife.Views
 
         private void txtAuto_KeyDown(object sender, KeyEventArgs e)
         {
+            TextBox senderBox = sender as TextBox;
+            ListBox senderList = senderBox.Tag as ListBox;
             if (e.Key == Key.Tab)
             {
                 e.Handled = true;
-                lbSuggestions.SelectedIndex = 0;
-                text_Append(sender as TextBox);
+                senderList.SelectedIndex = 0;
+                text_Append(senderBox);
             }
             if (e.Key == Key.Down)
             {
-                lbSuggestions.Focus();
+                senderList.Focus();
             }
         }
 
         private void text_Append(TextBox sender)
         {
+            ListBox senderList = sender.Tag as ListBox;
             string text;
-            text = lbSuggestions.SelectedItem.ToString();
+            text = senderList.SelectedItem.ToString();
             if (!sender.Text.EndsWith(" "))
             {
                 sender.Text = sender.Text.Remove(sender.Text.LastIndexOf(' ') + 1);
@@ -135,32 +140,33 @@ namespace P3_Midwife.Views
         {
             
             ListBox senderListBox = sender as ListBox;
+            TextBox current = senderListBox.Tag as TextBox;
 
             string text;
-            if (lbSuggestions.ItemsSource != null)
+            if (senderListBox.ItemsSource != null)
             {
-                lbSuggestions.Visibility = Visibility.Collapsed;
-                if (lbSuggestions.SelectedIndex != -1)
+                senderListBox.Visibility = Visibility.Collapsed;
+                if (senderListBox.SelectedIndex != -1)
                 {
-                    text = lbSuggestions.SelectedItem.ToString();
-                    if (!txtAuto.Text.EndsWith(" "))
+                    text = senderListBox.SelectedItem.ToString();
+                    if (!current.Text.EndsWith(" "))
                     {
-                        txtAuto.Text = txtAuto.Text.Remove(txtAuto.Text.LastIndexOf(' ') + 1);
+                        current.Text = current.Text.Remove(current.Text.LastIndexOf(' ') + 1);
                     }
-                    txtAuto.AppendText(text + " ");
-                    txtAuto.Focus();
-                    txtAuto.SelectionStart = txtAuto.Text.Length;
+                    current.AppendText(text + " ");
+                    current.Focus();
+                    current.SelectionStart = current.Text.Length;
                 }
             }
         }
 
         private void lbSuggestions_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            TextBox senderBox = sender as TextBox;
+            ListBox senderBox = sender as ListBox;
             if (e.Key == System.Windows.Input.Key.Tab)
             {
                 e.Handled = true;
-                text_Append(senderBox);
+                text_Append(senderBox.Tag as TextBox);
                 senderBox.Focus();
             }
         }
