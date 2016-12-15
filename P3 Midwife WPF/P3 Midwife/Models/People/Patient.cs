@@ -30,6 +30,7 @@ namespace P3_Midwife
         public string BloodType { get { return _bloodType; } set { _bloodType = value; } }
 
 
+
         #region Constructors
         public Patient(string PatientCPR, string PatientName)
         {

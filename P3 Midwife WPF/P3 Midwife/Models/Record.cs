@@ -14,6 +14,7 @@ namespace P3_Midwife
         private DateTime _date = new DateTime();
         private double _circumferenceHead;
         private double _circumferenceStomach;
+        private bool _birthComplications;
         private double _weight;
         private double _length;
         private double _bloodSugar;
@@ -43,7 +44,7 @@ namespace P3_Midwife
         private string _apgarTenMinuteNote;
         private string _breastFeedingNote;
         private DateTime _timeOfBirth;
-        private Patient _mother;
+        private string _childCPR;
         private string _diagnosis;
         private List<VaginalExploration> _vaginalExplorationList = new List<VaginalExploration>();
         private List<ContractionIVDrip> _contractionIVDRIPList = new List<ContractionIVDrip>();
@@ -55,7 +56,6 @@ namespace P3_Midwife
         public int _thisRecordID;
         private string _note;
         private string _newNote;
-        private bool _birthComplications;
 
         #endregion
 
@@ -69,6 +69,7 @@ namespace P3_Midwife
         public double CircumferenceStomach { get { return this._circumferenceStomach; } set { this._circumferenceStomach = value; } }
         public double BloodSugar { get { return this._bloodSugar; } set { this._bloodSugar = value; } }
         public string GA { get { return this._GA; } set { this._GA = value; } }
+        public bool BirthComplications { get { return _birthComplications; } set { _birthComplications = value; } }
         public double Weight { get { return this._weight; } set { this._weight = value; } }
         public double Length { get { return this._length; } set { this._length = value; } }
         public int HO { get { return this._ho; } set { this._ho = value; } }
@@ -93,19 +94,18 @@ namespace P3_Midwife
         public Bill CurrentBill { get { return _bill; } set { _bill = value; } }
         public bool IsActive { get; set; }
         public Patient RecordsPatient { get { return _patient; } }
+        public string ChildCPR { get { return _childCPR; } set { _childCPR = value; } }
         public int ThisRecordID { get { return _thisRecordID; } set {_thisRecordID = value; } }
         public bool Nose { get { return this._nose; } set { this._nose = value; } }
         public bool Pharynx { get { return this._pharynx; } set { this._pharynx = value; } }
         public bool Ventricle { get { return this._ventricle; } set { this._ventricle = value; } }
         public DateTime Date { get { return this._date; } set { this._date = value; } }
-        public Patient Mother { get { return _mother; } set { _mother = value; } }
-        public string Note { get { return _note; } set { _note = value; } }
+        public string Note { get { return _note; } set { _note += value; } }
         public string NewNote { get { return _newNote; } set { _newNote = value; } }
         public string BreastFeedingNote { get { return _breastFeedingNote; } set { _breastFeedingNote = value; } }
         public string ApgarOneMinuteNote { get { return _apgarOneMinuteNote; } set { _apgarOneMinuteNote = value; } }
         public string ApgarFiveMinuteNote { get { return _apgarFiveMinuteNote; } set { _apgarFiveMinuteNote = value; } }
         public string ApgarTenMinuteNote { get { return _apgarTenMinuteNote; } set { _apgarTenMinuteNote = value; } }
-        public bool BirthComplications { get { return _birthComplications; } set { _birthComplications = value; } }
         #endregion
 
         public Record(Patient Patient)

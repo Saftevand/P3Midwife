@@ -8,6 +8,10 @@ namespace P3_Midwife.Models
 {
     public class BirthInformation
     {
+        private Employee _currentEmployee;
+        public Employee CurrentEmployee { get { return _currentEmployee; } set { _currentEmployee = value; } }
+
+
         private DateTime _time = new DateTime();
         private string _result;
         private string _amnioticFluid;

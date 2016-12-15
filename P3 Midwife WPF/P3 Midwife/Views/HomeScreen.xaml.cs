@@ -47,8 +47,6 @@ namespace P3_Midwife
             Show();
         }
 
-
-
         private void validateUser(Employee emp)
         {
             CurrentEmployee = emp; 
@@ -69,14 +67,12 @@ namespace P3_Midwife
                 Hide();
             }                
         }
-
         private void ActivePatientsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Filemanagement.ReadBirthRecords((Patient)chosenPatient.SelectedItem);
             Messenger.Default.Send<Patient>((Patient)chosenPatient.SelectedItem, "Patient");
             Messenger.Default.Send<Employee>((Employee)chosenPatient.Tag, "Employee");
             Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));
-
         }
 
         private void CPRTextbox_GotFocus(object sender, RoutedEventArgs e)
@@ -87,6 +83,15 @@ namespace P3_Midwife
         private void CPRTextbox_LostFocus(object sender, RoutedEventArgs e)
         {
             FindPatientBtn.IsDefault = false;
+        }
+
+        private void chosenPatient_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Filemanagement.ReadBirthRecords((Patient)chosenPatient.SelectedItem);
+            Messenger.Default.Send<Patient>((Patient)chosenPatient.SelectedItem, "Patient");
+            Messenger.Default.Send<Employee>((Employee)chosenPatient.Tag, "Employee");
+            Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));
+
         }
     }
 }

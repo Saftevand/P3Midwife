@@ -8,6 +8,10 @@ namespace P3_Midwife.Models
 {
     public class Micturition
     {
+        private Employee _currentEmployee;
+        public Employee CurrentEmployee { get { return _currentEmployee; } set { _currentEmployee = value; } }
+
+
         private DateTime _time;
         private string _micturitionNote;
         public DateTime Time { get { return _time; } set { _time = value; } }

@@ -12,6 +12,11 @@
     <Window.DataContext>
         <ViewModel:PatientViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <local:RecordCompletedBoolToString x:Key="RecordBoolToString" />
+        <local:BoolToStringAdmittedConverter x:Key="AdmittedBoolToString"/>
+        <local:GenderStringToCharConverter x:Key="GenderCharToString"/>
+    </Window.Resources>
     <Grid>
         <!--<Grid.RowDefinitions>
             <RowDefinition Height="21*"/>
@@ -29,38 +34,46 @@
         <ListView HorizontalAlignment="Left" Height="700" Width="200" Margin="0,20,0,0">
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <ListView>
-                        <ListViewItem Content="Navn: "/>
-                        <ListViewItem Content="Alder: "/>
-                        <ListViewItem Content="Køn: "/>
-                        <ListViewItem Content="CPR: "/>
-                        <ListViewItem Content="SGA: "/>
-                    </ListView>
-                    <ListView>
-                        <ListViewItem Content="{Binding PatientCurrent.Name}"/>
-                        <ListViewItem Content="{Binding PatientCurrent.Age}"/>
-                        <ListViewItem Content="{Binding PatientCurrent.Gender}" />
-                        <ListViewItem Content="{Binding PatientCurrent.CPR}"/>
-                        <ListViewItem Content="{Binding PatientCurrent.SGA}"/>
-                    </ListView>
+                <ListView>
+                    <ListViewItem Content="Navn: "/>
+                    <ListViewItem Content="Alder: "/>
+                    <ListViewItem Content="Køn: "/>
+                    <ListViewItem Content="CPR: "/>
+                    <ListViewItem Content="SGA: "/>
+                </ListView>
+                <ListView>
+                    <ListViewItem Content="{Binding PatientCurrent.Name}"/>
+                    <ListViewItem Content="{Binding PatientCurrent.Age}"/>
+                    <ListViewItem Content="{Binding PatientCurrent.Gender,Converter={StaticResource GenderCharToString}, Mode=OneWay}"/>
+                    <ListViewItem Content="{Binding PatientCurrent.CPR}"/>
+                    <ListViewItem Content="{Binding PatientCurrent.SGA}"/>
+                </ListView>
+            </StackPanel>
+            <ListViewItem Content="Børn: "/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="CPR       "/>
+                    <TextBlock Text="Fødselsjournal"/>
                 </StackPanel>
-                <ListViewItem Content="Børn: "/>
-                <ListView ItemsSource="{Binding Children}">
+                <ListView ItemsSource="{Binding Children}" Name="ChildrenListBox" PreviewMouseLeftButtonUp="listView_Click" Tag="{Binding CurrentEmployee}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextBlock>
-                                <Run Text="{Binding Name}"/>
-                                <Run Text=" - "/>
                                 <Run Text="{Binding CPR}"/>
+                                <Run Text="  "/>
+                                <Run Text="{Binding Mother.RecordList,Converter={StaticResource RecordBoolToString}, Mode=OneWay}"/>
                             </TextBlock>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Name="NewRecordBtn" Command="{Binding CreateRecordCommand}" Margin="40,500,0,0">
+                <Button Name="NewRecordBtn" Command="{Binding CreateRecordCommand}" Margin="0,380,0,0">
                     Ny Journal
+                </Button>
+                <Button Command="{Binding BackCommand}">
+                    Tilbage
                 </Button>
             </StackPanel> 
         </ListView>
+  
 
         <ListView Margin="199, 20, 0, 0"> 
             <StackPanel>
@@ -73,7 +86,7 @@
                             <TextBlock>
                                 <Run Text="{Binding Date}"/>
                                 <Run Text="     "/>
-                                <Run Text="{Binding IsActive}"/>
+                                <Run Text="{Binding IsActive, Converter={StaticResource AdmittedBoolToString}, Mode=OneWay}"/>
                                 <Run Text="                    "/>
                                 <Run Text="{Binding Diagnosis}"/>
                             </TextBlock>

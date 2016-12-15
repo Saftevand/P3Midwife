@@ -18,31 +18,37 @@ namespace P3_Midwife.Views
     public partial class NewChildWindow : BaseWindow
     {
         private Employee _currentEmployee;
+        private Record _currentRecord;
+        private int thisID;
         bool isNotClosed = true;
         WordSuggesetionProvider provider;
-        public NewChildWindow()
+        public NewChildWindow(Record ActiveRecord)
         {
             InitializeComponent();
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
             Messenger.Default.Register<Employee>(this, "EmployeetoNewChildView", validateUser);
+            Messenger.Default.Register<Record>(this, "ChildRecordToNewChildView", recordValidation);
             txtAuto.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
-
-        //  ApgarOneMinTextBox.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
-        //  ApgarFiveMinTextBox.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
-        //  ApgarTenMinTextBox.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
+            thisID = ActiveRecord.ThisRecordID;
+            ApgarOneMinTextBox.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
+            ApgarFiveMinTextBox.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
+            ApgarTenMinTextBox.TextChanged += new TextChangedEventHandler(txtAuto_TextChanged);
 
             provider = new WordSuggesetionProvider();
             isNotClosed = false;
         }
 
-
+        private void recordValidation(Record CurrentRecord)
+        {
+            _currentRecord = CurrentRecord;
+        }
         private void show()
         {
-            if (_currentEmployee is SOSU)
-            {
-                SaveAndCompleteBtn.Visibility = Visibility.Hidden;
-            }
-            Show();
+         // if (_currentEmployee is SOSU)
+         // {
+         //     SaveAndCompleteBtn.Visibility = Visibility.Hidden;
+         // }
+          Show();
         }
 
         private void validateUser(Employee emp)
@@ -52,9 +58,10 @@ namespace P3_Midwife.Views
 
         private void txtAuto_TextChanged(object sender, TextChangedEventArgs e)
         {
+            TextBox senderBox = sender as TextBox; 
             List<string> autoList = new List<string>();
             autoList.Clear();
-            autoList = provider.GetSuggestions(txtAuto.Text.ToLower());
+            autoList = provider.GetSuggestions(senderBox.Text.ToLower());
 
             if (autoList.Count > 0)
             {
@@ -71,19 +78,25 @@ namespace P3_Midwife.Views
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-
-            if (msg.Notification == "ToNewChild" && !isNotClosed)
+            if (thisID == _currentRecord.ThisRecordID)
             {
-                show();
-            }
-            else if (msg.Notification == "ChildSave")
-            {
-                BaseWindow.cancel = true;
-                isNotClosed = true;
-                Close();
+                if (msg.Notification == "ToNewChild" && !isNotClosed)
+                {
+                    show();
+                }
+                else if (msg.Notification == "ChildSave")
+                {
+                    BaseWindow.cancel = true;
+                    isNotClosed = true;
+                    Close();
+                }
+                else
+                    Hide();
             }
             else
+            {
                 Hide();
+            }
         }
 
         private void txtAuto_KeyDown(object sender, KeyEventArgs e)
@@ -92,7 +105,7 @@ namespace P3_Midwife.Views
             {
                 e.Handled = true;
                 lbSuggestions.SelectedIndex = 0;
-                text_Append();
+                text_Append(sender as TextBox);
             }
             if (e.Key == Key.Down)
             {
@@ -100,20 +113,23 @@ namespace P3_Midwife.Views
             }
         }
 
-        private void text_Append()
+        private void text_Append(TextBox sender)
         {
             string text;
             text = lbSuggestions.SelectedItem.ToString();
-            if (!txtAuto.Text.EndsWith(" "))
+            if (!sender.Text.EndsWith(" "))
             {
-                txtAuto.Text = txtAuto.Text.Remove(txtAuto.Text.LastIndexOf(' ') + 1);
+                sender.Text = sender.Text.Remove(sender.Text.LastIndexOf(' ') + 1);
             }
-            txtAuto.AppendText(text + " ");
-            txtAuto.SelectionStart = txtAuto.Text.Length;
+            sender.AppendText(text + " ");
+            sender.SelectionStart = sender.Text.Length;
         }
 
         private void lbSuggestions_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            
+            ListBox senderListBox = sender as ListBox;
+
             string text;
             if (lbSuggestions.ItemsSource != null)
             {
@@ -134,11 +150,12 @@ namespace P3_Midwife.Views
 
         private void lbSuggestions_PreviewKeyDown(object sender, KeyEventArgs e)
         {
+            TextBox senderBox = sender as TextBox;
             if (e.Key == System.Windows.Input.Key.Tab)
             {
                 e.Handled = true;
-                text_Append();
-                txtAuto.Focus();
+                text_Append(senderBox);
+                senderBox.Focus();
             }
         }
     }

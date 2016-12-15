@@ -50,11 +50,15 @@ namespace P3_Midwife.ViewModel
             {
                 if (value!= null)
                 {
+                    this.SetValue(PatientProperty, value);
+
                     foreach (var item in value.Children)
                     {
-                        Children.Add(item);
+                        if (Children.Contains(item) == false)
+                        {
+                            Children.Add(item);
+                        }
                     }
-                    { this.SetValue(PatientProperty, value); }
                     Records.Clear();
                     //Records.AddRange(PatientCurrent.RecordList.Where(x => !Records.Contains(x)));
                     Records.AddRange(PatientCurrent.RecordList);
@@ -109,7 +113,7 @@ namespace P3_Midwife.ViewModel
             {
                 if (!CurrentEmployee.CurrentPatients.Contains(PatientCurrent))
                 {
-                    CurrentEmployee.CurrentPatients.Add(PatientCurrent);
+                    (CurrentEmployee as Midwife).AdmitPatient(PatientCurrent);
                 }
                 Record tempRecord = new Record(PatientCurrent);
                 PatientCurrent.RecordList.Add(tempRecord);

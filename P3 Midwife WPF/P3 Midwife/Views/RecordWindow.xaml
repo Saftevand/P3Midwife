@@ -13,6 +13,10 @@
     <Window.DataContext>
         <ViewModel:RecordViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <local:GenderStringToCharConverter x:Key="GenderStringToCharConverter"/>
+        <local:StringCTGClassificationConverter x:Key="CTGClassificationConverter"/>
+    </Window.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -28,12 +32,18 @@
             </MenuItem>
         </Menu>
 
-
+        
         <StackPanel Grid.ColumnSpan="3">
             <ListView x:Name="BirthInfo" Margin="199,20,0,0">
-                <TextBlock x:Name="BItextBlock" TextWrapping="Wrap" Text="Fødselsoplysninger"/>
+                <StackPanel Orientation="Horizontal" Width="600">
+                    <TextBlock x:Name="BItextBlock" TextWrapping="Wrap" VerticalAlignment="Center" Text="Fødselsoplysninger"/>
+                    <Button Command="{Binding AddBirthInfo}" HorizontalAlignment="Right" Height="25" Width="60">
+                        Tilføj
+                    </Button>
+                </StackPanel>                
             </ListView>
 
+            
             <ListView Margin="199,0,0,0">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
@@ -113,16 +123,29 @@
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackPanel>
-                        <Button Command="{Binding AddBirthInfo}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="25" Width="60" Margin="100,0,0,0">
-                            Tilføj
-                        </Button>        
+
+                        <StackPanel>
+                            <TextBlock Text=" Navn "/>
+                            <ListView ItemsSource="{Binding BirthInformationListProperty}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock MinHeight="18" MaxHeight="18" Text="{Binding CurrentEmployee.Name}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
                     </StackPanel>                    
                 </StackPanel>
             </ListView>
 
 
             <ListBox x:Name="ContractionInfo" Margin="199,0,0,0">
-                <TextBlock x:Name="CItextBlock" TextWrapping="Wrap" Text="Veer og S-drop" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="CItextBlock" TextWrapping="Wrap" VerticalAlignment="Center" Text="Veer og S-drop" />
+                    <Button Command="{Binding AddContractionIVDripInfo}" Height="25" Width="60">
+                        Tilføj
+                    </Button>
+                </StackPanel>
             </ListBox>
 
             <ListView Margin="199,0,0,0">
@@ -172,16 +195,28 @@
                             </ListView>
                         </StackPanel>
 
-                        <Button Command="{Binding AddContractionIVDripInfo}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="25" Width="60" Margin="609,0,0,0">
-                            Tilføj
-                        </Button>
+                        <StackPanel>
+                            <TextBlock Text=" Navn "/>
+                            <ListView ItemsSource="{Binding ContractionListProperty}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock MinHeight="18" MaxHeight="18" Text="{Binding CurrentEmployee.Name}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </ListView>
 
 
             <ListBox x:Name="FetusObsInfo" Margin="199,0,0,0">
-                <TextBlock x:Name="FOtextBlock" TextWrapping="Wrap" Text="Fosterobservationer" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="FOtextBlock" TextWrapping="Wrap" VerticalAlignment="Center" Text="Fosterobservationer" />
+                    <Button Command="{Binding AddFetusObservationInfo}" Height="25" Width="60">
+                        Tilføj
+                    </Button>
+                </StackPanel>
             </ListBox>
 
             <ListView Margin="199,0,0,0">
@@ -214,10 +249,27 @@
                             <ListView ItemsSource="{Binding FetusObservationListProperty}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding CTGClassification}" MaxLength="7" Width="50"/>
+                                        <ComboBox ItemsSource="{Binding CTGClassificationList}" SelectedItem="{Binding FetusObservationListProperty\CTGClassification}"  Width="99" Name="CTGClassificationBox">
+                                            <ComboBox.DataContext>
+                                                <ViewModel:RecordViewModel/>
+                                            </ComboBox.DataContext>
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding}"/>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
+
+                            <!--<ComboBox ItemsSource="{Binding CTGClassificationList/, Converter={StaticResource CTGClassificationConverter}}" SelectedItem="{Binding CTGClassification, Mode=OneWayToSource}" Width="99">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={StaticResource CTGClassificationConverter},Mode=OneWay}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>-->
                         </StackPanel>
 
                         <StackPanel>
@@ -264,15 +316,27 @@
                             </ListView>
                         </StackPanel>
 
-                        <Button Command="{Binding AddFetusObservationInfo}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="25" Width="60" Margin="343,0,0,0">
-                            Tilføj
-                        </Button>
+                        <StackPanel>
+                            <TextBlock Text=" Navn "/>
+                            <ListView ItemsSource="{Binding FetusObservationListProperty}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock MinHeight="18" MaxHeight="18" Text="{Binding CurrentEmployee.Name}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </ListView>
 
             <ListBox x:Name="MicturitionInfo" Margin="199,0,0,0">
-                <TextBlock x:Name="MtextBlock" TextWrapping="Wrap" Text="Vandladning"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="MtextBlock" TextWrapping="Wrap" Text="Vandladning" VerticalAlignment="Center"/>
+                    <Button Command="{Binding AddMicturitionInfo}" Height="25" Width="60">
+                        Tilføj
+                    </Button>
+                </StackPanel>
             </ListBox>
 
             <ListView Margin="199,0,0,0">
@@ -299,16 +363,29 @@
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackPanel>
-                        <Button Command="{Binding AddMicturitionInfo}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="25" Width="60" Margin="765,0,0,0">
-                            Tilføj
-                        </Button>
+
+                        <StackPanel>
+                            <TextBlock Text=" Navn "/>
+                            <ListView ItemsSource="{Binding MicturitionListProperty}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock MinHeight="18" MaxHeight="18" Text="{Binding CurrentEmployee.Name}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </ListView>
 
 
             <ListBox x:Name="VaginalExplorationInfo" Margin="199,0,0,0">
-                <TextBlock x:Name="VEtextBlock" TextWrapping="Wrap" Text="Vaginal Exploration"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="VEtextBlock" TextWrapping="Wrap" Text="Vaginal Exploration" VerticalAlignment="Center"/>
+                    <Button Command="{Binding AddVaginalExplorationInfo}" Height="25" Width="60">
+                        Tilføj
+                    </Button>
+                </StackPanel>
             </ListBox>
 
             <ListView Margin="199,0,0,0">
@@ -402,14 +479,20 @@
                             </ListView>
                         </StackPanel>
 
-                        
-                        
-                        <Button Command="{Binding AddVaginalExplorationInfo}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="25" Width="60" Margin="373,0,0,0">
-                            Tilføj
-                        </Button>
+                        <StackPanel>
+                            <TextBlock Text=" Navn "/>
+                            <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock MinHeight="18" MaxHeight="18" Text="{Binding CurrentEmployee.Name}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </ListView>
+            
             <TextBlock Margin="199,0,0,0" Height="100">
                 <Run Text="{Binding RecordCurrent.Note}"/>
             </TextBlock>
@@ -417,7 +500,7 @@
             </TextBox>
         </StackPanel>
 
-        <ListView x:Name="listView" HorizontalAlignment="Left" Height="669" Margin="0,20,0,0" VerticalAlignment="Top" Width="200" BorderThickness="3" BorderBrush="LightSkyBlue">
+        <ListView x:Name="listView" HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top" Width="200" BorderThickness="3" BorderBrush="LightSkyBlue">
             <StackPanel Orientation="Horizontal">
                 <ListView>
                     <ListViewItem Content="Navn: "/>
@@ -429,7 +512,7 @@
                 <ListView>
                     <ListViewItem Content="{Binding PatientCurrent.Name}"/>
                     <ListViewItem Content="{Binding PatientCurrent.Age}"/>
-                    <ListViewItem Content="{Binding PatientCurrent.Gender}"/>
+                    <ListViewItem Content="{Binding PatientCurrent.Gender, Converter={StaticResource GenderStringToCharConverter}, Mode=OneWay}"/>
                     <ListViewItem Content="{Binding PatientCurrent.CPR}"/>
                     <ListViewItem Content="{Binding PatientCurrent.SGA}"/>
                 </ListView>
@@ -447,7 +530,11 @@
                 </ComboBox>
                 <Button Command="{Binding AddMedicalService}" Height="20" Width="100" FontSize="12" Content="Tilføj medicin">
                 </Button>
-                <TextBlock Text="Modtaget medicin" Margin="0,10,0,0"/>
+
+                <ListBox Margin="0,10,0,0">
+                    <TextBlock Text="Modtaget medicin"/>
+                </ListBox>  
+                
                 <ListView Height="150" ItemsSource="{Binding MedicalServicesList}" SelectedItem="{Binding SelectedMedicalServiceInfo, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Name="ReceivedMedicine" Tag="{Binding SelectedMedicalServiceInfo}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -460,12 +547,29 @@
                 </ListView>
                 <Button Command="{Binding RemoveMedicalService}" Content="Fjern Medicin" FontSize="12" Height="20" Width="100">
                 </Button>
-                
-                <Button Name="NewChildBtn" Command="{Binding NewChildDialogCommand}" VerticalAlignment="Bottom" Margin="0,100,0,0">
+
+
+                <ListBox>
+                    <TextBlock Text="Nuværende barn"/>
+                </ListBox>
+                <ListView ItemsSource="{Binding Children}" Name="ChildrenListBox" PreviewMouseLeftButtonUp="listView_Click" Tag="{Binding CurrentEmployee}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding CPR}"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Button Name="NewChildBtn" Command="{Binding NewChildDialogCommand}" VerticalAlignment="Bottom" Margin="0,50,0,0" Click="NewChildBtn_Click">
                     Nyt barn
                 </Button>
-                <Button Command="{Binding SaveAndCompleteCommand}" VerticalAlignment="Bottom">
-                    Gem og afslut
+                <Button Command="{Binding SaveAndCompleteCommand}" Margin="0,5,0,0">
+                    Udskriv patient
+                </Button>
+                <Button Command="{Binding BackCommand}" Margin="0,5,0,0">
+                    Tilbage
                 </Button>
             </StackPanel>
         </ListView>
