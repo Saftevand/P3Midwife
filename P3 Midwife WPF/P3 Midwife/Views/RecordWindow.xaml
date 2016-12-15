@@ -32,7 +32,7 @@
             </MenuItem>
         </Menu>
 
-        <ScrollViewer Grid.ColumnSpan="2" Grid.Column="1">
+        <ScrollViewer Margin="0, 20,0 ,0" Grid.ColumnSpan="2" Grid.Column="1">
         <StackPanel Grid.ColumnSpan="3">
             <ListView x:Name="BirthInfo">
                 <StackPanel Orientation="Horizontal" Width="600">

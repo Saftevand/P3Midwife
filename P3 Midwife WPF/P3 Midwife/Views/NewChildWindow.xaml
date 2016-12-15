@@ -127,20 +127,20 @@
             </ItemsControl>
             <ItemsControl>
                 <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
-                    <TextBox x:Name="ApgarOneMinTextBox" Text="{Binding CurrentRecord.ApgarOneMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="0,0,-81.8,0" Width="150"/>
-                    <ListBox x:Name="lbsuggestions2" MouseDoubleClick="lbSuggestions_MouseDoubleClick"  Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
+                    <TextBox x:Name="ApgarOneMinTextBox" Tag="{Binding ElementName=lbsuggestions1}" Text="{Binding CurrentRecord.ApgarOneMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="0,0,-81.8,0" Width="150"/>
+                    <ListBox x:Name="lbsuggestions1" Tag="{Binding ElementName=ApgarOneMinTextBox}" MouseDoubleClick="lbSuggestions_MouseDoubleClick"  Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
                 </StackPanel>
                 <StackPanel Margin="5,5,0,0" Orientation="Horizontal">
-                    <TextBox x:Name="ApgarFiveMinTextBox" Text="{Binding CurrentRecord.ApgarFiveMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="0,0,-81.8,0" Width="150"/>
-                    <ListBox x:Name="w4" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
+                    <TextBox x:Name="ApgarFiveMinTextBox" Tag="{Binding ElementName=lbsuggestions2}" Text="{Binding CurrentRecord.ApgarFiveMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="0,0,-81.8,0" Width="150"/>
+                    <ListBox x:Name="lbsuggestions2" Tag="{Binding ElementName=ApgarFiveMinTextBox}" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
                 </StackPanel>
                 <StackPanel Margin="5,5,0,0" Orientation="Horizontal">
-                    <TextBox x:Name="ApgarTenMinTextBox" Text="{Binding CurrentRecord.ApgarTenMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="0,0,-81.8,0" Width="150"/>
-                    <ListBox x:Name="w6" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
+                    <TextBox x:Name="ApgarTenMinTextBox" Tag="{Binding ElementName=lbsuggestions3}" Text="{Binding CurrentRecord.ApgarTenMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="0,0,-81.8,0" Width="150"/>
+                    <ListBox x:Name="lbsuggestions3" Tag="{Binding ElementName=ApgarTenMinTextBox}" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
                 </StackPanel>
                 <StackPanel Margin="5,5,0,0" Orientation="Horizontal">
-                    <TextBox x:Name="txtAuto" Text="{Binding CurrentRecord.FurtherNotice}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Width="150"/>
-                    <ListBox x:Name="lbSuggestions" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
+                    <TextBox x:Name="txtAuto" Tag="{Binding ElementName=lbSuggestions}" Text="{Binding CurrentRecord.FurtherNotice}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Width="150"/>
+                    <ListBox x:Name="lbSuggestions" Tag="{Binding ElementName=txtAuto}" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
                 </StackPanel>
             </ItemsControl>
         </StackPanel>
