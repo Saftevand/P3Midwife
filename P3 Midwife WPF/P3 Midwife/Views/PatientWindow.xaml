@@ -103,7 +103,7 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextBlock>
-                                <Run Text="{Binding Date}"/>
+                                <Run Text="{Binding Date, StringFormat=dd-MM-yyyy HH:mm}"/>
                                 <Run Text="     "/>
                                 <Run Text="{Binding IsActive, Converter={StaticResource AdmittedBoolToString}, Mode=OneWay}"/>
                                 <Run Text="                    "/>

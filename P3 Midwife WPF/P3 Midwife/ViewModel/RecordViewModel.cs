@@ -199,17 +199,16 @@ namespace P3_Midwife.ViewModel
             get { return (Record)this.GetValue(RecordProperty); }
             set
             {
+                
                 this.SetValue(RecordProperty, value);
 
-                PriorBirthComplications = EmployeeCurrent.PriorBirthComplications(PatientCurrent);
+                
                 BirthInformationListProperty.Clear();
                 ContractionListProperty.Clear();
                 FetusObservationListProperty.Clear();
                 MicturitionListProperty.Clear();
                 VaginalExplorationListProperty.Clear();
                 MedicalServicesList.Clear();
-
-                //Children.AddRange(PatientCurrent.Children.Where(x=>x.CPR == RecordCurrent.ChildCPR));
 
                 BirthInformationListProperty.AddRange(RecordCurrent.BirthInformationList);
                 ContractionListProperty.AddRange(RecordCurrent.ContractionIVDripList);
@@ -224,8 +223,9 @@ namespace P3_Midwife.ViewModel
         {
             get { return (Patient)this.GetValue(PatientProperty); }
             set { this.SetValue(PatientProperty, value);
-               Children.AddRange(value.Children.Where(x => !Children.Contains(x)));
-                //PriorBirthComplications = EmployeeCurrent.PriorBirthComplications(PatientCurrent); 
+                Children.Clear();
+                Children.AddRange(PatientCurrent.Children.Where(x => !Children.Contains(x) && RecordCurrent.ChildCPR == x.CPR));
+                PriorBirthComplications = EmployeeCurrent.PriorBirthComplications(PatientCurrent);
             }
         }
         public Employee EmployeeCurrent
@@ -238,6 +238,7 @@ namespace P3_Midwife.ViewModel
         public RecordViewModel()
         {
             SetValue(ChildBirthDateProperty, DateTime.Today);
+            SetValue(ChildBirthTimeProperty, DateTime.Now);
             this.Cancel = new RelayCommand(parameter =>
             {
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToRecord"));
@@ -261,8 +262,9 @@ namespace P3_Midwife.ViewModel
             this.CreateChildCommand = new RelayCommand(parameter =>
             {
                 Midwife tempMidwife = EmployeeCurrent as Midwife;
-                tempMidwife.CreatePatient(PatientCurrent, ChildGender, ChildBirthDate.Date + ChildBirthTime.TimeOfDay);
-                Patient tempChild = PatientCurrent.Children.Find(x => x.BirthDateTime == ChildBirthDate + ChildBirthTime.TimeOfDay);
+                ChildBirthDate = ChildBirthDate.Add(ChildBirthTime.TimeOfDay);
+                tempMidwife.CreatePatient(PatientCurrent, ChildGender, ChildBirthDate);
+                Patient tempChild = PatientCurrent.Children.Last();
                 RecordCurrent.ChildCPR = tempChild.CPR;
                 new P3_Midwife.Views.NewChildWindow(RecordCurrent);
 
@@ -317,7 +319,6 @@ namespace P3_Midwife.ViewModel
             });
             this.NewChildDialogCommand = new RelayCommand(parameter =>
             {
-                ChildBirthDate = DateTime.Now;
                 Messenger.Default.Send(new NotificationMessage("NewChildDialog"));
             });
             this.SaveAndCompleteCommand = new RelayCommand(parameter =>

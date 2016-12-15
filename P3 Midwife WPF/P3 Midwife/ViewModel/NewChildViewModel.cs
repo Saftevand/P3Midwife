@@ -86,10 +86,11 @@ namespace P3_Midwife.ViewModel
             this.BackCommand = new RelayCommand(Parameter =>
             {
                 Messenger.Default.Send(CurrentRecord, "NewRecordToRecordView");
-                Messenger.Default.Send(new NotificationMessage("ToRecord"));
-                Messenger.Default.Send(CurrentPatient, "PatientToRecordView");
                 Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");
-                
+                Messenger.Default.Send(CurrentPatient, "PatientToRecordView");
+                Messenger.Default.Send(new NotificationMessage("ToRecord"));
+
+
             });
         }
     }

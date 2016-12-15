@@ -56,7 +56,7 @@
                 </ListBoxItem>
                 <ListBoxItem>
                     <StackPanel Orientation="Vertical">
-                        <DatePicker  SelectedDate="{Binding ChildBirthDate}" />
+                        <DatePicker  SelectedDate="{Binding ChildBirthDate}"/>
                         <xctk:TimePicker AllowTextInput="True" AllowSpin="True"  Text="{Binding ChildBirthTime}" Height="18"/>
                     </StackPanel>
                 </ListBoxItem>

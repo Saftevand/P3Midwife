@@ -69,6 +69,7 @@ namespace P3_Midwife
                     file.WriteLine(i.ToString() + " False");
                 }
                 file.Close();
+                ReadRooms(Path.Combine(_AdminPath, "Room_info.txt"));
             }
             else
             {
@@ -87,6 +88,7 @@ namespace P3_Midwife
                 file.WriteLine("4 Mette Hansen 321 49846516 Metteh@hotmail.com 2");
                 file.WriteLine("5 x x x 1 x 1");
                 file.Close();
+                ReadEmployees(Path.Combine(_AdminPath, "Employee_info.txt"));
             }
             else ReadEmployees(Path.Combine(_AdminPath, "Employee_info.txt"));
         }
@@ -108,7 +110,7 @@ namespace P3_Midwife
                 file.WriteLine("FS Ferrous_Sulphate 67,00");
                 file.WriteLine("PD Pregaday 20,00");
                 file.Close();
-                
+                ReadMedicalServiceFromFile(Path.Combine(_AdminPath, "MedicalServices.txt"));
             }
             else
             {
@@ -469,6 +471,7 @@ namespace P3_Midwife
                             if (!String.IsNullOrEmpty(VariInfo[33])) recordToBeAdded.BreastFeedingNote = VariInfo[33];
                             if (!String.IsNullOrEmpty(VariInfo[34])) recordToBeAdded.BirthComplications = Convert.ToBoolean(VariInfo[34]);
                             if (!String.IsNullOrEmpty(VariInfo[35])) recordToBeAdded.IsActive = Convert.ToBoolean(VariInfo[35]);
+                            if (!String.IsNullOrEmpty(VariInfo[36])) recordToBeAdded.ChildCPR = VariInfo[36];
                             for (int h = 36; h < VariInfo.Length; h++)
                             {
                                 recordToBeAdded.Diseases.Add(VariInfo[h]);

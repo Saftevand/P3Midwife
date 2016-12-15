@@ -18,9 +18,6 @@ namespace P3_Midwife
         //constructor to initialize the static lists.
         static Ward()
         {
-            Filemanagement.InitialiseFoldersAndFiles();
-            
-           
         }
     }
 }

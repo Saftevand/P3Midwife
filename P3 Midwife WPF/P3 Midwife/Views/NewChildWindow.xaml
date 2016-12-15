@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:wpf="http://wpfcontrols.com/"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xml:lang="de-DE"
         xmlns:ViewModel="clr-namespace:P3_Midwife.ViewModel"
         xmlns:local="clr-namespace:P3_Midwife.Views"
         mc:Ignorable="d"
@@ -34,7 +35,7 @@
                 Tilbage
             </Button>
         </ListView>
-        <StackPanel Orientation="Horizontal" Margin="220,20,623.6,590.4">
+        <StackPanel Orientation="Horizontal" Margin="220,20,354,590">
 
             <ItemsControl Width="115">
                 <TextBlock><Run Text="Barn(CPR): "/></TextBlock>
@@ -42,18 +43,18 @@
                 <TextBlock><Run Text="Køn: "/></TextBlock>
             </ItemsControl>
 
-            <ItemsControl Width="125">
+            <ItemsControl Width="200">
                 <TextBlock><Run Text="{Binding CurrentNewChild.CPR}"/></TextBlock>
-                <TextBlock><Run Text="{Binding CurrentNewChild.BirthDateTime, StringFormat=dd-MM-yyyy}"/></TextBlock>
+                <TextBlock><Run Text="{Binding CurrentNewChild.BirthDateTime, StringFormat=dd-MM-yyyy HH:mm}"/></TextBlock>
                 <TextBlock><Run Text="{Binding CurrentNewChild.Gender,Converter={StaticResource GenderStringCharConverter}}"/></TextBlock>
             </ItemsControl>
             <StackPanel/>
-            <ItemsControl>
+            <ItemsControl Width="115">
                 <TextBlock><Run Text="Moder: "/></TextBlock>
                 <TextBlock><Run Text="Jordemoder: "/></TextBlock>
                 <TextBlock><Run Text="Rum: "/></TextBlock>
             </ItemsControl>
-            <ItemsControl Width="115">
+            <ItemsControl Width="200">
                 <TextBlock><Run Text="{Binding CurrentPatient.Name}"/><Run Text=" "/><Run Text=" "/><Run Text=" "/><Run Text="{Binding CurrentPatient.CPR}"/></TextBlock>
                 <TextBlock><Run Text="{Binding CurrentEmployee.Name}"/></TextBlock>
                 <TextBlock><Run Text="{Binding CurrentRoom.RoomID, Mode=OneWay}"/></TextBlock>

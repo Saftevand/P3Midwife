@@ -42,6 +42,7 @@ namespace P3_Midwife
         public Patient(string PatientCPR)
         {
             this.CPR = PatientCPR;
+            this._gender = FindGenderFromCPR(PatientCPR);
         }
 
         public Patient(char gender)

@@ -60,8 +60,9 @@ namespace P3_Midwife.Views
                 {
                     Messenger.Default.Send<Employee>((Employee)chosenRecord.Tag, "EmployeetoRecordView");
                     Patient tempPatient = Ward.Patients.Find(x => x.RecordList.Contains((Record)chosenRecord.SelectedItem));
-                    Messenger.Default.Send<Patient>(tempPatient, "PatientToRecordView");
                     Messenger.Default.Send<Record>((Record)chosenRecord.SelectedItem, "NewRecordToRecordView");
+                    Messenger.Default.Send<Patient>(tempPatient, "PatientToRecordView");
+                    
                     
                     
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToRecord"));
@@ -85,9 +86,9 @@ namespace P3_Midwife.Views
             if (item != null)
             {
                 Patient child = item as Patient;
-                if (child.Mother.RecordList.Find(x => x.IsActive == true) != null)
+                if (child.Mother.RecordList.Find(x => x.ChildCPR == child.CPR) != null)
                 {
-                    Messenger.Default.Send(child.Mother.RecordList.Find(x => x.IsActive == true), "ChildRecordToNewChildView");
+                    Messenger.Default.Send(child.Mother.RecordList.Find(x => x.ChildCPR == child.CPR), "ChildRecordToNewChildView");
                     Messenger.Default.Send(child.Mother, "PatientToNewChildView");
                     Messenger.Default.Send<Employee>((Employee)ChildrenListBox.Tag, "EmployeetoNewChildView");
                     Messenger.Default.Send(child, "ChildToNewChildView");

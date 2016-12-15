@@ -101,7 +101,6 @@ namespace P3_Midwife
             Patient child = new Patient(gender, date, mother);
             Ward.Patients.Add(child);
             Ward.DeliveryRooms.Find(x => x.PatientsInRoom.Contains(mother)).PatientsInRoom.Add(child);
-            //child.RecordList.Add(new Record(child));
             Filemanagement.CreatePatientFolderAndFile(child);
 
         }
@@ -112,10 +111,7 @@ namespace P3_Midwife
             Patient child = new Patient(gender, date, mother);
             Ward.Patients.Add(child);
             Ward.DeliveryRooms.Find(x => x.PatientsInRoom.Contains(mother)).PatientsInRoom.Add(child);
-            //child.RecordList.Add(new Record(child));
             Filemanagement.CreatePatientFolderAndFile(child);
-
         }
-
     }
 }

@@ -40,8 +40,9 @@ namespace P3_Midwife.ViewModel
                     Filemanagement.ReadBirthRecords(CurrentEmployee.FindPatient(CPREntered));
                     MessageBox.Show(Ward.Patients.Find(x => x.CPR == CPREntered).Name + " er blevet tilføjet");
                     Messenger.Default.Send<Employee>(CurrentEmployee, "ReturnEmployee");
-                    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("DialogSave"));
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToHome"));
+                    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("DialogSave"));
+                    
                 }
                 else
                 {

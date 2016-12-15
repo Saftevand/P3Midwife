@@ -28,6 +28,7 @@ namespace P3_Midwife
 
         public LoginViewModel()
         {
+            Filemanagement.InitialiseFoldersAndFiles();
             this.LoginCommand = new RelayCommand(parameter =>
             {
                 //TODO: Crashes if no email is entered and login pressed or if only numbers are entered
