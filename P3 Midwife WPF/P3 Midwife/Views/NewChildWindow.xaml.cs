@@ -67,6 +67,7 @@ namespace P3_Midwife.Views
             if (senderBox.Text.EndsWith(" "))
             {
                 senderBox.Text = TextEditor.WordReplacement(senderBox.Text.ToString());
+                senderBox.SelectionStart = senderBox.Text.Length;
             }
             autoList = provider.GetSuggestions(senderBox.Text.ToLower());
 

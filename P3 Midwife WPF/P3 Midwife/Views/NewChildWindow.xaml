@@ -127,15 +127,15 @@
             </ItemsControl>
             <ItemsControl>
                 <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
-                    <TextBox x:Name="ApgarOneMinTextBox" Tag="{Binding ElementName=lbsuggestions1}" Text="{Binding CurrentRecord.ApgarOneMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="0,0,-81.8,0" Width="150"/>
+                    <TextBox x:Name="ApgarOneMinTextBox" Tag="{Binding ElementName=lbsuggestions1}" Text="{Binding CurrentRecord.ApgarOneMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Width="150"/>
                     <ListBox x:Name="lbsuggestions1" Tag="{Binding ElementName=ApgarOneMinTextBox}" MouseDoubleClick="lbSuggestions_MouseDoubleClick"  Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
                 </StackPanel>
                 <StackPanel Margin="5,5,0,0" Orientation="Horizontal">
-                    <TextBox x:Name="ApgarFiveMinTextBox" Tag="{Binding ElementName=lbsuggestions2}" Text="{Binding CurrentRecord.ApgarFiveMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="0,0,-81.8,0" Width="150"/>
+                    <TextBox x:Name="ApgarFiveMinTextBox" Tag="{Binding ElementName=lbsuggestions2}" Text="{Binding CurrentRecord.ApgarFiveMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Width="150"/>
                     <ListBox x:Name="lbsuggestions2" Tag="{Binding ElementName=ApgarFiveMinTextBox}" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
                 </StackPanel>
                 <StackPanel Margin="5,5,0,0" Orientation="Horizontal">
-                    <TextBox x:Name="ApgarTenMinTextBox" Tag="{Binding ElementName=lbsuggestions3}" Text="{Binding CurrentRecord.ApgarTenMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Margin="0,0,-81.8,0" Width="150"/>
+                    <TextBox x:Name="ApgarTenMinTextBox" Tag="{Binding ElementName=lbsuggestions3}" Text="{Binding CurrentRecord.ApgarTenMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Width="150"/>
                     <ListBox x:Name="lbsuggestions3" Tag="{Binding ElementName=ApgarTenMinTextBox}" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
                 </StackPanel>
                 <StackPanel Margin="5,5,0,0" Orientation="Horizontal">
@@ -149,173 +149,4 @@
     </Grid>
 </local:BaseWindow>
 
-
-<!--<TextBlock>
-                    <Label>
-                        <Run Text="GA"/>
-                    </Label>
-                    <TextBox Text="{Binding CurrentRecord.GA_Week}" Width="25"/>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Uger-dag"/>
-                    </Label>
-                    <TextBox Text="{Binding CurrentRecord.GA_Day}" Width="25"/>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Vægt"/>
-                    </Label>
-                    <TextBox Text="{Binding CurrentRecord.Weight}" Width="25"/>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Længde"/>
-                    </Label>
-                    <TextBox Text="{Binding CurrentRecord.Length}" Width="25"/>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Fosterpræ"/>
-                    </Label>
-                    <TextBox Text="{Binding CurrentRecord.FetusPre}" Width="25"/>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="HO"/>
-                    </Label>
-                    <TextBox Text="{Binding CurrentRecord.HO}" Width="25"/>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="AO"/>
-                    </Label>
-                    <TextBox Text="{Binding CurrentRecord.AO}" Width="25"/>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Placentavægt"/>
-                    </Label>
-                    <TextBox Text="{Binding CurrentRecord.PlacentaWeight}" Width="25"/>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="K. vit (I/D/N)"/>
-                    </Label>
-                    <TextBox Text="{Binding CurrentRecord.KVitamin}" Width="25"/>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Diag."/>
-                    </Label>
-                    <TextBox Text="{Binding CurrentRecord.Diagnosis}" Width="25"/>
-                </TextBlock>
-            </StackPanel>
-        </ListView>-->
-<!--
-
-        <ListView Margin="738,119,0,0" BorderThickness="0">
-            <StackPanel>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Apgarbedømmelse 1 min"/>
-                    </Label>
-                    <TextBox Text="{Binding CurrentRecord.ApgarOneMinute}" Width="25"/>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Apgarbedømmelse 5 min"/>
-                    </Label>
-                    <TextBox Text="{Binding CurrentRecord.ApgarFiveMinutes}" Width="25"/>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Apgarbedømmelse 10 min"/>
-                    </Label>
-                    <TextBox Text="{Binding CurrentRecord.ApgarTenMinutes}" Width="25"/>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Bemærk"/>
-                    </Label>
-                    <StackPanel>
-                        <TextBox Name="txtAuto" Text="{Binding CurrentRecord.FurtherNotice}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Width="300" Height="60"/>
-                        <ListBox Name="lbSuggestions" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" 
-                                 Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"></ListBox>
-                    </StackPanel>
-            </TextBlock>
-            </StackPanel>
-        </ListView>
-        <ListView Margin="738,364,0,0" BorderThickness="0">
-            <StackPanel>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Sugning"/>
-                    </Label>
-                    <CheckBox IsChecked="{Binding CurrentRecord.Sucking}"/>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Næse"/>
-                    </Label>
-                        <CheckBox IsChecked="{Binding CurrentRecord.Nose}"/>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Svælg"/>
-                    </Label>
-                    <CheckBox IsChecked="{Binding CurrentRecord.Pharynx}" />
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Ventrikel"/>
-                    </Label>
-                    <CheckBox IsChecked="{Binding CurrentRecord.Ventricle}"/>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="Blodsukker"/>
-                    </Label>
-                    <TextBox Text="{Binding CurrentRecord.BloodSugar}" Width="25"/>
-                </TextBlock>
-            </StackPanel>
-        </ListView>
-        <ListView Margin="1009,364,0,0" BorderThickness="0">
-            <StackPanel>
-                <TextBlock>
-                    <Label>
-                        <Run Text="NS-Arterie"/>
-                    </Label>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="pH"/>
-                    </Label>
-                    <TextBox Text="{Binding CurrentRecord.NSapH}" Width="25"/>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="SBE"/>
-                    </Label>
-                    <TextBox Text="{Binding CurrentRecord.NSaSBE}" Width="25"/>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="NS - Vene"/>
-                    </Label>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="pH"/>
-                    </Label>
-                    <TextBox Text="{Binding CurrentRecord.NSvpH}" Width="25"/>
-                </TextBlock>
-                <TextBlock>
-                    <Label>
-                        <Run Text="SBE"/>
-                    </Label>
-                    <TextBox Text="{Binding CurrentRecord.NSvSBE}" Width="25"/>
-                </TextBlock>
-            </StackPanel>
-        </ListView>-->
 
