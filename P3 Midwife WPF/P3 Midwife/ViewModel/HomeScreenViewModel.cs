@@ -161,16 +161,7 @@ namespace P3_Midwife
             get { return (Patient)this.GetValue(SelectedPatientProperty); }
             set
             {
-                //if (value != this.CurrentPatient)
-                //{
                     this.SetValue(SelectedPatientProperty, value);
-                //  OnPropertyChanged(nameof(this.SelectedPatient));
-                //}
-
-                
-                //this.OnPropertyChanged(nameof());
-                //Messenger.Default.Send(new NotificationMessage("ShowPatientView"));
-                //Messenger.Default.Send(SelectedPatient);
             }
         }
 

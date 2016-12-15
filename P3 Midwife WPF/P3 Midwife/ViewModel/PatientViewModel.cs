@@ -15,8 +15,6 @@ namespace P3_Midwife.ViewModel
         public RelayCommand LogOutCommand { get; }
         public RelayCommand ExitCommand { get; }
         public RelayCommand BackCommand { get; }
-        public RelayCommand AdmitPatientCommand { get; }
-        public RelayCommand DischargePatientCommand { get; }
         public RelayCommand CreateRecordCommand { get; }
         public RelayCommand OpenRecordCommand { get; }
         public static DependencyProperty PatientProperty = DependencyProperty.Register(nameof(PatientCurrent), typeof(Patient), typeof(PatientViewModel));
@@ -98,17 +96,7 @@ namespace P3_Midwife.ViewModel
                 Messenger.Default.Send(new NotificationMessage("ToHome"));
                 Messenger.Default.Send<Employee>(CurrentEmployee, "ReturnEmployee");
             });
-            this.AdmitPatientCommand = new RelayCommand(Parameter =>
-            {
-                CurrentEmployee.CurrentPatients.Add(PatientCurrent);
-            });
-            this.DischargePatientCommand = new RelayCommand(Parameter =>
-            {
-                if (CurrentEmployee.CurrentPatients.Contains(PatientCurrent))
-                {
-                    CurrentEmployee.CurrentPatients.Remove(PatientCurrent);
-                }
-            });
+
             this.CreateRecordCommand = new RelayCommand(parameter =>
             {
                 if (!CurrentEmployee.CurrentPatients.Contains(PatientCurrent))
@@ -118,7 +106,6 @@ namespace P3_Midwife.ViewModel
                 Record tempRecord = new Record(PatientCurrent);
                 PatientCurrent.RecordList.Add(tempRecord);
                 new P3_Midwife.Views.RecordWindow(tempRecord);
-                //new P3_Midwife.Views.FinalRecordWindow(tempRecord);
                 Messenger.Default.Send(PatientCurrent, "PatientToRecordView");
                 Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");
                 Messenger.Default.Send(tempRecord, "NewRecordToRecordView");

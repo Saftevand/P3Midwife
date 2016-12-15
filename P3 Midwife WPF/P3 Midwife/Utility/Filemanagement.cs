@@ -115,13 +115,16 @@ namespace P3_Midwife
         {
             Directory.CreateDirectory(Path.Combine(_PatientsPath, patient.CPR.ToString()));
             CreateFile(Path.Combine(_PatientsPath, patient.CPR.ToString()), "_info");
-            StreamWriter file = new StreamWriter(Path.Combine(_PatientsPath, patient.CPR.ToString(), "_info.txt"));
-            file.WriteLine(patient.Name + " " + patient.CPR.ToString());
-            foreach (Patient child in patient.Children)
+            if(!File.Exists(Path.Combine(_PatientsPath, patient.CPR.ToString(), "_info.txt")))
             {
-                file.Write(" " + child.CPR.ToString());
+                StreamWriter file = new StreamWriter(Path.Combine(_PatientsPath, patient.CPR.ToString(), "_info.txt"));
+                file.WriteLine(patient.Name + " " + patient.CPR.ToString());
+                foreach (Patient child in patient.Children)
+                {
+                    file.Write(" " + child.CPR.ToString());
+                }
+                file.Close();
             }
-            file.Close();
         }
 
         #region save files
@@ -469,6 +472,7 @@ namespace P3_Midwife
                     }
                     patient.RecordList.Add(recordToBeAdded);
                     new P3_Midwife.Views.RecordWindow(recordToBeAdded);
+                    new Views.NewChildWindow(recordToBeAdded);
                     fileCounter++;
                 }
             }
@@ -488,8 +492,6 @@ namespace P3_Midwife
                         break;
                     case 3: Ward.Patients.Add(new Patient(informationline[2], informationline[0] + " " + informationline[1]));
                         break;
-                    case 4: Ward.Patients.Add(new Patient(informationline[2], informationline[0] + " " + informationline[1], informationline[3]));
-                        break;
 
                     default:AddPatient(informationline);
                         break;
@@ -502,9 +504,11 @@ namespace P3_Midwife
         {
             if (array[3].Any(char.IsDigit))
             {
+                Ward.Patients.Add(new Patient(array[2], array[0] + " " + array[1]));
                 for (int i = 3; i < array.Length; i++)
                 {
                     Ward.Patients.Last().Children.Add(new Patient(array[i]));
+                    Ward.Patients.Last().Children.Last().Mother = Ward.Patients.Last();
                 }
             }
             else
@@ -513,6 +517,7 @@ namespace P3_Midwife
                 for (int i = 4; i < array.Length; i++)
                 {
                     Ward.Patients.Last().Children.Add(new Patient(array[i]));
+                    Ward.Patients.Last().Children.Last().Mother = Ward.Patients.Last();
                 }
             }
             

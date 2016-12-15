@@ -39,7 +39,7 @@
                     <ListViewItem Content="Alder: "/>
                     <ListViewItem Content="Køn: "/>
                     <ListViewItem Content="CPR: "/>
-                    <ListViewItem Content="SGA: "/>
+                    <ListViewItem Content="GA: "/>
                 </ListView>
                 <ListView>
                     <ListViewItem Content="{Binding PatientCurrent.Name}"/>

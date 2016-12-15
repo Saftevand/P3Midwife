@@ -246,8 +246,6 @@ namespace P3_Midwife.ViewModel
                 tempMidwife.CreatePatient(PatientCurrent, ChildGender, ChildBirthDate.Date + ChildBirthTime.TimeOfDay);
                 Patient tempChild = PatientCurrent.Children.Find(x => x.BirthDateTime == ChildBirthDate + ChildBirthTime.TimeOfDay);
                 RecordCurrent.ChildCPR = tempChild.CPR;
-                // Record tempRecord = new Record(tempChild);
-                // tempChild.RecordList.Add(tempRecord);
                 new P3_Midwife.Views.NewChildWindow(RecordCurrent);
 
                 Messenger.Default.Send(RecordCurrent, "ChildRecordToNewChildView");

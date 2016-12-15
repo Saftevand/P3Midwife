@@ -36,9 +36,8 @@ namespace P3_Midwife.ViewModel
             {
                 if (Ward.Patients.Find(x => x.CPR == CPREntered) != null)
                 {
-                    Midwife temp = CurrentEmployee as Midwife;
-                    temp.AdmitPatient(temp.FindPatient(CPREntered));
-                    Filemanagement.ReadBirthRecords(temp.FindPatient(CPREntered));
+                    (CurrentEmployee as Midwife).AdmitPatient(CurrentEmployee.FindPatient(CPREntered));
+                    Filemanagement.ReadBirthRecords(CurrentEmployee.FindPatient(CPREntered));
                     MessageBox.Show(Ward.Patients.Find(x => x.CPR == CPREntered).Name + " er blevet tilføjet");
                     Messenger.Default.Send<Employee>(CurrentEmployee, "ReturnEmployee");
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("DialogSave"));

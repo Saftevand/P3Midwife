@@ -84,25 +84,30 @@ namespace P3_Midwife.Views
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-            if (thisID == _currentRecord.ThisRecordID)
+            if (_currentRecord != null)
             {
-                if (msg.Notification == "ToNewChild" && !isNotClosed)
+                if (thisID == _currentRecord.ThisRecordID)
                 {
-                    show();
-                }
-                else if (msg.Notification == "ChildSave")
-                {
-                    BaseWindow.cancel = true;
-                    isNotClosed = true;
-                    Close();
+                    if (msg.Notification == "ToNewChild" && !isNotClosed)
+                    {
+                        show();
+                    }
+                    else if (msg.Notification == "ChildSave")
+                    {
+                        BaseWindow.cancel = true;
+                        isNotClosed = true;
+                        Close();
+                    }
+                    else
+                        Hide();
                 }
                 else
+                {
                     Hide();
+                }
             }
-            else
-            {
-                Hide();
-            }
+            else Hide();
+           
         }
 
         private void txtAuto_KeyDown(object sender, KeyEventArgs e)
