@@ -31,6 +31,12 @@ namespace P3_Midwife
         public static void InitialiseFoldersAndFiles()
         {
             InitialiseMainFolders();
+            Filemanagement.CreatePatientFolderAndFile(new Patient("1805961577", "Patrick Alminde"));
+            Filemanagement.CreatePatientFolderAndFile(new Patient("1234567890", "Patrick Almind"));
+            Filemanagement.CreatePatientFolderAndFile(new Patient("2345678901", "Patrick Almin"));
+            Filemanagement.CreatePatientFolderAndFile(new Patient("3456789012", "Patrick Almi"));
+            Filemanagement.CreatePatientFolderAndFile(new Patient("4567890123", "Patrick Alm"));
+            Filemanagement.CreatePatientFolderAndFile(new Patient("5678901234", "Patrick Al"));
             ReadPatients();
             InitialiseAdminFiles();
         }
@@ -115,7 +121,7 @@ namespace P3_Midwife
         {
             Directory.CreateDirectory(Path.Combine(_PatientsPath, patient.CPR.ToString()));
             CreateFile(Path.Combine(_PatientsPath, patient.CPR.ToString()), "_info");
-            if(!File.Exists(Path.Combine(_PatientsPath, patient.CPR.ToString(), "_info.txt")))
+            if(String.IsNullOrEmpty(File.ReadAllText(Path.Combine(_PatientsPath, patient.CPR.ToString(), "_info.txt"))))
             {
                 StreamWriter file = new StreamWriter(Path.Combine(_PatientsPath, patient.CPR.ToString(), "_info.txt"));
                 file.WriteLine(patient.Name + " " + patient.CPR.ToString());

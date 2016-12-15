@@ -30,6 +30,7 @@ namespace P3_Midwife.ViewModel
         public RelayCommand AddMedicalService { get; }
         public RelayCommand OpenMedicalServicesToAdd { get; }
         public RelayCommand CreateChildCommand { get; }
+
         public RelayCommand Cancel { get; }
         public RelayCommand AppendNewNoteToNote { get; }
 
@@ -47,6 +48,8 @@ namespace P3_Midwife.ViewModel
         public static DependencyProperty SelectedMedicalServiceProperty = DependencyProperty.Register(nameof(SelectedMedicalServiceInfo), typeof(MedicalService), typeof(RecordViewModel));
         public static DependencyProperty SelectedAvailableMedicalServiceProperty = DependencyProperty.Register(nameof(SelectedAvailableMedicalServiceInfo), typeof(MedicalService), typeof(RecordViewModel));
         public static DependencyProperty EmployeeProperty = DependencyProperty.Register(nameof(EmployeeCurrent), typeof(Employee), typeof(RecordViewModel));
+
+        public static DependencyProperty PriorBirthComplicationsProperty = DependencyProperty.Register(nameof(PriorBirthComplications), typeof(bool), typeof(RecordViewModel));
         public static DependencyProperty NoteProperty = DependencyProperty.Register(nameof(Note), typeof(string), typeof(RecordViewModel));
 
         private ObservableCollection<BirthInformation> _birthInformationList = new ObservableCollection<BirthInformation>();
@@ -69,6 +72,13 @@ namespace P3_Midwife.ViewModel
             get { return _children; }
             set { _children = value; }
         }
+
+        public bool PriorBirthComplications
+        {
+            get { return (bool)this.GetValue(PriorBirthComplicationsProperty);}
+            set { this.SetValue(PriorBirthComplicationsProperty,value); }
+        }
+
 
         public ObservableCollection<char> Genders
         {
@@ -130,7 +140,7 @@ namespace P3_Midwife.ViewModel
             set { _birthInformationList = value; }
         }
 
-        public ObservableCollection<string> CTGClassificationList
+        public ObservableCollection<string> CTGClassificationValuesList
         {
             get { return _ctgClassification; }
             set { _ctgClassification = value; }
@@ -190,12 +200,16 @@ namespace P3_Midwife.ViewModel
             set
             {
                 this.SetValue(RecordProperty, value);
+
+                PriorBirthComplications = EmployeeCurrent.PriorBirthComplications(PatientCurrent);
                 BirthInformationListProperty.Clear();
                 ContractionListProperty.Clear();
                 FetusObservationListProperty.Clear();
                 MicturitionListProperty.Clear();
                 VaginalExplorationListProperty.Clear();
                 MedicalServicesList.Clear();
+
+                //Children.AddRange(PatientCurrent.Children.Where(x=>x.CPR == RecordCurrent.ChildCPR));
 
                 BirthInformationListProperty.AddRange(RecordCurrent.BirthInformationList);
                 ContractionListProperty.AddRange(RecordCurrent.ContractionIVDripList);
@@ -209,13 +223,17 @@ namespace P3_Midwife.ViewModel
         public Patient PatientCurrent
         {
             get { return (Patient)this.GetValue(PatientProperty); }
-            set { this.SetValue(PatientProperty, value); Children.AddRange(value.Children.Where(x => !Children.Contains(x))); }
+            set { this.SetValue(PatientProperty, value);
+               Children.AddRange(value.Children.Where(x => !Children.Contains(x)));
+                //PriorBirthComplications = EmployeeCurrent.PriorBirthComplications(PatientCurrent); 
+            }
         }
         public Employee EmployeeCurrent
         {
             get { return (Employee)this.GetValue(EmployeeProperty); }
             set { this.SetValue(EmployeeProperty, value); }
         }
+
 
         public RecordViewModel()
         {
@@ -292,9 +310,10 @@ namespace P3_Midwife.ViewModel
                 this.RecordCurrent.CurrentBill.BillItemList.AddRange(MedicalServicesList.Where(x => !RecordCurrent.CurrentBill.BillItemList.Contains(x)));
                 MedicalServicesList.Clear();
                 Filemanagement.SaveRecord(RecordCurrent);
-                Messenger.Default.Send(new NotificationMessage("ToPatient"));
-                Messenger.Default.Send(PatientCurrent, "Patient");
                 Messenger.Default.Send(EmployeeCurrent, "Employee");
+                Messenger.Default.Send(PatientCurrent, "Patient");
+                Messenger.Default.Send(new NotificationMessage("ToPatient"));
+
             });
             this.NewChildDialogCommand = new RelayCommand(parameter =>
             {
@@ -324,8 +343,8 @@ namespace P3_Midwife.ViewModel
                 Filemanagement.SaveToDatabase(PatientCurrent);
                 Filemanagement.SaveRecord(RecordCurrent);
                 Messenger.Default.Send(new NotificationMessage("ToPatient"));
-                Messenger.Default.Send(PatientCurrent, "Patient");
                 Messenger.Default.Send(EmployeeCurrent, "Employee");
+                Messenger.Default.Send(PatientCurrent, "Patient");
             });
             this.AddBirthInfo = new RelayCommand(parameter =>
              {
@@ -343,7 +362,7 @@ namespace P3_Midwife.ViewModel
             {
 
                 FetusObservationInfo = new FetusObservation();
-                FetusObservationInfo.CTGClassification = CTGClassification;
+               // FetusObservationInfo.CTGClassification = CTGClassification;
                 FetusObservationInfo.CurrentEmployee = EmployeeCurrent;
                 FetusObservationListProperty.Add(FetusObservationInfo);
             });

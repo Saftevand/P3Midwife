@@ -16,12 +16,27 @@
         <local:RecordCompletedBoolToString x:Key="RecordBoolToString" />
         <local:BoolToStringAdmittedConverter x:Key="AdmittedBoolToString"/>
         <local:GenderStringToCharConverter x:Key="GenderCharToString"/>
+        <local:WarningIndicatorsToBoolConverter x:Key="WarningIndicatorsBoolConverter"/>
+        <local:BoolToStringAdmittedConverter x:Key="BoolToStringYesNoConverter"/>
+
+
+        <Style x:Key="WarningComplications" TargetType="ListViewItem">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=PriorBirthComplications}" Value="True">
+                    <Setter Property="Foreground" Value="Red"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="WarningBloodType" TargetType="ListViewItem">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding PatientCurrent.BloodType,Converter={StaticResource WarningIndicatorsBoolConverter}}" Value="True">
+                    <Setter Property="Foreground" Value="Red"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Grid>
-        <!--<Grid.RowDefinitions>
-            <RowDefinition Height="21*"/>
-            <RowDefinition Height="16*"/>
-        </Grid.RowDefinitions>-->
 
         <Menu Width="50" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left">
             <MenuItem Header="Menu">
@@ -34,20 +49,24 @@
         <ListView HorizontalAlignment="Left" Height="700" Width="200" Margin="0,20,0,0">
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
-                <ListView>
-                    <ListViewItem Content="Navn: "/>
-                    <ListViewItem Content="Alder: "/>
-                    <ListViewItem Content="Køn: "/>
-                    <ListViewItem Content="CPR: "/>
-                    <ListViewItem Content="GA: "/>
-                </ListView>
-                <ListView>
+                    <ListView>
+                        <ListViewItem Content="Navn: "/>
+                        <ListViewItem Content="Alder: "/>
+                        <ListViewItem Content="Køn: "/>
+                        <ListViewItem Content="CPR: "/>
+                        <ListViewItem Content="GA: "/>
+                        <ListViewItem Content="Blodtype: "/>
+                        <ListViewItem Content="Tidligere&#xD;&#xA;Fødselskomplikationer:" Height="44" FontSize="10.667"/>
+                    </ListView>
+                    <ListView>
                     <ListViewItem Content="{Binding PatientCurrent.Name}"/>
                     <ListViewItem Content="{Binding PatientCurrent.Age}"/>
                     <ListViewItem Content="{Binding PatientCurrent.Gender,Converter={StaticResource GenderCharToString}, Mode=OneWay}"/>
                     <ListViewItem Content="{Binding PatientCurrent.CPR}"/>
                     <ListViewItem Content="{Binding PatientCurrent.SGA}"/>
-                </ListView>
+                    <ListViewItem Content="{Binding PatientCurrent.BloodType}" Name="Bloodtype" Style="{StaticResource WarningBloodType}"/>
+                    <ListViewItem Content="{Binding PriorBirthComplications, Converter={StaticResource  BoolToStringYesNoConverter}, Mode=OneWay}" Style="{StaticResource WarningComplications}" Name="BirthComplication"/>
+                    </ListView>
             </StackPanel>
             <ListViewItem Content="Børn: "/>
                 <StackPanel Orientation="Horizontal">

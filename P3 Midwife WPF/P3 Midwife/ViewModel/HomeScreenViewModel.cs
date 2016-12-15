@@ -189,8 +189,8 @@ namespace P3_Midwife
                 SelectedPatient = FindPatient(CPR);
                 if (SelectedPatient != null)
                 {
-                    Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
                     Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
+                    Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));
                 }
                 else
@@ -205,8 +205,8 @@ namespace P3_Midwife
             });
             this.OpenPatientCommand = new RelayCommand(parameter =>
             {
-                Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
                 Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
+                Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));
             });
             this.OpenPatientOnClick = new RelayCommand(parameter =>
@@ -214,8 +214,8 @@ namespace P3_Midwife
                 if (SelectedPatient != null)
                 {
                     Filemanagement.ReadBirthRecords(SelectedPatient);
-                    Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
                     Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
+                    Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));
                 }
             });

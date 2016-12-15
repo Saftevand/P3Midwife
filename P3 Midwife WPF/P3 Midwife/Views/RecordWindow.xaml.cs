@@ -112,6 +112,21 @@ namespace P3_Midwife.Views
             }
         }
 
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender!=null)
+            {
+                ComboBox tempComboBox = sender as ComboBox;
+                string input = tempComboBox.SelectedItem.ToString();
+              //  string input = temp.ToString();
+                if (input == "Afvigende" || input == "Patologisk")
+                {
+                    BirthComplicationsCheckBox.IsChecked = true;
+                }
+            }
+        }
+
         private void listView_Click(object sender, RoutedEventArgs e)
         {
             var item = (sender as ListView).SelectedItem;

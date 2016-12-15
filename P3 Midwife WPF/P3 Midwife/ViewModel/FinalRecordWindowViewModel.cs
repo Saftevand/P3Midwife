@@ -123,8 +123,8 @@ namespace P3_Midwife.ViewModel
             this.BackCommand = new RelayCommand(Parameter =>
             {
                 Messenger.Default.Send(new NotificationMessage("ToPatient"));
-                Messenger.Default.Send(PatientCurrentf, "Patient");
                 Messenger.Default.Send(EmployeeCurrentf, "Employee");
+                Messenger.Default.Send(PatientCurrentf, "Patient");
             });
         }
     }

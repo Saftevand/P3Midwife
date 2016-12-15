@@ -159,6 +159,7 @@
       <DependentUpon>RecordWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StringCTGClassificationConverter.cs" />
+    <Compile Include="Views\WarningIndicatorsToBoolConverter.cs" />
     <Page Include="Views\AddMedicalServicesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

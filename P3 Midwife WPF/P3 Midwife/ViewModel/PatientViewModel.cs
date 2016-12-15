@@ -19,7 +19,8 @@ namespace P3_Midwife.ViewModel
         public RelayCommand OpenRecordCommand { get; }
         public static DependencyProperty PatientProperty = DependencyProperty.Register(nameof(PatientCurrent), typeof(Patient), typeof(PatientViewModel));
         public static DependencyProperty EmployeeProperty = DependencyProperty.Register(nameof(CurrentEmployee), typeof(Employee), typeof(PatientViewModel));
-        public static DependencyProperty SelectedRecord = DependencyProperty.Register(nameof(RecordSelected), typeof(Record), typeof(PatientViewModel)); 
+        public static DependencyProperty SelectedRecord = DependencyProperty.Register(nameof(RecordSelected), typeof(Record), typeof(PatientViewModel));
+        public static DependencyProperty PriorBirthComplicationsProperty = DependencyProperty.Register(nameof(PriorBirthComplications), typeof(bool), typeof(PatientViewModel));
         private ObservableCollection<Patient> _children = new ObservableCollection<Patient>();
         private ObservableCollection<Record> _records = new ObservableCollection<Record>();
 
@@ -33,6 +34,12 @@ namespace P3_Midwife.ViewModel
         {
             get { return _records; }
             set { _records = value; }
+        }
+
+        public bool PriorBirthComplications
+        {
+            get { return (bool)this.GetValue(PriorBirthComplicationsProperty); }
+            set { this.SetValue(PriorBirthComplicationsProperty, value); }
         }
 
         public Record RecordSelected
@@ -49,7 +56,7 @@ namespace P3_Midwife.ViewModel
                 if (value!= null)
                 {
                     this.SetValue(PatientProperty, value);
-
+                    PriorBirthComplications = CurrentEmployee.PriorBirthComplications(PatientCurrent);
                     foreach (var item in value.Children)
                     {
                         if (Children.Contains(item) == false)
@@ -73,15 +80,8 @@ namespace P3_Midwife.ViewModel
 
         public PatientViewModel()
         {
-            Messenger.Default.Register<Patient>(this, "Patient", (ActivePatient) => { PatientCurrent = ActivePatient; });
             Messenger.Default.Register<Employee>(this, "Employee", (ActiveUser) => { CurrentEmployee = ActiveUser; });
-            //Messenger.Default.Register<Record>(this, "FromPatientToRecordWithOldRecord", (OldRecord) =>
-            //{
-            //    Messenger.Default.Send(new NotificationMessage("ToRecord"));
-            //    Messenger.Default.Send(PatientCurrent, "PatientToRecordView");
-            //    Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");
-            //    Messenger.Default.Send((OldRecord), "NewRecordToRecordView");
-            //});
+            Messenger.Default.Register<Patient>(this, "Patient", (ActivePatient) => { PatientCurrent = ActivePatient;});
             this.LogOutCommand = new RelayCommand(parameter =>
             {
                 Process.Start(Application.ResourceAssembly.Location);
