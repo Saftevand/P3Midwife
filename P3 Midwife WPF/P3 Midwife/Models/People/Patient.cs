@@ -66,6 +66,14 @@ namespace P3_Midwife
             mother.Children.Add(this);
         }
 
+        public Patient(string Cpr, string Name, string BloodType)
+        {
+            this._CPR = Cpr;
+            this._name = Name;
+            this._bloodType = BloodType;
+            this._gender = FindGenderFromCPR(Cpr);
+        }
+
         public Patient()
         {
 

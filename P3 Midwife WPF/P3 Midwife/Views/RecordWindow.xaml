@@ -35,26 +35,6 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-
-
-        <!--<Style TargetType="{x:Type ListViewItem}" x:Key="Warning">
-                    <Style.Triggers>
-                        <DataTrigger  Value="true">
-                    --><!--<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}}, Path=DataContext.DisplayText}"--><!--
-                            <Setter Property="Foreground" Value="Red" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-
-
-        
-        <Style x:Key="WarningBox" TargetType="{x:Type ListViewItem}">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding ,Converter={StaticResource WarningIndicatorsBoolConverter}}" Value="True">
-                    <Setter Property="Foreground"  Value="Red" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>-->
     </Window.Resources>
 
     <Grid>
@@ -72,467 +52,486 @@
         </Menu>
 
 
-        <StackPanel Grid.ColumnSpan="3">
-            <ListView x:Name="BirthInfo" Margin="199,20,0,0">
+        <ScrollViewer Grid.ColumnSpan="2" Grid.Column="1">
+            <StackPanel Grid.ColumnSpan="3">
+            <ListBox x:Name="BirthInfo">
                 <StackPanel Orientation="Horizontal" Width="600">
                     <TextBlock x:Name="BItextBlock" TextWrapping="Wrap" VerticalAlignment="Center" Text="Fødselsoplysninger"/>
                     <Button Command="{Binding AddBirthInfo}" HorizontalAlignment="Right" Height="25" Width="60">
                         Tilføj
                     </Button>
                 </StackPanel>
-            </ListView>
-
-
-            <ListView Margin="199,0,0,0">
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel>
-                            <TextBlock Text="Udførelse startet "/>
-                            <ListView ItemsSource="{Binding BirthInformationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox MaxLength="5" Text="{Binding Time}"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" Fostervand "/>
-                            <ListView ItemsSource="{Binding BirthInformationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox MaxLength="5" Text="{Binding AmnioticFluid}" Width="50"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" Væskemængde "/>
-                            <ListView ItemsSource="{Binding BirthInformationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox MaxLength="5" Text="{Binding AmountOfFluid}" Width="50"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" Fødselsposition "/>
-                            <ListView ItemsSource="{Binding BirthInformationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding BirthPosition}" Width="150"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" Blødningsårsag "/>
-                            <ListView ItemsSource="{Binding BirthInformationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding BleedingCause}" Width="150"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" Mængde af blod "/>
-                            <ListView ItemsSource="{Binding BirthInformationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding BloodAmount}" MaxLength="7" Width="50"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" Resultat"/>
-                            <ListView ItemsSource="{Binding BirthInformationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding Result}" Width="150"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" Navn "/>
-                            <ListView ItemsSource="{Binding BirthInformationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock MinHeight="18" MaxHeight="18" Text="{Binding CurrentEmployee.Name}"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-                    </StackPanel>
-                </StackPanel>
-            </ListView>
-
-
-            <ListBox x:Name="ContractionInfo" Margin="199,0,0,0">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock x:Name="CItextBlock" TextWrapping="Wrap" VerticalAlignment="Center" Text="Veer og S-drop" />
-                    <Button Command="{Binding AddContractionIVDripInfo}" Height="25" Width="60">
-                        Tilføj
-                    </Button>
-                </StackPanel>
             </ListBox>
 
-            <ListView Margin="199,0,0,0">
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal">
+
+                <ListView>
+                    <ListView>
                         <StackPanel>
-                            <TextBlock Text="Udførelse startet "/>
-                            <ListView ItemsSource="{Binding ContractionListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding Time}"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <TextBlock Text="Udførelse startet "/>
+                                    <ListView ItemsSource="{Binding BirthInformationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox MaxLength="5" Text="{Binding Time}"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
 
+                                <StackPanel>
+                                    <TextBlock Text=" Fostervand "/>
+                                    <ListView ItemsSource="{Binding BirthInformationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox MaxLength="5" Text="{Binding AmnioticFluid}" Width="50"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" Væskemængde "/>
+                                    <ListView ItemsSource="{Binding BirthInformationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox MaxLength="5" Text="{Binding AmountOfFluid}" Width="50"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" Fødselsposition "/>
+                                    <ListView ItemsSource="{Binding BirthInformationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding BirthPosition}" Width="150"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" Blødningsårsag "/>
+                                    <ListView ItemsSource="{Binding BirthInformationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding BleedingCause}" Width="150"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" Mængde af blod "/>
+                                    <ListView ItemsSource="{Binding BirthInformationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding BloodAmount}" MaxLength="7" Width="50"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" Resultat"/>
+                                    <ListView ItemsSource="{Binding BirthInformationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding Result}" Width="150"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" Navn "/>
+                                    <ListView ItemsSource="{Binding BirthInformationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock MinHeight="18" MaxHeight="18" Text="{Binding CurrentEmployee.Name}"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </ListView>
+
+
+                    <ListBox x:Name="ContractionInfo">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="CItextBlock" TextWrapping="Wrap" VerticalAlignment="Center" Text="Veer og S-drop" />
+                            <Button Command="{Binding AddContractionIVDripInfo}" Height="25" Width="60">
+                                Tilføj
+                            </Button>
+                        </StackPanel>
+                    </ListBox>
+
+                    <ListView>
                         <StackPanel>
-                            <TextBlock Text=" Vestyrke "/>
-                            <ListView ItemsSource="{Binding ContractionListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding ContractionPain}" FocusManager.GotFocus="TextBox_GotFocus" MaxLength="7" Width="50"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <TextBlock Text="Udførelse startet "/>
+                                    <ListView ItemsSource="{Binding ContractionListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding Time}"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
 
+                                <StackPanel>
+                                    <TextBlock Text=" Vestyrke "/>
+                                    <ListView ItemsSource="{Binding ContractionListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding ContractionPain}" FocusManager.GotFocus="TextBox_GotFocus" MaxLength="7" Width="50"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" Veer per 10 min "/>
+                                    <ListView ItemsSource="{Binding ContractionListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding NumberOfContractionsPerMinute}" FocusManager.GotFocus="TextBox_GotFocus" MaxLength="7" Width="50"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" S-drop [ml/t] "/>
+                                    <ListView ItemsSource="{Binding ContractionListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding SDripMlPerHour}" FocusManager.GotFocus="TextBox_GotFocus" Width="50"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" Navn "/>
+                                    <ListView ItemsSource="{Binding ContractionListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock MinHeight="18" MaxHeight="18" Text="{Binding CurrentEmployee.Name}"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </ListView>
+
+
+                    <ListBox x:Name="FetusObsInfo">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="FOtextBlock" TextWrapping="Wrap" VerticalAlignment="Center" Text="Fosterobservationer" />
+                            <Button Command="{Binding AddFetusObservationInfo}" Height="25" Width="60">
+                                Tilføj
+                            </Button>
+                        </StackPanel>
+                    </ListBox>
+
+                    <ListView>
                         <StackPanel>
-                            <TextBlock Text=" Veer per 10 min "/>
-                            <ListView ItemsSource="{Binding ContractionListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding NumberOfContractionsPerMinute}" FocusManager.GotFocus="TextBox_GotFocus" MaxLength="7" Width="50"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <TextBlock Text="Udførelse startet "/>
+                                    <ListView ItemsSource="{Binding FetusObservationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding Time}"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
 
+                                <StackPanel>
+                                    <TextBlock Text=" CTG "/>
+                                    <ListView ItemsSource="{Binding FetusObservationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding CTG}" MaxLength="7" Width="50"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" CTG Klassificering "/>
+                                    <ListView ItemsSource="{Binding FetusObservationListProperty}" Name="FetusList">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <ComboBox  ItemsSource="{Binding ElementName=RView, Path=DataContext.CTGClassificationValuesList}" SelectedItem="{Binding CTGClassification}" SelectionChanged="ComboBox_SelectionChanged" x:Name="CTGComboBox">
+
+                                                </ComboBox>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+
+                                    <!--<TextBlock Text="{Binding Converter={StaticResource GenderStringCharConverter}, Mode=OneWay}"/>-->
+
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" Hjertefrekvens "/>
+                                    <ListView ItemsSource="{Binding FetusObservationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding HearthFrequency}" MaxLength="7" Width="50"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" Skalp-laktet [mmol/L] "/>
+                                    <ListView ItemsSource="{Binding FetusObservationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding ScalpLactate}" FocusManager.GotFocus="TextBox_GotFocus" MaxLength="7" Width="50"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" Skalp-pH " />
+                                    <ListView ItemsSource="{Binding FetusObservationListProperty}" >
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding ScalppH}" MaxLength="7" Width="50" FocusManager.GotFocus="TextBox_GotFocus"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" STAN"/>
+                                    <ListView ItemsSource="{Binding FetusObservationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding STAN}" MaxLength="7" Width="50"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" Navn "/>
+                                    <ListView ItemsSource="{Binding FetusObservationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock MinHeight="18" MaxHeight="18" Text="{Binding CurrentEmployee.Name}"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </ListView>
+
+                    <ListBox x:Name="MicturitionInfo">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="MtextBlock" TextWrapping="Wrap" Text="Vandladning" VerticalAlignment="Center"/>
+                            <Button Command="{Binding AddMicturitionInfo}" Height="25" Width="60">
+                                Tilføj
+                            </Button>
+                        </StackPanel>
+                    </ListBox>
+
+                    <ListView>
                         <StackPanel>
-                            <TextBlock Text=" S-drop [ml/t] "/>
-                            <ListView ItemsSource="{Binding ContractionListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding SDripMlPerHour}" FocusManager.GotFocus="TextBox_GotFocus" Width="50"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <TextBlock Text="Udførelse startet "/>
+                                    <ListView ItemsSource="{Binding MicturitionListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding Time}"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
 
+                                <StackPanel>
+                                    <TextBlock Text=" Vandladning "/>
+                                    <ListView ItemsSource="{Binding MicturitionListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding MicturitionNote}" MaxLength="7" Width="50"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" Navn "/>
+                                    <ListView ItemsSource="{Binding MicturitionListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock MinHeight="18" MaxHeight="18" Text="{Binding CurrentEmployee.Name}"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </ListView>
+
+
+                    <ListBox x:Name="VaginalExplorationInfo">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="VEtextBlock" TextWrapping="Wrap" Text="Vaginal Exploration" VerticalAlignment="Center"/>
+                            <Button Command="{Binding AddVaginalExplorationInfo}" Height="25" Width="60">
+                                Tilføj
+                            </Button>
+                        </StackPanel>
+                    </ListBox>
+
+                    <ListView>
                         <StackPanel>
-                            <TextBlock Text=" Navn "/>
-                            <ListView ItemsSource="{Binding ContractionListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock MinHeight="18" MaxHeight="18" Text="{Binding CurrentEmployee.Name}"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <TextBlock Text="Udførelse startet "/>
+                                    <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding Time}"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" Fostervand "/>
+                                    <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding AmnioticFluid}" MaxLength="7" Width="50"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" Collum [cm] "/>
+                                    <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding Collum}" FocusManager.GotFocus="TextBox_GotFocus" MaxLength="7" Width="50"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" Konsistens "/>
+                                    <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding Consistency}" MaxLength="7" Width="50"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" Dilation [cm] "/>
+                                    <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding Dialation}" FocusManager.GotFocus="TextBox_GotFocus" MaxLength="7" Width="50"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" Stand "/>
+                                    <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding Location}" MaxLength="7" Width="50"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" Position"/>
+                                    <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding Position}" MaxLength="7" Width="50"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" Rotation"/>
+                                    <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding Rotation}" FocusManager.GotFocus="TextBox_GotFocus" MaxLength="7" Width="50"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <TextBlock Text=" Navn "/>
+                                    <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock MinHeight="18" MaxHeight="18" Text="{Binding CurrentEmployee.Name}"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+                            </StackPanel>
                         </StackPanel>
-                    </StackPanel>
-                </StackPanel>
-            </ListView>
+                    </ListView>
+
+                    <CheckBox x:Name="BirthComplicationsCheckBox" IsChecked="{Binding RecordCurrent.BirthComplications,NotifyOnSourceUpdated=True}"  Content="Fødselskomplikationer" Height="20" Margin="204,0,908.4,0" BorderThickness="1"/>
+                    <!--<TextBlock Margin="199,0,-0.6,0" Height="96"><Run Text="{Binding RecordCurrent.Note}"/></TextBlock>
+                    <TextBox Margin="199,0,0,0" Height="100" Text="{Binding RecordCurrent.NewNote, UpdateSourceTrigger=PropertyChanged}">--><!--
+                    </TextBox>-->
+
+                    <ListView>
+                        <TextBlock Name="Note" Height="100" Text="{Binding RecordCurrent.Note, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextWrapping="Wrap"/>
+
+                        <TextBox Name="NewNote" Height="100" MinWidth="600" Text="{Binding RecordCurrent.NewNote, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextChanged="NewNote_TextChanged" PreviewKeyDown="NewNote_PreviewKeyDown" TextWrapping="Wrap"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Command="{Binding AppendNewNoteToNote}" PreviewMouseLeftButtonDown="Button_PreviewMouseLeftButtonDown">
+                                Gem note
+                            </Button>
+                            <ListBox x:Name="txtSuggestions" MouseDoubleClick="txtSuggestions_MouseDoubleClick" PreviewKeyDown="txtSuggestions_PreviewKeyDown" Width="150" Visibility="Collapsed" Background="LightYellow"/>
 
 
-            <ListBox x:Name="FetusObsInfo" Margin="199,0,0,0">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock x:Name="FOtextBlock" TextWrapping="Wrap" VerticalAlignment="Center" Text="Fosterobservationer" />
-                    <Button Command="{Binding AddFetusObservationInfo}" Height="25" Width="60">
-                        Tilføj
-                    </Button>
-                </StackPanel>
-            </ListBox>
-
-            <ListView Margin="199,0,0,0">
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel>
-                            <TextBlock Text="Udførelse startet "/>
-                            <ListView ItemsSource="{Binding FetusObservationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding Time}"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
                         </StackPanel>
+                    </ListView>
+                </ListView>
+            </StackPanel>
+        </ScrollViewer>
 
-                        <StackPanel>
-                            <TextBlock Text=" CTG "/>
-                            <ListView ItemsSource="{Binding FetusObservationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding CTG}" MaxLength="7" Width="50"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" CTG Klassificering "/>
-                            <ListView ItemsSource="{Binding FetusObservationListProperty}" Name="FetusList">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <ComboBox  ItemsSource="{Binding ElementName=RView, Path=DataContext.CTGClassificationValuesList}" SelectedItem="{Binding CTGClassification}" SelectionChanged="ComboBox_SelectionChanged" x:Name="CTGComboBox">
-
-                                        </ComboBox> 
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-
-                            <!--<TextBlock Text="{Binding Converter={StaticResource GenderStringCharConverter}, Mode=OneWay}"/>-->
-                           
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" Hjertefrekvens "/>
-                            <ListView ItemsSource="{Binding FetusObservationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding HearthFrequency}" MaxLength="7" Width="50"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" Skalp-laktet [mmol/L] "/>
-                            <ListView ItemsSource="{Binding FetusObservationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding ScalpLactate}" FocusManager.GotFocus="TextBox_GotFocus" MaxLength="7" Width="50"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" Skalp-pH " />
-                            <ListView ItemsSource="{Binding FetusObservationListProperty}" >
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding ScalppH}" MaxLength="7" Width="50" FocusManager.GotFocus="TextBox_GotFocus"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" STAN"/>
-                            <ListView ItemsSource="{Binding FetusObservationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding STAN}" MaxLength="7" Width="50"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" Navn "/>
-                            <ListView ItemsSource="{Binding FetusObservationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock MinHeight="18" MaxHeight="18" Text="{Binding CurrentEmployee.Name}"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-                    </StackPanel>
-                </StackPanel>
-            </ListView>
-
-            <ListBox x:Name="MicturitionInfo" Margin="199,0,0,0">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock x:Name="MtextBlock" TextWrapping="Wrap" Text="Vandladning" VerticalAlignment="Center"/>
-                    <Button Command="{Binding AddMicturitionInfo}" Height="25" Width="60">
-                        Tilføj
-                    </Button>
-                </StackPanel>
-            </ListBox>
-
-            <ListView Margin="199,0,0,0">
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel>
-                            <TextBlock Text="Udførelse startet "/>
-                            <ListView ItemsSource="{Binding MicturitionListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding Time}"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" Vandladning "/>
-                            <ListView ItemsSource="{Binding MicturitionListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding MicturitionNote}" MaxLength="7" Width="50"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" Navn "/>
-                            <ListView ItemsSource="{Binding MicturitionListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock MinHeight="18" MaxHeight="18" Text="{Binding CurrentEmployee.Name}"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-                    </StackPanel>
-                </StackPanel>
-            </ListView>
-
-
-            <ListBox x:Name="VaginalExplorationInfo" Margin="199,0,0,0">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock x:Name="VEtextBlock" TextWrapping="Wrap" Text="Vaginal Exploration" VerticalAlignment="Center"/>
-                    <Button Command="{Binding AddVaginalExplorationInfo}" Height="25" Width="60">
-                        Tilføj
-                    </Button>
-                </StackPanel>
-            </ListBox>
-
-            <ListView Margin="199,0,0,0">
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel>
-                            <TextBlock Text="Udførelse startet "/>
-                            <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding Time}"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" Fostervand "/>
-                            <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding AmnioticFluid}" MaxLength="7" Width="50"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" Collum [cm] "/>
-                            <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding Collum}" FocusManager.GotFocus="TextBox_GotFocus" MaxLength="7" Width="50"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" Konsistens "/>
-                            <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding Consistency}" MaxLength="7" Width="50"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" Dilation [cm] "/>
-                            <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding Dialation}" FocusManager.GotFocus="TextBox_GotFocus" MaxLength="7" Width="50"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" Stand "/>
-                            <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding Location}" MaxLength="7" Width="50"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" Position"/>
-                            <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding Position}" MaxLength="7" Width="50"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" Rotation"/>
-                            <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding Rotation}" FocusManager.GotFocus="TextBox_GotFocus" MaxLength="7" Width="50"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel>
-                            <TextBlock Text=" Navn "/>
-                            <ListView ItemsSource="{Binding VaginalExplorationListProperty}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock MinHeight="18" MaxHeight="18" Text="{Binding CurrentEmployee.Name}"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-                    </StackPanel>
-                </StackPanel>
-            </ListView>
-            <CheckBox x:Name="BirthComplicationsCheckBox" IsChecked="{Binding RecordCurrent.BirthComplications,NotifyOnSourceUpdated=True}"  Content="Fødselskomplikationer" Height="20" Margin="204,0,908.4,0" BorderThickness="1"/>
-            <TextBlock Margin="199,0,-0.6,0" Height="96"><Run Text="{Binding RecordCurrent.Note}"/></TextBlock>
-            <TextBox Margin="199,0,0,0" Height="100" Text="{Binding RecordCurrent.NewNote, UpdateSourceTrigger=PropertyChanged}">
-            </TextBox>
-        </StackPanel>
-
-        <ListView x:Name="listView" HorizontalAlignment="Left" Height="669" Margin="0,20,0,0" VerticalAlignment="Top" Width="200" BorderThickness="3" BorderBrush="LightSkyBlue">
+        <ListView x:Name="listView" HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top" Width="200" BorderThickness="3" BorderBrush="LightSkyBlue">
             <StackPanel Orientation="Horizontal">
                 <ListView Height="149">
                     <ListViewItem Content="Navn: "/>
                     <ListViewItem Content="Alder: "/>
                     <ListViewItem Content="CPR: "/>
                     <ListViewItem Content="SGA: "/>
-                    <ListViewItem Content="BloodType: "/>
+                    <ListViewItem Content="Blodtype: "/>
                     <ListViewItem Content="Tidligere&#xD;&#xA;Fødselskomplikationer:" Height="44" FontSize="10.667"/>
                 </ListView>
                 <ListView>
@@ -558,7 +557,11 @@
                 </ComboBox>
                 <Button Command="{Binding AddMedicalService}" Height="20" Width="100" FontSize="12" Content="Tilføj medicin">
                 </Button>
-                <TextBlock Text="Modtaget medicin" Margin="0,10,0,0"/>
+
+                <ListBox Margin="0,10,0,0">
+                    <TextBlock Text="Modtaget medicin"/>
+                </ListBox>  
+                
                 <ListView Height="150" ItemsSource="{Binding MedicalServicesList}" SelectedItem="{Binding SelectedMedicalServiceInfo, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Name="ReceivedMedicine" Tag="{Binding SelectedMedicalServiceInfo}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -572,11 +575,31 @@
                 <Button Command="{Binding RemoveMedicalService}" Content="Fjern Medicin" FontSize="12" Height="20" Width="100">
                 </Button>
 
-                <Button Name="NewChildBtn" Command="{Binding NewChildDialogCommand}" VerticalAlignment="Bottom" Margin="0,100,0,0">
-                    Nyt barn
+
+                <!--<Button Name="NewChildBtn" Command="{Binding NewChildDialogCommand}" VerticalAlignment="Bottom" Margin="0,100,0,0">-->
+
+
+                <ListBox>
+                    <TextBlock Text="Nuværende barn"/>
+                </ListBox>
+                <ListView ItemsSource="{Binding Children}" Name="ChildrenListBox" PreviewMouseLeftButtonUp="listView_Click" Tag="{Binding CurrentEmployee}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding CPR}"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Button Name="NewChildBtn" Command="{Binding NewChildDialogCommand}" VerticalAlignment="Bottom" Margin="0,50,0,0">
+                   Nyt barn
                 </Button>
-                <Button Command="{Binding SaveAndCompleteCommand}" VerticalAlignment="Bottom">
-                    Gem og afslut
+                <Button Command="{Binding SaveAndCompleteCommand}" Margin="0,5,0,0">
+                    Udskriv patient
+                </Button>
+                <Button Command="{Binding BackCommand}" Margin="0,5,0,0">
+                    Tilbage
                 </Button>
             </StackPanel>
         </ListView>

@@ -73,14 +73,14 @@ namespace P3_Midwife.ViewModel
             });
             this.LogOutCommand = new RelayCommand(parameter =>
             {
-                Filemanagement.SaveToDatabase();
+                Filemanagement.SaveToDatabase(CurrentPatient);
                 System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
                 Application.Current.Shutdown();
             });
             this.ExitCommand = new RelayCommand(parameter =>
             {
                 Filemanagement.SaveRecord(CurrentRecord);
-                Filemanagement.SaveToDatabase();
+                Filemanagement.SaveToDatabase(CurrentPatient);
                 Application.Current.Shutdown();
             });
             this.BackCommand = new RelayCommand(Parameter =>
