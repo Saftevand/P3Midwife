@@ -54,7 +54,7 @@
 
         <ScrollViewer Margin="0, 20,0 ,0" Grid.ColumnSpan="2" Grid.Column="1">
             <StackPanel Grid.ColumnSpan="3">
-                <ListView>
+                <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListBox x:Name="BirthInfo">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="BItextBlock" TextWrapping="Wrap" VerticalAlignment="Center" Text="Fødselsinformationer"/>
