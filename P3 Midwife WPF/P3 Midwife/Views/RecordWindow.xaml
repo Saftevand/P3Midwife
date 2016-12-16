@@ -54,15 +54,6 @@
 
         <ScrollViewer Margin="0, 20,0 ,0" Grid.ColumnSpan="2" Grid.Column="1">
             <StackPanel Grid.ColumnSpan="3">
-<<<<<<< HEAD
-                <ListView x:Name="BirthInfo">
-                    <StackPanel Orientation="Horizontal" Width="600">
-                        <TextBlock x:Name="BItextBlock" TextWrapping="Wrap" VerticalAlignment="Center" Text="Fødselsoplysninger"/>
-                        <Button Command="{Binding AddBirthInfo}" HorizontalAlignment="Right" Height="25" Width="60">
-                            Tilføj
-                        </Button>
-                    </StackPanel>
-=======
                 <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListBox x:Name="BirthInfo" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                         <StackPanel Orientation="Horizontal">
@@ -72,7 +63,6 @@
                             </Button>
                         </StackPanel>
                     </ListBox>
->>>>>>> 33d3a9e39278d641c44530758f596cdb2c1b6849
                     <ListView>
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
