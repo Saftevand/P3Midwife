@@ -165,12 +165,22 @@ namespace P3_Midwife.Views
         private void lbSuggestions_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             ListBox senderBox = sender as ListBox;
-            TextBox senderText = senderBox.Tag as TextBox;
             if (e.Key == System.Windows.Input.Key.Tab)
             {
                 e.Handled = true;
                 text_Append(senderBox.Tag as TextBox);
-                senderText.Focus();
+                senderBox.Focus();
+            }
+        }
+
+
+
+        private void GAWeightTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (GATextBox.Text != "" && weightTextBox.Text != "" && weightTextBox.Text != "0")
+            {
+                _currentRecord.CalculateSGA();
+                SGATextBlock.Text = _currentRecord.SGA.ToString();
             }
         }
     }

@@ -40,7 +40,6 @@ namespace P3_Midwife
             Filemanagement.CreatePatientFolderAndFile(new Patient("4567890123", "Patrick Alm"));
             Filemanagement.CreatePatientFolderAndFile(new Patient("5678901234", "Patrick Al"));
             ReadPatients();
-            //ReadWords();
             InitialiseAdminFiles();
         }
 
@@ -153,7 +152,7 @@ namespace P3_Midwife
 
         public static void ClosingHandler(object sender, CancelEventArgs e)
         {
-            if(_MessageFlag == false)
+            if(_MessageFlag == false && e.Cancel == false)
             {
                 if (sender is NewChildWindow)
                 {

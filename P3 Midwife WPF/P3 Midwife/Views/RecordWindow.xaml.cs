@@ -61,6 +61,11 @@ namespace P3_Midwife.Views
             _currentPatient = currentPatient;
         }
 
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
 
@@ -80,8 +85,10 @@ namespace P3_Midwife.Views
                 {
                     //BaseWindow.cancel = true;
                     this._isNotClosed = true;
-                    this.Close();
+                    CancelEventArgs e = new CancelEventArgs(true);
+                    OnClosing(e);
                 }
+
                 else if (msg.Notification == "AccessDenied")
                 {
                     MessageBox.Show("Adgang nægtet!");
@@ -105,7 +112,6 @@ namespace P3_Midwife.Views
                 send.Clear();
             }
         }
-
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

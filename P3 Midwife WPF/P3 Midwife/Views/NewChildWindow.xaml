@@ -10,7 +10,7 @@
         xmlns:local="clr-namespace:P3_Midwife.Views"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="NewChildWindow" Height="720" Width="1280" ResizeMode="CanMinimize" Background="AliceBlue">
+        Title="NewChildWindow" Height="720" Width="1280">
 
 
     <Window.DataContext>
@@ -41,12 +41,15 @@
                 <TextBlock><Run Text="Barn(CPR): "/></TextBlock>
                 <TextBlock><Run Text="Fødselstidspunkt: "/></TextBlock>
                 <TextBlock><Run Text="Køn: "/></TextBlock>
+                <TextBlock><Run Text="SGA: "/></TextBlock>
             </ItemsControl>
 
             <ItemsControl Width="200">
                 <TextBlock><Run Text="{Binding CurrentNewChild.CPR}"/></TextBlock>
                 <TextBlock><Run Text="{Binding CurrentNewChild.BirthDateTime, StringFormat=dd-MM-yyyy HH:mm}"/></TextBlock>
                 <TextBlock><Run Text="{Binding CurrentNewChild.Gender,Converter={StaticResource GenderStringCharConverter}}"/></TextBlock>
+                <TextBlock><Run Text="{Binding CurrentRecord.SGA,NotifyOnSourceUpdated=True}" Name="SGATextBlock"/></TextBlock>
+
             </ItemsControl>
             <StackPanel/>
             <ItemsControl Width="115">
@@ -87,8 +90,8 @@
                 </ItemsControl>
 
                 <ItemsControl BorderThickness="0" Width="75">
-                    <TextBox Text="{Binding CurrentRecord.GA}"/>
-                    <TextBox Text="{Binding CurrentRecord.Weight}"/>
+                    <TextBox Text="{Binding CurrentRecord.GA}"  LostFocus="GAWeightTextBox_LostFocus" Name="GATextBox"/>
+                    <TextBox Text="{Binding CurrentRecord.Weight}"  LostFocus="GAWeightTextBox_LostFocus" Name="weightTextBox"/>
                     <TextBox Text="{Binding CurrentRecord.Length}"/>
                     <TextBox Text="{Binding CurrentRecord.HO}"/>
                     <TextBox Text="{Binding CurrentRecord.AO}"/>
@@ -128,20 +131,20 @@
             </ItemsControl>
             <ItemsControl>
                 <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
-                    <TextBox x:Name="ApgarOneMinTextBox" Tag="{Binding ElementName=lbsuggestions1}" Text="{Binding CurrentRecord.ApgarOneMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Width="150" MaxHeight="60" MaxWidth="150" TextWrapping="Wrap"/>
-                    <ListBox MaxHeight="60" x:Name="lbsuggestions1" Tag="{Binding ElementName=ApgarOneMinTextBox}" MouseDoubleClick="lbSuggestions_MouseDoubleClick"  Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
+                    <TextBox x:Name="ApgarOneMinTextBox" Tag="{Binding ElementName=lbsuggestions1}" Text="{Binding CurrentRecord.ApgarOneMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Width="150"/>
+                    <ListBox x:Name="lbsuggestions1" Tag="{Binding ElementName=ApgarOneMinTextBox}" MouseDoubleClick="lbSuggestions_MouseDoubleClick"  Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
                 </StackPanel>
                 <StackPanel Margin="5,5,0,0" Orientation="Horizontal">
-                    <TextBox x:Name="ApgarFiveMinTextBox" Tag="{Binding ElementName=lbsuggestions2}" Text="{Binding CurrentRecord.ApgarFiveMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Width="150" MaxHeight="60" MaxWidth="150" TextWrapping="Wrap"/>
-                    <ListBox MaxHeight="60" x:Name="lbsuggestions2" Tag="{Binding ElementName=ApgarFiveMinTextBox}" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
+                    <TextBox x:Name="ApgarFiveMinTextBox" Tag="{Binding ElementName=lbsuggestions2}" Text="{Binding CurrentRecord.ApgarFiveMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Width="150"/>
+                    <ListBox x:Name="lbsuggestions2" Tag="{Binding ElementName=ApgarFiveMinTextBox}" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
                 </StackPanel>
                 <StackPanel Margin="5,5,0,0" Orientation="Horizontal">
-                    <TextBox x:Name="ApgarTenMinTextBox" Tag="{Binding ElementName=lbsuggestions3}" Text="{Binding CurrentRecord.ApgarTenMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Width="150" MaxHeight="60" MaxWidth="150" TextWrapping="Wrap"/>
-                    <ListBox MaxHeight="60" x:Name="lbsuggestions3" Tag="{Binding ElementName=ApgarTenMinTextBox}" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
+                    <TextBox x:Name="ApgarTenMinTextBox" Tag="{Binding ElementName=lbsuggestions3}" Text="{Binding CurrentRecord.ApgarTenMinuteNote}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Width="150"/>
+                    <ListBox x:Name="lbsuggestions3" Tag="{Binding ElementName=ApgarTenMinTextBox}" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
                 </StackPanel>
                 <StackPanel Margin="5,5,0,0" Orientation="Horizontal">
-                    <TextBox x:Name="txtAuto" Tag="{Binding ElementName=lbSuggestions}" Text="{Binding CurrentRecord.FurtherNotice}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Width="150" MaxHeight="120" MaxWidth="150" TextWrapping="Wrap"/>
-                    <ListBox MaxHeight="60" x:Name="lbSuggestions" Tag="{Binding ElementName=txtAuto}" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
+                    <TextBox x:Name="txtAuto" Tag="{Binding ElementName=lbSuggestions}" Text="{Binding CurrentRecord.FurtherNotice}" AcceptsReturn="True" PreviewKeyDown="txtAuto_KeyDown" Height="60" Width="150"/>
+                    <ListBox x:Name="lbSuggestions" Tag="{Binding ElementName=txtAuto}" MouseDoubleClick="lbSuggestions_MouseDoubleClick" Background="LightYellow" Grid.Row="1" Visibility="Collapsed" Width="150" PreviewKeyDown="lbSuggestions_PreviewKeyDown"/>
                 </StackPanel>
             </ItemsControl>
         </StackPanel>

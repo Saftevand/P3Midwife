@@ -20,6 +20,7 @@ namespace P3_Midwife
         private double _bloodSugar;
         private List<String> _diseases = new List<string>();
         private string _GA;
+        private int _SGA;
         private int _ho;
         private int _ao;
         private int _fetuspre;
@@ -70,7 +71,11 @@ namespace P3_Midwife
         public double BloodSugar { get { return this._bloodSugar; } set { this._bloodSugar = value; } }
         public string GA { get { return this._GA; } set { this._GA = value; } }
         public bool BirthComplications { get { return _birthComplications; } set { _birthComplications = value; } }
-        public double Weight { get { return this._weight; } set { this._weight = value; } }
+        public double Weight
+        {
+            get { return this._weight; }
+            set { this._weight = value; }
+        }
         public double Length { get { return this._length; } set { this._length = value; } }
         public int HO { get { return this._ho; } set { this._ho = value; } }
         public int AO { get { return this._ao; } set { this._ao = value; } }
@@ -103,6 +108,11 @@ namespace P3_Midwife
         public string Note { get { return _note; } set { _note += value; } }
         public string NewNote { get { return _newNote; } set { _newNote = value; } }
         public string BreastFeedingNote { get { return _breastFeedingNote; } set { _breastFeedingNote = value; } }
+        public int SGA
+        {
+            get { return _SGA; }
+            set { _SGA = value; }
+        }
         public string ApgarOneMinuteNote { get { return _apgarOneMinuteNote; } set { _apgarOneMinuteNote = value; } }
         public string ApgarFiveMinuteNote { get { return _apgarFiveMinuteNote; } set { _apgarFiveMinuteNote = value; } }
         public string ApgarTenMinuteNote { get { return _apgarTenMinuteNote; } set { _apgarTenMinuteNote = value; } }
@@ -123,8 +133,283 @@ namespace P3_Midwife
             this.CurrentBill.Active = false;
         }
 
+        public void CalculateSGA()
+        {
+            int tempGA = Convert.ToInt32(_GA.Split('+')[0]);
+            if (Ward.Patients.Find(x=> x.CPR == ChildCPR).Gender == 'D')
+            {
+                if (tempGA < 33)
+                {
+                    if (_weight <= 1300)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 1535)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+                else if (tempGA < 34)
+                {
+                    if (_weight <= 1440)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 1700)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+                else if (tempGA < 35)
+                {
+                    if (_weight <= 1585)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 1865)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+                else if (tempGA < 36)
+                {
+                    if (_weight <= 1730)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 2030)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+                else if (tempGA < 37)
+                {
+                    if (_weight <= 1875)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 2190)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+                else if (tempGA < 38)
+                {
+                    if (_weight <= 2030)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 2340)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+                else if (tempGA < 39)
+                {
+                    if (_weight <= 2160)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 2500)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+                else if (tempGA < 40)
+                {
+                    if (_weight <= 2250)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 2660)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+                else if (tempGA < 41)
+                {
+                    if (_weight <= 2375)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 2810)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+                else if (tempGA < 42)
+                {
+                    if (_weight <= 2500)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 2940)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+                else
+                {
+                    if (_weight <= 2625)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 3060)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+            }
+            else
+            {
+                if (tempGA < 33)
+                {
+                    if (_weight <= 1240)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 1470)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+                else if (tempGA < 34)
+                {
+                    if (_weight <= 1370)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 1625)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+                else if (tempGA < 35)
+                {
+                    if (_weight <= 1500)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 1780)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+                else if (tempGA < 36)
+                {
+                    if (_weight <= 1635)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 1940)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+                else if (tempGA < 37)
+                {
+                    if (_weight <= 1770)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 2100)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+                else if (tempGA < 38)
+                {
+                    if (_weight <= 1900)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 2250)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+                else if (tempGA < 39)
+                {
+                    if (_weight <= 2030)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 2400)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+                else if (tempGA < 40)
+                {
+                    if (_weight <= 2150)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 2560)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+                else if (tempGA < 41)
+                {
+                    if (_weight <= 2280)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 2690)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+                else if (tempGA < 42)
+                {
+                    if (_weight <= 2375)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 2800)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+                else
+                {
+                    if (_weight <= 2400)
+                    {
+                        SGA = -3;
+                    }
+                    else if (_weight <= 2900)
+                    {
+                        SGA = -2;
+                    }
+                    else SGA = 2;
+                }
+            }
+        }
 
-        public string ToFile()
+
+    public string ToFile()
         {
             string ReturnString = "";
             foreach (ContractionIVDrip item in _contractionIVDRIPList)
