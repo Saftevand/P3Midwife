@@ -168,11 +168,12 @@ namespace P3_Midwife.Views
         private void lbSuggestions_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             ListBox senderBox = sender as ListBox;
+            TextBox senderText = senderBox.Tag as TextBox;
             if (e.Key == System.Windows.Input.Key.Tab)
             {
                 e.Handled = true;
                 text_Append(senderBox.Tag as TextBox);
-                senderBox.Focus();
+                senderText.Focus();
             }
         }
     }

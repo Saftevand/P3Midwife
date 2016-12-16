@@ -506,12 +506,12 @@
                     <ListView>
                         <TextBlock Name="Note" Height="100" Text="{Binding RecordCurrent.Note, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextWrapping="Wrap"/>
 
-                        <TextBox Name="NewNote" Height="100" MinWidth="600" Text="{Binding RecordCurrent.NewNote, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextChanged="NewNote_TextChanged" PreviewKeyDown="NewNote_PreviewKeyDown" TextWrapping="Wrap"/>
+                        <TextBox Name="NewNote" Height="100" Tag="{Binding ElementName=txtSuggestions}" MinWidth="600" Text="{Binding RecordCurrent.NewNote, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextChanged="NewNote_TextChanged" PreviewKeyDown="NewNote_PreviewKeyDown" TextWrapping="Wrap"/>
                         <StackPanel Orientation="Horizontal">
                             <Button Command="{Binding AppendNewNoteToNote}" PreviewMouseLeftButtonDown="Button_PreviewMouseLeftButtonDown">
                                 Gem note
                             </Button>
-                            <ListBox x:Name="txtSuggestions" MouseDoubleClick="txtSuggestions_MouseDoubleClick" PreviewKeyDown="txtSuggestions_PreviewKeyDown" Width="150" Visibility="Collapsed" Background="LightYellow"/>
+                            <ListBox x:Name="txtSuggestions" Tag="{Binding ElementName=NewNote}" MouseDoubleClick="txtSuggestions_MouseDoubleClick" PreviewKeyDown="txtSuggestions_PreviewKeyDown" Width="150" Visibility="Collapsed" Background="LightYellow"/>
 
 
                         </StackPanel>
