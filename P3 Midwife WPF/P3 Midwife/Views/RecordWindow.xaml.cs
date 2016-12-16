@@ -1,29 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+using System.ComponentModel;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using GalaSoft.MvvmLight.Messaging;
 
 
 namespace P3_Midwife.Views
 {
-    public partial class RecordWindow : BaseWindow
+    public partial class RecordWindow : Window
     {
-        bool isNotClosed;
-        int thisID;
-        Patient CurrentPatient;
-        Record CurrentRecord;
-        Employee CurrentEmployee;
+        private bool _isNotClosed;
+        private int _thisID;
+        private Patient _currentPatient;
+        private Record _currentRecord;
+        private Employee _currentEmployee;
+        public Record CurrentRecord { get { return _currentRecord; } }
         public RecordWindow(Record RecordShow)
         {
             try
@@ -39,13 +32,14 @@ namespace P3_Midwife.Views
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
             Messenger.Default.Register<Employee>(this, "EmployeetoRecordView", validateUser);
 
-            isNotClosed = false;
-            this.thisID = RecordShow.ThisRecordID;
+            _isNotClosed = false;
+            _thisID = RecordShow.ThisRecordID;
+            Closing += Filemanagement.ClosingHandler;
         }
 
         private void show()
         {
-            if (CurrentEmployee is SOSU)
+            if (_currentEmployee is SOSU)
             {
                 NewChildBtn.Visibility = Visibility.Hidden;
             }
@@ -54,27 +48,27 @@ namespace P3_Midwife.Views
 
         private void validateUser(Employee emp)
         {
-            CurrentEmployee = emp;
+            _currentEmployee = emp;
         }
 
-        private void recordValidation(Record _currentRecord)
+        private void recordValidation(Record currentRecord)
         {
-            CurrentRecord = _currentRecord;
+            _currentRecord = currentRecord;
         }
 
-        private void patientValidation(Patient _currentPatient)
+        private void patientValidation(Patient currentPatient)
         {
-            CurrentPatient = _currentPatient;
+            _currentPatient = currentPatient;
         }
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
 
-                if (msg.Notification == "ToRecord" && !isNotClosed && CurrentRecord.IsActive)
+                if (msg.Notification == "ToRecord" && !_isNotClosed && _currentRecord.IsActive)
                 {
-                    if (this.thisID == CurrentRecord.ThisRecordID)
+                    if (this._thisID == _currentRecord.ThisRecordID)
                     {
-                        if (CurrentRecord.ChildCPR != null)
+                        if (_currentRecord.ChildCPR != null)
                         {
                             NewChildBtn.Visibility = Visibility.Hidden;
                         }
@@ -84,8 +78,8 @@ namespace P3_Midwife.Views
                 }
                 else if (msg.Notification == "RecordSave")
                 {
-                    BaseWindow.cancel = true;
-                    this.isNotClosed = true;
+                    //BaseWindow.cancel = true;
+                    this._isNotClosed = true;
                     this.Close();
                 }
                 else if (msg.Notification == "AccessDenied")
@@ -147,7 +141,7 @@ namespace P3_Midwife.Views
 
         private void Button_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Note.Text = DateTime.Now.ToString() + " - " + NewNote.Text + " - Jdm: " + CurrentEmployee.Name + "\n";
+            Note.Text = DateTime.Now.ToString() + " - " + NewNote.Text + " - Jdm: " + _currentEmployee.Name + "\n";
             NewNote.Clear();
         }
 

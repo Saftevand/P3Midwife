@@ -1,12 +1,13 @@
 ﻿using System.Windows;
 using GalaSoft.MvvmLight.Messaging;
+using System.ComponentModel;
 
 namespace P3_Midwife.Views
 {
     /// <summary>
     /// Description for ChildInfoDialogWindow.
     /// </summary>
-    public partial class ChildInfoDialogWindow : BaseWindow
+    public partial class ChildInfoDialogWindow : Window
     {
         /// <summary>
         /// Initializes a new instance of the ChildInfoDialogWindow class.
@@ -15,6 +16,11 @@ namespace P3_Midwife.Views
         {
             InitializeComponent();
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
+            Closing += ClosingHandler;
+        }
+        private void ClosingHandler(object sender, CancelEventArgs e)
+        {
+            e.Cancel = false;
         }
         private void NotificationMessageRecieved(NotificationMessage msg)
         {

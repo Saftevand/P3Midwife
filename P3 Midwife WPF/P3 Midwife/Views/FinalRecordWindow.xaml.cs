@@ -1,22 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.ComponentModel;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace P3_Midwife.Views
 {
-    public partial class FinalRecordWindow : BaseWindow
+    public partial class FinalRecordWindow : Window
     {
         bool isNotClosed;
         //int thisID;
@@ -30,7 +19,11 @@ namespace P3_Midwife.Views
             Messenger.Default.Register<Record>(this, "NewRecordToRecordView", recordValidation);
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
             isNotClosed = false;
-            //this.thisID = RecordShow.ThisRecordID;
+            Closing += ClosingHandler;
+        }
+        private void ClosingHandler(object sender, CancelEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
 
         private void recordValidation(Record _currentRecord)

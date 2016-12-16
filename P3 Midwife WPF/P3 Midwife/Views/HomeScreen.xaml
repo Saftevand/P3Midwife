@@ -1,4 +1,4 @@
-﻿<base:BaseWindow x:Class="P3_Midwife.HomeScreen"
+﻿<Window x:Class="P3_Midwife.HomeScreen"
         x:Name="HScreen"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -43,5 +43,5 @@
             </ListViewItem>
         </ListView>
     </Grid>
-</base:BaseWindow>
+</Window>
 

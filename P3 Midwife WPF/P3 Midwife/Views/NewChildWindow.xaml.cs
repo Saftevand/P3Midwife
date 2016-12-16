@@ -1,27 +1,23 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace P3_Midwife.Views
 {
-    public partial class NewChildWindow : BaseWindow
+    public partial class NewChildWindow : Window
     {
         private Employee _currentEmployee;
         private Record _currentRecord;
         private int thisID;
         bool isNotClosed = true;
         WordSuggesetionProvider provider;
+
+        public Record CurrentRecord { get { return _currentRecord; } }
         public NewChildWindow(Record ActiveRecord)
         {
             InitializeComponent();
@@ -36,8 +32,9 @@ namespace P3_Midwife.Views
 
             provider = new WordSuggesetionProvider();
             isNotClosed = false;
+            Closing += Filemanagement.ClosingHandler;
         }
-
+        
         private void recordValidation(Record CurrentRecord)
         {
             _currentRecord = CurrentRecord;
@@ -96,7 +93,7 @@ namespace P3_Midwife.Views
                     }
                     else if (msg.Notification == "ChildSave")
                     {
-                        BaseWindow.cancel = true;
+                        //BaseWindow.cancel = true;
                         isNotClosed = true;
                         Close();
                     }

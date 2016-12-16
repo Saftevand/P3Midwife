@@ -61,7 +61,6 @@ namespace P3_Midwife.ViewModel
                 Filemanagement.SaveRecord(CurrentRecord);
                 Filemanagement.SaveToDatabase(CurrentPatient);
             }
-            Application.Current.Shutdown();
         }
 
         public NewChildViewModel()

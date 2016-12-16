@@ -121,8 +121,7 @@
     <Compile Include="ViewModel\NewChildViewModel.cs" />
     <Compile Include="ViewModel\PatientViewModel.cs" />
     <Compile Include="ViewModel\RecordViewModel.cs" />
-    <Compile Include="Views\BaseWindow.cs" />
-    <Compile Include="Views\BoolToStringAdmittedConverter.cs" />
+    <Compile Include="Converters\BoolToStringAdmittedConverter.cs" />
     <Compile Include="Views\ChildInfoDialogWindow.xaml.cs">
       <DependentUpon>ChildInfoDialogWindow.xaml</DependentUpon>
     </Compile>
@@ -130,14 +129,13 @@
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Ward.cs" />
-    <Compile Include="Views\GenderStringToCharConverter.cs" />
+    <Compile Include="Converters\GenderStringToCharConverter.cs" />
     <Compile Include="Views\FinalRecordWindow.xaml.cs">
       <DependentUpon>FinalRecordWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeScreen.xaml.cs" />
     <Compile Include="ViewModel\HomeScreenViewModel.cs" />
     <Compile Include="Utility\RelayCommand.cs" />
-    <Compile Include="SkraldKodeSomLigeGemmesTilSenere.cs" />
     <Compile Include="Utility\Dictionary.cs" />
     <Compile Include="Utility\Filemanagement.cs" />
     <Compile Include="Models\People\Employee.cs" />
@@ -154,16 +152,12 @@
     <Compile Include="Views\PatientWindow.xaml.cs">
       <DependentUpon>PatientWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RecordCompletedBoolToString.cs" />
+    <Compile Include="Converters\RecordCompletedBoolToString.cs" />
     <Compile Include="Views\RecordWindow.xaml.cs">
       <DependentUpon>RecordWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StringCTGClassificationConverter.cs" />
-    <Compile Include="Views\WarningIndicatorsToBoolConverter.cs" />
-    <Page Include="Views\AddMedicalServicesView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="Converters\StringCTGClassificationConverter.cs" />
+    <Compile Include="Converters\WarningIndicatorsToBoolConverter.cs" />
     <Page Include="Views\ChildInfoDialogWindow.xaml">
       <SubType>Form</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -227,6 +221,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

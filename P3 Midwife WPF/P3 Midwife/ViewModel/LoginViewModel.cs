@@ -31,7 +31,6 @@ namespace P3_Midwife
             Filemanagement.InitialiseFoldersAndFiles();
             this.LoginCommand = new RelayCommand(parameter =>
             {
-                //TODO: Crashes if no email is entered and login pressed or if only numbers are entered
                 if (Ward.Employees.Exists(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password)))
                 {
                     Employee SendEmp = Ward.Employees.Find(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password));

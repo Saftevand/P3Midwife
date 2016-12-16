@@ -246,7 +246,6 @@ namespace P3_Midwife.ViewModel
                 this.RecordCurrent.CurrentBill.BillItemList.AddRange(MedicalServicesList.Where(x => !RecordCurrent.CurrentBill.BillItemList.Contains(x)));
                 Filemanagement.SaveRecord(RecordCurrent);
             }
-            Application.Current.Shutdown();
         }
 
         public RecordViewModel()
@@ -289,12 +288,6 @@ namespace P3_Midwife.ViewModel
 
                 Messenger.Default.Send(tempChild, "ChildToNewChildView");
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToNewChild"));
-            });
-
-
-            this.OpenMedicalServicesToAdd = new RelayCommand(parameter =>
-            {
-                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("AddMedicalServices"));
             });
 
             this.RemoveMedicalService = new RelayCommand(parameter =>
