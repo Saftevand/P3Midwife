@@ -127,15 +127,14 @@ namespace P3_Midwife.Views
             if (item != null)
             {
                 Patient child = item as Patient;
-                if (child.Mother.RecordList.Find(x => x.IsActive == true) != null)
+                if (child.Mother.RecordList.Find(x => x.ChildCPR == child.CPR) != null)
                 {
-                    Messenger.Default.Send(child.Mother.RecordList.Find(x => x.IsActive == true), "ChildRecordToNewChildView");
+                    Messenger.Default.Send(child.Mother.RecordList.Find(x => x.ChildCPR == child.CPR), "ChildRecordToNewChildView");
                     Messenger.Default.Send(child.Mother, "PatientToNewChildView");
                     Messenger.Default.Send<Employee>((Employee)ChildrenListBox.Tag, "EmployeetoNewChildView");
                     Messenger.Default.Send(child, "ChildToNewChildView");
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToNewChild"));
-                }
-              
+                }            
             }
         }
 
@@ -150,16 +149,15 @@ namespace P3_Midwife.Views
 
         private void NewNote_TextChanged(object sender, TextChangedEventArgs e)
         {
-            TextBox senderBox = sender as TextBox;
             autoList.Clear();
 
-            if (senderBox.Text.EndsWith(" "))
+            if (NewNote.Text.EndsWith(" "))
             {
-                senderBox.Text = TextEditor.WordReplacement(senderBox.Text.ToString());
-                senderBox.SelectionStart = senderBox.Text.Length;
+                NewNote.Text = TextEditor.WordReplacement(NewNote.Text.ToString());
+                NewNote.SelectionStart = NewNote.Text.Length;
             }
 
-            autoList = provider.GetSuggestions(senderBox.Text.ToLower());
+            autoList = provider.GetSuggestions(NewNote.Text.ToLower());
 
             if (autoList.Count > 0)
             {
@@ -175,17 +173,15 @@ namespace P3_Midwife.Views
 
         private void NewNote_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            TextBox senderbox = sender as TextBox;
-            ListBox senderList = senderbox.Tag as ListBox;
             if (e.Key == Key.Tab)
             {
                 e.Handled = true;
-                senderList.SelectedIndex = 0;
-                textAppend(senderbox);
+                txtSuggestions.SelectedIndex = 0;
+                textAppend(sender as TextBox);
             }
             if (e.Key == Key.Down)
             {
-                senderList.Focus();
+                txtSuggestions.Focus();
             }
         }
 
@@ -204,30 +200,28 @@ namespace P3_Midwife.Views
         private void txtSuggestions_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ListBox senderListBox = sender as ListBox;
-            TextBox senderBox = senderListBox.Tag as TextBox;
 
             string text;
-            if (senderListBox.ItemsSource != null)
+            if (txtSuggestions.ItemsSource != null)
             {
-                senderListBox.Visibility = Visibility.Collapsed;
-                if (senderListBox.SelectedIndex != -1)
+                txtSuggestions.Visibility = Visibility.Collapsed;
+                if (txtSuggestions.SelectedIndex != -1)
                 {
-                    text = senderListBox.SelectedItem.ToString();
-                    if (!senderBox.Text.EndsWith(" "))
+                    text = txtSuggestions.SelectedItem.ToString();
+                    if (!NewNote.Text.EndsWith(" "))
                     {
-                        senderBox.Text = senderBox.Text.Remove(senderBox.Text.LastIndexOf(' ') + 1);
+                        NewNote.Text = NewNote.Text.Remove(NewNote.Text.LastIndexOf(' ') + 1);
                     }
-                    senderBox.AppendText(text + " ");
-                    senderBox.Focus();
-                    senderBox.SelectionStart = senderBox.Text.Length;
+                    NewNote.AppendText(text + " ");
+                    NewNote.Focus();
+                    NewNote.SelectionStart = NewNote.Text.Length;
                 }
             }
         }
 
         private void txtSuggestions_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            ListBox senderList = sender as ListBox;
-            TextBox senderBox = senderList.Tag as TextBox;
+            TextBox senderBox = sender as TextBox;
             if (e.Key == System.Windows.Input.Key.Tab)
             {
                 e.Handled = true;
