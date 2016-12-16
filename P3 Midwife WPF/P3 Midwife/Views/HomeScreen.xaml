@@ -36,12 +36,6 @@
                 </ListBox>
             </ListView>
         </StackPanel>
-
-        <ListView Margin="300,43,50,30" Background="AliceBlue">
-            <ListViewItem VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock>Her skal der være noget sødt</TextBlock>
-            </ListViewItem>
-        </ListView>
     </Grid>
 </Window>
 

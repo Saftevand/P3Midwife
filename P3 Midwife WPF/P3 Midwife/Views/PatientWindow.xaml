@@ -19,7 +19,6 @@
         <local:WarningIndicatorsToBoolConverter x:Key="WarningIndicatorsBoolConverter"/>
         <local:BoolToStringAdmittedConverter x:Key="BoolToStringYesNoConverter"/>
 
-
         <Style x:Key="WarningComplications" TargetType="ListViewItem">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=PriorBirthComplications}" Value="True">
@@ -59,21 +58,23 @@
                         <ListViewItem Content="Tidligere&#xD;&#xA;Fødselskomplikationer:" Height="44" FontSize="10.667"/>
                     </ListView>
                     <ListView>
-                    <ListViewItem Content="{Binding PatientCurrent.Name}"/>
-                    <ListViewItem Content="{Binding PatientCurrent.Age}"/>
-                    <ListViewItem Content="{Binding PatientCurrent.Gender,Converter={StaticResource GenderCharToString}, Mode=OneWay}"/>
-                    <ListViewItem Content="{Binding PatientCurrent.CPR}"/>
-                    <ListViewItem Content="{Binding PatientCurrent.SGA}"/>
-                    <ListViewItem Content="{Binding PatientCurrent.BloodType}" Name="Bloodtype" Style="{StaticResource WarningBloodType}"/>
-                    <ListViewItem Content="{Binding PriorBirthComplications, Converter={StaticResource  BoolToStringYesNoConverter}, Mode=OneWay}" Style="{StaticResource WarningComplications}" Name="BirthComplication"/>
+                        <ListViewItem Content="{Binding PatientCurrent.Name}"/>
+                        <ListViewItem Content="{Binding PatientCurrent.Age}"/>
+                        <ListViewItem Content="{Binding PatientCurrent.Gender,Converter={StaticResource GenderCharToString}, Mode=OneWay}"/>
+                        <ListViewItem Content="{Binding PatientCurrent.CPR}"/>
+                        <ListViewItem Content="{Binding PatientCurrent.SGA}"/>
+                        <ListViewItem Content="{Binding PatientCurrent.BloodType}" Name="Bloodtype" Style="{StaticResource WarningBloodType}"/>
+                        <ListViewItem Content="{Binding PriorBirthComplications, Converter={StaticResource  BoolToStringYesNoConverter}, Mode=OneWay}" Style="{StaticResource WarningComplications}" Name="BirthComplication"/>
                     </ListView>
-            </StackPanel>
-            <ListViewItem Content="Børn: "/>
+
+
+                </StackPanel>
+                <ListViewItem Margin="0,5,0,0" Content="Børn: "/>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="CPR       "/>
                     <TextBlock Text="Fødselsjournal"/>
                 </StackPanel>
-                <ListView ItemsSource="{Binding Children}" Name="ChildrenListBox" PreviewMouseLeftButtonUp="listView_Click" Tag="{Binding CurrentEmployee}">
+                <ListView ItemsSource="{Binding Children}" Name="ChildrenListBox" PreviewMouseLeftButtonUp="listView_Click" Tag="{Binding CurrentEmployee}" Height="150">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextBlock>
@@ -84,7 +85,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Name="NewRecordBtn" Command="{Binding CreateRecordCommand}" Margin="0,380,0,0">
+                <Button Name="NewRecordBtn" Command="{Binding CreateRecordCommand}" Margin="0,220,0,0">
                     Ny Journal
                 </Button>
                 <Button Command="{Binding BackCommand}">
