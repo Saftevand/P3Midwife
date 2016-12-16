@@ -350,7 +350,6 @@ namespace P3_Midwife
                             Ward.Employees.Last().CurrentPatients.Add(Ward.Patients.Find(x => x.CPR == _subStrings[i]));
                         }
                     }
-                    
                 }
             }
         }

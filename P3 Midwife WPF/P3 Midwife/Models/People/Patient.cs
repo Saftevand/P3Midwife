@@ -18,6 +18,7 @@ namespace P3_Midwife
         private List<Patient> _children = new List<Patient>();
         private List<Record> _recordList = new List<Record>();
 
+        public string LastGA { get { return FindLastGA(); }}
         public string CPR { get { return _CPR; } set { _CPR = value; } }
         public string Name { get { return _name; } set { _name = value; } }
         public char Gender { get { return _gender; } set { _gender = value; } }
@@ -81,6 +82,11 @@ namespace P3_Midwife
         #endregion
 
         #region Methods
+        private string FindLastGA()
+        {
+            return "37";
+        }
+        
         //looks at last digit of CPR to get gender
         private char FindGenderFromCPR(string _cpr)
         {
