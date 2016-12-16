@@ -42,7 +42,6 @@ namespace P3_Midwife.ViewModel
                     Messenger.Default.Send<Employee>(CurrentEmployee, "ReturnEmployee");
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToHome"));
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("DialogSave"));
-                    
                 }
                 else
                 {

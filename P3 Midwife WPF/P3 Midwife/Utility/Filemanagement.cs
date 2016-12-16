@@ -195,11 +195,11 @@ namespace P3_Midwife
 
         public static void SaveRecord(Record record)
         {
-            CreateFile(Path.Combine(_PatientsPath, record.RecordsPatient.CPR.ToString()), "_Record" + record.ThisRecordID.ToString());
-            StreamWriter file = new StreamWriter(Path.Combine(_PatientsPath, record.RecordsPatient.CPR.ToString(), "_Record" + record.ThisRecordID.ToString() + ".txt"));
-            file.Write(record.ToFile());
-            file.Close();
-            SaveBill(record.CurrentBill);
+                CreateFile(Path.Combine(_PatientsPath, record.RecordsPatient.CPR.ToString()), "_Record" + record.ThisRecordID.ToString());
+                StreamWriter file = new StreamWriter(Path.Combine(_PatientsPath, record.RecordsPatient.CPR.ToString(), "_Record" + record.ThisRecordID.ToString() + ".txt"));
+                file.Write(record.ToFile());
+                file.Close();
+                SaveBill(record.CurrentBill);
         }
 
         private static void SaveBill(Bill bill)

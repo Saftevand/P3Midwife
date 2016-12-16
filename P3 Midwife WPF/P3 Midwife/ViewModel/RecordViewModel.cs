@@ -233,7 +233,21 @@ namespace P3_Midwife.ViewModel
             get { return (Employee)this.GetValue(EmployeeProperty); }
             set { this.SetValue(EmployeeProperty, value); }
         }
-
+        private void ExitAndSave()
+        {
+            if (PatientCurrent != null || RecordCurrent != null)
+            {
+                Filemanagement.SaveToDatabase(PatientCurrent);
+                this.RecordCurrent.BirthInformationList.AddRange(BirthInformationListProperty.Where(x => !RecordCurrent.BirthInformationList.Contains(x)));
+                this.RecordCurrent.ContractionIVDripList.AddRange(ContractionListProperty.Where(x => !RecordCurrent.ContractionIVDripList.Contains(x)));
+                this.RecordCurrent.MicturitionList.AddRange(MicturitionListProperty.Where(x => !RecordCurrent.MicturitionList.Contains(x)));
+                this.RecordCurrent.VaginalExplorationList.AddRange(VaginalExplorationListProperty.Where(x => !RecordCurrent.VaginalExplorationList.Contains(x)));
+                this.RecordCurrent.FetusObservationList.AddRange(FetusObservationListProperty.Where(x => !RecordCurrent.FetusObservationList.Contains(x)));
+                this.RecordCurrent.CurrentBill.BillItemList.AddRange(MedicalServicesList.Where(x => !RecordCurrent.CurrentBill.BillItemList.Contains(x)));
+                Filemanagement.SaveRecord(RecordCurrent);
+            }
+            Application.Current.Shutdown();
+        }
 
         public RecordViewModel()
         {
@@ -251,6 +265,7 @@ namespace P3_Midwife.ViewModel
             Messenger.Default.Register<Record>(this, "NewRecordToRecordView", (ActiveRecord) => { RecordCurrent = ActiveRecord; Note = ActiveRecord.Note; });
             Messenger.Default.Register<Patient>(this, "PatientToRecordView", (ActivePatient) => { PatientCurrent = ActivePatient; });
             Messenger.Default.Register<Employee>(this, "EmployeetoRecordView", (ActiveEmployee) => { EmployeeCurrent = ActiveEmployee; });
+            Messenger.Default.Register<String>(this, "SaveToDatabase", (thestring) => ExitAndSave());
 
             _availableMedicalServices.AddRange(Ward.MedicalServicesList);
 
@@ -289,12 +304,20 @@ namespace P3_Midwife.ViewModel
 
             this.LogOutCommand = new RelayCommand(parameter =>
             {
+                Filemanagement.SaveToDatabase(PatientCurrent);
+                this.RecordCurrent.BirthInformationList.AddRange(BirthInformationListProperty.Where(x => !RecordCurrent.BirthInformationList.Contains(x)));
+                this.RecordCurrent.ContractionIVDripList.AddRange(ContractionListProperty.Where(x => !RecordCurrent.ContractionIVDripList.Contains(x)));
+                this.RecordCurrent.MicturitionList.AddRange(MicturitionListProperty.Where(x => !RecordCurrent.MicturitionList.Contains(x)));
+                this.RecordCurrent.VaginalExplorationList.AddRange(VaginalExplorationListProperty.Where(x => !RecordCurrent.VaginalExplorationList.Contains(x)));
+                this.RecordCurrent.FetusObservationList.AddRange(FetusObservationListProperty.Where(x => !RecordCurrent.FetusObservationList.Contains(x)));
+                this.RecordCurrent.CurrentBill.BillItemList.AddRange(MedicalServicesList.Where(x => !RecordCurrent.CurrentBill.BillItemList.Contains(x)));
+                Filemanagement.SaveRecord(RecordCurrent);
                 System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
                 Application.Current.Shutdown();
             });
             this.ExitCommand = new RelayCommand(parameter =>
             {
-                Application.Current.Shutdown();
+                ExitAndSave();
             });
             this.BackCommand = new RelayCommand(Parameter =>
             {

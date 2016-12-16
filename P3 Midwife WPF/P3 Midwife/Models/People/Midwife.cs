@@ -86,6 +86,7 @@ namespace P3_Midwife
         {
             AssignPatientToDRoom(patient);
             this.CurrentPatients.Add(patient);
+            Filemanagement.SaveToDatabase(patient);
         }
 
         //Method to create a patient when a baby is born.

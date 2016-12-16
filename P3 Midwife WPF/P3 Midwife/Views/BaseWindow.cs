@@ -25,17 +25,26 @@ namespace P3_Midwife.Views
         public static bool cancel;
         protected override void OnClosing(CancelEventArgs e)
         {
+            MessageBoxResult result = MessageBox.Show("Data er muligvis ikke blevet gemt. \n Vil du gemme inden programmet lukkes?", "Gem og afslut", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
             base.OnClosing(e);
             if (cancel == true)
             {
                 e.Cancel = true;
             }
-            else
+            cancel = false;
+            if (result == MessageBoxResult.No)
             {
-                //Filemanagement.SaveToDatabase();
                 Application.Current.Shutdown();
             }
-            cancel = false;
+            else if (result == MessageBoxResult.Yes)
+            {
+                Messenger.Default.Send<String>("SaveToDatabase", "SaveToDatabase");
+            }
+            else if(result == MessageBoxResult.Cancel || result == MessageBoxResult.None)
+            {
+                e.Cancel = true;
+            }
         }
+        
     }
 }
