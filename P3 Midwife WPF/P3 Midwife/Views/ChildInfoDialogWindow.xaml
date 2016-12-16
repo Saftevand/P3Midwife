@@ -11,7 +11,7 @@
         xmlns:ViewModel="clr-namespace:P3_Midwife.ViewModel"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        Title="ChildInfo" Height="220" Width="310" Background="WhiteSmoke" BorderThickness="1" BorderBrush="LightSkyBlue" ResizeMode="CanResizeWithGrip">
+        Title="ChildInfo" Height="220" Width="310" Background="WhiteSmoke" BorderThickness="1" BorderBrush="LightSkyBlue" ResizeMode="CanMinimize">
 
     <Window.DataContext>
         <ViewModel:RecordViewModel/>

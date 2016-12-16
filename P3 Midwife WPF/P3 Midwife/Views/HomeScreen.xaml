@@ -9,7 +9,7 @@
         xmlns:ViewModel="clr-namespace:P3_Midwife"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Menu" Height="600" Width="1200">
+        Title="Menu" Height="600" Width="1200" ResizeMode="CanMinimize">
     
     <Window.DataContext>
             <ViewModel:HomeScreenViewModel/>

@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        Title="DialogWindow" Height="150" Width="300" Background="AliceBlue" BorderBrush="LightSkyBlue" BorderThickness="2">
+        Title="DialogWindow" Height="150" Width="300" Background="AliceBlue" BorderBrush="LightSkyBlue" BorderThickness="2" ResizeMode="CanMinimize">
     <Window.DataContext>
         <ViewModel:DialogWindowViewModel/>
     </Window.DataContext>

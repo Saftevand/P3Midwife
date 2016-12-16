@@ -10,7 +10,7 @@
         xmlns:local="clr-namespace:P3_Midwife.Views"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="NewChildWindow" Height="720" Width="1280">
+        Title="NewChildWindow" Height="720" Width="1280" ResizeMode="CanMinimize">
 
 
     <Window.DataContext>

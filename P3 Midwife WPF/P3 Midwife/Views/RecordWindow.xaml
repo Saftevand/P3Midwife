@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:P3_Midwife.Views"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="RecordWindow" Height="720" Width="1270" Background="WhiteSmoke" BorderThickness="1" BorderBrush="LightSkyBlue">
+        Title="RecordWindow" Height="720" Width="1270" Background="WhiteSmoke" BorderThickness="1" BorderBrush="LightSkyBlue" ResizeMode="CanMinimize">
 
     <Window.DataContext>
         <ViewModel:RecordViewModel/>
