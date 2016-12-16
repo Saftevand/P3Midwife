@@ -39,7 +39,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="199*"/>
+            <ColumnDefinition Width="262*"/>
             <ColumnDefinition Width="410*"/>
             <ColumnDefinition Width="663*"/>
         </Grid.ColumnDefinitions>
@@ -504,9 +504,9 @@
                     </TextBox>-->
 
                     <ListView>
-                        <TextBlock Name="Note" Height="100" Text="{Binding RecordCurrent.Note, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextWrapping="Wrap"/>
+                        <TextBlock Name="Note" MinHeight="100" MaxWidth="600" Text="{Binding RecordCurrent.Note, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextWrapping="Wrap"/>
 
-                        <TextBox Name="NewNote" Height="100" MinWidth="600" Text="{Binding RecordCurrent.NewNote, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextChanged="NewNote_TextChanged" PreviewKeyDown="NewNote_PreviewKeyDown" TextWrapping="Wrap"/>
+                        <TextBox Name="NewNote" MinHeight="100" MinWidth="600" MaxWidth="600" Text="{Binding RecordCurrent.NewNote, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextChanged="NewNote_TextChanged" PreviewKeyDown="NewNote_PreviewKeyDown" TextWrapping="Wrap"/>
                         <StackPanel Orientation="Horizontal">
                             <Button Command="{Binding AppendNewNoteToNote}" PreviewMouseLeftButtonDown="Button_PreviewMouseLeftButtonDown">
                                 Gem note
@@ -520,7 +520,7 @@
             </StackPanel>
         </ScrollViewer>
 
-        <ListView x:Name="listView" HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top" Width="200" BorderThickness="3" BorderBrush="LightSkyBlue">
+        <ListView x:Name="listView" HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top" Width="250" BorderThickness="3" BorderBrush="LightSkyBlue" ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Disabled">
             <StackPanel Orientation="Horizontal">
                 <ListView Height="149">
                     <ListViewItem Content="Navn: "/>
@@ -540,7 +540,7 @@
                     
                 </ListView>
             </StackPanel>
-            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="500">
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="500" Width="231" >
 
                 <ComboBox Text="Vælg medicin" MaxWidth="120" Margin="0,20,0,0" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding MedicalServices}" SelectedItem="{Binding SelectedAvailableMedicalServiceInfo, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Name="AddedMedicine" Tag="{Binding SelectedAvailableMedicalServiceInfo}">
                     <ComboBox.ItemTemplate>

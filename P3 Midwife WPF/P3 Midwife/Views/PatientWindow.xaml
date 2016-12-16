@@ -8,7 +8,7 @@
         xmlns:ViewModel="clr-namespace:P3_Midwife.ViewModel"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="PatientWindow" Height="720" Width="1280" ResizeMode="CanMinimize">
+        Title="PatientWindow" Height="730" Width="1280" ResizeMode="CanMinimize">
     <Window.DataContext>
         <ViewModel:PatientViewModel/>
     </Window.DataContext>
@@ -46,7 +46,7 @@
             </MenuItem>
         </Menu>
 
-        <ListView HorizontalAlignment="Left" Height="700" Width="200" Margin="0,20,0,0">
+        <ListView HorizontalAlignment="Left" Height="700" Width="250" Margin="0,20,0,0">
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <ListView>
@@ -94,7 +94,7 @@
         </ListView>
   
 
-        <ListView Margin="199, 20, 0, 0"> 
+        <ListView Margin="249, 20, 0, 0"> 
             <StackPanel>
                 <TextBlock>
                     <Run Text="  Dato                                 Indlagt               Diagnose"/>
