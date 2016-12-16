@@ -70,7 +70,7 @@
 
                 </StackPanel>
                 <ListViewItem Margin="0,5,0,0" Content="Børn: "/>
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                     <TextBlock Text="CPR       "/>
                     <TextBlock Text="Fødselsjournal"/>
                 </StackPanel>
