@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:P3_Midwife.Views"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="RecordWindow" Height="720" Width="1270" Background="WhiteSmoke" BorderThickness="1" BorderBrush="LightSkyBlue" ResizeMode="CanMinimize">
+        Title="RecordWindow" Height="720" Width="1270" Background="WhiteSmoke" BorderThickness="1" BorderBrush="LightSkyBlue">
 
     <Window.DataContext>
         <ViewModel:RecordViewModel/>
@@ -39,9 +39,9 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="262*"/>
+            <ColumnDefinition Width="199*"/>
             <ColumnDefinition Width="410*"/>
-            <ColumnDefinition Width="600*"/>
+            <ColumnDefinition Width="663*"/>
         </Grid.ColumnDefinitions>
         <Menu Width="50" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left">
             <MenuItem Header="Menu" >
@@ -54,15 +54,13 @@
 
         <ScrollViewer Margin="0, 20,0 ,0" Grid.ColumnSpan="2" Grid.Column="1">
             <StackPanel Grid.ColumnSpan="3">
-                <ListView>
-                    <ListBox x:Name="BirthInfo">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="BItextBlock" TextWrapping="Wrap" VerticalAlignment="Center" Text="Fødselsinformationer"/>
-                            <Button Command="{Binding AddBirthInfo}" HorizontalAlignment="Right" Height="25" Width="60" Margin="757,0,25,0">
-                                Tilføj
-                            </Button>
-                        </StackPanel>
-                    </ListBox>
+                <ListView x:Name="BirthInfo">
+                    <StackPanel Orientation="Horizontal" Width="600">
+                        <TextBlock x:Name="BItextBlock" TextWrapping="Wrap" VerticalAlignment="Center" Text="Fødselsoplysninger"/>
+                        <Button Command="{Binding AddBirthInfo}" HorizontalAlignment="Right" Height="25" Width="60">
+                            Tilføj
+                        </Button>
+                    </StackPanel>
                     <ListView>
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
@@ -161,7 +159,7 @@
                     <ListBox x:Name="ContractionInfo">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="CItextBlock" TextWrapping="Wrap" VerticalAlignment="Center" Text="Veer og S-drop" />
-                            <Button Command="{Binding AddContractionIVDripInfo}" Height="25" Width="60" Margin="787,0,25,0">
+                            <Button Command="{Binding AddContractionIVDripInfo}" Height="25" Width="60">
                                 Tilføj
                             </Button>
                         </StackPanel>
@@ -232,7 +230,7 @@
                     <ListBox x:Name="FetusObsInfo">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="FOtextBlock" TextWrapping="Wrap" VerticalAlignment="Center" Text="Fosterobservationer" />
-                            <Button Command="{Binding AddFetusObservationInfo}" Height="25" Width="60" Margin="762,0,25,0">
+                            <Button Command="{Binding AddFetusObservationInfo}" Height="25" Width="60">
                                 Tilføj
                             </Button>
                         </StackPanel>
@@ -340,7 +338,7 @@
                     <ListBox x:Name="MicturitionInfo">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="MtextBlock" TextWrapping="Wrap" Text="Vandladning" VerticalAlignment="Center"/>
-                            <Button Command="{Binding AddMicturitionInfo}" Height="25" Width="60" Margin="800,0,25,0">
+                            <Button Command="{Binding AddMicturitionInfo}" Height="25" Width="60">
                                 Tilføj
                             </Button>
                         </StackPanel>
@@ -389,7 +387,7 @@
                     <ListBox x:Name="VaginalExplorationInfo">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="VEtextBlock" TextWrapping="Wrap" Text="Vaginal Exploration" VerticalAlignment="Center"/>
-                            <Button Command="{Binding AddVaginalExplorationInfo}" Height="25" Width="60" Margin="764,0,25,0">
+                            <Button Command="{Binding AddVaginalExplorationInfo}" Height="25" Width="60">
                                 Tilføj
                             </Button>
                         </StackPanel>
@@ -505,16 +503,15 @@
                     <TextBox Margin="199,0,0,0" Height="100" Text="{Binding RecordCurrent.NewNote, UpdateSourceTrigger=PropertyChanged}">--><!--
                     </TextBox>-->
 
-
                     <ListView>
-                        <TextBlock Name="Note" MinHeight="100" MaxWidth="600" Text="{Binding RecordCurrent.Note, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextWrapping="Wrap"/>
-                        <TextBox Name="NewNote" MinHeight="100" Tag="{Binding ElementName=txtSuggestions}" MinWidth="600" MaxWidth="600" Text="{Binding RecordCurrent.NewNote, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextChanged="NewNote_TextChanged" PreviewKeyDown="NewNote_PreviewKeyDown" TextWrapping="Wrap"/>
+                        <TextBlock Name="Note" Height="100" Text="{Binding RecordCurrent.Note, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextWrapping="Wrap"/>
+
+                        <TextBox Name="NewNote" Height="100" MinWidth="600" Text="{Binding RecordCurrent.NewNote, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextChanged="NewNote_TextChanged" PreviewKeyDown="NewNote_PreviewKeyDown" TextWrapping="Wrap"/>
                         <StackPanel Orientation="Horizontal">
                             <Button Command="{Binding AppendNewNoteToNote}" PreviewMouseLeftButtonDown="Button_PreviewMouseLeftButtonDown">
                                 Gem note
                             </Button>
-
-                            <ListBox x:Name="txtSuggestions" Tag="{Binding ElementName=NewNote}" MouseDoubleClick="txtSuggestions_MouseDoubleClick" PreviewKeyDown="txtSuggestions_PreviewKeyDown" Width="150" Visibility="Collapsed" Background="LightYellow"/>
+                            <ListBox x:Name="txtSuggestions" MouseDoubleClick="txtSuggestions_MouseDoubleClick" PreviewKeyDown="txtSuggestions_PreviewKeyDown" Width="150" Visibility="Collapsed" Background="LightYellow"/>
 
 
                         </StackPanel>
@@ -523,7 +520,7 @@
             </StackPanel>
         </ScrollViewer>
 
-        <ListView x:Name="listView" HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top" Width="250" BorderThickness="3" BorderBrush="LightSkyBlue" ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+        <ListView x:Name="listView" HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top" Width="200" BorderThickness="3" BorderBrush="LightSkyBlue">
             <StackPanel Orientation="Horizontal">
                 <ListView Height="149">
                     <ListViewItem Content="Navn: "/>
@@ -543,7 +540,7 @@
                     
                 </ListView>
             </StackPanel>
-            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="500" Width="231" >
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="500">
 
                 <ComboBox Text="Vælg medicin" MaxWidth="120" Margin="0,20,0,0" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding MedicalServices}" SelectedItem="{Binding SelectedAvailableMedicalServiceInfo, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Name="AddedMedicine" Tag="{Binding SelectedAvailableMedicalServiceInfo}">
                     <ComboBox.ItemTemplate>
@@ -574,10 +571,14 @@
                 <Button Command="{Binding RemoveMedicalService}" Content="Fjern Medicin" FontSize="12" Height="20" Width="100">
                 </Button>
 
+
+                <!--<Button Name="NewChildBtn" Command="{Binding NewChildDialogCommand}" VerticalAlignment="Bottom" Margin="0,100,0,0">-->
+
+
                 <ListBox>
                     <TextBlock Text="Nuværende barn"/>
                 </ListBox>
-                <ListView ItemsSource="{Binding Children}" Name="ChildrenListBox" PreviewMouseLeftButtonUp="listView_Click" Tag="{Binding CurrentEmployee}">
+                <ListView ItemsSource="{Binding Children}" Name="ChildrenListBox" PreviewMouseLeftButtonUp="listView_Click" Tag="{Binding EmployeeCurrent}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextBlock>
@@ -587,7 +588,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <Button Name="NewChildBtn" Command="{Binding NewChildDialogCommand}" VerticalAlignment="Bottom" Margin="0,25,0,0">
+                <Button Name="NewChildBtn" Command="{Binding NewChildDialogCommand}" VerticalAlignment="Bottom" Margin="0,50,0,0">
                    Nyt barn
                 </Button>
                 <Button Command="{Binding SaveAndCompleteCommand}" Margin="0,5,0,0">
