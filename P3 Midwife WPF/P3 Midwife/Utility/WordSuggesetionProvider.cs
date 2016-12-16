@@ -61,11 +61,8 @@ namespace P3_Midwife
                 return list;
             }
             rankList(FrequentlyUsedWords.FindAll(s => s.StartsWith(text)));
-            if (list.Count < 5)
-            {
-                list.AddRange(dic.FindAll(s => s.StartsWith(text)));
-            }
-            list.RemoveAll(x => x == text);
+            list.AddRange(dic.FindAll(s => s.StartsWith(text)).Take(5));
+            list.RemoveAll(x => x == text && x == text + " ");
             return list;
         }
 
