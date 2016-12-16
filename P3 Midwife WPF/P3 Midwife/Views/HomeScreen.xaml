@@ -9,7 +9,7 @@
         xmlns:ViewModel="clr-namespace:P3_Midwife"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Menu" Height="600" Width="1200" ResizeMode="CanMinimize">
+        Title="Menu" Height="600" Width="1200" ResizeMode="CanMinimize" Background="AliceBlue">
     
     <Window.DataContext>
             <ViewModel:HomeScreenViewModel/>
@@ -22,8 +22,8 @@
             </MenuItem>
         </Menu>
 
-        <StackPanel Margin="15,17,0,0" Height="500" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center">
-            <ListView BorderThickness="2" Height="500">
+        <StackPanel Margin="0,17,0,0" Height="544" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <ListView BorderThickness="2" Height="540">
                 <TextBox Name="CPRTextbox" FocusManager.GotFocus="CPRTextbox_GotFocus" FocusManager.LostFocus="CPRTextbox_LostFocus" MaxLength="10" Width="184" Text="{Binding CPR, UpdateSourceTrigger=PropertyChanged}"/>
                 <Button Name="FindPatientBtn" Command="{Binding FindPatientCommand}">Find patient</Button>
                 <Button Name="AddPatientbtn" Command="{Binding OpenAddPatientCommand}">Tilføj patient</Button>
