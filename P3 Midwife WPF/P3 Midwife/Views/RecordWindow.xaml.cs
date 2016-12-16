@@ -156,15 +156,16 @@ namespace P3_Midwife.Views
 
         private void NewNote_TextChanged(object sender, TextChangedEventArgs e)
         {
+            TextBox senderBox = sender as TextBox;
             autoList.Clear();
 
-            if (NewNote.Text.EndsWith(" "))
+            if (senderBox.Text.EndsWith(" "))
             {
-                NewNote.Text = TextEditor.WordReplacement(NewNote.Text.ToString());
-                NewNote.SelectionStart = NewNote.Text.Length;
+                senderBox.Text = TextEditor.WordReplacement(senderBox.Text.ToString());
+                senderBox.SelectionStart = senderBox.Text.Length;
             }
 
-            autoList = provider.GetSuggestions(NewNote.Text.ToLower());
+            autoList = provider.GetSuggestions(senderBox.Text.ToLower());
 
             if (autoList.Count > 0)
             {
@@ -180,15 +181,17 @@ namespace P3_Midwife.Views
 
         private void NewNote_PreviewKeyDown(object sender, KeyEventArgs e)
         {
+            TextBox senderbox = sender as TextBox;
+            ListBox senderList = senderbox.Tag as ListBox;
             if (e.Key == Key.Tab)
             {
                 e.Handled = true;
-                txtSuggestions.SelectedIndex = 0;
-                textAppend(sender as TextBox);
+                senderList.SelectedIndex = 0;
+                textAppend(senderbox);
             }
             if (e.Key == Key.Down)
             {
-                txtSuggestions.Focus();
+                senderList.Focus();
             }
         }
 
@@ -207,28 +210,30 @@ namespace P3_Midwife.Views
         private void txtSuggestions_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ListBox senderListBox = sender as ListBox;
+            TextBox senderBox = senderListBox.Tag as TextBox;
 
             string text;
-            if (txtSuggestions.ItemsSource != null)
+            if (senderListBox.ItemsSource != null)
             {
-                txtSuggestions.Visibility = Visibility.Collapsed;
-                if (txtSuggestions.SelectedIndex != -1)
+                senderListBox.Visibility = Visibility.Collapsed;
+                if (senderListBox.SelectedIndex != -1)
                 {
-                    text = txtSuggestions.SelectedItem.ToString();
-                    if (!NewNote.Text.EndsWith(" "))
+                    text = senderListBox.SelectedItem.ToString();
+                    if (!senderBox.Text.EndsWith(" "))
                     {
-                        NewNote.Text = NewNote.Text.Remove(NewNote.Text.LastIndexOf(' ') + 1);
+                        senderBox.Text = senderBox.Text.Remove(senderBox.Text.LastIndexOf(' ') + 1);
                     }
-                    NewNote.AppendText(text + " ");
-                    NewNote.Focus();
-                    NewNote.SelectionStart = NewNote.Text.Length;
+                    senderBox.AppendText(text + " ");
+                    senderBox.Focus();
+                    senderBox.SelectionStart = senderBox.Text.Length;
                 }
             }
         }
 
         private void txtSuggestions_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            TextBox senderBox = sender as TextBox;
+            ListBox senderList = sender as ListBox;
+            TextBox senderBox = senderList.Tag as TextBox;
             if (e.Key == System.Windows.Input.Key.Tab)
             {
                 e.Handled = true;

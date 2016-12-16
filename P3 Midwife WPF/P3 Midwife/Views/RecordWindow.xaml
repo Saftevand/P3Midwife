@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:P3_Midwife.Views"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="RecordWindow" Height="720" Width="1270" Background="WhiteSmoke" BorderThickness="1" BorderBrush="LightSkyBlue">
+        Title="RecordWindow" Height="720" Width="1270" Background="WhiteSmoke" BorderThickness="1" BorderBrush="LightSkyBlue" ResizeMode="CanMinimize">
 
     <Window.DataContext>
         <ViewModel:RecordViewModel/>
@@ -505,22 +505,25 @@
                     <TextBox Margin="199,0,0,0" Height="100" Text="{Binding RecordCurrent.NewNote, UpdateSourceTrigger=PropertyChanged}">--><!--
                     </TextBox>-->
 
-                    <ListView BorderThickness="0">
-                        <TextBlock Name="Note" Height="100" Text="{Binding RecordCurrent.Note, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextWrapping="Wrap"/>
 
-                        <TextBox Name="NewNote" Height="100" MinWidth="600" Text="{Binding RecordCurrent.NewNote, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextChanged="NewNote_TextChanged" PreviewKeyDown="NewNote_PreviewKeyDown" TextWrapping="Wrap"/>
+                    <ListView>
+                        <TextBlock Name="Note" MinHeight="100" MaxWidth="600" Text="{Binding RecordCurrent.Note, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextWrapping="Wrap"/>
+                        <TextBox Name="NewNote" MinHeight="100" Tag="{Binding ElementName=txtSuggestions}" MinWidth="600" MaxWidth="600" Text="{Binding RecordCurrent.NewNote, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextChanged="NewNote_TextChanged" PreviewKeyDown="NewNote_PreviewKeyDown" TextWrapping="Wrap"/>
                         <StackPanel Orientation="Horizontal">
                             <Button Command="{Binding AppendNewNoteToNote}" PreviewMouseLeftButtonDown="Button_PreviewMouseLeftButtonDown">
                                 Gem note
                             </Button>
-                            <ListBox x:Name="txtSuggestions" MouseDoubleClick="txtSuggestions_MouseDoubleClick" PreviewKeyDown="txtSuggestions_PreviewKeyDown" Width="150" Visibility="Collapsed" Background="LightYellow"/>
+
+                            <ListBox x:Name="txtSuggestions" Tag="{Binding ElementName=NewNote}" MouseDoubleClick="txtSuggestions_MouseDoubleClick" PreviewKeyDown="txtSuggestions_PreviewKeyDown" Width="150" Visibility="Collapsed" Background="LightYellow"/>
+
+
                         </StackPanel>
                     </ListView>
                 </ListView>
             </StackPanel>
         </ScrollViewer>
 
-        <ListView x:Name="listView" HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top" BorderThickness="3" BorderBrush="LightSkyBlue">
+        <ListView x:Name="listView" HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top" Width="250" BorderThickness="3" BorderBrush="LightSkyBlue" ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Disabled">
             <StackPanel Orientation="Horizontal">
                 <ListView Height="149">
                     <ListViewItem Content="Navn: "/>
@@ -540,7 +543,7 @@
                     
                 </ListView>
             </StackPanel>
-            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="500">
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="500" Width="231" >
 
                 <ComboBox Text="Vælg medicin" MaxWidth="120" Margin="0,20,0,0" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding MedicalServices}" SelectedItem="{Binding SelectedAvailableMedicalServiceInfo, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsTabStop="True" Name="AddedMedicine" Tag="{Binding SelectedAvailableMedicalServiceInfo}">
                     <ComboBox.ItemTemplate>
