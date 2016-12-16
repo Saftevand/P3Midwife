@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using System.IO;
 using P3_Midwife.Models;
+using System.Windows;
+using P3_Midwife.Views;
 
 namespace P3_Midwife
 {
@@ -14,6 +15,7 @@ namespace P3_Midwife
         private static string _DatabasePath = Path.Combine(_exePath, "DatabaseFiles");
         private static string _AdminPath = Path.Combine(_DatabasePath, "Administraties");
         private static string _PatientsPath = Path.Combine(_DatabasePath, "Patients");
+        private static bool _MessageFlag = false;
 
         public static void CreateDirectory(string NameOfDirectory)
         {
@@ -142,6 +144,67 @@ namespace P3_Midwife
             SaveRoomFile();
             SaveEmployeeFile();
             SavePatientInfo(patient);
+        }
+        public static void SaveToDatabase()
+        {
+            SaveRoomFile();
+            SaveEmployeeFile();
+        }
+
+        public static void ClosingHandler(object sender, CancelEventArgs e)
+        {
+            if(_MessageFlag == false)
+            {
+                if (sender is NewChildWindow)
+                {
+                    ExitAndSave(((NewChildWindow)sender).CurrentRecord.RecordsPatient, e);
+                    SaveRecord(((NewChildWindow)sender).CurrentRecord);
+                }
+                else if (sender is RecordWindow)
+                {
+                    ExitAndSave(((RecordWindow)sender).CurrentRecord.RecordsPatient, e);
+                    SaveRecord(((RecordWindow)sender).CurrentRecord);
+                }
+                else ExitAndSave(e);
+                _MessageFlag = true;
+            }
+        }
+
+        private static void ExitAndSave(Patient patient, CancelEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Data er muligvis ikke blevet gemt. \n Vil du gemme inden programmet lukkes?", "Gem og afslut", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                Filemanagement.SaveToDatabase(patient);
+                e.Cancel = false;
+                Application.Current.Shutdown();
+            }
+            else if (result == MessageBoxResult.No)
+            {
+                Application.Current.Shutdown();
+            }
+            else if (result == MessageBoxResult.Cancel || result == MessageBoxResult.None)
+            {
+                e.Cancel = true;
+            }
+        }
+        private static void ExitAndSave(CancelEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Data er muligvis ikke blevet gemt. \n Vil du gemme inden programmet lukkes?", "Gem og afslut", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                Filemanagement.SaveToDatabase();
+                e.Cancel = false;
+                Application.Current.Shutdown();
+            }
+            else if (result == MessageBoxResult.No)
+            {
+                Application.Current.Shutdown();
+            }
+            else if (result == MessageBoxResult.Cancel || result == MessageBoxResult.None)
+            {
+                e.Cancel = true;
+            }
         }
 
         private static void SavePatientInfo(Patient patient)

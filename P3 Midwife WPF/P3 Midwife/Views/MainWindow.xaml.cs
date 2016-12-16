@@ -19,7 +19,7 @@ namespace P3_Midwife
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : P3_Midwife.Views.BaseWindow
+    public partial class MainWindow : Window
     {
         HomeScreen HomeScreenView = null;
         public MainWindow()
