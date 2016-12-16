@@ -54,14 +54,6 @@ namespace P3_Midwife.ViewModel
             Midwife temp = CurrentEmployee as Midwife;
            // temp.CreatePatient(CurrentPatient, CurrentNewChild.Gender, CurrentNewChild.RecordList[0].TimeOfBirth.ToString());
         }
-        private void ExitAndSave()
-        {
-            if(CurrentPatient != null || CurrentRecord != null)
-            {
-                Filemanagement.SaveRecord(CurrentRecord);
-                Filemanagement.SaveToDatabase(CurrentPatient);
-            }
-        }
 
         public NewChildViewModel()
         {
@@ -70,8 +62,6 @@ namespace P3_Midwife.ViewModel
             Messenger.Default.Register<Employee>(this, "EmployeetoNewChildView",(ActiveEmployee) => CurrentEmployee = ActiveEmployee);
             Messenger.Default.Register<Record>(this, "ChildRecordToNewChildView", (ChildRecord) => CurrentRecord = ChildRecord);
             Messenger.Default.Register<Patient>(this, "ChildToNewChildView", (ActiveChild) => { CurrentNewChild = ActiveChild; });
-            Messenger.Default.Register<String>(this, "SaveToDatabase", (thestring) => ExitAndSave());
-
 
             this.SaveAndComplete = new RelayCommand(parameter => 
             {

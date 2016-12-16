@@ -87,7 +87,6 @@ namespace P3_Midwife.Views
                     Messenger.Default.Send(child, "ChildToNewChildView");
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToNewChild"));
                 }
-              
             }
         }
     }
