@@ -8,17 +8,13 @@ using GalaSoft.MvvmLight.Messaging;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
-using System.Threading;
-using System.Windows.Threading;
-using System.Diagnostics;
 
 namespace P3_Midwife
 {
     public class HomeScreenViewModel : DependencyObject, INotifyPropertyChanged
     {
         private int AutoLogoutTimer = 180;
-
-        private List<Patient> _patientList;
+        private bool Cancel = false;
         public RelayCommand LogOutCommand { get; }
         public RelayCommand ExitCommand { get; }
         public RelayCommand OpenTextWindow { get; }
@@ -71,7 +67,7 @@ namespace P3_Midwife
             return IdleTicks / 1000;
         }
 
-        private bool Cancel = false;
+        
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
