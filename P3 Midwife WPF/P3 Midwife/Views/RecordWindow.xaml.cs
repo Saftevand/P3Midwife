@@ -179,7 +179,9 @@ namespace P3_Midwife.Views
 
         private void NewNote_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Tab)
+            TextBox senderBox = sender as TextBox;
+            ListBox senderList = senderBox.Tag as ListBox;
+            if (e.Key == Key.Tab && senderList.SelectedItem != null)
             {
                 e.Handled = true;
                 txtSuggestions.SelectedIndex = 0;

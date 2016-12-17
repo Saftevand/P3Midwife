@@ -113,7 +113,7 @@ namespace P3_Midwife.Views
         {
             TextBox senderBox = sender as TextBox;
             ListBox senderList = senderBox.Tag as ListBox;
-            if (e.Key == Key.Tab)
+            if (e.Key == Key.Tab && senderList.SelectedItem != null)
             {
                 e.Handled = true;
                 senderList.SelectedIndex = 0;
@@ -164,11 +164,12 @@ namespace P3_Midwife.Views
 
         private void lbSuggestions_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            ListBox senderBox = sender as ListBox;
-            if (e.Key == System.Windows.Input.Key.Tab)
+            ListBox senderList = sender as ListBox;
+            TextBox senderBox = senderList.Tag as TextBox;
+            if (e.Key == System.Windows.Input.Key.Tab && senderList.SelectedItem != null)
             {
                 e.Handled = true;
-                text_Append(senderBox.Tag as TextBox);
+                text_Append(senderBox);
                 senderBox.Focus();
             }
         }
