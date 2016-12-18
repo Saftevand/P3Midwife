@@ -19,7 +19,7 @@ namespace P3_Midwife
         private double _length;
         private double _bloodSugar;
         private List<String> _diseases = new List<string>();
-        private string _GA;
+        private string _GA = "39";
         private int _SGA;
         private int _ho;
         private int _ao;
