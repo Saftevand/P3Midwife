@@ -37,7 +37,11 @@ namespace P3_Midwife
                     Messenger.Default.Send(new NotificationMessage("StartWorker"));
                     Messenger.Default.Send(new NotificationMessage(last));
                     Messenger.Default.Send(SendEmp,"ActiveUser");
-                    Messenger.Default.Send(new NotificationMessage("ToHome"));
+                    if (last == "FromLogInToHome")
+                    {
+                        last = "ToHome";
+                    }
+                    Messenger.Default.Send(new NotificationMessage(last));
                 }
                 else
                 {

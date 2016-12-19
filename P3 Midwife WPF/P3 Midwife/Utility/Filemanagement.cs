@@ -33,13 +33,14 @@ namespace P3_Midwife
         public static void InitialiseFoldersAndFiles()
         {
             InitialiseMainFolders();
-            Filemanagement.CreatePatientFolderAndFile(new Patient("1805961577", "Patrick Alminde"));
-            Filemanagement.CreatePatientFolderAndFile(new Patient("1234567890", "Patrick Almind"));
-            Filemanagement.CreatePatientFolderAndFile(new Patient("2345678901", "Patrick Almin"));
-            Filemanagement.CreatePatientFolderAndFile(new Patient("3456789012", "Patrick Almi"));
-            Filemanagement.CreatePatientFolderAndFile(new Patient("4567890123", "Patrick Alm"));
-            Filemanagement.CreatePatientFolderAndFile(new Patient("5678901234", "Patrick Al"));
+            Filemanagement.CreatePatientFolderAndFile(new Patient("0110960042", "Cecilie De-la-cour"));
+            Filemanagement.CreatePatientFolderAndFile(new Patient("1805960074", "Line Grigel"));
+            Filemanagement.CreatePatientFolderAndFile(new Patient("1406880148", "Anne Jensen"));
+            Filemanagement.CreatePatientFolderAndFile(new Patient("0711940138", "Trine Østergaard"));
+            Filemanagement.CreatePatientFolderAndFile(new Patient("0109940178", "Estavana Poldman"));
+            Filemanagement.CreatePatientFolderAndFile(new Patient("0909990068", "Veronika Kristiansen"));
             ReadPatients();
+            ReadWords();
             InitialiseAdminFiles();
         }
 
@@ -89,6 +90,7 @@ namespace P3_Midwife
                 file.WriteLine("3 Amalie Knudsen sosu 89435135 AmalieK@hotmail.com 2");
                 file.WriteLine("4 Mette Hansen 321 49846516 Metteh@hotmail.com 2");
                 file.WriteLine("5 x x x 1 x 1");
+                file.WriteLine("6 Gitte Larsen test 12345678 Gitte 1");
                 file.Close();
                 ReadEmployees(Path.Combine(_AdminPath, "Employee_info.txt"));
             }

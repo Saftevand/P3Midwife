@@ -530,7 +530,7 @@
                     <ListViewItem Content="Navn: "/>
                     <ListViewItem Content="Alder: "/>
                     <ListViewItem Content="CPR: "/>
-                    <ListViewItem Content="SGA: "/>
+                    <ListViewItem Content="GA: "/>
                     <ListViewItem Content="Blodtype: "/>
                     <ListViewItem Content="Tidligere&#xD;&#xA;Fødselskomplikationer:" Height="44" FontSize="10.667"/>
                 </ListView>
@@ -538,7 +538,7 @@
                     <ListViewItem Content="{Binding PatientCurrent.Name}"/>
                     <ListViewItem Content="{Binding PatientCurrent.Age}"/>
                     <ListViewItem Content="{Binding PatientCurrent.CPR}"/>
-                    <ListViewItem Content="{Binding PatientCurrent.SGA}"/>
+                    <ListViewItem Content="{Binding PatientCurrent.LastGA}"/>
                     <ListViewItem Content="{Binding PatientCurrent.BloodType}" Name="Bloodtype" Style="{StaticResource WarningBloodType}"/>
                     <ListViewItem Content="{Binding PriorBirthComplications, Converter={StaticResource  BoolToStringYesNoConverter}, Mode=OneWay}" Style="{StaticResource WarningComplications}" Name="BirthComplication"/>
 

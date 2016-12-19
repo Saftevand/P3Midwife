@@ -113,7 +113,7 @@ namespace P3_Midwife.Views
         {
             TextBox senderBox = sender as TextBox;
             ListBox senderList = senderBox.Tag as ListBox;
-            if (e.Key == Key.Tab && senderList.SelectedItem != null)
+            if (e.Key == Key.Tab && senderList.ItemsSource != null)
             {
                 e.Handled = true;
                 senderList.SelectedIndex = 0;

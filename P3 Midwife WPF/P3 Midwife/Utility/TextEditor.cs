@@ -38,9 +38,7 @@ namespace P3_Midwife
         }
         public static Dictionary<string, string> values = new Dictionary<string, string>()
         {
-            { "HAN.", "Hells Angels" },
-            { "VE.", "Vaginal Eksploration" },
-            { "FE.", "Fisse" }
+            { "VE", "Vaginal Eksploration" }
         };
 
         public static string WordReplacement(string p)
