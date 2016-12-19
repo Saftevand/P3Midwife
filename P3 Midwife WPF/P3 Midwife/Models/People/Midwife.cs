@@ -90,23 +90,6 @@ namespace P3_Midwife
         }
 
         //Method to create a patient when a baby is born.
-        public void CreatePatient(Patient _mother, char _gender)
-        {
-            Patient child = new Patient(_gender);
-            child.Mother = _mother;
-            _mother.Children.Add(child);
-        }
-
-        public void CreatePatient(Patient mother, char gender, string date)
-        {
-            Patient child = new Patient(gender, date, mother);
-            Ward.Patients.Add(child);
-            Ward.DeliveryRooms.Find(x => x.PatientsInRoom.Contains(mother)).PatientsInRoom.Add(child);
-            Filemanagement.CreatePatientFolderAndFile(child);
-
-        }
-
-
         public void CreatePatient(Patient mother, char gender, DateTime date)
         {
             Patient child = new Patient(gender, date, mother);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace P3_Midwife
 {
-    class WordSuggesetionProvider
+    public class WordSuggesetionProvider
     {
         private List<string> FrequentlyUsedWords = new List<string>();
         private List<string> list = new List<string>();

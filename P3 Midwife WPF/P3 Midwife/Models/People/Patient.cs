@@ -45,12 +45,6 @@ namespace P3_Midwife
             this._gender = FindGenderFromCPR(PatientCPR);
         }
 
-        public Patient(char gender)
-        {
-            GenerateCpr(gender);
-            this._gender = gender;
-        }
-
         public Patient(char gender, string today, Patient mother)
         {
             GenerateCpr(gender, today);
@@ -96,35 +90,22 @@ namespace P3_Midwife
                 return 'D';
         }
 
-        //TODO: HUSK GENERATE CPR ER OVERLOADET den med "date" er til at teste. ikke sikkert den er nødvendig
         //Function to generate CPR.
-        public void GenerateCpr(char gender)
-        {
-            //Retrieves date for cpr number
-            GenerateCpr(gender, DateTime.Today.ToString("ddMMyy"));
-        }
-
         public void GenerateCpr(char gender, string date)
         {
             int[] CPR = new int[10];
-
             string result = null;
-
-            //Puts date into int array for later calculations
             int count = 0;
+            //Puts date into int array for later calculations
             foreach (char item in date)
             {
                 CPR[count] = (int)char.GetNumericValue(item);
                 count++;
             }
-
             CPR[6] = 4;
-
             result = CalcLastFour(CPR, gender);
-
             // Stores used CPR numbers
             Ward.UsedCPRs.Add(result);
-
             this.CPR = result;
         }
 
@@ -198,11 +179,10 @@ namespace P3_Midwife
         }
 
         //Calculates last digit of cpr number according to 
-        private int CalcLastDigit(int _total)
+        private int CalcLastDigit(int total)
         {
-            int rest = 0;
-            rest = _total % 11;
-            return 11 - rest;
+            int remainder = total % 11;
+            return 11 - remainder;
         }
 
         //Calculates age besed on CPR number
