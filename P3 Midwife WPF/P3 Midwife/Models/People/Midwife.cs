@@ -15,6 +15,7 @@ namespace P3_Midwife
             : base(id, name, password, telephonenumber, email)
         { }
 
+        #region Methods
         //Removes a patient from ward
         public void TransferPatient(Patient patient)
         {
@@ -38,7 +39,6 @@ namespace P3_Midwife
                 tempRoom.Occupied = false;
             }
             else throw new ArgumentException("Input patient not found in room");
-
         }
 
         //Puts a patient in a vacant room
@@ -53,7 +53,6 @@ namespace P3_Midwife
             else throw new Exception("There are no empty rooms to assign patients to");
         }
 
-        //TODO: Do we need method RequestTestSample? a bit like RegisterTreatmentToBill 
         //Adds a MedicalService to the a patient's record's bill.
         public void RegisterTreatmentToBill(Patient _patient, MedicalService _medicalService)
         {
@@ -97,5 +96,6 @@ namespace P3_Midwife
             Ward.DeliveryRooms.Find(x => x.PatientsInRoom.Contains(mother)).PatientsInRoom.Add(child);
             Filemanagement.CreatePatientFolderAndFile(child);
         }
+        #endregion
     }
 }

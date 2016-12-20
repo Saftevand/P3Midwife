@@ -16,8 +16,7 @@ namespace P3_Midwife.ViewModel
         public static DependencyProperty CPREnteredProperty = DependencyProperty.Register(nameof(CPREntered), typeof(string), typeof(DialogWindowViewModel));
         public static DependencyProperty EmployeeProperty = DependencyProperty.Register(nameof(CurrentEmployee), typeof(Employee), typeof(DialogWindowViewModel));
 
-
-
+        #region Properties
         public Employee CurrentEmployee
         {
             get { return (Employee)this.GetValue(EmployeeProperty); }
@@ -29,9 +28,11 @@ namespace P3_Midwife.ViewModel
             get { return (string)this.GetValue(CPREnteredProperty); }
             set { this.SetValue(CPREnteredProperty, value); }
         }
+        #endregion
 
         public DialogWindowViewModel()
         {
+            //Command to add a patient if the userinput matches a CPR number
             this.AddPatientComand = new RelayCommand(parameter =>
             {
                 if (Ward.Patients.Find(x => x.CPR == CPREntered) != null)
@@ -49,6 +50,7 @@ namespace P3_Midwife.ViewModel
                 }
 
             });
+            //Comman to return to the Homescreen, in case the user didn't want to add a patient anyway
             this.Cancel = new RelayCommand(parameter =>
             {
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToHome"));

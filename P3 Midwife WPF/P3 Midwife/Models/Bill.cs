@@ -12,7 +12,6 @@ namespace P3_Midwife
     {
 
         #region Instans Variabler
-        //private Record _record;
         private List<MedicalService> _billItemList = new List<MedicalService>();
         private decimal _totalPrice;
         #endregion
@@ -44,6 +43,7 @@ namespace P3_Midwife
             return "Total amount : " + _totalPrice + ". Items : " + AllItems;
         }
 
+        //Caluculates the total sum of the cost of all the medicalservices a patient has recieved
         private decimal CalculateTotalPrice()
         {
             decimal result = 0;

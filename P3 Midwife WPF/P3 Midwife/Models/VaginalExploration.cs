@@ -8,10 +8,8 @@ namespace P3_Midwife.Models
 {
     public class VaginalExploration
     {
+        #region Variables
         private Employee _currentEmployee;
-        public Employee CurrentEmployee { get { return _currentEmployee; } set { _currentEmployee = value; } }
-
-
         private DateTime _time;
         private int _collum;
         private int _dilation;
@@ -20,12 +18,14 @@ namespace P3_Midwife.Models
         private string _consistency;
         private string _location;
         private string _amnioticFluid;
+        #endregion
 
         public VaginalExploration()
         {
             _time = DateTime.Now;
         }
 
+        #region
         public DateTime Time { get { return _time; } set { _time = value; } }
         public int Collum { get { return _collum; } set { _collum = value; } }
         public int Dialation { get { return _dilation; } set { _dilation = value; } }
@@ -34,6 +34,8 @@ namespace P3_Midwife.Models
         public string Consistency { get { return _consistency; } set { _consistency = value; } }
         public string Location { get { return _location; } set { _location = value; } }
         public string AmnioticFluid { get { return _amnioticFluid; } set { _amnioticFluid = value; } }
+        public Employee CurrentEmployee { get { return _currentEmployee; } set { _currentEmployee = value; } }
+        #endregion
 
         public override string ToString()
         {

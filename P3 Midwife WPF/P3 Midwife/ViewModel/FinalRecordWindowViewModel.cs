@@ -12,15 +12,20 @@ namespace P3_Midwife.ViewModel
 {
     public class FinalRecordWindowViewModel : DependencyObject
     {
+        #region Vairables
         private Employee _currentEmployee;
+
+        #region Relaycommands
         public RelayCommand LogOutCommand { get; }
         public RelayCommand ExitCommand { get; }
         public RelayCommand BackCommand { get; }
-
+        #endregion
+        #region DependencyProperties
         public static DependencyProperty PatientProperty = DependencyProperty.Register(nameof(PatientCurrentf), typeof(Patient), typeof(FinalRecordWindowViewModel));
         public static DependencyProperty RecordProperty = DependencyProperty.Register(nameof(RecordCurrentf), typeof(Record), typeof(FinalRecordWindowViewModel));
         public static DependencyProperty NoteProperty = DependencyProperty.Register(nameof(NoteCurrent), typeof(string), typeof(FinalRecordWindowViewModel));
-
+        #endregion
+        #region ObservableCollections
         private ObservableCollection<BirthInformation> _birthInformationList = new ObservableCollection<BirthInformation>();
         private ObservableCollection<ContractionIVDrip> _contractrionIVDripList = new ObservableCollection<ContractionIVDrip>();
         private ObservableCollection<FetusObservation> _fetusObservationList = new ObservableCollection<FetusObservation>();
@@ -28,7 +33,10 @@ namespace P3_Midwife.ViewModel
         private ObservableCollection<VaginalExploration> _vaginalExplorationList = new ObservableCollection<VaginalExploration>();
         private ObservableCollection<MedicalService> _medicalServicesList = new ObservableCollection<MedicalService>();
         private ObservableCollection<MedicalService> _availableMedicalServices = new ObservableCollection<MedicalService>();
+        #endregion
+        #endregion
 
+        #region Properties
         public string NoteCurrent
         {
             get { return (string)this.GetValue(NoteProperty); }
@@ -104,22 +112,25 @@ namespace P3_Midwife.ViewModel
             get { return _vaginalExplorationList; }
             set { _vaginalExplorationList = value; }
         }
+        #endregion
 
         public FinalRecordWindowViewModel()
         {
             Messenger.Default.Register<Record>(this, "NewRecordToRecordView", (ActiveRecord) => { RecordCurrentf = ActiveRecord; NoteCurrent = ActiveRecord.Note; });
             Messenger.Default.Register<Patient>(this, "PatientToRecordView", (ActivePatient) => { PatientCurrentf = ActivePatient; });
             Messenger.Default.Register<Employee>(this, "EmployeetoRecordView", (ActiveEmployee) => { EmployeeCurrentf = ActiveEmployee; });
-
+            //Command to log the user out of the system
             this.LogOutCommand = new RelayCommand(parameter =>
             {
                 System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
                 Application.Current.Shutdown();
             });
+            //Command to close to program
             this.ExitCommand = new RelayCommand(parameter =>
             {
                 Application.Current.Shutdown();
             });
+            //Command to return to the previous view
             this.BackCommand = new RelayCommand(Parameter =>
             {
                 Messenger.Default.Send(new NotificationMessage("ToPatient"));

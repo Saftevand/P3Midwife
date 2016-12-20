@@ -29,6 +29,7 @@ namespace P3_Midwife
         public LoginViewModel()
         {
             Filemanagement.InitialiseFoldersAndFiles();
+            //Command to log in to the system
             this.LoginCommand = new RelayCommand(parameter =>
             {
                 if (Ward.Employees.Exists(x => x.Email.ToUpper() == Email.ToUpper() && x.Password.Equals(Password)))
@@ -48,6 +49,7 @@ namespace P3_Midwife
                     MessageBox.Show("Ugyldigt login", "Fejl");
                 }
             });
+            //Command to log the user out of the system
             this.LogOutCommand = new RelayCommand(parameter =>
             {
                 System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);

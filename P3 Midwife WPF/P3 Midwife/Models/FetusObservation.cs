@@ -8,10 +8,8 @@ namespace P3_Midwife.Models
 {
     public class FetusObservation
     {
+        #region Variables
         private Employee _currentEmployee;
-        public Employee CurrentEmployee { get { return _currentEmployee; } set { _currentEmployee = value; } }
-
-
         private DateTime _time;
         private string _hearthfrequency;
         private string _CTG;
@@ -19,6 +17,9 @@ namespace P3_Midwife.Models
         private string _STAN;
         private double _scalppH;
         private double _scalpLactate;
+        #endregion
+
+        #region Properties
         public DateTime Time { get { return _time; } set { _time = value; } }
         public string HearthFrequency { get { return _hearthfrequency; } set { _hearthfrequency = value; } }
         public string CTG { get { return _CTG; } set { _CTG = value; } }
@@ -30,6 +31,8 @@ namespace P3_Midwife.Models
         public string STAN { get { return _STAN; } set { _STAN = value; } }
         public double ScalppH { get { return _scalppH; } set { _scalppH = value; } }
         public double ScalpLactate { get { return _scalpLactate; } set { _scalpLactate = value; } }
+        public Employee CurrentEmployee { get { return _currentEmployee; } set { _currentEmployee = value; } }
+        #endregion
 
         public FetusObservation()
         {

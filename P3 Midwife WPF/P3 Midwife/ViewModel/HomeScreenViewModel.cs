@@ -13,8 +13,11 @@ namespace P3_Midwife
 {
     public class HomeScreenViewModel : DependencyObject, INotifyPropertyChanged
     {
+        #region Variables
         private int AutoLogoutTimer = 180;
         private bool Cancel = false;
+        BackgroundWorker bw = new BackgroundWorker();
+        #region Relaycommands
         public RelayCommand LogOutCommand { get; }
         public RelayCommand ExitCommand { get; }
         public RelayCommand OpenTextWindow { get; }
@@ -24,15 +27,19 @@ namespace P3_Midwife
         public RelayCommand OpenPatientCommand { get; }
         public RelayCommand OpenPatientOnClick { get; }
         public RelayCommand PatientSelected { get; private set; }
+        #endregion
+        #region DependencyProperties
         public static DependencyProperty EmployeeProperty = DependencyProperty.Register(nameof(CurrentEmployee), typeof(Employee), typeof(HomeScreenViewModel));
         public static DependencyProperty PatientProperty = DependencyProperty.Register(nameof(CurrentPatient), typeof(Patient), typeof(HomeScreenViewModel));
         public static DependencyProperty CPRProperty = DependencyProperty.Register(nameof(CPR), typeof(string), typeof(HomeScreenViewModel));
         public static DependencyProperty SelectedPatientProperty = DependencyProperty.Register(nameof(SelectedPatient), typeof(Patient), typeof(HomeScreenViewModel));
+        #endregion
+        #region ObservableCollections
         public ObservableCollection<Patient> _currentPatients = new ObservableCollection<Patient>();
-
+        #endregion
+        #endregion
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //Userinactive der ikke virker bare lad det stå her lidt
         [DllImport("user32.dll")]
         static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
 
@@ -43,7 +50,6 @@ namespace P3_Midwife
             public uint dwTime;
         }
 
-        BackgroundWorker bw = new BackgroundWorker();
 
         private int GetLastInput()
         {
@@ -67,21 +73,7 @@ namespace P3_Midwife
             return IdleTicks / 1000;
         }
 
-        
-
-        private void bw_DoWork(object sender, DoWorkEventArgs e)
-        {
-            while (true)
-            {                                
-                if (GetLastInput() > AutoLogoutTimer)
-                {
-                    Cancel = true;                    
-                    e.Cancel = true;
-                    break;
-                }                
-            }
-        }       
-
+        #region BackgroundWorker
         void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {            
             if (e.Cancelled == true)
@@ -90,9 +82,21 @@ namespace P3_Midwife
                 {
                     Cancel = false;
                     Messenger.Default.Send(new NotificationMessage("LogOut"));
-                    //logoutCommand();
                 }
                 bw.CancelAsync();
+            }
+        }
+
+        private void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (true)
+            {
+                if (GetLastInput() > AutoLogoutTimer)
+                {
+                    Cancel = true;
+                    e.Cancel = true;
+                    break;
+                }
             }
         }
 
@@ -103,13 +107,9 @@ namespace P3_Midwife
                 bw.RunWorkerAsync();
             }
         }
+        #endregion
 
-        public void logoutCommand()
-        {
-            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
-            Application.Current.Shutdown();
-        }
-
+        #region Properties
         public ObservableCollection<Patient> CurrentPatients
         {
             get { return _currentPatients; }
@@ -159,26 +159,37 @@ namespace P3_Midwife
                     this.SetValue(SelectedPatientProperty, value);
             }
         }
+        #endregion
 
+        #region Methods
         private void OnPropertyChanged(string info)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
-        }        
+        }
+        public void logoutCommand()
+        {
+            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
+        }
+        #endregion
 
         public HomeScreenViewModel()
         {
             Messenger.Default.Register<Employee>(this, "ActiveUser", (ActiveUser) => { CurrentEmployee = ActiveUser; });
             Messenger.Default.Register<Employee>(this, "ReturnEmployee", (ActiveUser) => { CurrentEmployee = ActiveUser; });
             Messenger.Default.Register<NotificationMessage>(this, bw_StartWorker);
-
+            
+            //Command to log the user out of the system
             this.LogOutCommand = new RelayCommand(parameter =>
             {
                 logoutCommand();
             });
+            //Command to close to program
             this.ExitCommand = new RelayCommand(parameter =>
             {
                 Application.Current.Shutdown();
             });
+            //Command to find a patient from a userinput
             this.FindPatientCommand = new RelayCommand(parameter => 
             {
                 SelectedPatient = FindPatient(CPR);
@@ -193,17 +204,20 @@ namespace P3_Midwife
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("NoCPRInput"));
                 }
             });
+            //Command to open the view where the user can add a patient to their active patients
             this.OpenAddPatientCommand = new RelayCommand(parameter =>
             {
                 Messenger.Default.Send(new NotificationMessage("ToDialog"));
                 Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
             });
+            //Command to open the patient view
             this.OpenPatientCommand = new RelayCommand(parameter =>
             {
                 Messenger.Default.Send<Employee>(CurrentEmployee, "Employee");
                 Messenger.Default.Send<Patient>(SelectedPatient, "Patient");
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToPatient"));
             });
+            //Command to open the patient view when a patient is clicked in the list of active patients
             this.OpenPatientOnClick = new RelayCommand(parameter =>
             {                                               
                 if (SelectedPatient != null)
@@ -215,10 +229,8 @@ namespace P3_Midwife
                 }
             });
             bw.RunWorkerAsync();
-            //bw.WorkerReportsProgress = true;
             bw.WorkerSupportsCancellation = true;
             bw.DoWork += new DoWorkEventHandler(bw_DoWork);
-            //bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
             bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
         }
     }

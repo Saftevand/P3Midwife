@@ -12,9 +12,8 @@ namespace P3_Midwife.ViewModel
 {
     public class RecordViewModel : DependencyObject
     {
-        //private Employee _currentEmployee;
-        private ObservableCollection<char> _genders = new ObservableCollection<char> { 'D', 'P' };
-        private ObservableCollection<string> _ctgClassification = new ObservableCollection<string> { "Normal", "Afvigende", "Patologisk" };
+        #region Variables
+        #region Relaycommands
         public RelayCommand LogOutCommand { get; }
         public RelayCommand ExitCommand { get; }
         public RelayCommand BackCommand { get; }
@@ -30,10 +29,10 @@ namespace P3_Midwife.ViewModel
         public RelayCommand AddMedicalService { get; }
         public RelayCommand OpenMedicalServicesToAdd { get; }
         public RelayCommand CreateChildCommand { get; }
-
         public RelayCommand Cancel { get; }
         public RelayCommand AppendNewNoteToNote { get; }
-
+        #endregion
+        #region DependcyProperties
         public static DependencyProperty CTGClassificationProperty = DependencyProperty.Register(nameof(CTGClassification), typeof(string), typeof(RecordViewModel));
         public static DependencyProperty ChildBirthDateProperty = DependencyProperty.Register(nameof(ChildBirthDate), typeof(DateTime), typeof(RecordViewModel));
         public static DependencyProperty ChildGenderProperty = DependencyProperty.Register(nameof(ChildGender), typeof(char), typeof(RecordViewModel));
@@ -48,10 +47,10 @@ namespace P3_Midwife.ViewModel
         public static DependencyProperty SelectedMedicalServiceProperty = DependencyProperty.Register(nameof(SelectedMedicalServiceInfo), typeof(MedicalService), typeof(RecordViewModel));
         public static DependencyProperty SelectedAvailableMedicalServiceProperty = DependencyProperty.Register(nameof(SelectedAvailableMedicalServiceInfo), typeof(MedicalService), typeof(RecordViewModel));
         public static DependencyProperty EmployeeProperty = DependencyProperty.Register(nameof(EmployeeCurrent), typeof(Employee), typeof(RecordViewModel));
-
         public static DependencyProperty PriorBirthComplicationsProperty = DependencyProperty.Register(nameof(PriorBirthComplications), typeof(bool), typeof(RecordViewModel));
         public static DependencyProperty NoteProperty = DependencyProperty.Register(nameof(Note), typeof(string), typeof(RecordViewModel));
-
+        #endregion
+        #region ObservableCollections
         private ObservableCollection<BirthInformation> _birthInformationList = new ObservableCollection<BirthInformation>();
         private ObservableCollection<ContractionIVDrip> _contractrionIVDripList = new ObservableCollection<ContractionIVDrip>();
         private ObservableCollection<FetusObservation> _fetusObservationList = new ObservableCollection<FetusObservation>();
@@ -60,7 +59,12 @@ namespace P3_Midwife.ViewModel
         private ObservableCollection<MedicalService> _medicalServicesList = new ObservableCollection<MedicalService>();
         private ObservableCollection<MedicalService> _availableMedicalServices = new ObservableCollection<MedicalService>();
         private ObservableCollection<Patient> _children = new ObservableCollection<Patient>();
+        private ObservableCollection<char> _genders = new ObservableCollection<char> { 'D', 'P' };
+        private ObservableCollection<string> _ctgClassification = new ObservableCollection<string> { "Normal", "Afvigende", "Patologisk" };
+        #endregion
+        #endregion
 
+        #region Properties
         public string Note
         {
             get { return this.GetValue(NoteProperty).ToString(); }
@@ -78,7 +82,6 @@ namespace P3_Midwife.ViewModel
             get { return (bool)this.GetValue(PriorBirthComplicationsProperty);}
             set { this.SetValue(PriorBirthComplicationsProperty,value); }
         }
-
 
         public ObservableCollection<char> Genders
         {
@@ -245,15 +248,13 @@ namespace P3_Midwife.ViewModel
                 Filemanagement.SaveRecord(RecordCurrent);
             }
         }
+        #endregion
 
         public RecordViewModel()
         {
             SetValue(ChildBirthDateProperty, DateTime.Today);
             SetValue(ChildBirthTimeProperty, DateTime.Now);
-            this.Cancel = new RelayCommand(parameter =>
-            {
-                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToRecord"));
-            });
+
             Messenger.Default.Register<NotificationMessage>(this, "LogOut", parameter =>
             {
                 RecordCurrent.Note = RecordCurrent.NewNote;
@@ -265,12 +266,13 @@ namespace P3_Midwife.ViewModel
             Messenger.Default.Register<String>(this, "SaveToDatabase", (thestring) => ExitAndSave());
 
             _availableMedicalServices.AddRange(Ward.MedicalServicesList);
-
+            #region Command Definitions
+            //Command to add a medical service to the list of medical services
             this.AddMedicalService = new RelayCommand(parameter =>
             {
                 MedicalServicesList.Add(SelectedAvailableMedicalServiceInfo);
             });
-
+            //Command to create a new child in the system
             this.CreateChildCommand = new RelayCommand(parameter =>
             {
                 Midwife tempMidwife = EmployeeCurrent as Midwife;
@@ -285,12 +287,17 @@ namespace P3_Midwife.ViewModel
                 Messenger.Default.Send(tempChild, "ChildToNewChildView");
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToNewChild"));
             });
-
+            //Command to remove a medical service from the list of medical services
             this.RemoveMedicalService = new RelayCommand(parameter =>
             {
                 MedicalServicesList.Remove(SelectedMedicalServiceInfo);
             });
-
+            //Command to return to the record view without creating a child
+            this.Cancel = new RelayCommand(parameter =>
+            {
+                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToRecord"));
+            });
+            //Command to log the user out of the system
             this.LogOutCommand = new RelayCommand(parameter =>
             {
                 Filemanagement.SaveToDatabase(PatientCurrent);
@@ -304,10 +311,12 @@ namespace P3_Midwife.ViewModel
                 System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
                 Application.Current.Shutdown();
             });
+            //Command to close to program
             this.ExitCommand = new RelayCommand(parameter =>
             {
                 ExitAndSave();
             });
+            //Command to return to the previous view
             this.BackCommand = new RelayCommand(Parameter =>
             {
                 Filemanagement.SaveToDatabase(PatientCurrent);
@@ -327,8 +336,8 @@ namespace P3_Midwife.ViewModel
                 Messenger.Default.Send(EmployeeCurrent, "Employee");
                 Messenger.Default.Send(PatientCurrent, "Patient");
                 Messenger.Default.Send(new NotificationMessage("ToPatient"));
-
             });
+            //Command to open a view where a new child can be created in the system
             this.NewChildDialogCommand = new RelayCommand(parameter =>
             {
                 this.RecordCurrent.BirthInformationList.AddRange(BirthInformationListProperty.Where(x => !RecordCurrent.BirthInformationList.Contains(x)));
@@ -339,6 +348,7 @@ namespace P3_Midwife.ViewModel
                 this.RecordCurrent.CurrentBill.BillItemList.AddRange(MedicalServicesList.Where(x => !RecordCurrent.CurrentBill.BillItemList.Contains(x)));
                 Messenger.Default.Send(new NotificationMessage("NewChildDialog"));
             });
+            //Command to save and archive a record, so that it cannot be edited anymore. The patient is also transfered away from the room
             this.SaveAndCompleteCommand = new RelayCommand(parameter =>
             {
                 Messenger.Default.Send(new NotificationMessage("RecordSave"));
@@ -356,7 +366,6 @@ namespace P3_Midwife.ViewModel
                 FetusObservationListProperty.Clear();
                 this.RecordCurrent.CurrentBill.BillItemList.AddRange(MedicalServicesList.Where(x => !RecordCurrent.CurrentBill.BillItemList.Contains(x)));
                 MedicalServicesList.Clear();
-
                 RecordCurrent.IsActive = false;
                 (EmployeeCurrent as Midwife).TransferPatient(PatientCurrent);
                 Filemanagement.SaveToDatabase(PatientCurrent);
@@ -365,41 +374,43 @@ namespace P3_Midwife.ViewModel
                 Messenger.Default.Send(EmployeeCurrent, "Employee");
                 Messenger.Default.Send(PatientCurrent, "Patient");
             });
+            //Command to add a new line of the type Birth Information in the record view
             this.AddBirthInfo = new RelayCommand(parameter =>
              {
                  BirthInfo = new BirthInformation();
                  BirthInfo.CurrentEmployee = EmployeeCurrent;
                  BirthInformationListProperty.Add(BirthInfo);
              });
+            //Command to add a new line of the type ContractionIVDrip Informaion  in the record view
             this.AddContractionIVDripInfo = new RelayCommand(parameter =>
             {
                 ContractionIVDripInfo = new ContractionIVDrip();
                 ContractionIVDripInfo.CurrentEmployee = EmployeeCurrent;
                 ContractionListProperty.Add(ContractionIVDripInfo);
             });
+            //Command to add a new line of the type Fetus Observation Information in the record view
             this.AddFetusObservationInfo = new RelayCommand(parameter =>
             {
 
                 FetusObservationInfo = new FetusObservation();
-               // FetusObservationInfo.CTGClassification = CTGClassification;
                 FetusObservationInfo.CurrentEmployee = EmployeeCurrent;
                 FetusObservationListProperty.Add(FetusObservationInfo);
             });
+            //Command to add a new line of the type Micturition Information in the record view
             this.AddMicturitionInfo = new RelayCommand(parameter =>
             {
                 MicturitionInfo = new Micturition();
                 MicturitionInfo.CurrentEmployee = EmployeeCurrent;
                 MicturitionListProperty.Add(MicturitionInfo);
             });
+            //Command to add a new line of the type Vaginal Exploration Information in the record view
             this.AddVaginalExplorationInfo = new RelayCommand(parameter =>
             {
                 VaginalExplorationInfo = new VaginalExploration();
                 VaginalExplorationInfo.CurrentEmployee = EmployeeCurrent;
                 VaginalExplorationListProperty.Add(VaginalExplorationInfo);
             });
-
-
-
+            #endregion
         }
     }
 }

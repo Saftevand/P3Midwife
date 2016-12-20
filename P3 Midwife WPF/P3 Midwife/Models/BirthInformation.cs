@@ -8,10 +8,8 @@ namespace P3_Midwife.Models
 {
     public class BirthInformation
     {
+        #region Variables
         private Employee _currentEmployee;
-        public Employee CurrentEmployee { get { return _currentEmployee; } set { _currentEmployee = value; } }
-
-
         private DateTime _time = new DateTime();
         private string _result;
         private string _amnioticFluid;
@@ -19,6 +17,10 @@ namespace P3_Midwife.Models
         private double _bloodAmount;
         private string _bleedingCause;
         private string _birthPosition;
+        #endregion
+
+        #region Properties
+        public Employee CurrentEmployee { get { return _currentEmployee; } set { _currentEmployee = value; } }
         public DateTime Time { get { return _time; } set { _time = value; } }
         public string Result { get { return _result; } set { _result = value; } }
         public string AmnioticFluid { get { return _amnioticFluid; } set { _amnioticFluid = value; } }
@@ -26,6 +28,7 @@ namespace P3_Midwife.Models
         public double BloodAmount { get { return _bloodAmount; } set { _bloodAmount = value; } }
         public string BleedingCause { get { return _bleedingCause; } set { _bleedingCause = value; } }
         public string BirthPosition { get { return _birthPosition; } set { _birthPosition = value; } }
+        #endregion
 
         public BirthInformation()
         {

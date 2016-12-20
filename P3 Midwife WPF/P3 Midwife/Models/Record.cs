@@ -127,12 +127,13 @@ namespace P3_Midwife
             this.CurrentBill = new Bill(this);
         }
 
+        #region Methods
         //Creates Bill file and deactivates the bill.
         public void ArchiveBill()
         {
             this.CurrentBill.Active = false;
         }
-
+        //Calculate the SGA of a patient
         public void CalculateSGA()
         {
             int tempGA = Convert.ToInt32(_GA.Split('+')[0]);
@@ -408,8 +409,8 @@ namespace P3_Midwife
             }
         }
 
-
-    public string ToFile()
+        //Takes all of the information in the record and put it into a string with the format that it needs to have to be saved in a file
+        public string ToFile()
         {
             string ReturnString = "";
             foreach (ContractionIVDrip item in _contractionIVDRIPList)
@@ -439,5 +440,6 @@ namespace P3_Midwife
             }
             return (ReturnString);
         }
+        #endregion
     }
 }

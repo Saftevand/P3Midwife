@@ -11,13 +11,18 @@ namespace P3_Midwife.Views
 {
     public partial class NewChildWindow : Window
     {
+        #region Variables
         private Employee _currentEmployee;
         private Record _currentRecord;
         private int thisID;
-        bool isNotClosed = true;
-        WordSuggesetionProvider provider;
+        private bool isNotClosed = true;
+        private WordSuggesetionProvider provider;
+        #endregion
 
+        #region Properties
         public Record CurrentRecord { get { return _currentRecord; } }
+        #endregion
+
         public NewChildWindow(Record ActiveRecord)
         {
             InitializeComponent();
@@ -34,25 +39,46 @@ namespace P3_Midwife.Views
             isNotClosed = false;
             Closing += Filemanagement.ClosingHandler;
         }
-        
+
+        #region Methods
         private void recordValidation(Record CurrentRecord)
         {
             _currentRecord = CurrentRecord;
-        }
-        private void show()
-        {
-         // if (_currentEmployee is SOSU)
-         // {
-         //     SaveAndCompleteBtn.Visibility = Visibility.Hidden;
-         // }
-          Show();
         }
 
         private void validateUser(Employee emp)
         {
             _currentEmployee = emp;
         }
+        
+        private void NotificationMessageRecieved(NotificationMessage msg)
+        {
+            if (_currentRecord != null)
+            {
+                if (thisID == _currentRecord.ThisRecordID)
+                {
+                    if (msg.Notification == "ToNewChild" && !isNotClosed)
+                    {
+                        Show();
+                    }
+                    else if (msg.Notification == "ChildSave")
+                    {
+                        isNotClosed = true;
+                        Close();
+                    }
+                    else
+                        Hide();
+                }
+                else
+                {
+                    Hide();
+                }
+            }
+            else Hide();
+        }
+        #endregion
 
+        #region EventHandling
         private void txtAuto_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox senderBox = sender as TextBox;
@@ -79,34 +105,6 @@ namespace P3_Midwife.Views
                 currentList.ItemsSource = null;
                 currentList.Visibility = Visibility.Collapsed;
             }
-        }
-
-        private void NotificationMessageRecieved(NotificationMessage msg)
-        {
-            if (_currentRecord != null)
-            {
-                if (thisID == _currentRecord.ThisRecordID)
-                {
-                    if (msg.Notification == "ToNewChild" && !isNotClosed)
-                    {
-                        show();
-                    }
-                    else if (msg.Notification == "ChildSave")
-                    {
-                        //BaseWindow.cancel = true;
-                        isNotClosed = true;
-                        Close();
-                    }
-                    else
-                        Hide();
-                }
-                else
-                {
-                    Hide();
-                }
-            }
-            else Hide();
-           
         }
 
         private void txtAuto_KeyDown(object sender, KeyEventArgs e)
@@ -184,5 +182,6 @@ namespace P3_Midwife.Views
                 SGATextBlock.Text = _currentRecord.SGA.ToString();
             }
         }
+        #endregion
     }
 }

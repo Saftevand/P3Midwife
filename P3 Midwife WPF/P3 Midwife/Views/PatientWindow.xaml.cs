@@ -8,7 +8,9 @@ namespace P3_Midwife.Views
 {
     public partial class PatientWindow : Window
     {
-        Employee CurrentEmployee;
+        #region Variables
+        private Employee CurrentEmployee;
+        #endregion
 
         public PatientWindow()
         {
@@ -16,10 +18,6 @@ namespace P3_Midwife.Views
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageRecieved);
             Messenger.Default.Register<Employee>(this, "Employee", validateUser);
             Closing += ClosingHandler;
-        }
-        private void ClosingHandler(object sender, CancelEventArgs e)
-        {
-            Application.Current.Shutdown();
         }
 
         private void show()
@@ -42,6 +40,11 @@ namespace P3_Midwife.Views
                 show();
             else
                 Hide();
+        }
+        #region EventHandling
+        private void ClosingHandler(object sender, CancelEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -89,5 +92,6 @@ namespace P3_Midwife.Views
                 }
             }
         }
+        #endregion
     }
 }

@@ -76,6 +76,7 @@ namespace P3_Midwife
         #endregion
 
         #region Methods
+        //Finds the GA of a patient, although for simlicity this just returns 37, because we do not have necessary information to calculate the GA early in the program
         private string FindLastGA()
         {
             return "37";
@@ -90,7 +91,7 @@ namespace P3_Midwife
                 return 'D';
         }
 
-        //Function to generate CPR.
+        //Method to generate CPR.
         public void GenerateCpr(char gender, string date)
         {
             int[] CPR = new int[10];
@@ -109,7 +110,7 @@ namespace P3_Midwife
             this.CPR = result;
         }
 
-        // Function to check if last digit matches the gender of the child
+        //Method to check if last digit matches the gender of the child
         private bool GenderCPRMatch(char _gender, int[] _cpr)
         {
             if (_gender == 'D' && _cpr[9] % 2 == 1)

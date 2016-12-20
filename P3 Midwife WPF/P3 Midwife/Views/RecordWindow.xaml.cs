@@ -11,12 +11,15 @@ namespace P3_Midwife.Views
 {
     public partial class RecordWindow : Window
     {
+        #region Variables
         private bool _isNotClosed;
         private int _thisID;
         private Patient _currentPatient;
         private Record _currentRecord;
         private Employee _currentEmployee;
+        #endregion
         public Record CurrentRecord { get { return _currentRecord; } }
+
         public RecordWindow(Record RecordShow)
         {
             try
@@ -36,7 +39,8 @@ namespace P3_Midwife.Views
             _thisID = RecordShow.ThisRecordID;
             Closing += Filemanagement.ClosingHandler;
         }
-
+        #region Methods
+        //Determins if a button should be visible, by checking if the employee is of the type SOSU
         private void show()
         {
             if (_currentEmployee is SOSU)
@@ -65,10 +69,10 @@ namespace P3_Midwife.Views
         {
             base.OnClosing(e);
         }
+        #endregion
 
         private void NotificationMessageRecieved(NotificationMessage msg)
         {
-
                 if (msg.Notification == "ToRecord" && !_isNotClosed && _currentRecord.IsActive)
                 {
                     if (this._thisID == _currentRecord.ThisRecordID)
@@ -78,17 +82,14 @@ namespace P3_Midwife.Views
                             NewChildBtn.Visibility = Visibility.Hidden;
                         }
                         show();
-                    }     
-                    
+                    }                         
                 }
                 else if (msg.Notification == "RecordSave")
                 {
-                    //BaseWindow.cancel = true;
                     this._isNotClosed = true;
                     CancelEventArgs e = new CancelEventArgs(true);
                     OnClosing(e);
                 }
-
                 else if (msg.Notification == "AccessDenied")
                 {
                     MessageBox.Show("Adgang nægtet!");
@@ -97,13 +98,13 @@ namespace P3_Midwife.Views
                 {
                     this.Hide();
                 }
-
             else if (msg.Notification != "NewChildDialog")
             {
                 this.Hide();
             }
         }
 
+        #region EventHandling
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox send = sender as TextBox;
@@ -119,7 +120,6 @@ namespace P3_Midwife.Views
             {
                 ComboBox tempComboBox = sender as ComboBox;
                 string input = tempComboBox.SelectedItem.ToString();
-              //  string input = temp.ToString();
                 if (input == "Afvigende" || input == "Patologisk")
                 {
                     BirthComplicationsCheckBox.IsChecked = true;
@@ -237,5 +237,6 @@ namespace P3_Midwife.Views
                 senderBox.Focus();
             }
         }
+        #endregion
     }
 }

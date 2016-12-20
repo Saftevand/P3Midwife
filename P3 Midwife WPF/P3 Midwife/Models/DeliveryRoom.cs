@@ -8,8 +8,6 @@ namespace P3_Midwife
 {
     public class DeliveryRoom
     {
-        public int RoomID { get; }
-        public bool Occupied { get; set; }
         private List<Patient> _patientsInRoomList = new List<Patient>();
 
         public DeliveryRoom(int _id, bool _occupied)
@@ -19,6 +17,8 @@ namespace P3_Midwife
         }
         
         public List<Patient> PatientsInRoom { get { return _patientsInRoomList; } set { _patientsInRoomList = value; }}
+        public int RoomID { get; }
+        public bool Occupied { get; set; }
 
         public override string ToString()
         {
