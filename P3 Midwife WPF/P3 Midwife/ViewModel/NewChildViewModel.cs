@@ -10,8 +10,6 @@ namespace P3_Midwife.ViewModel
 {
     public class NewChildViewModel : DependencyObject
     {
-        private Employee _currentEmployee;
-
         public RelayCommand LogOutCommand { get; }
         public RelayCommand ExitCommand { get; }
         public RelayCommand BackCommand { get; }
@@ -89,8 +87,6 @@ namespace P3_Midwife.ViewModel
                 Messenger.Default.Send(CurrentEmployee, "EmployeetoRecordView");
                 Messenger.Default.Send(CurrentPatient, "PatientToRecordView");
                 Messenger.Default.Send(new NotificationMessage("ToRecord"));
-
-
             });
         }
     }

@@ -201,8 +201,6 @@ namespace P3_Midwife.ViewModel
             {
                 
                 this.SetValue(RecordProperty, value);
-
-                
                 BirthInformationListProperty.Clear();
                 ContractionListProperty.Clear();
                 FetusObservationListProperty.Clear();
@@ -281,11 +279,9 @@ namespace P3_Midwife.ViewModel
                 Patient tempChild = PatientCurrent.Children.Last();
                 RecordCurrent.ChildCPR = tempChild.CPR;
                 new P3_Midwife.Views.NewChildWindow(RecordCurrent);
-
                 Messenger.Default.Send(RecordCurrent, "ChildRecordToNewChildView");
                 Messenger.Default.Send(PatientCurrent, "PatientToNewChildView");
                 Messenger.Default.Send(EmployeeCurrent, "EmployeetoNewChildView");
-
                 Messenger.Default.Send(tempChild, "ChildToNewChildView");
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ToNewChild"));
             });
@@ -335,6 +331,12 @@ namespace P3_Midwife.ViewModel
             });
             this.NewChildDialogCommand = new RelayCommand(parameter =>
             {
+                this.RecordCurrent.BirthInformationList.AddRange(BirthInformationListProperty.Where(x => !RecordCurrent.BirthInformationList.Contains(x)));
+                this.RecordCurrent.ContractionIVDripList.AddRange(ContractionListProperty.Where(x => !RecordCurrent.ContractionIVDripList.Contains(x)));
+                this.RecordCurrent.MicturitionList.AddRange(MicturitionListProperty.Where(x => !RecordCurrent.MicturitionList.Contains(x)));
+                this.RecordCurrent.VaginalExplorationList.AddRange(VaginalExplorationListProperty.Where(x => !RecordCurrent.VaginalExplorationList.Contains(x)));
+                this.RecordCurrent.FetusObservationList.AddRange(FetusObservationListProperty.Where(x => !RecordCurrent.FetusObservationList.Contains(x)));
+                this.RecordCurrent.CurrentBill.BillItemList.AddRange(MedicalServicesList.Where(x => !RecordCurrent.CurrentBill.BillItemList.Contains(x)));
                 Messenger.Default.Send(new NotificationMessage("NewChildDialog"));
             });
             this.SaveAndCompleteCommand = new RelayCommand(parameter =>

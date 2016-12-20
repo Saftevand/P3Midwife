@@ -40,7 +40,7 @@ namespace P3_Midwife
             Filemanagement.CreatePatientFolderAndFile(new Patient("0109940178", "Estavana Poldman"));
             Filemanagement.CreatePatientFolderAndFile(new Patient("0909990068", "Veronika Kristiansen"));
             ReadPatients();
-            ReadWords();
+            //ReadWords();
             InitialiseAdminFiles();
         }
 
